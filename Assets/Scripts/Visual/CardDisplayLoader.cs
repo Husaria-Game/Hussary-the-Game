@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class CardDisplayLoader : MonoBehaviour {
 
     public Card card;
+    public CardDisplayLoader cardPreviewLoader;
     [Header("Text References")]
     public Text nameText;
     public Text cardCostText;

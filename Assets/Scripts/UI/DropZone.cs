@@ -8,9 +8,11 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     public void OnDrop(PointerEventData eventData)
     {
         //Debug.Log("OnDrop to " + gameObject.name);
-        Debug.Log(eventData.pointerDrag.name + "was dropped to " + gameObject.name);
+        //Debug.Log(eventData.pointerDrag.name + "was dropped to " + gameObject.transform);
+
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-        if(d != null)
+        //Debug.Log("New: " + this.transform + "      Old: " + d.parentToReturnTo);
+        if(d != null && this.transform != d.parentToReturnTo)
         {
             d.dragSuccess = true;
             d.parentToReturnTo = this.transform;

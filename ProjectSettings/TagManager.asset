@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Cards
+    uniqueID: 1912548095
+    locked: 0
+  - name: Units
+    uniqueID: 544322405
+    locked: 0
+  - name: ActiveCard
+    uniqueID: 3243750507
+    locked: 0
