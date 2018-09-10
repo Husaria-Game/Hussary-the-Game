@@ -10,10 +10,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public Vector3 initialPosition;
     public bool dragSuccess;
     public DropZone initialDropZone;
+    private Vector3 pointerDisplacement = Vector3.zero;
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         parentToReturnTo = this.transform.parent;
         initialPosition = this.transform.position;
+        pointerDisplacement = Input.mousePosition - initialPosition;
+
         //Debug.Log("on BEGIN drag, parent: " + parentToReturnTo);
         dragSuccess = false;
         //this.transform.SetParent(this.transform.parent.parent);
@@ -22,7 +26,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnDrag(PointerEventData eventData)
     {
-        this.transform.position = eventData.position;
+        //this.transform.position = eventData.position;
+
+        this.transform.position = new Vector2(eventData.position.x - pointerDisplacement.x, eventData.position.y - pointerDisplacement.y);
     }
 
     public void OnEndDrag(PointerEventData eventData)
