@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 241
+  controlID: 26
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 436, y: 492}
   m_MaxSize: {x: 14006, y: 14042}
   vertical: 1
-  controlID: 255
+  controlID: 27
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 256
+  controlID: 28
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_MinSize: {x: 436, y: 271}
   m_MaxSize: {x: 14006, y: 10021}
   vertical: 0
-  controlID: 279
+  controlID: 95
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -370,7 +370,7 @@ MonoBehaviour:
     height: 387
   m_PersistentViewDataDictionary: {fileID: 0}
   m_MaximizeOnPlay: 0
-  m_Gizmos: 0
+  m_Gizmos: 1
   m_Stats: 0
   m_SelectedSizes: 0600000000000000000000000f000000000000000000000000000000000000000000000000000000
   m_TargetDisplay: 0
@@ -447,7 +447,7 @@ MonoBehaviour:
     height: 529
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 6256.151698765646
+  lastFramingTime: 17682.83748057369
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
@@ -525,9 +525,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 9cfbffff
-    m_LastClickedID: -1124
-    m_ExpandedIDs: 88f7ffffc0f7ffffc2f7ffffc4f7ffff9efbffff00000000e42800002e290000
+    m_SelectedIDs: 9efbffff
+    m_LastClickedID: -1122
+    m_ExpandedIDs: aa5df9ffac5df9ffb08afaffb28afaffb68afaffba8afaffbc8afaffd88afaffda8afaff28d7fbff7cd7fbff7ed7fbff86d7fbff8ad7fbff94d7fbffb6d7fbff54edfbff56edfbff96edfbff98edfbff4617fcffc217fcffc68cfcfffe8cfcff028dfcff80f7ffffbcf7ffff08f9ffffe0f9ffff14faffff18faffff4efaffff50faffff5efbffff76fbffff78fbffff9afbffff9efbffff00000000e42800000629000030290000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -589,18 +589,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts/UI
+    - Assets/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Scripts/UI
+  - Assets/Prefabs
   m_LastFoldersGridSize: 96
   m_LastProjectPath: C:\Users\grzekano\Documents\EuropeCardGame
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d2270000
-    m_LastClickedID: 10194
+    m_SelectedIDs: 40280000
+    m_LastClickedID: 10304
     m_ExpandedIDs: 0000000082270000b0270000b228000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -629,7 +629,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000082270000b0270000b228000000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000082270000b0270000b2280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -656,8 +656,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c41e0000d81f000038300000cac5fcff2c1f00002a2000005a460000f04f0000160600000c0e0000380c0000d8050000fe100000ce080000f41c0000b21f000000200000761f000054240000d024000070220000b487fcffc2220000c62300008022000002220000f02200001c2200007c2300007c2200001e25000048390000e02d000014290000202a0000000000004c280000902a00005029000098280000e02a0000cc280000d828000016290000102b0000fc2a0000482800006628000056280000ca270000ac2a00009c270000
+    m_HadKeyboardFocusLastEvent: 0
+    m_ExpandedInstanceIDs: c41e0000d81f000038300000cac5fcff2c1f00002a2000005a460000f04f0000160600000c0e0000380c0000d8050000fe100000ce080000f41c0000b21f000000200000761f000054240000d024000070220000b487fcffc2220000c62300008022000002220000f02200001c2200007c2300007c2200001e25000048390000e02d000014290000202a00004c280000902a00005029000098280000e02a0000cc280000d828000016290000102b0000fc2a0000482800006628000056280000ca270000ac2a00009c27000000000000d8270000bc280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
