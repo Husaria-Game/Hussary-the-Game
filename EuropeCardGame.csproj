@@ -304,6 +304,7 @@
     <Compile Include="Assets\Scripts\UI\DropZone.cs" />
     <Compile Include="Assets\Scripts\Visual\CardDisplayLoader.cs" />
     <Compile Include="Assets\Scripts\Visual\CardRotation.cs" />
+    <Compile Include="Assets\Scripts\Visual\ResourcePool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\DOTween\DOTween.XML" />
