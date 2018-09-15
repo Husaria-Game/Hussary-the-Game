@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,11 +27,13 @@ public class CardDisplayLoader : MonoBehaviour {
         if(card != null) loadCardAsset();
 	}
 
-    private void loadCardAsset()
+    public void loadCardAsset()
     {
-        nameText.text = card.name;
+        nameText.text = card.cardName ;
         cardCostText.text = card.cardCost.ToString();
         descriptionText.text = card.description;
+        profileImage.sprite = card.cardImage;
+        Debug.Log(card.name);
         if (card.maxHealth > 0)
         {
             healthText.text = card.maxHealth.ToString();
@@ -53,5 +53,10 @@ public class CardDisplayLoader : MonoBehaviour {
 
         }
 
+        if (cardPreviewLoader != null)
+        {
+            cardPreviewLoader.card = card;
+            cardPreviewLoader.loadCardAsset();
+        }
     }
 }

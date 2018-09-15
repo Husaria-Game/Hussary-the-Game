@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: "Szar\u017Ca"
   description: "Zadaj 1 pkt. obra\u017Ce\u0144 wszystkim jednostkom wroga"
-  cardImage: {fileID: 21300000, guid: bb10ef0ab5f2c98499b5ffc2911ea846, type: 3}
+  cardImage: {fileID: 21300000, guid: bf367487ce7d59841822040abc1da0ee, type: 3}
   cardCost: 2
   affiliation: 0
   attack: 0

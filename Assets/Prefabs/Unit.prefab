@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 222561742433097236}
   - component: {fileID: 114198111202646438}
   m_Layer: 5
-  m_Name: Defense
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 222396146114981392}
   - component: {fileID: 114263961545229894}
   m_Layer: 5
-  m_Name: CardGlow
+  m_Name: UnitGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 114966383321585020}
   - component: {fileID: 114526308069135694}
   m_Layer: 5
-  m_Name: CostText
+  m_Name: HealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 114015732824785934}
   - component: {fileID: 225560671467598092}
   - component: {fileID: 114736731845505838}
+  - component: {fileID: 114879534698869726}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -279,7 +280,7 @@ GameObject:
   - component: {fileID: 114118521298114270}
   - component: {fileID: 114465299359417060}
   m_Layer: 5
-  m_Name: CostText
+  m_Name: AttackText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -313,7 +314,7 @@ GameObject:
   - component: {fileID: 114675386753094056}
   - component: {fileID: 114952437863466374}
   m_Layer: 5
-  m_Name: CostText
+  m_Name: AttackText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -399,7 +400,7 @@ GameObject:
   - component: {fileID: 114743150471123586}
   - component: {fileID: 114341192997708208}
   m_Layer: 5
-  m_Name: CostText
+  m_Name: HealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -516,7 +517,7 @@ GameObject:
   - component: {fileID: 222335726333253430}
   - component: {fileID: 114452000995419342}
   m_Layer: 5
-  m_Name: Defense
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -803,20 +804,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77d0bc1508701e429edf5f26457af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: e498df7def9832a43a0a99023a3ef968, type: 2}
+  card: {fileID: 0}
   cardPreviewLoader: {fileID: 0}
   nameText: {fileID: 114663940781084910}
   cardCostText: {fileID: 114800054978412580}
   descriptionText: {fileID: 114089449943272544}
-  healthText: {fileID: 0}
-  attackText: {fileID: 0}
+  healthText: {fileID: 114743150471123586}
+  attackText: {fileID: 114118521298114270}
   topRibbonImage: {fileID: 114848904341313564}
   lowRibbonImage: {fileID: 114740701855988020}
   profileImage: {fileID: 114123588932752428}
   bodyImage: {fileID: 114676590346705456}
   cardFaceFrameImage: {fileID: 114872506355718088}
   cardFaceGlowImage: {fileID: 114589806584435962}
-  cardBackGlowImage: {fileID: 0}
+  cardBackGlowImage: {fileID: 114589806584435962}
 --- !u!114 &114135453094560754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1583,6 +1584,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114879534698869726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1309020911279144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa9f84d4c76352548b7b3d12b6cde794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: 11400000, guid: d944e87718a78cc438c9cd8035135ea8, type: 2}
+  cardPreviewLoader: {fileID: 114129085443935708}
+  nameText: {fileID: 114682029910280400}
+  healthText: {fileID: 114966383321585020}
+  attackText: {fileID: 114675386753094056}
+  profileImage: {fileID: 114577140725456438}
+  unitGlowImage: {fileID: 114263961545229894}
 --- !u!114 &114952437863466374
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1462,7 +1462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77d0bc1508701e429edf5f26457af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: e498df7def9832a43a0a99023a3ef968, type: 2}
+  card: {fileID: 0}
   cardPreviewLoader: {fileID: 0}
   nameText: {fileID: 114802978021604366}
   cardCostText: {fileID: 114587584446183450}

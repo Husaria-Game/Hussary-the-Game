@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 222532452651424400}
   - component: {fileID: 114776136388342694}
   m_Layer: 5
-  m_Name: Defense
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 114872266565859738}
   - component: {fileID: 114981980399396446}
   m_Layer: 5
-  m_Name: CostText
+  m_Name: AttackText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -787,7 +787,7 @@ GameObject:
   - component: {fileID: 114138403690541244}
   - component: {fileID: 114912911183039618}
   m_Layer: 5
-  m_Name: CostText
+  m_Name: HealthText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1240,13 +1240,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77d0bc1508701e429edf5f26457af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: e498df7def9832a43a0a99023a3ef968, type: 2}
+  card: {fileID: 0}
   cardPreviewLoader: {fileID: 0}
   nameText: {fileID: 114650558826994616}
   cardCostText: {fileID: 114338478326210090}
   descriptionText: {fileID: 114485105551397550}
-  healthText: {fileID: 0}
-  attackText: {fileID: 0}
+  healthText: {fileID: 114138403690541244}
+  attackText: {fileID: 114872266565859738}
   topRibbonImage: {fileID: 114775010774314420}
   lowRibbonImage: {fileID: 114075942816972042}
   profileImage: {fileID: 114355817660926028}
@@ -1721,13 +1721,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77d0bc1508701e429edf5f26457af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: e498df7def9832a43a0a99023a3ef968, type: 2}
+  card: {fileID: 11400000, guid: e74dc7780f8ac6a4f8b6a38bbeb6b3da, type: 2}
   cardPreviewLoader: {fileID: 114303918826205036}
   nameText: {fileID: 114675996097185732}
   cardCostText: {fileID: 114730583534146008}
   descriptionText: {fileID: 114711402288212236}
-  healthText: {fileID: 0}
-  attackText: {fileID: 0}
+  healthText: {fileID: 114138403690541244}
+  attackText: {fileID: 114872266565859738}
   topRibbonImage: {fileID: 114452664295019808}
   lowRibbonImage: {fileID: 114158999360048712}
   profileImage: {fileID: 114686047743261776}
