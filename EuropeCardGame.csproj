@@ -311,6 +311,7 @@
     <Compile Include="Assets\Scripts\UI\DropZone.cs" />
     <Compile Include="Assets\Scripts\Visual\CardDisplayLoader.cs" />
     <Compile Include="Assets\Scripts\Visual\CardRotation.cs" />
+    <Compile Include="Assets\Scripts\Visual\ExplosionTest.cs" />
     <Compile Include="Assets\Scripts\Visual\HeroVisualManager.cs" />
     <Compile Include="Assets\Scripts\Visual\ResourcePool.cs" />
     <Compile Include="Assets\Scripts\Visual\UnitVisualManager.cs" />

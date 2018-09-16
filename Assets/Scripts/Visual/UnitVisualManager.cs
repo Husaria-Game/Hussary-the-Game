@@ -9,6 +9,8 @@ public class UnitVisualManager : MonoBehaviour
 
     public Card card;
     public CardDisplayLoader cardPreviewLoader;
+    public GameObject explosionEffect;
+    public CanvasGroup canvasGroup;
     [Header("Text References")]
     public Text nameText;
     public Text healthText;
@@ -22,6 +24,12 @@ public class UnitVisualManager : MonoBehaviour
     void Start()
     {
         if (card != null) loadUnitAsset();
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButton(0))
+            ReceiveDamage();
     }
 
     // Method for loading unit parameters from coresponding card
@@ -53,5 +61,25 @@ public class UnitVisualManager : MonoBehaviour
             cardPreviewLoader.card = card;
             cardPreviewLoader.loadCardAsset();
         }
+    }
+
+    public IEnumerator ReceiveDamage()
+    {
+        Debug.Log("yoyo");
+        explosionEffect.SetActive(true);
+        canvasGroup.alpha = 0.1f;
+        while (canvasGroup.alpha < 1)
+        {
+            canvasGroup.alpha += 0.05f;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        while (canvasGroup.alpha > 0)
+        {
+            canvasGroup.alpha -= 0.05f;
+            yield return new WaitForSeconds(0.05f);
+        }
+        // after the effect is shown it gets destroyed.
+        Destroy(this.gameObject);
     }
 }

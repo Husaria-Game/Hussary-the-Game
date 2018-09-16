@@ -33,7 +33,7 @@ public class CardDisplayLoader : MonoBehaviour {
         cardCostText.text = card.cardCost.ToString();
         descriptionText.text = card.description;
         profileImage.sprite = card.cardImage;
-        Debug.Log(card.name);
+        //Debug.Log(card.name);
         if (card.maxHealth > 0)
         {
             healthText.text = card.maxHealth.ToString();
