@@ -1384,6 +1384,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentToReturnTo: {fileID: 0}
   initialPosition: {x: 0, y: 0, z: 0}
+  mousePosition: {x: 0, y: 0, z: 0}
   dragSuccess: 0
   initialDropZone: {fileID: 0}
 --- !u!114 &114426514513986940
@@ -1721,7 +1722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77d0bc1508701e429edf5f26457af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: e74dc7780f8ac6a4f8b6a38bbeb6b3da, type: 2}
+  card: {fileID: 11400000, guid: 8755096f56022d54e91a737ffa2e102a, type: 2}
   cardPreviewLoader: {fileID: 114303918826205036}
   nameText: {fileID: 114675996097185732}
   cardCostText: {fileID: 114730583534146008}
@@ -2550,7 +2551,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1912548095
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!223 &223481423011058806
@@ -2824,7 +2825,7 @@ RectTransform:
   m_GameObject: {fileID: 1148530026412726}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.002, y: 0.002, z: 0}
   m_Children:
   - {fileID: 224835332746675246}
   - {fileID: 224518776994751192}
@@ -2834,7 +2835,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224269926507923644
 RectTransform:

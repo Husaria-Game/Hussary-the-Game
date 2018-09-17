@@ -11,17 +11,39 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         //Debug.Log(eventData.pointerDrag.name + "was dropped to " + gameObject.transform);
 
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-        //Debug.Log("New: " + this.transform + "      Old: " + d.parentToReturnTo);
-        if(d != null && this.transform != d.parentToReturnTo)
+        //DropZone dz = eventData.pointerDrag.GetComponent<DropZone>();
+        Debug.Log("New: " + this.transform + "      Old: " + d.parentToReturnTo);
+        if (d != null && this.transform.GetChild(0).GetChild(0) != d.parentToReturnTo)
         {
             d.dragSuccess = true;
-            d.parentToReturnTo = this.transform;
+            d.parentToReturnTo = this.transform.GetChild(0).GetChild(0);
         }
+    }
+
+    void OnMouseUp(PointerEventData eventData)
+    {
+        // If your mouse hovers over the GameObject with the script attached, output this message
+        Debug.Log("Drag ended!");
+    }
+
+    void OnMouseDown(PointerEventData eventData)
+    {
+        Debug.Log("Drag start!");
+        //if (da != null && da.CanDrag)
+        //{
+        //    dragging = true;
+        //    // when we are dragging something, all previews should be off
+        //    HoverPreview.PreviewsAllowed = false;
+        //    _draggingThis = this;
+        //    da.OnStartDrag();
+        //    zDisplacement = -Camera.main.transform.position.z + transform.position.z;
+        //    pointerDisplacement = -transform.position + MouseInWorldCoords();
+        //}
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //Debug.Log("OnPointerEnter to " + gameObject.name);
+        Debug.Log("OnPointerEnter to " + gameObject.name);
     }
 
     public void OnPointerExit(PointerEventData eventData)
