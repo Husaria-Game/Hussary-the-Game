@@ -314,6 +314,7 @@
     <Compile Include="Assets\Scripts\Logic\Town.cs" />
     <Compile Include="Assets\Scripts\UI\CardOnHoverPreview.cs" />
     <Compile Include="Assets\Scripts\UI\Draggable.cs" />
+    <Compile Include="Assets\Scripts\UI\Draggable2.cs" />
     <Compile Include="Assets\Scripts\UI\DropZone.cs" />
     <Compile Include="Assets\Scripts\Visual\CardDisplayLoader.cs" />
     <Compile Include="Assets\Scripts\Visual\CardRotation.cs" />

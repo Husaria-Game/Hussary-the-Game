@@ -1385,6 +1385,8 @@ MonoBehaviour:
   parentToReturnTo: {fileID: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   mousePosition: {x: 0, y: 0, z: 0}
+  lineRenderer: {fileID: 0}
+  arrow: {fileID: 0}
   dragSuccess: 0
   initialDropZone: {fileID: 0}
 --- !u!114 &114426514513986940
