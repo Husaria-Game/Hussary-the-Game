@@ -310,6 +310,7 @@
     <Compile Include="Assets\Scripts\Logic\CardContainer.cs" />
     <Compile Include="Assets\Scripts\Logic\Faction.cs" />
     <Compile Include="Assets\Scripts\Logic\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Logic\HandVisual.cs" />
     <Compile Include="Assets\Scripts\Logic\Player.cs" />
     <Compile Include="Assets\Scripts\Logic\Town.cs" />
     <Compile Include="Assets\Scripts\UI\CardOnHoverPreview.cs" />

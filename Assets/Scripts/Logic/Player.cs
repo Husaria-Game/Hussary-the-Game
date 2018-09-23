@@ -2,21 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Player : MonoBehaviour {
-        public int playerID { get; private set; }
-        public String name { get; private set; }
-        public Faction faction { get; private set; }
+public class Player : MonoBehaviour{
+        public int playerID;
+        public Text Name;
+        public Faction faction;
+        public Army army;
 
-        public Army army { get; private set; }
-
-        public Player(int playerID, string name, Faction faction)
-        {
-            this.playerID = playerID;
-            this.name = name;
-            this.faction = faction;
-            this.army = new Army(faction);
-        }
+        //public Player(int playerID, Text name, Faction faction)
+        //{
+        //    this.playerID = playerID;
+        //    this.Name = name;
+        //    this.faction = faction;
+        //    this.army = new Army(faction);
+        //}
 
         public void showDeck()
         {
@@ -60,10 +60,15 @@ public class Player : MonoBehaviour {
 
         public void generateHand()
         {
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 5; i++)
             {
                 this.army.cardContainer.moveCardFromDeckToHand();
             }
+        }
+
+        public void drawACardFromDeck()
+        {
+           this.army.cardContainer.moveCardFromDeckToHand();
         }
 
 }

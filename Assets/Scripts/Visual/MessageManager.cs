@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,9 @@ public class MessageManager : MonoBehaviour {
 
     public Text MessageText;
     public GameObject MessageCanvasGO;
+
+    public String playerSouthName;
+    public String playerNorthName;
 
     // Use this for initialization
     void Start () {
@@ -18,12 +22,12 @@ public class MessageManager : MonoBehaviour {
         //============TEST of  messageManager============
         if (Input.GetKeyDown(KeyCode.A))
         {
-            ShowMessage("Twoja Tura", 2f);
+            ShowMessage(playerSouthName + " - Twoja Tura", 2f);
         }
             
 
         if (Input.GetKeyDown(KeyCode.B))
-            ShowMessage("Tura Przeciwnika", 2f);
+            ShowMessage(playerNorthName + " - Twoja Tura", 2f);
         //===============================================
     }
 
