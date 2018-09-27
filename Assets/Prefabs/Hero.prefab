@@ -173,7 +173,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224387303283029374}
-  - component: {fileID: 114084062513413090}
   - component: {fileID: 114501304041803086}
   - component: {fileID: 225532604642647430}
   - component: {fileID: 114577140057204822}
@@ -236,21 +235,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114084062513413090
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1681948054813724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74220319b3b32147be49b0c6c5b4210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentToReturnTo: {fileID: 0}
-  initialPosition: {x: 0, y: 0, z: 0}
-  dragSuccess: 0
-  initialDropZone: {fileID: 0}
 --- !u!114 &114104190238318558
 MonoBehaviour:
   m_ObjectHideFlags: 1

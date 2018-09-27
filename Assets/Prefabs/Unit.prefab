@@ -1257,12 +1257,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1309020911279144}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74220319b3b32147be49b0c6c5b4210, type: 3}
+  m_Script: {fileID: 11500000, guid: e4fd6524915107c4aa3386f36ee3b3d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   parentToReturnTo: {fileID: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   mousePosition: {x: 0, y: 0, z: 0}
+  lineRenderer: {fileID: 0}
+  arrow: {fileID: 0}
   dragSuccess: 0
   initialDropZone: {fileID: 0}
 --- !u!114 &114452000995419342

@@ -306,24 +306,24 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Assets\Card.cs" />
     <Compile Include="Assets\Scripts\Assets\Hero.cs" />
-    <Compile Include="Assets\Scripts\Logic\Army.cs" />
-    <Compile Include="Assets\Scripts\Logic\CardContainer.cs" />
-    <Compile Include="Assets\Scripts\Logic\Faction.cs" />
-    <Compile Include="Assets\Scripts\Logic\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Logic\HandVisual.cs" />
-    <Compile Include="Assets\Scripts\Logic\Player.cs" />
-    <Compile Include="Assets\Scripts\Logic\Town.cs" />
-    <Compile Include="Assets\Scripts\UI\CardOnHoverPreview.cs" />
-    <Compile Include="Assets\Scripts\UI\Draggable.cs" />
-    <Compile Include="Assets\Scripts\UI\Draggable2.cs" />
-    <Compile Include="Assets\Scripts\UI\DropZone.cs" />
-    <Compile Include="Assets\Scripts\Visual\CardDisplayLoader.cs" />
-    <Compile Include="Assets\Scripts\Visual\CardRotation.cs" />
-    <Compile Include="Assets\Scripts\Visual\ExplosionTest.cs" />
-    <Compile Include="Assets\Scripts\Visual\HeroVisualManager.cs" />
-    <Compile Include="Assets\Scripts\Visual\MessageManager.cs" />
-    <Compile Include="Assets\Scripts\Visual\ResourcePool.cs" />
-    <Compile Include="Assets\Scripts\Visual\UnitVisualManager.cs" />
+    <Compile Include="Assets\Scripts\Model\Army.cs" />
+    <Compile Include="Assets\Scripts\Model\CardContainer.cs" />
+    <Compile Include="Assets\Scripts\Model\Faction.cs" />
+    <Compile Include="Assets\Scripts\Model\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Model\Player.cs" />
+    <Compile Include="Assets\Scripts\Model\Town.cs" />
+    <Compile Include="Assets\Scripts\View\CardDisplayLoader.cs" />
+    <Compile Include="Assets\Scripts\View\CardOnHoverPreview.cs" />
+    <Compile Include="Assets\Scripts\View\CardRotation.cs" />
+    <Compile Include="Assets\Scripts\View\Draggable.cs" />
+    <Compile Include="Assets\Scripts\View\Draggable2.cs" />
+    <Compile Include="Assets\Scripts\View\DropZone.cs" />
+    <Compile Include="Assets\Scripts\View\ExplosionTest.cs" />
+    <Compile Include="Assets\Scripts\View\HandView.cs" />
+    <Compile Include="Assets\Scripts\View\HeroVisualManager.cs" />
+    <Compile Include="Assets\Scripts\View\MessageManager.cs" />
+    <Compile Include="Assets\Scripts\View\ResourcePool.cs" />
+    <Compile Include="Assets\Scripts\View\UnitVisualManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\DOTween\DOTween.XML" />

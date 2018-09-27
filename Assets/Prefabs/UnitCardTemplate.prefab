@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 114025715949702662}
   - component: {fileID: 225876129326536952}
   - component: {fileID: 114301889158565508}
+  - component: {fileID: 114243290953045170}
   m_Layer: 0
   m_Name: UnitCardTemplate
   m_TagString: Untagged
@@ -1190,6 +1191,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114243290953045170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148530026412726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fd6524915107c4aa3386f36ee3b3d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentToReturnTo: {fileID: 0}
+  initialPosition: {x: 0, y: 0, z: 0}
+  mousePosition: {x: 0, y: 0, z: 0}
+  lineRenderer: {fileID: 0}
+  arrow: {fileID: 0}
+  dragSuccess: 0
+  initialDropZone: {fileID: 0}
 --- !u!114 &114264289242194248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1385,10 +1404,13 @@ MonoBehaviour:
   parentToReturnTo: {fileID: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   mousePosition: {x: 0, y: 0, z: 0}
+  cardPreview: {fileID: 0}
   lineRenderer: {fileID: 0}
   arrow: {fileID: 0}
   dragSuccess: 0
   initialDropZone: {fileID: 0}
+  pointerDisplacement: {x: 0, y: 0, z: 0}
+  t_Reference: {fileID: 0}
 --- !u!114 &114426514513986940
 MonoBehaviour:
   m_ObjectHideFlags: 1

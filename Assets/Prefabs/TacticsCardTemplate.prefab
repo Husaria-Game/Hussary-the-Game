@@ -646,6 +646,7 @@ GameObject:
   - component: {fileID: 114176746199566966}
   - component: {fileID: 225173970847617002}
   - component: {fileID: 61213157322361912}
+  - component: {fileID: 114719674513516954}
   m_Layer: 0
   m_Name: TacticsCardTemplate
   m_TagString: Untagged
@@ -983,10 +984,13 @@ MonoBehaviour:
   parentToReturnTo: {fileID: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   mousePosition: {x: 0, y: 0, z: 0}
+  cardPreview: {fileID: 0}
   lineRenderer: {fileID: 120644142149573154}
   arrow: {fileID: 1013404860412772}
   dragSuccess: 0
   initialDropZone: {fileID: 0}
+  pointerDisplacement: {x: 0, y: 0, z: 0}
+  t_Reference: {fileID: 0}
 --- !u!114 &114181760086033348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1543,6 +1547,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114719674513516954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1805955268451240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4fd6524915107c4aa3386f36ee3b3d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentToReturnTo: {fileID: 0}
+  initialPosition: {x: 0, y: 0, z: 0}
+  mousePosition: {x: 0, y: 0, z: 0}
+  lineRenderer: {fileID: 120644142149573154}
+  arrow: {fileID: 1013404860412772}
+  dragSuccess: 0
+  initialDropZone: {fileID: 0}
 --- !u!114 &114733477942657040
 MonoBehaviour:
   m_ObjectHideFlags: 1

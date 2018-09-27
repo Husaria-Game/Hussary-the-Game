@@ -17,7 +17,7 @@ MonoBehaviour:
   cardCost: 4
   affiliation: 1
   attack: 8
-  maxHealth: 0
+  maxHealth: 4
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0
