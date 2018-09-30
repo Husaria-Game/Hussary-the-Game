@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1837845576346216}
+  m_IsPrefabParent: 1
+--- !u!1 &1837845576346216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4402070577209844}
+  - component: {fileID: 114885780298355648}
+  m_Layer: 0
+  m_Name: AvailableCards
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4402070577209844
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1837845576346216}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114885780298355648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1837845576346216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8648093d11f8c09448cd8a06fe8ff834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckCardList:
+  - {fileID: 11400000, guid: 5334c77cd74934d41a7649a121a1dfc8, type: 2}
+  - {fileID: 11400000, guid: d944e87718a78cc438c9cd8035135ea8, type: 2}
+  - {fileID: 11400000, guid: 13ea4ac8853390246b6b855a172d61ad, type: 2}
+  - {fileID: 11400000, guid: 13ea4ac8853390246b6b855a172d61ad, type: 2}
+  - {fileID: 11400000, guid: 025c574817884b2409c3abf5b5dca921, type: 2}
+  - {fileID: 11400000, guid: 025c574817884b2409c3abf5b5dca921, type: 2}
+  - {fileID: 11400000, guid: 8755096f56022d54e91a737ffa2e102a, type: 2}
+  - {fileID: 11400000, guid: e74dc7780f8ac6a4f8b6a38bbeb6b3da, type: 2}
+  - {fileID: 11400000, guid: e5cb844a4b80d2144a13b14bcb9c2d3f, type: 2}
+  - {fileID: 11400000, guid: e5cb844a4b80d2144a13b14bcb9c2d3f, type: 2}
+  - {fileID: 11400000, guid: 36463abb691056c4e94d819a73446bec, type: 2}
+  - {fileID: 11400000, guid: 66ab1c93623bd7645a1512d2897e5669, type: 2}
+  - {fileID: 11400000, guid: 66ab1c93623bd7645a1512d2897e5669, type: 2}
+  - {fileID: 11400000, guid: e498df7def9832a43a0a99023a3ef968, type: 2}
+  - {fileID: 11400000, guid: e498df7def9832a43a0a99023a3ef968, type: 2}
+  - {fileID: 11400000, guid: e498df7def9832a43a0a99023a3ef968, type: 2}
+  handCardList: []

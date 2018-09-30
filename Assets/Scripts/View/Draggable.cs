@@ -13,6 +13,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public LineRenderer lineRenderer;
     public GameObject arrow;
     public bool dragSuccess;
+    public bool transformCardIntoUnit;
     public DropZone initialDropZone;
     private Vector3 pointerDisplacement = Vector3.zero;
     private Transform t_Reference;
@@ -112,6 +113,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (dragSuccess)//for dragging successful
         {
             this.transform.SetParent(parentToReturnTo);
+
         }
         else
         {

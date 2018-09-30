@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
+  m_Name: "Taktyczny Odwr\xF3t"
+  m_EditorClassIdentifier: 
+  cardName: "Taktyczny Odwr\xF3t"
+  description: "Wszystkie jednostki lecz\u0105 1 pkt. \u017Cycia"
+  cardImage: {fileID: 21300000, guid: ed3a82d4d660e654d8211d2b1a88ff80, type: 3}
+  cardCost: 0
+  affiliation: 0
+  attack: 0
+  maxHealth: 0
+  UnitScriptName: 
+  TacticsScriptName: 
+  effectAmount: 0

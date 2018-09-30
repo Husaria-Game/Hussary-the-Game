@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour {
  {
             yield return new WaitForSeconds(0.05f);
         }
-        SetAllGameDetails();
+        InitializeGame();
         playerSouth.faction = Faction.Ottoman;
         //messageManager.playerNorthName = this.playerNorth.Name.text;
         messageManager.playerSouthName = SouthName;
@@ -71,9 +71,12 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
-    void SetAllGameDetails()
+    void InitializeGame()
     {
-        Debug.Log("GameManger START");
+        Debug.Log("GameManger INITIALIZATIOIN");
+
+        //PlayerModel playeNorth = new PlayerModel(0, "Malik", Faction.Poland);
+        PlayerModel playeSouth = new PlayerModel(1, "Johnson", Faction.Ottoman);
 
         //this.playerSouth = new Player(0, this.SouthName, Faction.Ottoman);
         //playerSouth.Name.text = SouthName;

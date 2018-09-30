@@ -307,10 +307,13 @@
     <Compile Include="Assets\Scripts\Assets\Card.cs" />
     <Compile Include="Assets\Scripts\Assets\Hero.cs" />
     <Compile Include="Assets\Scripts\Model\Army.cs" />
+    <Compile Include="Assets\Scripts\Model\ArmyCardsModel.cs" />
+    <Compile Include="Assets\Scripts\Model\ArmyModel.cs" />
     <Compile Include="Assets\Scripts\Model\CardContainer.cs" />
     <Compile Include="Assets\Scripts\Model\Faction.cs" />
     <Compile Include="Assets\Scripts\Model\GameManager.cs" />
     <Compile Include="Assets\Scripts\Model\Player.cs" />
+    <Compile Include="Assets\Scripts\Model\PlayerModel.cs" />
     <Compile Include="Assets\Scripts\Model\Town.cs" />
     <Compile Include="Assets\Scripts\View\CardDisplayLoader.cs" />
     <Compile Include="Assets\Scripts\View\CardOnHoverPreview.cs" />
