@@ -20,21 +20,23 @@ public class ArmyCardsModel : MonoBehaviour
         deckCardList.Add(Resources.Load<Card>("Cards/Janczar"));
         deckCardList.Add(Resources.Load<Card>("Cards/Kazasker"));
         deckCardList.Add(Resources.Load<Card>("Cards/Sulejman"));
+        //Debug.Log("deckcardList lenght: " + this.deckCardList.Count);
         //GameObject instance = Instantiate(Resources.Load("enemy", typeof(GameObject))) as GameObject;
+
         foreach (Card item in deckCardList)
         {
-            Debug.Log(item.cardName.ToString());
-            Debug.Log(item.cardCost.ToString());
+            Debug.Log("DECK INIT: name -" + item.cardName.ToString() + ", cost - " + item.cardCost.ToString());
         }
         //Debug.Log(pocztowy.cardName.ToString());
         //Debug.Log(pocztowy.cardName.ToString());
         this.handCardList = new List<Card>();
         this.frontCardList = new List<Card>();
         this.graveyardCardList = new List<Card>();
+        //handCardList.Add(moveCardFromDeckToHand());
 
     }
 
-    public Card moveCardFromDeckToHand()
+    public Card drawCardFromDeckList()
     {
 
         int r = UnityEngine.Random.Range(0, this.deckCardList.Count - 1);
@@ -42,9 +44,28 @@ public class ArmyCardsModel : MonoBehaviour
         Card card = this.deckCardList[r];
         Debug.Log("random: " + r + " karta:  " + card.cardName.ToString());
 
+
+        this.deckCardList.RemoveAt(r);
+
+        foreach (Card item in deckCardList)
+        {
+            Debug.Log("DECK: name -" + item.cardName.ToString() + ", cost - " + item.cardCost.ToString());
+        }
         return card;
-        //this.deckCardList.RemoveAt(r);
         //this.handCardList.Add(card);
+    }
+    public Card moveCardFromDeckListToHandList()
+    {
+        Card card = drawCardFromDeckList();
+        //this.deckCardList.RemoveAt(r);
+        this.handCardList.Add(card);
+
+
+        foreach (Card item in handCardList)
+        {
+            Debug.Log("HAND: name -" + item.cardName.ToString() + ", cost - "+ item.cardCost.ToString());
+        }
+        return card;
     }
 
     public void moveCardFromHandToFront()

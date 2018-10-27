@@ -643,7 +643,6 @@ GameObject:
   - component: {fileID: 114618509848583688}
   - component: {fileID: 114101413605055204}
   - component: {fileID: 114148621087209450}
-  - component: {fileID: 114176746199566966}
   - component: {fileID: 225173970847617002}
   - component: {fileID: 61213157322361912}
   - component: {fileID: 114719674513516954}
@@ -936,7 +935,6 @@ MonoBehaviour:
   m_PreferredHeight: 80
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
-  m_LayoutPriority: 1
 --- !u!114 &114153853037345402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -970,27 +968,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Zadaj 1 pkt. obra\u017Ce\u0144 wszystkim jednostkom wroga"
---- !u!114 &114176746199566966
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1805955268451240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74220319b3b32147be49b0c6c5b4210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentToReturnTo: {fileID: 0}
-  initialPosition: {x: 0, y: 0, z: 0}
-  mousePosition: {x: 0, y: 0, z: 0}
-  cardPreview: {fileID: 0}
-  lineRenderer: {fileID: 120644142149573154}
-  arrow: {fileID: 1013404860412772}
-  dragSuccess: 0
-  initialDropZone: {fileID: 0}
-  pointerDisplacement: {x: 0, y: 0, z: 0}
-  t_Reference: {fileID: 0}
 --- !u!114 &114181760086033348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1564,6 +1541,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 120644142149573154}
   arrow: {fileID: 1013404860412772}
   dragSuccess: 0
+  transformCardIntoUnit: 0
   initialDropZone: {fileID: 0}
 --- !u!114 &114733477942657040
 MonoBehaviour:
@@ -1994,7 +1972,6 @@ LineRenderer:
   m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -2010,7 +1987,6 @@ LineRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2070,7 +2046,6 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 0
-    generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 1
 --- !u!212 &212017978603740878
@@ -2082,7 +2057,6 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2098,7 +2072,6 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2115,8 +2088,6 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
 --- !u!212 &212919506572736574
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -2126,7 +2097,6 @@ SpriteRenderer:
   m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2142,7 +2112,6 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2159,8 +2128,6 @@ SpriteRenderer:
   m_Size: {x: 24, y: 24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
 --- !u!222 &222004969856487894
 CanvasRenderer:
   m_ObjectHideFlags: 1

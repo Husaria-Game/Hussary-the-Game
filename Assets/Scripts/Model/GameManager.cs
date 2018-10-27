@@ -9,39 +9,45 @@ public class GameManager : MonoBehaviour {
 
     public string NorthName = "AI";
     public string SouthName = "Grzegorz";
-    public Player playerSouth;
-    public Player playerNorth;
+    //public Player player;
+    public PlayerModel playerSouth;
+    public PlayerModel playerNorth;
     public MessageManager messageManager;
     public HandView handView;
     public GameObject unitCard;
     public GameObject tacticsCard;
+    public GameObject visuals;
 
 
     void Awake()
     {
         Instance = this;
     }
+
+    //enum SortingLayerEnum
+    //{
+    //    Default = "Default",
+    //    Cards = "Cards",
+    //    Units = "Units",
+    //    ActiveCard = "ActiveCard"
+    //}
+
     // Use this for initialization
-    IEnumerator Start () {
-            while (playerSouth.enabled == false)
- {
+    IEnumerator Start()
+    {
+        while (messageManager.enabled == false)
+        {
             yield return new WaitForSeconds(0.05f);
         }
         InitializeGame();
-        playerSouth.faction = Faction.Ottoman;
-        //messageManager.playerNorthName = this.playerNorth.Name.text;
+        //playerSouth.faction = Faction.Ottoman;
         messageManager.playerSouthName = SouthName;
-        //foreach (Card value in playerSouth.army.cardContainer.deckCardList)
-        //{
-        //    Debug.Log(value.cardName);
-        //}
-
-        //handVisual.AddCard(playerSouth.army.cardContainer.deckCardList[0]);
 
 
         //// ----------draw a card from deck
-        Card cardDrawn = playerSouth.army.cardContainer.moveCardFromDeckToHand();
-        handView.AddDrawnCardFromDeckToHand(cardDrawn);
+        //Card cardDrawn = playerSouth.armymodel.armyCardsModel.drawCardFromDeckList();
+        //playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+        handView.AddDrawnCardFromToHand(playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList());
         //// ----------instantiate card and load its display
         //GameObject newCard;
         //if (cardDrawn.maxHealth > 0)
@@ -73,10 +79,10 @@ public class GameManager : MonoBehaviour {
 
     void InitializeGame()
     {
-        Debug.Log("GameManger INITIALIZATIOIN");
+        Debug.Log("GameManger INITIALIZATION");
 
         //PlayerModel playeNorth = new PlayerModel(0, "Malik", Faction.Poland);
-        PlayerModel playeSouth = new PlayerModel(1, "Johnson", Faction.Ottoman);
+        this.playerSouth = new PlayerModel(1, "Johnson", Faction.Ottoman);
 
         //this.playerSouth = new Player(0, this.SouthName, Faction.Ottoman);
         //playerSouth.Name.text = SouthName;

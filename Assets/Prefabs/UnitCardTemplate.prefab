@@ -209,7 +209,6 @@ GameObject:
   - component: {fileID: 224213712703637616}
   - component: {fileID: 114958917310369992}
   - component: {fileID: 114648445385701960}
-  - component: {fileID: 114422426497470856}
   - component: {fileID: 114025715949702662}
   - component: {fileID: 225876129326536952}
   - component: {fileID: 114301889158565508}
@@ -881,7 +880,6 @@ MonoBehaviour:
   m_PreferredHeight: 0
   m_FlexibleWidth: 0
   m_FlexibleHeight: 0
-  m_LayoutPriority: 1
 --- !u!114 &114035935415133492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1208,6 +1206,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 0}
   arrow: {fileID: 0}
   dragSuccess: 0
+  transformCardIntoUnit: 0
   initialDropZone: {fileID: 0}
 --- !u!114 &114264289242194248
 MonoBehaviour:
@@ -1390,27 +1389,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.975}
   m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
---- !u!114 &114422426497470856
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1148530026412726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74220319b3b32147be49b0c6c5b4210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentToReturnTo: {fileID: 0}
-  initialPosition: {x: 0, y: 0, z: 0}
-  mousePosition: {x: 0, y: 0, z: 0}
-  cardPreview: {fileID: 0}
-  lineRenderer: {fileID: 0}
-  arrow: {fileID: 0}
-  dragSuccess: 0
-  initialDropZone: {fileID: 0}
-  pointerDisplacement: {x: 0, y: 0, z: 0}
-  t_Reference: {fileID: 0}
 --- !u!114 &114426514513986940
 MonoBehaviour:
   m_ObjectHideFlags: 1

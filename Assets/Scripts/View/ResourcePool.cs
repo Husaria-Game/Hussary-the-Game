@@ -17,7 +17,7 @@ public class ResourcePool : MonoBehaviour {
 
         set
         {
-            Debug.Log("Changed total resources to: " + value);
+            //Debug.Log("Changed total resources to: " + value);
 
             if (value > 10)
                 moneyTotal = 10;
@@ -38,7 +38,7 @@ public class ResourcePool : MonoBehaviour {
 
         set
         {
-            Debug.Log("Changed resources this turn to: " + value);
+            //Debug.Log("Changed resources this turn to: " + value);
 
             if (value > moneyTotal)
                 moneyAvailable = moneyTotal;
