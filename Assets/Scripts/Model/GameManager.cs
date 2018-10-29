@@ -13,24 +13,19 @@ public class GameManager : MonoBehaviour {
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
     public MessageManager messageManager;
-    public HandView handView;
+    public HandView northHandView;
+    public HandView southHandView;
     public GameObject unitCard;
     public GameObject tacticsCard;
     public GameObject visuals;
+    public GameObject deckNorth;
+    public GameObject deckSouth;
 
 
     void Awake()
     {
         Instance = this;
     }
-
-    //enum SortingLayerEnum
-    //{
-    //    Default = "Default",
-    //    Cards = "Cards",
-    //    Units = "Units",
-    //    ActiveCard = "ActiveCard"
-    //}
 
     // Use this for initialization
     IEnumerator Start()
@@ -40,14 +35,35 @@ public class GameManager : MonoBehaviour {
             yield return new WaitForSeconds(0.05f);
         }
         InitializeGame();
-        //playerSouth.faction = Faction.Ottoman;
         messageManager.playerSouthName = SouthName;
 
 
-        //// ----------draw a card from deck
-        //Card cardDrawn = playerSouth.armymodel.armyCardsModel.drawCardFromDeckList();
-        //playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-        handView.AddDrawnCardFromToHand(playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList());
+        //// ----------draw 4 cards from deck to Player South
+        for(int i=0;i<4; i++)
+        {            
+            while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
+            {
+                yield return new WaitForSeconds(0.2f);             
+            }
+
+            Card cardDrawn = playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+            southHandView.AddDrawnCardFromToHand(cardDrawn, playerSouth, deckSouth);
+        }
+
+        //// ----------draw 4 cards from deck to Player North
+        for (int i = 0; i < 4; i++)
+        {
+            while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
+
+            Card cardDrawn = playerNorth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+            northHandView.AddDrawnCardFromToHand(cardDrawn, playerNorth, deckNorth);
+        }
+
+        //cardDrawn = playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+        //handView.AddDrawnCardFromToHand(cardDrawn);
         //// ----------instantiate card and load its display
         //GameObject newCard;
         //if (cardDrawn.maxHealth > 0)
@@ -81,26 +97,7 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log("GameManger INITIALIZATION");
 
-        //PlayerModel playeNorth = new PlayerModel(0, "Malik", Faction.Poland);
-        this.playerSouth = new PlayerModel(1, "Johnson", Faction.Ottoman);
-
-        //this.playerSouth = new Player(0, this.SouthName, Faction.Ottoman);
-        //playerSouth.Name.text = SouthName;
-        //this.playerNorth = new Player(1, this.NorthName, Faction.Poland);
-        //playerSouth.generateHand();
-
-        //generateNorthArmy(playerNorth);
-        //generateSouthArmy(playerSouth);
-
-        //GameManager game = new GameManager(playerNorth, playerSouth);
-
-        //playerNorth.showDeck();
-        //playerSouth.showDeck();
-
-        //playerNorth.generateHand();
-        //playerSouth.generateHand();
-
-        //playerNorth.showHand();
-        //playerSouth.showHand();
+        this.playerNorth = new PlayerModel(0, "Cooper", Faction.Ottoman, Position.North);
+        this.playerSouth = new PlayerModel(1, "Johnson", Faction.Ottoman, Position.South);
     }
 }

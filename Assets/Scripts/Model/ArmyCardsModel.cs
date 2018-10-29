@@ -14,25 +14,25 @@ public class ArmyCardsModel : MonoBehaviour
     {
         this.deckCardList = new List<Card>();
 
-        //var sprite = Resources.Load<Sprite>("Sprites/sprite01");
-        //Card pocztowy = Resources.Load<Card>("Pocztowy");
+        // Generate deck for an army
         deckCardList.Add(Resources.Load<Card>("Cards/Artyleria"));
         deckCardList.Add(Resources.Load<Card>("Cards/Janczar"));
         deckCardList.Add(Resources.Load<Card>("Cards/Kazasker"));
         deckCardList.Add(Resources.Load<Card>("Cards/Sulejman"));
-        //Debug.Log("deckcardList lenght: " + this.deckCardList.Count);
-        //GameObject instance = Instantiate(Resources.Load("enemy", typeof(GameObject))) as GameObject;
+
+        deckCardList.Add(Resources.Load<Card>("Cards/Artyleria"));
+        deckCardList.Add(Resources.Load<Card>("Cards/Janczar"));
+        deckCardList.Add(Resources.Load<Card>("Cards/Kazasker"));
+        deckCardList.Add(Resources.Load<Card>("Cards/Sulejman"));
 
         foreach (Card item in deckCardList)
         {
             Debug.Log("DECK INIT: name -" + item.cardName.ToString() + ", cost - " + item.cardCost.ToString());
         }
-        //Debug.Log(pocztowy.cardName.ToString());
-        //Debug.Log(pocztowy.cardName.ToString());
+        
         this.handCardList = new List<Card>();
         this.frontCardList = new List<Card>();
         this.graveyardCardList = new List<Card>();
-        //handCardList.Add(moveCardFromDeckToHand());
 
     }
 
