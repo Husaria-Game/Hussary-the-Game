@@ -1081,7 +1081,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 4
+  m_Text: 1
 --- !u!114 &114158999360048712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1259,7 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77d0bc1508701e429edf5f26457af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
+  card: {fileID: 11400000, guid: 8755096f56022d54e91a737ffa2e102a, type: 2}
   cardPreviewLoader: {fileID: 0}
   nameText: {fileID: 114650558826994616}
   cardCostText: {fileID: 114338478326210090}
@@ -1321,7 +1321,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 4
+  m_Text: 1
 --- !u!114 &114355817660926028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1341,7 +1341,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bb10ef0ab5f2c98499b5ffc2911ea846, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e56f54188ece9f49895dc9df237940b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1616,7 +1616,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Zadaj 1 pkt. obra\u017Ce\u0144 wszystkim jednostkom wroga"
+  m_Text: 
 --- !u!114 &114581877958187694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1771,7 +1771,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sulejman
+  m_Text: Kazasker
 --- !u!114 &114675996097185732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1804,7 +1804,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sulejman
+  m_Text: Kazasker
 --- !u!114 &114681246190214806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1836,7 +1836,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: bb10ef0ab5f2c98499b5ffc2911ea846, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e56f54188ece9f49895dc9df237940b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1903,7 +1903,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Zadaj 1 pkt. obra\u017Ce\u0144 wszystkim jednostkom wroga"
+  m_Text: 
 --- !u!114 &114730583534146008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1936,7 +1936,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 4
+  m_Text: 1
 --- !u!114 &114735819418392382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2147,7 +2147,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 4
+  m_Text: 1
 --- !u!114 &114878238246763486
 MonoBehaviour:
   m_ObjectHideFlags: 1

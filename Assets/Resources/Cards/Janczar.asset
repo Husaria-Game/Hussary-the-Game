@@ -14,8 +14,10 @@ MonoBehaviour:
   cardName: Janczar
   description: 
   cardImage: {fileID: 21300000, guid: 52d582146cc125444addc3a7a5e2b21a, type: 3}
-  cardCost: 1
+  cardCost: 2
   affiliation: 1
+  cardID: 0
+  historyDescription: 
   attack: 1
   maxHealth: 1
   UnitScriptName: 

@@ -19,6 +19,7 @@ public class Card : ScriptableObject {
     public int cardCost;
     public Affiliation affiliation;
     public int cardID;
+    public string historyDescription;
 
 
     [Header("Unit Card Info")]

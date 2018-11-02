@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
             }
 
             Card cardDrawn = playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-            southHandView.AddDrawnCardFromToHand(cardDrawn, playerSouth, deckSouth);
+            southHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerSouth, deckSouth);
         }
 
         //// ----------draw 4 cards from deck to Player North
@@ -59,9 +59,15 @@ public class GameManager : MonoBehaviour {
             }
 
             Card cardDrawn = playerNorth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-            northHandView.AddDrawnCardFromToHand(cardDrawn, playerNorth, deckNorth);
+            northHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerNorth, deckNorth);
+            while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
         }
 
+        southHandView.SetPlayableCards();
+        northHandView.SetPlayableCards();
     }
 	
 	// Update is called once per frame

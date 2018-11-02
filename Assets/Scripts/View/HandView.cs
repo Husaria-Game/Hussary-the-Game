@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class HandView : MonoBehaviour {
 
-    private List<GameObject> CardsInHand = new List<GameObject>();
+    private List<Draggable> CardsInHand = new List<Draggable>();
     public GameObject GameAreaImage;
     public bool isDrawingRunning = false;
 
@@ -20,7 +20,7 @@ public class HandView : MonoBehaviour {
 	}
 
     // add new card GameObject to hand
-    public void AddDrawnCardFromToHand(Card cardDrawn, PlayerModel player, GameObject deckVisual)
+    public void MoveDrawnCardFromDeckToHand(Card cardDrawn, PlayerModel player, GameObject deckVisual)
     {
         // ----------instantiate drawn card given as parameter and load its display in player's hand
         this.isDrawingRunning = true;
@@ -79,5 +79,30 @@ public class HandView : MonoBehaviour {
         newCard.transform.SetParent(this.transform);
         newCard.GetComponentInChildren<Canvas>().sortingLayerName = "Card";
         this.isDrawingRunning = false;
+    }
+
+    public void SetPlayableCards()
+    {
+        //CardsInHand = GameAreaImage.GetComponentsInChildren<Draggable>().;
+        //GameAreaImage.FindObjectsOfType(typeof(Draggable));
+        //this.
+        foreach (Transform child in transform)
+        {
+            //Debug.Log("Child " + child.ToString());
+            //child.gameObject.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = true;
+            //GameObject cardGlow2 = child.gameObject.GetComponentInChildren<Image>;
+            //Debug.Log("CardGlow " + cardGlow.ToString());
+            Debug.Log("CARD GLOW name " + child.GetComponent<CardDisplayLoader>().nameText.text.ToString() + " cost " + child.GetComponent<CardDisplayLoader>().cardCostText.text.ToString());
+            if (int.Parse(child.GetComponent<CardDisplayLoader>().cardCostText.text.ToString()) < 2)
+            {
+                child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = true;
+                child.GetComponent<Draggable>().enabled = true;
+            }
+            else
+            {
+                child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
+                child.GetComponent<Draggable>().enabled = false;
+            }
+        }
     }
 }

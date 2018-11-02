@@ -14,8 +14,10 @@ MonoBehaviour:
   cardName: Artyleria
   description: 
   cardImage: {fileID: 21300000, guid: c79e5a8d13cfa66488890e343692a13d, type: 3}
-  cardCost: 1
+  cardCost: 3
   affiliation: 0
+  cardID: 0
+  historyDescription: 
   attack: 1
   maxHealth: 1
   UnitScriptName: 
