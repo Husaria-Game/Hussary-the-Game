@@ -81,7 +81,7 @@ public class HandView : MonoBehaviour {
         this.isDrawingRunning = false;
     }
 
-    public void SetPlayableCards(int currentResources)
+    public void setPlayableCards(int currentResources)
     {
         //CardsInHand = GameAreaImage.GetComponentsInChildren<Draggable>().;
         //GameAreaImage.FindObjectsOfType(typeof(Draggable));
@@ -103,6 +103,15 @@ public class HandView : MonoBehaviour {
                 child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
                 child.GetComponent<Draggable>().enabled = false;
             }
+        }
+    }
+
+    public void blockAllOperations()
+    {
+        foreach (Transform child in transform)
+        {
+            child.GetComponent<Draggable>().enabled = false;
+            child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
         }
     }
 }

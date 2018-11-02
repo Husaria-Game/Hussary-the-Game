@@ -21,13 +21,22 @@ public class PlayerModel {
         this.position = position;
         if(position == Position.North)
         {
-            this.resourcesMaxThisTurn = 2;
+            this.resourcesMaxThisTurn = 1;
         }
         else
         {
-            this.resourcesMaxThisTurn = 1;
+            this.resourcesMaxThisTurn = 0;
         }
         this.resourcesCurrent = resourcesMaxThisTurn;
         this.armymodel = new ArmyModel(faction);
+    }
+
+    public void updateResourcesNewTurn()
+    {
+        if(this.resourcesMaxThisTurn < 10)
+        {
+            this.resourcesMaxThisTurn++;
+        }
+        this.resourcesCurrent = this.resourcesMaxThisTurn;
     }
 }

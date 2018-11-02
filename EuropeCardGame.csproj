@@ -108,6 +108,7 @@
     <Compile Include="Assets\Scripts\View\Draggable.cs" />
     <Compile Include="Assets\Scripts\View\Draggable2.cs" />
     <Compile Include="Assets\Scripts\View\DropZone.cs" />
+    <Compile Include="Assets\Scripts\View\EndTurnButtonManager.cs" />
     <Compile Include="Assets\Scripts\View\ExplosionTest.cs" />
     <Compile Include="Assets\Scripts\View\HandView.cs" />
     <Compile Include="Assets\Scripts\View\HeroVisualManager.cs" />

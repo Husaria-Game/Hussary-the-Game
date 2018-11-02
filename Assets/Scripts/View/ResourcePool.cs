@@ -10,70 +10,15 @@ public class ResourcePool : MonoBehaviour {
     public int ResourceLeft;
     public int ResourceMax;
 
-    //private int moneyTotal;
-    //public int MoneyTotal
-    //{
-    //    get { return moneyTotal; }
-
-    //    set
-    //    {
-    //        //Debug.Log("Changed total resources to: " + value);
-
-    //        //if (value > 10)
-    //        //    moneyTotal = 10;
-    //        //else if (value < 0)
-    //        //    moneyTotal = 0;
-    //        //else
-    //        //    moneyTotal = value;
-
-    //        // update the text
-    //        ProgressText.text = string.Format("{0}/{1}", ResourceLeft.ToString(), ResourceMax.ToString());
-    //    }
-    //}
-
-    //private int moneyAvailable;
-    //public int MoneyAvailable
-    //{
-    //    get { return moneyAvailable; }
-
-    //    set
-    //    {
-    //        //Debug.Log("Changed resources this turn to: " + value);
-
-    //        if (value > moneyTotal)
-    //            moneyAvailable = moneyTotal;
-    //        else if (value < 0)
-    //            moneyAvailable = 0;
-    //        else
-    //            moneyAvailable = value;
-
-    //        // update the text
-    //        ProgressText.text = string.Format("{0}/{1}", moneyAvailable.ToString(), moneyTotal.ToString());
-
-    //    }
-    //}
-
     // Use this for initialization
-    void Start()
-    {
-        Debug.Log("recalc");
-        ProgressText.text = string.Format("{0}/{1}", ResourceLeft.ToString(), ResourceMax.ToString());
-    }
-
-    //void Update()
+    //void Start()
     //{
-    //    //if (Application.isEditor && !Application.isPlaying)
-    //    //{
-    //    //    MoneyTotal = TestResourceMax;
-    //    //    MoneyAvailable = TestResourceLeft;
-    //    //}
-    //    Debug.Log("recalc");
     //    ProgressText.text = string.Format("{0}/{1}", ResourceLeft.ToString(), ResourceMax.ToString());
     //}
-    public void updateResources()
+
+    public void updateResourcesView(int resourcesLeft, int resourcesCurrent)
     {
-        Debug.Log("recalc");
-        ProgressText.text = string.Format("{0}/{1}", ResourceLeft.ToString(), ResourceMax.ToString());
+        ProgressText.text = string.Format("{0}/{1}", resourcesLeft.ToString(), resourcesCurrent.ToString());
     }
 
 }

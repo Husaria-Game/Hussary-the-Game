@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour {
 
     public string NorthName = "AI";
     public string SouthName = "Grzegorz";
-    //public Player player;
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
     public MessageManager messageManager;
@@ -22,6 +21,8 @@ public class GameManager : MonoBehaviour {
     public GameObject deckSouth;
     public GameObject resourcesNorth;
     public GameObject resourcesSouth;
+    public Position whoseTurn;
+    public bool gameRunning;
 
 
     void Awake()
@@ -68,8 +69,40 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        southHandView.SetPlayableCards(playerSouth.resourcesCurrent);
-        northHandView.SetPlayableCards(playerNorth.resourcesCurrent);
+        northHandView.blockAllOperations();
+        southHandView.blockAllOperations();
+        whoseTurn = Position.North;
+        this.nextTurn();
+    }
+
+    public void nextTurn()
+    {
+        if (whoseTurn == Position.North)
+        {
+            whoseTurn = Position.South;
+        }
+        else if (whoseTurn == Position.South)
+        {
+            whoseTurn = Position.North;
+        }
+        if (whoseTurn == Position.South)
+        {
+            northHandView.blockAllOperations();
+            southHandView.blockAllOperations();
+            messageManager.ShowMessage("Player South's Turn", 2f);
+            playerSouth.updateResourcesNewTurn();
+            resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+            southHandView.setPlayableCards(playerSouth.resourcesCurrent);
+        }
+        if (whoseTurn == Position.North)
+        {
+            northHandView.blockAllOperations();
+            southHandView.blockAllOperations();
+            messageManager.ShowMessage("Player North's Turn", 2f);
+            playerNorth.updateResourcesNewTurn();
+            resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+            northHandView.setPlayableCards(playerSouth.resourcesCurrent);
+        }
     }
 	
 	// Update is called once per frame
@@ -80,14 +113,15 @@ public class GameManager : MonoBehaviour {
     void InitializeGame()
     {
         Debug.Log("GameManger INITIALIZATION");
+        gameRunning = true;
         IDFactory.ResetIDs();
         this.playerNorth = new PlayerModel(0, "Cooper", Faction.Ottoman, Position.North);
         this.playerSouth = new PlayerModel(1, "Johnson", Faction.Ottoman, Position.South);
-        resourcesNorth.GetComponent<ResourcePool>().ResourceLeft = playerNorth.resourcesCurrent;
-        resourcesNorth.GetComponent<ResourcePool>().ResourceMax = playerNorth.resourcesMaxThisTurn;
-        resourcesSouth.GetComponent<ResourcePool>().ResourceLeft = playerSouth.resourcesCurrent;
-        resourcesSouth.GetComponent<ResourcePool>().ResourceMax = playerSouth.resourcesMaxThisTurn;
-        resourcesNorth.GetComponent<ResourcePool>().updateResources();
-        resourcesSouth.GetComponent<ResourcePool>().updateResources();
+        //resourcesNorth.GetComponent<ResourcePool>().ResourceLeft = playerNorth.resourcesCurrent;
+        //resourcesNorth.GetComponent<ResourcePool>().ResourceMax = playerNorth.resourcesMaxThisTurn;
+        //resourcesSouth.GetComponent<ResourcePool>().ResourceLeft = playerSouth.resourcesCurrent;
+        //resourcesSouth.GetComponent<ResourcePool>().ResourceMax = playerSouth.resourcesMaxThisTurn;
+        resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+        resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
     }
 }
