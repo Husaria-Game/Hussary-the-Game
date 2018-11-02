@@ -18,6 +18,7 @@ public class Card : ScriptableObject {
     public Sprite cardImage;
     public int cardCost;
     public Affiliation affiliation;
+    public int cardID;
 
 
     [Header("Unit Card Info")]

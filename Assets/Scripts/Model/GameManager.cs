@@ -62,30 +62,6 @@ public class GameManager : MonoBehaviour {
             northHandView.AddDrawnCardFromToHand(cardDrawn, playerNorth, deckNorth);
         }
 
-        //cardDrawn = playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-        //handView.AddDrawnCardFromToHand(cardDrawn);
-        //// ----------instantiate card and load its display
-        //GameObject newCard;
-        //if (cardDrawn.maxHealth > 0)
-        //{
-        //    newCard = Instantiate(unitCard, new Vector3(0, 0, 0), Quaternion.identity, handVisual.transform);
-        //}
-        //else
-        //{
-        //    newCard = Instantiate(tacticsCard, new Vector3(0, 0, 0), Quaternion.identity, handVisual.transform);
-        //}
-        //CardDisplayLoader cardDisplayLoader = newCard.GetComponent<CardDisplayLoader>();
-        //cardDisplayLoader.card = cardDrawn;
-        //cardDisplayLoader.loadCardAsset();
-
-        //////TODO define indexer??
-        //Card card = this.deckCardList[r];
-        //this.deckCardList.RemoveAt(r);
-        //this.handCardList.Add(card);
-        //GameObject newCard = Instantiate(unitCard, new Vector3(0, 0, 0), Quaternion.identity, handVisual.transform);
-        //GameObject newCard2 = Instantiate(tacticsCard, new Vector3(0, 0, 0), Quaternion.identity, handVisual.transform);
-        //newCard.set = handVisual.transform.GetChild(0).GetChild(0); ;
-
     }
 	
 	// Update is called once per frame
@@ -96,7 +72,7 @@ public class GameManager : MonoBehaviour {
     void InitializeGame()
     {
         Debug.Log("GameManger INITIALIZATION");
-
+        IDFactory.ResetIDs();
         this.playerNorth = new PlayerModel(0, "Cooper", Faction.Ottoman, Position.North);
         this.playerSouth = new PlayerModel(1, "Johnson", Faction.Ottoman, Position.South);
     }

@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 225876129326536952}
   - component: {fileID: 114301889158565508}
   - component: {fileID: 114243290953045170}
+  - component: {fileID: 114681246190214806}
   m_Layer: 0
   m_Name: UnitCardTemplate
   m_TagString: Untagged
@@ -1804,6 +1805,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Sulejman
+--- !u!114 &114681246190214806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1148530026412726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4181707583a02314babb4fea65610e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: 0
 --- !u!114 &114686047743261776
 MonoBehaviour:
   m_ObjectHideFlags: 1

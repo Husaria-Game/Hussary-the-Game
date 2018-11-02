@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\Model\ArmyModel.cs" />
     <Compile Include="Assets\Scripts\Model\Faction.cs" />
     <Compile Include="Assets\Scripts\Model\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Model\IDFactory.cs" />
     <Compile Include="Assets\Scripts\Model\PlayerModel.cs" />
     <Compile Include="Assets\Scripts\Model\Position.cs" />
     <Compile Include="Assets\Scripts\Model\Town.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Assets\Scripts\View\ExplosionTest.cs" />
     <Compile Include="Assets\Scripts\View\HandView.cs" />
     <Compile Include="Assets\Scripts\View\HeroVisualManager.cs" />
+    <Compile Include="Assets\Scripts\View\IDAssignment.cs" />
     <Compile Include="Assets\Scripts\View\MessageManager.cs" />
     <Compile Include="Assets\Scripts\View\ResourcePool.cs" />
     <Compile Include="Assets\Scripts\View\UnitVisualManager.cs" />

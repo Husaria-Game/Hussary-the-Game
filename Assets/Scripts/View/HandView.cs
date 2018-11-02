@@ -34,13 +34,19 @@ public class HandView : MonoBehaviour {
             newCard = Instantiate(GameManager.Instance.tacticsCard, deckVisual.transform.position, Quaternion.Euler(0, 180, 0), GameManager.Instance.visuals.transform);
         }
 
+        IDAssignment idAssignment = newCard.GetComponent(typeof(IDAssignment)) as IDAssignment;
+
+
+        if (idAssignment != null)
+            idAssignment.uniqueId = cardDrawn.cardID;
+
         CardDisplayLoader cardDisplayLoader = newCard.GetComponent<CardDisplayLoader>();
         cardDisplayLoader.card = cardDrawn;
         cardDisplayLoader.loadCardAsset();
         StartCoroutine(rotateWhenDrawn(newCard, player));
     }
 
-
+    // Visual represantation of card drawing
     IEnumerator rotateWhenDrawn(GameObject newCard, PlayerModel player)
     {
         Vector3 cardMovementVector = new Vector3(0f, 0f, 0f);
