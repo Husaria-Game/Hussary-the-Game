@@ -81,7 +81,7 @@ public class HandView : MonoBehaviour {
         this.isDrawingRunning = false;
     }
 
-    public void SetPlayableCards()
+    public void SetPlayableCards(int currentResources)
     {
         //CardsInHand = GameAreaImage.GetComponentsInChildren<Draggable>().;
         //GameAreaImage.FindObjectsOfType(typeof(Draggable));
@@ -93,7 +93,7 @@ public class HandView : MonoBehaviour {
             //GameObject cardGlow2 = child.gameObject.GetComponentInChildren<Image>;
             //Debug.Log("CardGlow " + cardGlow.ToString());
             Debug.Log("CARD GLOW name " + child.GetComponent<CardDisplayLoader>().nameText.text.ToString() + " cost " + child.GetComponent<CardDisplayLoader>().cardCostText.text.ToString());
-            if (int.Parse(child.GetComponent<CardDisplayLoader>().cardCostText.text.ToString()) < 2)
+            if (int.Parse(child.GetComponent<CardDisplayLoader>().cardCostText.text.ToString()) <= currentResources)
             {
                 child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = true;
                 child.GetComponent<Draggable>().enabled = true;

@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour {
     public GameObject visuals;
     public GameObject deckNorth;
     public GameObject deckSouth;
+    public GameObject resourcesNorth;
+    public GameObject resourcesSouth;
 
 
     void Awake()
@@ -66,8 +68,8 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        southHandView.SetPlayableCards();
-        northHandView.SetPlayableCards();
+        southHandView.SetPlayableCards(playerSouth.resourcesCurrent);
+        northHandView.SetPlayableCards(playerNorth.resourcesCurrent);
     }
 	
 	// Update is called once per frame
@@ -81,5 +83,11 @@ public class GameManager : MonoBehaviour {
         IDFactory.ResetIDs();
         this.playerNorth = new PlayerModel(0, "Cooper", Faction.Ottoman, Position.North);
         this.playerSouth = new PlayerModel(1, "Johnson", Faction.Ottoman, Position.South);
+        resourcesNorth.GetComponent<ResourcePool>().ResourceLeft = playerNorth.resourcesCurrent;
+        resourcesNorth.GetComponent<ResourcePool>().ResourceMax = playerNorth.resourcesMaxThisTurn;
+        resourcesSouth.GetComponent<ResourcePool>().ResourceLeft = playerSouth.resourcesCurrent;
+        resourcesSouth.GetComponent<ResourcePool>().ResourceMax = playerSouth.resourcesMaxThisTurn;
+        resourcesNorth.GetComponent<ResourcePool>().updateResources();
+        resourcesSouth.GetComponent<ResourcePool>().updateResources();
     }
 }

@@ -10,6 +10,8 @@ public class PlayerModel {
     public Faction faction;
     public Position position;
     public ArmyModel armymodel;
+    public int resourcesMaxThisTurn;
+    public int resourcesCurrent;
 
     public PlayerModel(int playerID, string name, Faction faction, Position position)
     {
@@ -17,6 +19,15 @@ public class PlayerModel {
         this.name = name;
         this.faction = faction;
         this.position = position;
+        if(position == Position.North)
+        {
+            this.resourcesMaxThisTurn = 2;
+        }
+        else
+        {
+            this.resourcesMaxThisTurn = 1;
+        }
+        this.resourcesCurrent = resourcesMaxThisTurn;
         this.armymodel = new ArmyModel(faction);
     }
 }
