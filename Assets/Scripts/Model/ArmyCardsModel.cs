@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ArmyCardsModel : MonoBehaviour
@@ -58,18 +59,18 @@ public class ArmyCardsModel : MonoBehaviour
     {
         Card card = drawCardFromDeckList();
         this.handCardList.Add(card);
-
-
-        foreach (Card item in handCardList)
-        {
-            Debug.Log("HAND: name -" + item.cardName.ToString() + ", cost - "+ item.cardCost.ToString() + ", id: " + item.cardID.ToString());
-        }
+        //foreach (Card item in handCardList)
+        //{
+        //    Debug.Log("HAND: name -" + item.cardName.ToString() + ", cost - "+ item.cardCost.ToString() + ", id: " + item.cardID.ToString());
+        //}
         return card;
     }
 
-    public void moveCardFromHandToFront()
+    public void moveCardFromHandToFront(int id)
     {
-
+        Card cardToMove = handCardList.Single(r => r.cardID == id);
+        handCardList.Remove(cardToMove);
+        frontCardList.Add(cardToMove);
     }
 
     public void moveCardFromFrontToGraveyard()

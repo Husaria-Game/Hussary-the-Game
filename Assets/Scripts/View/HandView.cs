@@ -7,6 +7,7 @@ public class HandView : MonoBehaviour {
 
     private List<Draggable> CardsInHand = new List<Draggable>();
     public GameObject GameAreaImage;
+    public Position handPosition;
     public bool isDrawingRunning = false;
 
     // Use this for initialization
@@ -38,7 +39,11 @@ public class HandView : MonoBehaviour {
 
 
         if (idAssignment != null)
+        {
             idAssignment.uniqueId = cardDrawn.cardID;
+            idAssignment.ownerPosition = handPosition;
+            idAssignment.whereIsCard = WhereIsCard.Hand;
+        }
 
         CardDisplayLoader cardDisplayLoader = newCard.GetComponent<CardDisplayLoader>();
         cardDisplayLoader.card = cardDrawn;

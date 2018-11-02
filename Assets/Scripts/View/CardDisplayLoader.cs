@@ -6,6 +6,7 @@ public class CardDisplayLoader : MonoBehaviour {
 
     public Card card;
     public CardDisplayLoader cardPreviewLoader;
+    public UnitVisualManager cardUnitLoader;
     [Header("Text References")]
     public Text nameText;
     public Text cardCostText;
@@ -57,6 +58,12 @@ public class CardDisplayLoader : MonoBehaviour {
         {
             cardPreviewLoader.card = card;
             cardPreviewLoader.loadCardAsset();
+        }
+
+        if (cardUnitLoader != null)
+        {
+            cardUnitLoader.card = card;
+            cardUnitLoader.loadUnitAsset();
         }
     }
 }

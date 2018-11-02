@@ -74,6 +74,10 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (dragSuccess)//for dragging successful
         {
             this.transform.SetParent(parentToReturnTo);
+            if(int.Parse(transform.GetComponent<CardDisplayLoader>().healthText.text.ToString()) > 0)
+            {
+                transform.GetComponent<CardVisualState>().changeStateToUnit();
+            }
 
         }
         else

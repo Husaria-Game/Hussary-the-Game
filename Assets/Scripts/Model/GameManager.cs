@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
     // SINGLETON
     public static GameManager Instance;
 
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour {
     public GameObject deckSouth;
     public GameObject resourcesNorth;
     public GameObject resourcesSouth;
+    public GameObject dropzoneNorth;
+    public GameObject dropzoneSouth;
     public Position whoseTurn;
     public bool gameRunning;
 
@@ -42,7 +45,7 @@ public class GameManager : MonoBehaviour {
 
 
         //// ----------draw 4 cards from deck to Player South
-        for(int i=0;i<4; i++)
+        for (int i=0;i<2; i++)
         {            
             while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
             {
@@ -54,7 +57,7 @@ public class GameManager : MonoBehaviour {
         }
 
         //// ----------draw 4 cards from deck to Player North
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
         {
             while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
             {
@@ -115,13 +118,21 @@ public class GameManager : MonoBehaviour {
         Debug.Log("GameManger INITIALIZATION");
         gameRunning = true;
         IDFactory.ResetIDs();
-        this.playerNorth = new PlayerModel(0, "Cooper", Faction.Ottoman, Position.North);
-        this.playerSouth = new PlayerModel(1, "Johnson", Faction.Ottoman, Position.South);
-        //resourcesNorth.GetComponent<ResourcePool>().ResourceLeft = playerNorth.resourcesCurrent;
-        //resourcesNorth.GetComponent<ResourcePool>().ResourceMax = playerNorth.resourcesMaxThisTurn;
-        //resourcesSouth.GetComponent<ResourcePool>().ResourceLeft = playerSouth.resourcesCurrent;
-        //resourcesSouth.GetComponent<ResourcePool>().ResourceMax = playerSouth.resourcesMaxThisTurn;
+        playerNorth = new PlayerModel(0, "Cooper", Faction.Ottoman, Position.North);
+        playerSouth = new PlayerModel(1, "Johnson", Faction.Ottoman, Position.South);
         resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
-        resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+        resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+    }
+
+    public void cardDraggedToFrontCommand(Position playerPosition, int cardId)
+    {
+        if(playerPosition == Position.North)
+        {
+            playerNorth.armymodel.armyCardsModel.moveCardFromHandToFront(cardId);
+        }
+        else if (playerPosition == Position.South)
+        {
+            playerSouth.armymodel.armyCardsModel.moveCardFromHandToFront(cardId);
+        }
     }
 }

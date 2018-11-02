@@ -33,7 +33,7 @@ public class UnitVisualManager : MonoBehaviour
     }
 
     // Method for loading unit parameters from coresponding card
-    void loadUnitAsset()
+    public void loadUnitAsset()
     {
         nameText.text = card.cardName;
         profileImage.sprite = card.cardImage;
