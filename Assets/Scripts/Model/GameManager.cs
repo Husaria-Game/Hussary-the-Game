@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public GameObject resourcesSouth;
     public GameObject dropzoneNorth;
     public GameObject dropzoneSouth;
+    public GameObject mainMenu;
     public Position whoseTurn;
     public bool gameRunning;
 
@@ -33,8 +34,27 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    void Start()
+    {
+        visuals.SetActive(false);
+        mainMenu.SetActive(true);
+        
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            mainMenu.SetActive(false);
+            visuals.SetActive(true);
+            StartCoroutine(startGame());
+        }
+    }
+
     // Use this for initialization
-    IEnumerator Start()
+    IEnumerator startGame()
     {
         while (messageManager.enabled == false)
         {
@@ -107,11 +127,6 @@ public class GameManager : MonoBehaviour
             northHandView.setPlayableCards(playerSouth.resourcesCurrent);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     void InitializeGame()
     {

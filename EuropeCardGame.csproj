@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>5.6.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -105,11 +107,9 @@
     <Compile Include="Assets\Scripts\View\CardRotation.cs" />
     <Compile Include="Assets\Scripts\View\CardVisualState.cs" />
     <Compile Include="Assets\Scripts\View\Draggable.cs" />
-    <Compile Include="Assets\Scripts\View\Draggable2.cs" />
     <Compile Include="Assets\Scripts\View\DropZone.cs" />
     <Compile Include="Assets\Scripts\View\EndTurnButtonManager.cs" />
     <Compile Include="Assets\Scripts\View\ExplosionTest.cs" />
-    <Compile Include="Assets\Scripts\View\GlobalSettings.cs" />
     <Compile Include="Assets\Scripts\View\HandView.cs" />
     <Compile Include="Assets\Scripts\View\HeroVisualManager.cs" />
     <Compile Include="Assets\Scripts\View\IDAssignment.cs" />
