@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     // SINGLETON
     public static GameManager Instance;
 
-    public string NorthName = "AI";
-    public string SouthName = "Grzegorz";
+    public string northName = "AI";
+    public string southName = "Grzegorz";
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
     public MessageManager messageManager;
@@ -28,6 +28,14 @@ public class GameManager : MonoBehaviour
     public Position whoseTurn;
     public bool gameRunning;
 
+    //Dodane przeze mnie skrypty zczytujące dane z menu (imiona i frakcje) - dwóch graczy
+    public ChooseFactionScript1 chooseFactionScript1;
+    public ChooseFactionScript2 chooseFactionScript2;
+
+    public ChooseFactionScript1 chooseFactionScriptWithComputer1;
+    public ChooseFactionScriptWithComputer chooseFactionScriptWithComputer2;
+    public Faction firstFaction;
+    public Faction secondFaction;
 
     void Awake()
     {
@@ -45,12 +53,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.G))
         {
             mainMenu.SetActive(false);
             visuals.SetActive(true);
             StartCoroutine(startGame());
-        }
+        }*/
+
     }
 
     // Use this for initialization
@@ -61,7 +71,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
         InitializeGame();
-        messageManager.playerSouthName = SouthName;
+        messageManager.playerSouthName = southName;
 
 
         //// ----------draw 4 cards from deck to Player South
@@ -112,7 +122,7 @@ public class GameManager : MonoBehaviour
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
-            messageManager.ShowMessage("Player South's Turn", 2f);
+            messageManager.ShowMessage(southName + "! Twoja tura", 2f);
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
@@ -121,7 +131,7 @@ public class GameManager : MonoBehaviour
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
-            messageManager.ShowMessage("Player North's Turn", 2f);
+            messageManager.ShowMessage(northName + "! Twoja tura", 2f);
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
             northHandView.setPlayableCards(playerSouth.resourcesCurrent);
@@ -133,8 +143,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameManger INITIALIZATION");
         gameRunning = true;
         IDFactory.ResetIDs();
-        playerNorth = new PlayerModel(0, "Cooper", Faction.Ottoman, Position.North);
-        playerSouth = new PlayerModel(1, "Johnson", Faction.Ottoman, Position.South);
+        //Dodane przypiasanie frakcji
+        firstFaction = chooseFactionScript1.getFirstFaction();
+        secondFaction = chooseFactionScript2.getSecondFaction();
+        southName = chooseFactionScript1.getFirstPlayersName();
+        northName = chooseFactionScript2.getSecondPlayersName();
+
+        playerNorth = new PlayerModel(0, "Cooper", secondFaction, Position.North);
+        playerSouth = new PlayerModel(1, "Johnson", firstFaction, Position.South);
         resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
         resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
     }
@@ -149,5 +165,15 @@ public class GameManager : MonoBehaviour
         {
             playerSouth.armymodel.armyCardsModel.moveCardFromHandToFront(cardId);
         }
+    }
+
+    public void StartGameWithCouroutine()
+    {
+        StartCoroutine(startGame());
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
