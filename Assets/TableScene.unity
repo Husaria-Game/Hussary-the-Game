@@ -1396,10 +1396,10 @@ MonoBehaviour:
   mainMenu: {fileID: 867139650}
   whoseTurn: 0
   gameRunning: 0
-  chooseFactionScript1: {fileID: 463312024}
-  chooseFactionScript2: {fileID: 1599861465}
-  chooseFactionScriptWithComputer1: {fileID: 1561158977}
-  chooseFactionScriptWithComputer2: {fileID: 708247796}
+  chooseFactionForFirstPlayer: {fileID: 463312024}
+  chooseFactionForSecondPlayer: {fileID: 1599861465}
+  chooseFactionForFirstPlayerSingleMode: {fileID: 1561158977}
+  chooseFactionForAIPlayer: {fileID: 708247796}
   firstFaction: 0
   secondFaction: 0
 --- !u!1001 &1020772465

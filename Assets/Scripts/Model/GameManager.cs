@@ -28,12 +28,14 @@ public class GameManager : MonoBehaviour
     public Position whoseTurn;
     public bool gameRunning;
 
-    //Dodane przeze mnie skrypty zczytujące dane z menu (imiona i frakcje) - dwóch graczy
-    public ChooseFactionScript1 chooseFactionScript1;
-    public ChooseFactionScript2 chooseFactionScript2;
+    //Skrypty czytające dane z menu (imiona i frakcje) - MultiPlayer
+    public ChooseFactionForFirstPlayer chooseFactionForFirstPlayer;
+    public ChooseFactionForSecondPlayer chooseFactionForSecondPlayer;
 
-    public ChooseFactionScript1 chooseFactionScriptWithComputer1;
-    public ChooseFactionScriptWithComputer chooseFactionScriptWithComputer2;
+    //Skrypty czytające dane z menu (imiona i frakcje) - SinglePlayer
+    public ChooseFactionForFirstPlayer chooseFactionForFirstPlayerSingleMode;
+    public ChooseFactionForAIPlayer chooseFactionForAIPlayer;
+
     public Faction firstFaction;
     public Faction secondFaction;
 
@@ -46,20 +48,10 @@ public class GameManager : MonoBehaviour
     {
         visuals.SetActive(false);
         mainMenu.SetActive(true);
-        
-
     }
 
-    // Update is called once per frame
     void Update()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            mainMenu.SetActive(false);
-            visuals.SetActive(true);
-            StartCoroutine(startGame());
-        }*/
 
     }
 
@@ -143,11 +135,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameManger INITIALIZATION");
         gameRunning = true;
         IDFactory.ResetIDs();
-        //Dodane przypiasanie frakcji
-        firstFaction = chooseFactionScript1.getFirstFaction();
-        secondFaction = chooseFactionScript2.getSecondFaction();
-        southName = chooseFactionScript1.getFirstPlayersName();
-        northName = chooseFactionScript2.getSecondPlayersName();
+
+        //Dodane przypiasanie frakcji - Na razie tylko tryb Multiplayer - potem trzeba wprowadić zmienną wybierającą tryb
+        firstFaction = chooseFactionForFirstPlayer.getFirstFaction();
+        secondFaction = chooseFactionForSecondPlayer.getSecondFaction();
+        southName = chooseFactionForFirstPlayer.getFirstPlayersName();
+        northName = chooseFactionForSecondPlayer.getSecondPlayersName();
 
         playerNorth = new PlayerModel(0, "Cooper", secondFaction, Position.North);
         playerSouth = new PlayerModel(1, "Johnson", firstFaction, Position.South);
