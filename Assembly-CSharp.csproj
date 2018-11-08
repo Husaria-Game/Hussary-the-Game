@@ -63,12 +63,12 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Assets\Card.cs" />
     <Compile Include="Assets\Scripts\Assets\Hero.cs" />
-    <Compile Include="Assets\Scripts\Cristopher's\ChooseFactionScript1.cs" />
-    <Compile Include="Assets\Scripts\Cristopher's\ChooseFactionScript2.cs" />
-    <Compile Include="Assets\Scripts\Cristopher's\ChooseFactionScriptWithComputer.cs" />
-    <Compile Include="Assets\Scripts\Cristopher's\MouseOverFaction1.cs" />
-    <Compile Include="Assets\Scripts\Cristopher's\MouseOverFaction2.cs" />
-    <Compile Include="Assets\Scripts\Cristopher's\MouseOverFactionWithComputer.cs" />
+    <Compile Include="Assets\Scripts\Menu\ChooseFactionForAIPlayer.cs" />
+    <Compile Include="Assets\Scripts\Menu\ChooseFactionForFirstPlayer.cs" />
+    <Compile Include="Assets\Scripts\Menu\ChooseFactionForSecondPlayer.cs" />
+    <Compile Include="Assets\Scripts\Menu\MouseOverFactionForAIPlayer.cs" />
+    <Compile Include="Assets\Scripts\Menu\MouseOverFactionForFirstPlayer.cs" />
+    <Compile Include="Assets\Scripts\Menu\MouseOverFactionForSecondPlayer.cs" />
     <Compile Include="Assets\Scripts\Model\ArmyCardsModel.cs" />
     <Compile Include="Assets\Scripts\Model\ArmyModel.cs" />
     <Compile Include="Assets\Scripts\Model\Faction.cs" />
@@ -97,16 +97,16 @@
     <None Include="Assets\Scripts\DOTween\DOTween43.xml" />
     <None Include="Assets\Scripts\DOTween\DOTween46.xml" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary-Change/Hussary-the-Game/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary_07_11/Hussary-the-Game/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary-Change/Hussary-the-Game/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary_07_11/Hussary-the-Game/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary-Change/Hussary-the-Game/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary_07_11/Hussary-the-Game/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary-Change/Hussary-the-Game/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary_07_11/Hussary-the-Game/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -310,16 +310,16 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="DOTween">
-      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary-Change/Hussary-the-Game/Assets/Scripts/DOTween/DOTween.dll</HintPath>
+      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary_07_11/Hussary-the-Game/Assets/Scripts/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="DOTween43">
-      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary-Change/Hussary-the-Game/Assets/Scripts/DOTween/DOTween43.dll</HintPath>
+      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary_07_11/Hussary-the-Game/Assets/Scripts/DOTween/DOTween43.dll</HintPath>
     </Reference>
     <Reference Include="DOTween46">
-      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary-Change/Hussary-the-Game/Assets/Scripts/DOTween/DOTween46.dll</HintPath>
+      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary_07_11/Hussary-the-Game/Assets/Scripts/DOTween/DOTween46.dll</HintPath>
     </Reference>
     <Reference Include="DOTween50">
-      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary-Change/Hussary-the-Game/Assets/Scripts/DOTween/DOTween50.dll</HintPath>
+      <HintPath>C:/Users/Laptop Lenovo/Desktop/Hussary_07_11/Hussary-the-Game/Assets/Scripts/DOTween/DOTween50.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>C:/Users/Laptop Lenovo/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>

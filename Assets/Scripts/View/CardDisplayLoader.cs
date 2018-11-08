@@ -8,17 +8,15 @@ public class CardDisplayLoader : MonoBehaviour {
     public CardDisplayLoader cardPreviewLoader;
     public UnitVisualManager cardUnitLoader;
     [Header("Text References")]
-    public Text nameText;
-    public Text cardCostText;
-    public Text descriptionText;
-    public Text healthText;
+    public Text cardNameText;
+    public Text cardMoneyText;
+    public Text armorText;
     public Text attackText;
+    public Text descriptionText;
     [Header("Image References")]
     public Image topRibbonImage;
-    public Image lowRibbonImage;
     public Image profileImage;
-    public Image bodyImage;
-    public Image cardFaceFrameImage;
+    public Image OutsideBGColor;
     public Image cardFaceGlowImage;
     public Image cardBackGlowImage;
 
@@ -30,14 +28,14 @@ public class CardDisplayLoader : MonoBehaviour {
 
     public void loadCardAsset()
     {
-        nameText.text = card.cardName ;
-        cardCostText.text = card.cardCost.ToString();
+        cardNameText.text = card.cardName ;
+        cardMoneyText.text = card.cardCost.ToString();
         descriptionText.text = card.description;
         profileImage.sprite = card.cardImage;
         //Debug.Log(card.name);
         if (card.maxHealth > 0)
         {
-            healthText.text = card.maxHealth.ToString();
+            armorText.text = card.maxHealth.ToString();
             attackText.text = card.attack.ToString();
         }
 

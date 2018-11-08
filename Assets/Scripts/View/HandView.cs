@@ -97,8 +97,8 @@ public class HandView : MonoBehaviour {
             //child.gameObject.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = true;
             //GameObject cardGlow2 = child.gameObject.GetComponentInChildren<Image>;
             //Debug.Log("CardGlow " + cardGlow.ToString());
-            Debug.Log("CARD GLOW name " + child.GetComponent<CardDisplayLoader>().nameText.text.ToString() + " cost " + child.GetComponent<CardDisplayLoader>().cardCostText.text.ToString());
-            if (int.Parse(child.GetComponent<CardDisplayLoader>().cardCostText.text.ToString()) <= currentResources)
+            Debug.Log("CARD GLOW name " + child.GetComponent<CardDisplayLoader>().cardNameText.text.ToString() + " cost " + child.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString());
+            if (int.Parse(child.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()) <= currentResources)
             {
                 child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = true;
                 child.GetComponent<Draggable>().enabled = true;
