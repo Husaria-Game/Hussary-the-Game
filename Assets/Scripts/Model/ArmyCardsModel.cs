@@ -17,14 +17,17 @@ public class ArmyCardsModel : MonoBehaviour
 
         // Generate deck for an army
         deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Artyleria")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Janczar")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kazasker")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sulejman")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Taktyczny Odwrót")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Janczar")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kazasker")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sulejman")));
 
         deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Artyleria")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Janczar")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kazasker")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sulejman")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Taktyczny Odwrót")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Janczar")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kazasker")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sulejman")));
+
 
         // assign unique id for each card in deck
         foreach (Card item in deckCardList)
