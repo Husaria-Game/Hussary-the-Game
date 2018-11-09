@@ -1374,7 +1374,7 @@ MonoBehaviour:
   messageManager: {fileID: 774490796}
   northHandView: {fileID: 1432928458}
   southHandView: {fileID: 147453527}
-  unitCard: {fileID: 1036060369445690, guid: b35b6249184452e40a64391efdd06e09, type: 2}
+  unitCard: {fileID: 1312961621590436, guid: b35b6249184452e40a64391efdd06e09, type: 2}
   tacticsCard: {fileID: 1805218578}
   visuals: {fileID: 1978118198}
   deckNorth: {fileID: 1467810637}

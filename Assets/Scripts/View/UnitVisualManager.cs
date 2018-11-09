@@ -13,14 +13,12 @@ public class UnitVisualManager : MonoBehaviour
     public CanvasGroup canvasGroup;
     [Header("Text References")]
     public Text nameText;
-    public Text healthText;
+    public Text armorText;
     public Text attackText;
     [Header("Image References")]
     public Image profileImage;
     public Image unitGlowImage;
 
-
-    // Use this for initialization
     void Start()
     {
         if (card != null) loadUnitAsset();
@@ -39,7 +37,7 @@ public class UnitVisualManager : MonoBehaviour
         profileImage.sprite = card.cardImage;
         if (card.maxHealth > 0)
         {
-            healthText.text = card.maxHealth.ToString();
+            armorText.text = card.maxHealth.ToString();
             attackText.text = card.attack.ToString();
         }
 

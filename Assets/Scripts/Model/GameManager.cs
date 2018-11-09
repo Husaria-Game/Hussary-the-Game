@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     // SINGLETON
     public static GameManager Instance;
 
-    public string northName = "AI";
-    public string southName = "Grzegorz";
+    public string northName = "Gracz 2";
+    public string southName = "Gracz 1";
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
     public MessageManager messageManager;
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
-            messageManager.ShowMessage(southName + "! Twoja tura", 2f);
+            messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
-            messageManager.ShowMessage(northName + "! Twoja tura", 2f);
+            messageManager.ShowMessage(northName + " \nTwoja tura!", 2f);
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
             northHandView.setPlayableCards(playerSouth.resourcesCurrent);
@@ -137,10 +137,7 @@ public class GameManager : MonoBehaviour
         IDFactory.ResetIDs();
 
         //Dodane przypiasanie frakcji - Na razie tylko tryb Multiplayer - potem trzeba wprowadić zmienną wybierającą tryb
-        firstFaction = chooseFactionForFirstPlayer.getFirstFaction();
-        secondFaction = chooseFactionForSecondPlayer.getSecondFaction();
-        southName = chooseFactionForFirstPlayer.getFirstPlayersName();
-        northName = chooseFactionForSecondPlayer.getSecondPlayersName();
+        attributeNamesAndFactions();
 
         playerNorth = new PlayerModel(0, "Cooper", secondFaction, Position.North);
         playerSouth = new PlayerModel(1, "Johnson", firstFaction, Position.South);
@@ -158,6 +155,19 @@ public class GameManager : MonoBehaviour
         {
             playerSouth.armymodel.armyCardsModel.moveCardFromHandToFront(cardId);
         }
+    }
+
+    public void attributeNamesAndFactions()
+    {
+        //Factions
+        firstFaction = chooseFactionForFirstPlayer.getFirstFaction();
+        secondFaction = chooseFactionForSecondPlayer.getSecondFaction();
+
+        //Names
+        southName = chooseFactionForFirstPlayer.getFirstPlayersName();
+        northName = chooseFactionForSecondPlayer.getSecondPlayersName();
+        if (string.IsNullOrEmpty(southName)) southName = "Gracz 1";
+        if (string.IsNullOrEmpty(northName)) northName = "Gracz 2";
     }
 
     public void StartGameWithCouroutine()
