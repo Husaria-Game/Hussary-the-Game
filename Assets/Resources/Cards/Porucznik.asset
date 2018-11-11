@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
+  m_Name: Porucznik
+  m_EditorClassIdentifier: 
+  cardName: Porucznik
+  description: Dodaj punkt pancerza rotmistrzowi w kolejnej walce
+  cardImage: {fileID: 21300000, guid: 23f78a39824dbd841a345cc6359c96ef, type: 3}
+  cardCost: 6
+  affiliation: 0
+  cardID: 0
+  historyDescription: "Zast\u0119pca rotmistrza i sprawuj\u0105cy w\u0142adz\u0119
+    w jego imieniu"
+  attack: 4
+  maxHealth: 5
+  UnitScriptName: 
+  TacticsScriptName: 
+  effectAmount: 0
