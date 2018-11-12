@@ -38,7 +38,6 @@ public class ArmyCardsModel : MonoBehaviour
         deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz husarski")));
         deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz pancerny")));
 
-
         // assign unique id for each card in deck
         foreach (Card item in deckCardList)
         {
@@ -48,7 +47,6 @@ public class ArmyCardsModel : MonoBehaviour
         this.handCardList = new List<Card>();
         this.frontCardList = new List<Card>();
         this.graveyardCardList = new List<Card>();
-
     }
 
     public Card drawCardFromDeckList()

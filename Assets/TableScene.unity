@@ -1374,8 +1374,9 @@ MonoBehaviour:
   messageManager: {fileID: 774490796}
   northHandView: {fileID: 1432928458}
   southHandView: {fileID: 147453527}
-  unitCard: {fileID: 1036060369445690, guid: b35b6249184452e40a64391efdd06e09, type: 2}
-  tacticsCard: {fileID: 1805218578}
+  unitCard: {fileID: 1312961621590436, guid: b35b6249184452e40a64391efdd06e09, type: 2}
+  tacticsCard: {fileID: 1691426831155688, guid: 32627f39f6c3f6a4299ecb81ab49f4e1,
+    type: 2}
   visuals: {fileID: 1978118198}
   deckNorth: {fileID: 1467810637}
   deckSouth: {fileID: 1079237310}
@@ -3014,11 +3015,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72ca0a127eada944096cbcae2d6adf46, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1805218578 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1805955268451240, guid: 72ca0a127eada944096cbcae2d6adf46,
-    type: 2}
-  m_PrefabInternal: {fileID: 1805218577}
 --- !u!224 &1805218579 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224291426084027564, guid: 72ca0a127eada944096cbcae2d6adf46,
@@ -3043,7 +3039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1978118199
 Transform:
   m_ObjectHideFlags: 0
