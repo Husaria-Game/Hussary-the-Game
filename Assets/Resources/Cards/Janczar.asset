@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
+  m_Name: Janczar
+  m_EditorClassIdentifier: 
+  cardName: Janczar
+  description: "Za ka\u017Cde 5 jendostek dobierz dodatkow\u0105 jednostk\u0119 azaba"
+  cardImage: {fileID: 21300000, guid: 52d582146cc125444addc3a7a5e2b21a, type: 3}
+  cardCost: 3
+  affiliation: 1
+  cardID: 0
+  historyDescription: "G\u0142\xF3wna si\u0142a impreium, wyposa\u017Cona m.in. w
+    jatagan, w\u0142\xF3cznie, kind\u017Ca\u0142 i muszkiet"
+  attack: 2
+  maxHealth: 2
+  UnitScriptName: 
+  TacticsScriptName: 
+  effectAmount: 0

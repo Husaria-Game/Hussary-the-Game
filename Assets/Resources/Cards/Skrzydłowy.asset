@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
+  m_Name: "Skrzyd\u0142owy"
+  m_EditorClassIdentifier: 
+  cardName: "Skrzyd\u0142owy"
+  description: Dodaj jednorazowo punkt obrony pocztowemu, towarzyszowi husarskiemu
+    lub towarzyszowi pancernemu
+  cardImage: {fileID: 21300000, guid: cd2e1b3f0b9596b4a9dce2ae6b2989af, type: 3}
+  cardCost: 4
+  affiliation: 0
+  cardID: 0
+  historyDescription: "Dw\xF3ch skrzyd\u0142owych utrzymywa\u0142o szyk oddzia\u0142u"
+  attack: 4
+  maxHealth: 3
+  UnitScriptName: 
+  TacticsScriptName: 
+  effectAmount: 0
