@@ -10,6 +10,7 @@ public class UnitVisualManager : MonoBehaviour
     public Card card;
     public CardDisplayLoader cardPreviewLoader;
     public GameObject explosionEffect;
+    public GameObject unitParentCard;
     public CanvasGroup canvasGroup;
     [Header("Text References")]
     public Text nameText;
