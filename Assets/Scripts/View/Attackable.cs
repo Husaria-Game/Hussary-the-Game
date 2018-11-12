@@ -4,15 +4,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Transform parentToReturnTo = null;
+    public Transform defenderUnit = null;
     public Vector3 initialPosition;
     public Vector3 mousePosition;
     private GameObject cardPreview;
     public LineRenderer lineRenderer;
     public GameObject arrow;
-    public bool dragSuccess;
+    public bool attackSuccess;
     public bool transformCardIntoUnit;
     public DropZone initialDropZone;
     private Vector3 pointerDisplacement = Vector3.zero;
@@ -38,7 +39,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         pointerDisplacement = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x - initialPosition.x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y - initialPosition.y, 0);
         cardPreview = t_Reference.gameObject.transform.Find("Canvas").gameObject;
 
-        dragSuccess = false;
+        attackSuccess = false;
+
         t_Reference.gameObject.GetComponentInChildren<Canvas>().sortingLayerName = "ActiveCard";
 
         GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -63,14 +65,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         Vector3 pz = Camera.main.ScreenToWorldPoint(eventData.position);
         pz.z = 0;
 
-       
+
 
         // update aim icon for unit and tactics with aim
         if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
         {
             if (lineRenderer != null)
-        {
-            Vector3 A = initialPosition;
+            {
+                Vector3 A = initialPosition;
 
                 Vector3 P = Vector3.Lerp(A, pz, 0.90f);
                 lineRenderer.SetPosition(1, new Vector2((P.x), (P.y)));
@@ -78,7 +80,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
         else
         {
-        t_Reference.position = new Vector2(pz.x - pointerDisplacement.x, pz.y - pointerDisplacement.y);
+            t_Reference.position = new Vector2(pz.x - pointerDisplacement.x, pz.y - pointerDisplacement.y);
         }
         if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
         {
@@ -92,27 +94,39 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
+      
+
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
-        if (dragSuccess)//for dragging successful
+        Vector3 pz = Camera.main.ScreenToWorldPoint(eventData.position);
+        pz.z = 0;
+
+        if (attackSuccess)//for attack successful - attacker adjusts all the information about the fight, attacker and defender
         {
-            if (cardState == CardVisualStateEnum.Card)
+            if (cardState == CardVisualStateEnum.Unit)
             {
-                // change card position in view to Front
-                t_Reference.SetParent(parentToReturnTo);
+                Draggable defenderCard = defenderUnit.transform.GetComponent<Draggable>();
+                // move card to defender and come back
+                t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
 
-                // recalculate current resources
-                updateResourcesModelAndView();
+                // create explosion
+                defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(7);
 
-                // transformations for UnitCard only
-                if (int.Parse(transform.GetComponent<CardDisplayLoader>().armorText.text.ToString()) > 0)
-                {
-                    t_Reference.GetComponent<IDAssignment>().whereIsCard = WhereIsCard.Front;
-                    // change card position in model
-                    cardDraggedToFrontCommand(transform.GetComponent<IDAssignment>().ownerPosition, transform.GetComponent<IDAssignment>().uniqueId);
-                    // change card visual from UnitCard to Unit
-                    t_Reference.GetComponent<CardVisualState>().changeStateToUnit();
-                }
+
+
+                // remove armor from defender
+
+
+                // check if defender dead
+
+
+                // remove armor from attacker
+                GetComponent<UnitVisualManager>().createDamageVisual(4);
+
+                // check if attacker dead
+
+
+
             }
 
         }
@@ -132,31 +146,11 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             }
         }
         this.GetComponentInChildren<Canvas>().sortingLayerName = "Card";
-	}
+    }
 
-	public void cardDraggedToFrontCommand(Position playerPosition, int cardId)
-	{
-		if(playerPosition == Position.North)
-		{
-			GameManager.Instance.playerNorth.armymodel.armyCardsModel.moveCardFromHandToFront(cardId);
-		}
-		else if (playerPosition == Position.South)
-		{
-			GameManager.Instance.playerSouth.armymodel.armyCardsModel.moveCardFromHandToFront(cardId);
-		}
-	}
-
-    public void updateResourcesModelAndView()
+    public void comeBack()
     {
-        int updatedCurrentResources = GameManager.Instance.whoseTurn.substractCurrentResources(int.Parse(t_Reference.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()));
-        int maxResources = GameManager.Instance.whoseTurn.resourcesMaxThisTurn;
-        if (GameManager.Instance.whoseTurn == GameManager.Instance.playerNorth)
-        {
-            GameManager.Instance.resourcesNorth.transform.GetComponent<ResourcePool>().updateResourcesView(updatedCurrentResources, maxResources);
-        }
-        else if (GameManager.Instance.whoseTurn == GameManager.Instance.playerSouth)
-        {
-            GameManager.Instance.resourcesSouth.transform.GetComponent<ResourcePool>().updateResourcesView(updatedCurrentResources, maxResources);
-        }
+        t_Reference.DOMove(initialPosition, 1).SetEase(Ease.OutQuint, 0.5f, 0.1f);
     }
 }
+

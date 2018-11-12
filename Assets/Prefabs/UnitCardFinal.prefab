@@ -724,19 +724,20 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224381244673422882}
-  - component: {fileID: 114528041365739250}
   - component: {fileID: 114816625403890838}
   - component: {fileID: 225642165827049252}
   - component: {fileID: 114297468666806288}
   - component: {fileID: 114893556292546452}
   - component: {fileID: 114679612801364162}
+  - component: {fileID: 114136826038332798}
+  - component: {fileID: 114387675441482516}
   m_Layer: 0
   m_Name: UnitFinal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1389559984409876
 GameObject:
   m_ObjectHideFlags: 1
@@ -2247,6 +2248,27 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114136826038332798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1385408241536312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b13dfeaff4c5d4eb3242ff623ed4b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentToReturnTo: {fileID: 0}
+  defenderUnit: {fileID: 0}
+  initialPosition: {x: 0, y: 0, z: 0}
+  mousePosition: {x: 0, y: 0, z: 0}
+  lineRenderer: {fileID: 120809337026578132}
+  arrow: {fileID: 1011334287195684}
+  attackSuccess: 0
+  transformCardIntoUnit: 0
+  initialDropZone: {fileID: 0}
+  t_Reference: {fileID: 0}
 --- !u!114 &114139485497996802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2939,6 +2961,17 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.975}
   m_EffectDistance: {x: 3, y: -3}
   m_UseGraphicAlpha: 1
+--- !u!114 &114387675441482516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1385408241536312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 631c10619452bc84e84b87171180b40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114391469818949988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3492,26 +3525,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114528041365739250
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1385408241536312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4fd6524915107c4aa3386f36ee3b3d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentToReturnTo: {fileID: 0}
-  initialPosition: {x: 0, y: 0, z: 0}
-  mousePosition: {x: 0, y: 0, z: 0}
-  lineRenderer: {fileID: 120809337026578132}
-  arrow: {fileID: 1011334287195684}
-  dragSuccess: 0
-  transformCardIntoUnit: 0
-  initialDropZone: {fileID: 0}
-  t_Reference: {fileID: 0}
 --- !u!114 &114528643891828952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3924,6 +3937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionGameObject: {fileID: 1660081175769322}
   canvasGroup: {fileID: 225619548350711758}
+  damageNumberText: {fileID: 114014121541748428}
 --- !u!114 &114687608484063042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4519,6 +4533,7 @@ MonoBehaviour:
   nameText: {fileID: 114758739500090212}
   armorText: {fileID: 114596828900725098}
   attackText: {fileID: 114498968015355620}
+  damageNumberText: {fileID: 114014121541748428}
   profileImage: {fileID: 114284823005861792}
   unitGlowImage: {fileID: 114016921121025808}
 --- !u!114 &114897156005324868
@@ -6777,7 +6792,7 @@ RectTransform:
   m_GameObject: {fileID: 1660081175769322}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9.999999, y: 9.999999, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 0}
   m_Children:
   - {fileID: 224776222135362146}
   m_Father: {fileID: 224381244673422882}
@@ -6785,7 +6800,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0000038146973}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224586652603030022

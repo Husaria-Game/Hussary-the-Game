@@ -16,6 +16,7 @@ public class UnitVisualManager : MonoBehaviour
     public Text nameText;
     public Text armorText;
     public Text attackText;
+    public Text damageNumberText;
     [Header("Image References")]
     public Image profileImage;
     public Image unitGlowImage;
@@ -23,12 +24,6 @@ public class UnitVisualManager : MonoBehaviour
     void Start()
     {
         if (card != null) loadUnitAsset();
-    }
-
-    void Update()
-    {
-        if (Input.GetMouseButton(0))
-            ReceiveDamage();
     }
 
     // Method for loading unit parameters from coresponding card
@@ -62,9 +57,14 @@ public class UnitVisualManager : MonoBehaviour
         }
     }
 
-    public IEnumerator ReceiveDamage()
+    public void createDamageVisual(int damage)
     {
-        Debug.Log("yoyo");
+        StartCoroutine(ReceiveDamage(damage));
+    }
+
+    public IEnumerator ReceiveDamage(int damage)
+    {
+        damageNumberText.text = damage.ToString();
         explosionEffect.SetActive(true);
         canvasGroup.alpha = 0.1f;
         while (canvasGroup.alpha < 1)
@@ -79,6 +79,6 @@ public class UnitVisualManager : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
         // after the effect is shown it gets destroyed.
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
 }
