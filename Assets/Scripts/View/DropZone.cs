@@ -15,8 +15,6 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         {
             d.dragSuccess = true;
             d.parentToReturnTo = this.transform.GetChild(0).GetChild(0);
-            d.transform.GetComponent<IDAssignment>().whereIsCard = WhereIsCard.Front;
-            GameManager.Instance.cardDraggedToFrontCommand(dropZonePosition, d.transform.GetComponent<IDAssignment>().uniqueId);
         }
     }
 
@@ -28,5 +26,5 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     public void OnPointerExit(PointerEventData eventData)
     {
         //Debug.Log("OnPointerExit to " + gameObject.name);
-    }
+	}
 }
