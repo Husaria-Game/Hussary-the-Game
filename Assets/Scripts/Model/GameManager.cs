@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     public ChooseFactionForFirstPlayer chooseFactionForFirstPlayerSingleMode;
     public ChooseFactionForAIPlayer chooseFactionForAIPlayer;
 
+    //Skrypt upływającego czasu
+    public EndTurnButtonManager endTurnButtonManager;
+
     public Faction firstFaction;
     public Faction secondFaction;
 
@@ -119,6 +122,7 @@ public class GameManager : MonoBehaviour
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
+            endTurnButtonManager.TimerStart();
         }
         if (whoseTurn == playerNorth)
         {
@@ -128,6 +132,7 @@ public class GameManager : MonoBehaviour
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
             northHandView.setPlayableCards(playerNorth.resourcesCurrent);
+            endTurnButtonManager.TimerStart();
         }
     }
 
