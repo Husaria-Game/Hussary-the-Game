@@ -11,12 +11,10 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
         // allow drag if draggable object exists and dropzone belongs to player
-        if (d != null && dropZonePosition == d.transform.GetComponent<IDAssignment>().ownerPosition)// && this.transform.GetChild(0).GetChild(0) != d.parentToReturnTo)
+        if (d != null && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)// && this.transform.GetChild(0).GetChild(0) != d.parentToReturnTo)
         {
             d.dragSuccess = true;
             d.parentToReturnTo = this.transform.GetChild(0).GetChild(0);
-            d.transform.GetComponent<IDAssignment>().whereIsCard = WhereIsCard.Front;
-            GameManager.Instance.cardDraggedToFrontCommand(dropZonePosition, d.transform.GetComponent<IDAssignment>().uniqueId);
         }
     }
 
@@ -28,5 +26,5 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     public void OnPointerExit(PointerEventData eventData)
     {
         //Debug.Log("OnPointerExit to " + gameObject.name);
-    }
+	}
 }
