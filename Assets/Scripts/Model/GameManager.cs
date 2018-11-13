@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public string southName = "Gracz 1";
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
+    public PlayerModel whoseTurn;
     public MessageManager messageManager;
     public HandView northHandView;
     public HandView southHandView;
@@ -25,7 +26,6 @@ public class GameManager : MonoBehaviour
     public GameObject dropzoneNorth;
     public GameObject dropzoneSouth;
     public GameObject mainMenu;
-    public Position whoseTurn;
     public bool gameRunning;
 
     //Skrypty czytające dane z menu (imiona i frakcje) - MultiPlayer
@@ -96,37 +96,38 @@ public class GameManager : MonoBehaviour
 
         northHandView.blockAllOperations();
         southHandView.blockAllOperations();
-        whoseTurn = Position.North;
+        //whoseTurn = Position.North;
+        whoseTurn = playerNorth;
         this.nextTurn();
     }
 
     public void nextTurn()
     {
-        if (whoseTurn == Position.North)
+        if (whoseTurn == playerNorth)
         {
-            whoseTurn = Position.South;
+            whoseTurn = playerSouth;
         }
-        else if (whoseTurn == Position.South)
+        else if (whoseTurn == playerSouth)
         {
-            whoseTurn = Position.North;
+            whoseTurn = playerNorth;
         }
-        if (whoseTurn == Position.South)
+        if (whoseTurn == playerSouth)
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
             messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
-            resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+            resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
         }
-        if (whoseTurn == Position.North)
+        if (whoseTurn == playerNorth)
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
             messageManager.ShowMessage(northName + " \nTwoja tura!", 2f);
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
-            northHandView.setPlayableCards(playerSouth.resourcesCurrent);
+            northHandView.setPlayableCards(playerNorth.resourcesCurrent);
         }
     }
 

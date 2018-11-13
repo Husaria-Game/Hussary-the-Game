@@ -1385,7 +1385,6 @@ MonoBehaviour:
   dropzoneNorth: {fileID: 1474010066}
   dropzoneSouth: {fileID: 54680411}
   mainMenu: {fileID: 867139650}
-  whoseTurn: 0
   gameRunning: 0
   chooseFactionForFirstPlayer: {fileID: 463312024}
   chooseFactionForSecondPlayer: {fileID: 1599861465}

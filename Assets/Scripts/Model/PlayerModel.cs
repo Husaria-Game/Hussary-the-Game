@@ -10,8 +10,8 @@ public class PlayerModel {
     public Faction faction;
     public Position position;
     public ArmyModel armymodel;
-    public int resourcesMaxThisTurn;
-    public int resourcesCurrent;
+    public int resourcesMaxThisTurn { get; set; }
+    public int resourcesCurrent { get; set; }
 
     public PlayerModel(int playerID, string name, Faction faction, Position position)
     {
@@ -39,4 +39,8 @@ public class PlayerModel {
         }
         this.resourcesCurrent = this.resourcesMaxThisTurn;
     }
+
+	public int substractCurrentResources(int usedResources){
+		return this.resourcesCurrent -= usedResources;
+	}
 }

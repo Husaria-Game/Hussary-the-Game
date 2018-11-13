@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ExplosionTest : MonoBehaviour, IPointerDownHandler
 {
     public GameObject explosionGameObject;
     private static ExplosionTest explosionTest = null;
     public CanvasGroup canvasGroup;
+    public Text damageNumberText;
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -25,9 +27,13 @@ public class ExplosionTest : MonoBehaviour, IPointerDownHandler
         }
     }
 
+    public void setDamageVisual(int damage)
+    {
+        StartCoroutine(ReceiveDamage());
+    }
+
     public IEnumerator ReceiveDamage()
     {
-        Debug.Log("receiveDamage");
         explosionGameObject.SetActive(true);
         canvasGroup.alpha = 0.1f;
         while (canvasGroup.alpha < 1)
