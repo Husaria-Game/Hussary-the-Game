@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
             southHandView.blockAllOperations();
             messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
-            resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+            resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
         }
         if (whoseTurn == playerNorth)
