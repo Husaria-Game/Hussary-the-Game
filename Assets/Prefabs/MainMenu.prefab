@@ -705,10 +705,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1960, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -816,7 +816,29 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114112911046196860}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1636266884219080}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114802392523845876
@@ -961,11 +983,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7b724b77570b8b04bac09d8ede0b2beb, type: 3}
-    m_FontSize: 140
+    m_FontSize: 183
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
-    m_MaxSize: 140
+    m_MaxSize: 185
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1378,7 +1400,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.95900005}
-  m_AnchoredPosition: {x: 0, y: 1.4000092}
+  m_AnchoredPosition: {x: 0, y: 1.4000244}
   m_SizeDelta: {x: 0.099975586, y: 2.800003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224784705818131646
@@ -1419,7 +1441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.172, y: 0.13900001}
   m_AnchorMax: {x: 0.7941943, y: 0.54342234}
-  m_AnchoredPosition: {x: -0.7999878, y: -5.700012}
+  m_AnchoredPosition: {x: -0.8000488, y: -5.7000732}
   m_SizeDelta: {x: 1.9, y: 46.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224832044659026714
@@ -1437,7 +1459,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.58182997}
   m_AnchorMax: {x: 1, y: 0.938}
-  m_AnchoredPosition: {x: -0.055236816, y: -1.800003}
+  m_AnchoredPosition: {x: 0.10522461, y: 0.5}
   m_SizeDelta: {x: 0.21051, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224881002871349878
