@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Position dropZonePosition;
+    public GameObject dropAreaImage;
+
     public void OnDrop(PointerEventData eventData)
     {
 
@@ -27,4 +29,26 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     {
         //Debug.Log("OnPointerExit to " + gameObject.name);
 	}
+
+    public void unlockUnitAttacks()
+    {
+        foreach (Transform child in dropAreaImage.transform)
+        {
+            // enable unit attack
+            child.GetComponent<CardDisplayLoader>().cardUnitLoader.transform.GetComponent<Attackable>().enabled = true;
+        }
+    }
+
+    public void blockAllUnitOperations()
+    {
+        foreach (Transform child in dropAreaImage.transform)
+        {
+            //TODO
+            // block unit glow
+            //child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
+
+            // block unit attack
+            child.GetComponent<CardDisplayLoader>().cardUnitLoader.transform.GetComponent<Attackable>().enabled = false;
+        }
+    }
 }

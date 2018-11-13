@@ -25,6 +25,7 @@ public class Card : ScriptableObject {
     [Header("Unit Card Info")]
     public int attack;
     public int maxHealth;   // if maxHealth == 0 then card is a tactics card
+    public int currentHealth;
     public string UnitScriptName;
 
     [Header("Tactics Card Info")]

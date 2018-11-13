@@ -110,12 +110,24 @@ public class HandView : MonoBehaviour {
         }
     }
 
+    public void unlockUnitAttacks()
+    {
+        foreach (Transform child in transform)
+        {
+            // enable unit attack
+            child.GetComponent<CardDisplayLoader>().cardUnitLoader.transform.GetComponent<Attackable>().enabled = true;
+        }
+    }
+
     public void blockAllOperations()
     {
         foreach (Transform child in transform)
         {
             child.GetComponent<Draggable>().enabled = false;
             child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
+
+            // block unit attack
+            child.GetComponent<CardDisplayLoader>().cardUnitLoader.transform.GetComponent<Attackable>().enabled = false;
         }
     }
 }

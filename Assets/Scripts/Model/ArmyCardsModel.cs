@@ -84,9 +84,22 @@ public class ArmyCardsModel : MonoBehaviour
         frontCardList.Add(cardToMove);
     }
 
-    public void moveCardFromFrontToGraveyard()
+    public void moveCardFromFrontToGraveyard(int id)
+    {
+        Card cardToMove = frontCardList.Single(r => r.cardID == id);
+        frontCardList.Remove(cardToMove);
+        graveyardCardList.Add(cardToMove);
+    }
+
+    public void updateArmorAfterDamageTaken(int cardID, int newArmorValue)
     {
 
+        findCardInFrontByID(cardID).currentHealth = newArmorValue;
+    }
+
+    public Card findCardInFrontByID(int id)
+    {
+        return frontCardList.Find(x => x.cardID == id);
     }
 }
 

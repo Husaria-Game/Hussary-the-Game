@@ -461,28 +461,7 @@ Prefab:
       propertyPath: m_Name
       value: DropAreaNorth
       objectReference: {fileID: 0}
-    - target: {fileID: 224271752680748556, guid: 537454bd85d9ecd409719e78cf23eea8,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224151813394612604, guid: 537454bd85d9ecd409719e78cf23eea8,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.00005345978
-      objectReference: {fileID: 0}
-    - target: {fileID: 224151813394612604, guid: 537454bd85d9ecd409719e78cf23eea8,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 0.00010691956
-      objectReference: {fileID: 0}
-    - target: {fileID: 114091297934921286, guid: 537454bd85d9ecd409719e78cf23eea8,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 0.49019608
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114754336669843332, guid: 537454bd85d9ecd409719e78cf23eea8, type: 2}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 537454bd85d9ecd409719e78cf23eea8, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &221172740
@@ -2485,7 +2464,7 @@ Prefab:
     - target: {fileID: 224151813394612604, guid: 537454bd85d9ecd409719e78cf23eea8,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000053402968
+      value: 0.00005340576
       objectReference: {fileID: 0}
     - target: {fileID: 224151813394612604, guid: 537454bd85d9ecd409719e78cf23eea8,
         type: 2}
@@ -2502,8 +2481,13 @@ Prefab:
       propertyPath: m_Color.a
       value: 0.49019608
       objectReference: {fileID: 0}
+    - target: {fileID: 114773500201477948, guid: 537454bd85d9ecd409719e78cf23eea8,
+        type: 2}
+      propertyPath: dropAreaImage
+      value: 
+      objectReference: {fileID: 54680411}
     m_RemovedComponents:
-    - {fileID: 114754336669843332, guid: 537454bd85d9ecd409719e78cf23eea8, type: 2}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 537454bd85d9ecd409719e78cf23eea8, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1432928455

@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     public string southName = "Gracz 1";
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
-    public PlayerModel whoseTurn;
+    public PlayerModel currentPlayer; //player that has active turn
+    public PlayerModel otherPlayer; //player that has waits for his turn
     public MessageManager messageManager;
     public HandView northHandView;
     public HandView southHandView;
@@ -100,21 +101,23 @@ public class GameManager : MonoBehaviour
         northHandView.blockAllOperations();
         southHandView.blockAllOperations();
         //whoseTurn = Position.North;
-        whoseTurn = playerNorth;
+        currentPlayer = playerNorth;
         this.nextTurn();
     }
 
     public void nextTurn()
     {
-        if (whoseTurn == playerNorth)
+        if (currentPlayer == playerNorth)
         {
-            whoseTurn = playerSouth;
+            currentPlayer = playerSouth;
+            otherPlayer = playerNorth;
         }
-        else if (whoseTurn == playerSouth)
+        else if (currentPlayer == playerSouth)
         {
-            whoseTurn = playerNorth;
+            currentPlayer = playerNorth;
+            otherPlayer = playerSouth;
         }
-        if (whoseTurn == playerSouth)
+        if (currentPlayer == playerSouth)
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
@@ -124,7 +127,7 @@ public class GameManager : MonoBehaviour
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
             endTurnButtonManager.TimerStart();
         }
-        if (whoseTurn == playerNorth)
+        if (currentPlayer == playerNorth)
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
@@ -132,7 +135,6 @@ public class GameManager : MonoBehaviour
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
             northHandView.setPlayableCards(playerNorth.resourcesCurrent);
-            endTurnButtonManager.TimerStart();
         }
     }
 

@@ -105,25 +105,62 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         {
             if (cardState == CardVisualStateEnum.Unit)
             {
-                Draggable defenderCard = defenderUnit.transform.GetComponent<Draggable>();
+                Draggable defenderCard = defenderUnit.transform.GetComponent<UnitVisualManager>().unitParentCard.gameObject.transform.GetComponent<Draggable>();
+                Draggable attackerCard = t_Reference.GetComponent<Draggable>();
+                int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
+                int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
+                int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
+                int attackerArmor = int.Parse(t_Reference.GetComponent<CardDisplayLoader>().armorText.text);
+                int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);
+                int attackerAttack = int.Parse(t_Reference.GetComponent<CardDisplayLoader>().attackText.text);
+
                 // move card to defender and come back
                 t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
 
-                // create explosion
-                defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(7);
+                // create explosion for both units
+                defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
+                GetComponent<UnitVisualManager>().createDamageVisual(defenderAttack);
+
+                // remove armor from defender, update visual and model
+                defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
+                defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
+                defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
+
+                // remove armor from attacker, update visual and model
+                attackerArmor = (attackerArmor - defenderAttack > 0) ? attackerArmor - defenderAttack : 0;
+                t_Reference.GetComponent<CardDisplayLoader>().armorText.text = attackerArmor.ToString();
+                transform.GetComponent<UnitVisualManager>().armorText.text = attackerArmor.ToString();
+
+
+                // update armor, and if defender dead then update model and delete card from view
+                if (defenderArmor > 0)
+                {
+                    GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+                }
+                else
+                {
+                    GameManager.Instance.otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
+                    Destroy(defenderCard.gameObject);
+                    
+                }
+
+                // update armor, and if attacker dead then update model and delete card from view
+                if (attackerArmor > 0)
+                {
+                    GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(attackerID, attackerArmor);
+                }
+                else
+                {
+                    GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(attackerID);
+                    Destroy(attackerCard.gameObject);
+                }
+                
+
+                
 
 
 
-                // remove armor from defender
 
-
-                // check if defender dead
-
-
-                // remove armor from attacker
-                GetComponent<UnitVisualManager>().createDamageVisual(4);
-
-                // check if attacker dead
 
 
 
