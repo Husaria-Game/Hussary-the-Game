@@ -916,6 +916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionGameObject: {fileID: 1603942073880288}
   canvasGroup: {fileID: 225358176274716928}
+  damageNumberText: {fileID: 0}
 --- !u!114 &114170852498941316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -961,14 +962,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e0207a0aedaa37a4ba4bf55b58f090d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1527aa24c4a59664e87c96df4f90da2f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1110,7 +1111,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 13c27dbe159969d49ad39aa0e6fbe848, type: 3}
+    m_Font: {fileID: 12800000, guid: 7b724b77570b8b04bac09d8ede0b2beb, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -1498,10 +1499,12 @@ MonoBehaviour:
   card: {fileID: 11400000, guid: 36463abb691056c4e94d819a73446bec, type: 2}
   cardPreviewLoader: {fileID: 114587436830668470}
   explosionEffect: {fileID: 1603942073880288}
+  unitParentCard: {fileID: 0}
   canvasGroup: {fileID: 225358176274716928}
   nameText: {fileID: 114394087697395220}
   armorText: {fileID: 114368408339433512}
   attackText: {fileID: 114515817092970696}
+  damageNumberText: {fileID: 0}
   profileImage: {fileID: 114232872876186298}
   unitGlowImage: {fileID: 114684009194277692}
 --- !u!114 &114579508638351384
@@ -1621,6 +1624,7 @@ MonoBehaviour:
   dragSuccess: 0
   transformCardIntoUnit: 0
   initialDropZone: {fileID: 0}
+  t_Reference: {fileID: 0}
 --- !u!114 &114684009194277692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3088,7 +3092,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -4.2610397, y: -0.93793607}
+  m_AnchoredPosition: {x: -3.7618973, y: -0.59719485}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224736518935185986

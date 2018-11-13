@@ -1,21 +1,59 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class EndTurnButtonManager : MonoBehaviour
 {
-    //Make sure to attach these Buttons in the Inspector
+
     public Button endTurnButton;
     public GameManager gameManager;
+    public Text timerText;
 
-    void Start()
+    private bool isCounting = false;
+    private float timerCountdown;
+    private float timeLeft;
+    private const float TIME = 30;  //Czas na turę;
+
+    void Update()
     {
-        endTurnButton.onClick.AddListener(TaskOnClick);
+        if (isCounting)
+        {
+            timeLeft -= Time.deltaTime;
+            timerText.text = ToString();
+
+            if (timeLeft <= 0)
+            {
+                TimerStop();
+            }
+        }
     }
 
-    void TaskOnClick()
+    public void TimerStart()
     {
-        //Output this to console when Button1 or Button3 is clicked
+        timeLeft = TIME;
+        StartCoroutine(TimerStartWithDelay());
+    }
+
+    IEnumerator TimerStartWithDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        isCounting = true;
+    }
+
+    public void TimerStop()
+    {
+        isCounting = false;
         gameManager.nextTurn();
+    }
+
+    public override string ToString()
+    {
+        int seconds = Mathf.RoundToInt(timeLeft);
+        string secondsText = (seconds).ToString();
+        if (secondsText.Length == 1)
+            secondsText = "0" + secondsText;
+
+        return string.Format("{0}", secondsText + "s.");
     }
 }
 

@@ -14,8 +14,6 @@ public class HeroVisualManager : MonoBehaviour
     public Text skillCostText;
     [Header("Image References")]
     public Image profileImage;
-    public Image skillImage;
-
 
     // Use this for initialization
     void Start()
@@ -29,6 +27,7 @@ public class HeroVisualManager : MonoBehaviour
         nameText.text = hero.heroName;
         profileImage.sprite = hero.heroImage;
         healthText.text = hero.maxHealth.ToString();
+        skillCostText.text = hero.skillCost.ToString();
 
         // load card color based on affiliation
         if (hero.affiliation == Affiliation.Poland)
