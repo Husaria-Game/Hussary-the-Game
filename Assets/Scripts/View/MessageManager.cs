@@ -12,11 +12,6 @@ public class MessageManager : MonoBehaviour {
     public String playerSouthName;
     public String playerNorthName;
 
-    // Use this for initialization
-    void Start () {
-
-    }
-
     // Update is called once per frame
     void Update () {
         //============TEST of  messageManager============
