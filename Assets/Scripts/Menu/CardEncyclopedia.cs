@@ -7,6 +7,7 @@ using System.Linq;
 public class CardEncyclopedia : MonoBehaviour {
 
     private Object[] cards;
+    private List<Card> currentListToDisplay;
     private List<Card> allCards;
     private List<Card> ottomanCards;
     private List<Card> polandCards;
@@ -21,84 +22,70 @@ public class CardEncyclopedia : MonoBehaviour {
 
     private int cardNumber = 0;
 
-	// Use this for initialization
+
 	void Start () {
 
         allCards = new List<Card>();
+        currentListToDisplay = new List<Card>();
+
+        //Zaciągnięcie wszystkich kart
         cards = Resources.LoadAll("Cards", typeof(Card));
 
+        //Zamiana zaciągniętych obiektów z typu Object[] w typ List<Card>
         foreach (Card card in cards)
         {
             allCards.Add(card);
-            Debug.Log(card.cardName);
         }
-        /*
-        polandCards = allCards.Select(c => c).Where(c => c.affiliation == 
-        Affiliation.Poland);
 
-        ottomanCards = allCards.Select(c => c).Where(c => c.affiliation == 
-        Affiliation.Ottoman);
-        */
+        currentListToDisplay = allCards.ToList();
+        polandCards = allCards.Where(c => c.affiliation == Affiliation.Poland).ToList();
+        ottomanCards = allCards.Where(c => c.affiliation == Affiliation.Ottoman).ToList();
 
         //Ustawienie Guzika do tyłu w stan wyłączenia
-        previousCardButton.enabled = false;
-        previousCardButton.GetComponentInChildren<Text>().text = "Brak";
+        setButton(previousCardButton, false, "Brak");
 
         //Załadowanie pierwszej karty
-        cardName.text = allCards[cardNumber].cardName;
-        cardImage.sprite = allCards[cardNumber].cardImage;
-        cardHistoryDescription.text = allCards[cardNumber].historyDescription;
-        
+        loadCard(cardNumber);      
     }
 
-    public void showCards()
+    public void chooseFaction()
     {
         if (factionMenu.captionText.text == "Wszystkie")
         {
-            Debug.Log("All");
-
-            //showCard(allCards);
+            currentListToDisplay = allCards;
+            resetSet();
         }
         else if (factionMenu.captionText.text == "Rzeczpospolita Polska")
         {
-            Debug.Log("Poland");
-            //showCard(polandCards);
+            currentListToDisplay = polandCards;
+            resetSet();
         }
         else if (factionMenu.captionText.text == "Imperium Osmańskie")
         {
-            Debug.Log("Ottoman");
-            //showCard(ottomanCards);
+            currentListToDisplay = ottomanCards;
+            resetSet();
         }
     }
 
-
-
-
-
-
-
-
     public void loadCard(int cardNumber)
     {
-        cardName.text = allCards[cardNumber].cardName;
-        cardImage.sprite = allCards[cardNumber].cardImage;
-        cardHistoryDescription.text = allCards[cardNumber].historyDescription;
+        cardName.text = currentListToDisplay[cardNumber].cardName;
+        cardImage.sprite = currentListToDisplay[cardNumber].cardImage;
+        cardHistoryDescription.text = currentListToDisplay[cardNumber].historyDescription;
     }
 
     public void nextCard()
     {
-        if (cardNumber == allCards.Count - 2)
+        if (cardNumber == currentListToDisplay.Count - 2)
         {
-            nextCardButton.enabled = false;
-            nextCardButton.GetComponentInChildren<Text>().text = "Brak"; 
+            setButton(nextCardButton, false, "Brak");
         }
 
             cardNumber++;
             loadCard(cardNumber);
             if(previousCardButton.enabled == false)
             {
-                previousCardButton.enabled = true;
-                previousCardButton.GetComponentInChildren<Text>().text = "Poprzednia";
+                setButton(previousCardButton, true, "Poprzednia");
             }
     }
 
@@ -106,17 +93,34 @@ public class CardEncyclopedia : MonoBehaviour {
     {
         if(cardNumber == 1)
         {
-            previousCardButton.enabled = false;
-            previousCardButton.GetComponentInChildren<Text>().text = "Brak";
+            setButton(previousCardButton, false, "Brak");
         }
 
             cardNumber--;
             loadCard(cardNumber);
             if (nextCardButton.enabled == false)
             {
-                nextCardButton.enabled = true;
-                nextCardButton.GetComponentInChildren<Text>().text = "Następna";
+                setButton(nextCardButton, true, "Następna");
             }
+    }
+
+    private void resetSet()
+    {
+        //Ustawienie licznika na zero (pierwsza karta ładowana)
+        cardNumber = 0;
+
+        //Włączenie guzika do przodu i wyłączenie do tyłu
+        setButton(nextCardButton, true, "Następna");
+        setButton(previousCardButton, false, "Brak");
+
+        //Załadowanie nowego seta kart
+        loadCard(cardNumber);
+    }
+
+    private void setButton(Button b, bool isEnabled, string buttonText)
+    {
+        b.enabled = isEnabled;
+        b.GetComponentInChildren<Text>().text = buttonText;
     }
 
 }
