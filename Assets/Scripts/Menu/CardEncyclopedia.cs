@@ -7,8 +7,8 @@ using System.Linq;
 public class CardEncyclopedia : MonoBehaviour {
 
     private Object[] cards;
-    private List<Card> currentListToDisplay;
     private List<Card> allCards;
+    private List<Card> currentListToDisplay;
     private List<Card> ottomanCards;
     private List<Card> polandCards;
 
@@ -21,7 +21,6 @@ public class CardEncyclopedia : MonoBehaviour {
     public Button previousCardButton;
 
     private int cardNumber = 0;
-
 
 	void Start () {
 
@@ -104,7 +103,7 @@ public class CardEncyclopedia : MonoBehaviour {
             }
     }
 
-    private void resetSet()
+    public void resetSet()
     {
         //Ustawienie licznika na zero (pierwsza karta ładowana)
         cardNumber = 0;
