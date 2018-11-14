@@ -1507,6 +1507,7 @@ MonoBehaviour:
   damageNumberText: {fileID: 0}
   profileImage: {fileID: 114232872876186298}
   unitGlowImage: {fileID: 114684009194277692}
+  SpeechResultText: {fileID: 0}
 --- !u!114 &114579508638351384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3092,7 +3093,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -3.7618973, y: -0.59719485}
+  m_AnchoredPosition: {x: 2.401339, y: -3.728363}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224736518935185986

@@ -21,6 +21,7 @@ public class UnitVisualManager : MonoBehaviour
     public Image profileImage;
     public Image unitGlowImage;
 
+
     void Start()
     {
         if (card != null) loadUnitAsset();
@@ -33,8 +34,9 @@ public class UnitVisualManager : MonoBehaviour
         profileImage.sprite = card.cardImage;
         if (card.maxHealth > 0)
         {
-            armorText.text = card.maxHealth.ToString();
             attackText.text = card.attack.ToString();
+            armorText.text = card.maxHealth.ToString();
+
         }
 
         // load card color based on affiliation
