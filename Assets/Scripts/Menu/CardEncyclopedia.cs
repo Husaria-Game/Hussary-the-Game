@@ -27,10 +27,10 @@ public class CardEncyclopedia : MonoBehaviour {
         allCards = new List<Card>();
         currentListToDisplay = new List<Card>();
 
-        //Zaciągnięcie wszystkich kart
+        //Loading all Card Templates from Unity
         cards = Resources.LoadAll("Cards", typeof(Card));
 
-        //Zamiana zaciągniętych obiektów z typu Object[] w typ List<Card>
+        //Changing loaded object from type Object[] to List<Card>
         foreach (Card card in cards)
         {
             allCards.Add(card);
@@ -40,10 +40,10 @@ public class CardEncyclopedia : MonoBehaviour {
         polandCards = allCards.Where(c => c.affiliation == Affiliation.Poland).ToList();
         ottomanCards = allCards.Where(c => c.affiliation == Affiliation.Ottoman).ToList();
 
-        //Ustawienie Guzika do tyłu w stan wyłączenia
+        //Setting previousCardButton to off mode
         setButton(previousCardButton, false, "Brak");
 
-        //Załadowanie pierwszej karty
+        //Loading of the first Card Template on the page
         loadCard(cardNumber);      
     }
 
@@ -105,14 +105,14 @@ public class CardEncyclopedia : MonoBehaviour {
 
     public void resetSet()
     {
-        //Ustawienie licznika na zero (pierwsza karta ładowana)
+        //Setting counter to zero (First card being loaded)
         cardNumber = 0;
 
-        //Włączenie guzika do przodu i wyłączenie do tyłu
+        //Turning nextCardButton on and previousCardButton off
         setButton(nextCardButton, true, "Następna");
         setButton(previousCardButton, false, "Brak");
 
-        //Załadowanie nowego seta kart
+        //Loading new set of cards
         loadCard(cardNumber);
     }
 
