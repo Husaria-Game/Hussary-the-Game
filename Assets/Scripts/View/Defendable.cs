@@ -10,20 +10,41 @@ public class Defendable : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        Debug.Log("DEFENDABLE " + this);
+        // get transform from parent
+        //GameObject defenderUnit = this.GetComponent<CardDisplayLoader>().Unit;
+        Attackable attackerCard = eventData.pointerDrag.GetComponent<Attackable>();
 
-        //if unit then get transform from parent
-        defenderCardTransform = transform.GetComponent<UnitVisualManager>().unitParentCard.gameObject.transform;
-        ownerPosition = defenderCardTransform.GetComponent<IDAssignment>().ownerPosition;
-
-        Attackable attackerUnit = eventData.pointerDrag.GetComponent<Attackable>();
-        Draggable attackerCard = attackerUnit.t_Reference.GetComponent<Draggable>();
-        // allow drag if draggable object exists and card belongs to other player
-        if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && attackerCard.t_Reference.GetComponent<CardVisualState>().cardVisualStateEnum == CardVisualStateEnum.Unit)
+        if (this.GetComponent<HeroVisualManager>())
         {
-            attackerUnit.attackSuccess = true;
-            attackerUnit.defenderUnit = transform;
+            Debug.Log("HERO");
+            ownerPosition = this.GetComponent<HeroVisualManager>().ownerPosition;
 
-            Debug.Log("ATTACK");
+            if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && attackerCard.t_Reference.GetComponent<CardVisualState>().cardVisualStateEnum == CardVisualStateEnum.Unit)
+            {
+                attackerCard.attackOnHeroSuccess = true;
+                attackerCard.hero = this.gameObject;
+
+                Debug.Log("ATTACK ON HERO");
+            }
         }
+        else
+        {
+            defenderCardTransform = transform.GetComponent<UnitVisualManager>().unitParentCard.transform;
+            ownerPosition = defenderCardTransform.GetComponent<IDAssignment>().ownerPosition;
+            //Debug.Log(" attacker card " + eventData.pointerDrag);
+            //Attackable attackerUnit = eventData.pointerDrag.GetComponent<Attackable>();
+            
+            // allow drag if draggable object exists and card belongs to other player
+            if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && attackerCard.t_Reference.GetComponent<CardVisualState>().cardVisualStateEnum == CardVisualStateEnum.Unit)
+            {
+                attackerCard.attackOnUnitSuccess = true;
+                attackerCard.defenderCard = defenderCardTransform.GetComponent<Defendable>();
+                attackerCard.defenderUnit = this.transform;
+
+                Debug.Log("ATTACK");
+            }
+        }
+        
     }
 }

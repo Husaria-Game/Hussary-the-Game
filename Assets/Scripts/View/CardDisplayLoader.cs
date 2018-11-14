@@ -7,6 +7,7 @@ public class CardDisplayLoader : MonoBehaviour {
     public Card card;
     public CardDisplayLoader cardPreviewLoader;
     public UnitVisualManager cardUnitLoader;
+    public GameObject Unit;
     [Header("Text References")]
     public Text cardNameText;
     public Text cardMoneyText;

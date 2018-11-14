@@ -16,7 +16,7 @@ public class Hero : ScriptableObject
 
     [Header("Hero Parameters Info")]
     //public int attack;
-    public int maxHealth;   // if maxHealth == 0 then card is a tactics card
+    public int maxHealth;   
     public int skillCost;
     //public string UnitScriptName;
 

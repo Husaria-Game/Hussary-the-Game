@@ -25,6 +25,12 @@ public class UnitVisualManager : MonoBehaviour
     {
         if (card != null) loadUnitAsset();
     }
+    void Update()
+    {
+        //if (Input.GetMouseButtonDown(0)){
+        //    Debug.Log("Attackable enabled " + unitParentCard.GetComponent<Attackable>().enabled);
+        //}
+    }
 
     // Method for loading unit parameters from coresponding card
     public void loadUnitAsset()

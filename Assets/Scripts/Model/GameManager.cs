@@ -24,8 +24,10 @@ public class GameManager : MonoBehaviour
     public GameObject deckSouth;
     public GameObject resourcesNorth;
     public GameObject resourcesSouth;
-    public GameObject dropzoneNorth;
-    public GameObject dropzoneSouth;
+    public GameObject heroNorth;
+    public GameObject heroSouth;
+    public DropZone dropZoneNorth;
+    public DropZone dropZoneSouth;
     public GameObject mainMenu;
     public bool gameRunning;
 
@@ -121,20 +123,27 @@ public class GameManager : MonoBehaviour
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
+            dropZoneNorth.blockAllUnitOperations();
+            dropZoneSouth.blockAllUnitOperations();
             messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
+            dropZoneSouth.unlockUnitAttacks();
+
             endTurnButtonManager.TimerStart();
         }
         if (currentPlayer == playerNorth)
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
+            dropZoneNorth.blockAllUnitOperations();
+            dropZoneSouth.blockAllUnitOperations();
             messageManager.ShowMessage(northName + " \nTwoja tura!", 2f);
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
             northHandView.setPlayableCards(playerNorth.resourcesCurrent);
+            dropZoneNorth.unlockUnitAttacks();
         }
     }
 
@@ -147,8 +156,8 @@ public class GameManager : MonoBehaviour
         //Dodane przypiasanie frakcji - Na razie tylko tryb Multiplayer - potem trzeba wprowadić zmienną wybierającą tryb
         attributeNamesAndFactions();
 
-        playerNorth = new PlayerModel(0, "Cooper", secondFaction, Position.North);
-        playerSouth = new PlayerModel(1, "Johnson", firstFaction, Position.South);
+        playerNorth = new PlayerModel(0, northName, secondFaction, Position.North);
+        playerSouth = new PlayerModel(1, southName, firstFaction, Position.South);
         resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
         resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
     }

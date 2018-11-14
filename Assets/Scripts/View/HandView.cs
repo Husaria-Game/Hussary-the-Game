@@ -10,16 +10,6 @@ public class HandView : MonoBehaviour {
     public Position handPosition;
     public bool isDrawingRunning = false;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     // add new card GameObject to hand
     public void MoveDrawnCardFromDeckToHand(Card cardDrawn, PlayerModel player, GameObject deckVisual)
     {
@@ -88,15 +78,8 @@ public class HandView : MonoBehaviour {
 
     public void setPlayableCards(int currentResources)
     {
-        //CardsInHand = GameAreaImage.GetComponentsInChildren<Draggable>().;
-        //GameAreaImage.FindObjectsOfType(typeof(Draggable));
-        //this.
         foreach (Transform child in transform)
         {
-            //Debug.Log("Child " + child.ToString());
-            //child.gameObject.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = true;
-            //GameObject cardGlow2 = child.gameObject.GetComponentInChildren<Image>;
-            //Debug.Log("CardGlow " + cardGlow.ToString());
             if (int.Parse(child.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()) <= currentResources)
             {
                 child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = true;
@@ -110,20 +93,13 @@ public class HandView : MonoBehaviour {
         }
     }
 
-    public void unlockUnitAttacks()
-    {
-        foreach (Transform child in transform)
-        {
-            // enable unit attack
-            child.GetComponent<CardDisplayLoader>().cardUnitLoader.transform.GetComponent<Attackable>().enabled = true;
-        }
-    }
-
     public void blockAllOperations()
     {
         foreach (Transform child in transform)
         {
             child.GetComponent<Draggable>().enabled = false;
+            child.GetComponent<Attackable>().enabled = false;
+            child.GetComponent<Defendable>().enabled = false;
             child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
 
             // block unit attack

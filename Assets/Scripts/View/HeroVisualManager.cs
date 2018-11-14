@@ -12,6 +12,7 @@ public class HeroVisualManager : MonoBehaviour
     public Text nameText;
     public Text healthText;
     public Text skillCostText;
+    public Position ownerPosition;
     [Header("Image References")]
     public Image profileImage;
 

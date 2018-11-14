@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 225800651729028450}
   - component: {fileID: 114890608528111212}
   - component: {fileID: 114074065404115878}
+  - component: {fileID: 114957735186432924}
   m_Layer: 0
   m_Name: HeroFinal
   m_TagString: Untagged
@@ -716,6 +717,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114957735186432924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1515019024752632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 631c10619452bc84e84b87171180b40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212948569497084596
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -995,7 +1007,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 24.1, y: 0}
+  m_AnchoredPosition: {x: 130, y: 0}
   m_SizeDelta: {x: 648.2, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224802060704852936
