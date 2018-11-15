@@ -8,7 +8,7 @@ using System;
 
 public class SpeechRecognitionSystem : MonoBehaviour
 {
-    private string[] wordsToRecognize = new string[] { "pomoc", "szansa" };
+    private string[] wordsToRecognize = new string[] { /*"pomoc", "szansa"*/ "sakwa", "miecz", "tarcza", "trucizna", "ręka" };
     private ConfidenceLevel confidenceLevel = ConfidenceLevel.Low;
     private PhraseRecognizer recognizer;
 
@@ -18,7 +18,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
     //For testing puropose only
     public enum SpeechSign
     {
-        empty, sword, shield, poison, pouch, hand
+        nic, miecz, tarcza, trucizna, sakwa, ręka
     }
 
     public SpeechSign currentSpeechSign;
@@ -114,23 +114,23 @@ public class SpeechRecognitionSystem : MonoBehaviour
         int number = random.Next(0, 101);
         if(number < 20)
         {
-            ShowSpeechSign(sword, SpeechSign.sword);
+            ShowSpeechSign(sword, SpeechSign.miecz);
         }
         else if(number >= 20 && number < 40)
         {
-            ShowSpeechSign(shield, SpeechSign.shield);
+            ShowSpeechSign(shield, SpeechSign.tarcza);
         }
         else if (number >= 40 && number < 60)
         {
-            ShowSpeechSign(pouch, SpeechSign.pouch);
+            ShowSpeechSign(pouch, SpeechSign.sakwa);
         }
         else if (number >= 60 && number < 80)
         {
-            ShowSpeechSign(poison, SpeechSign.poison);
+            ShowSpeechSign(poison, SpeechSign.trucizna);
         }
         else if (number >= 80 && number < 100)
         {
-            ShowSpeechSign(hand, SpeechSign.hand);
+            ShowSpeechSign(hand, SpeechSign.ręka);
         }
     }
 
@@ -154,7 +154,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
         CompareShownSignAndSpeech();
         speechSign.enabled = false;
-        currentSpeechSign = SpeechSign.empty;
+        currentSpeechSign = SpeechSign.nic;
         heardWord = "";
         toStop = null;
     }
