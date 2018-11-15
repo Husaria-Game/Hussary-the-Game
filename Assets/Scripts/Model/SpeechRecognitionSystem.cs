@@ -14,7 +14,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
     public Text resultOfVoiceCommand;
     public static string word;
 
-
+    
     void Start()
     {
         if (wordsToRecognize != null)
@@ -37,6 +37,21 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             recognizer.OnPhraseRecognized -= WhenPhraseRecognized;
             recognizer.Stop();
+        }
+    }
+
+    //For testing puropose only
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            word = "pomoc";
+            resultOfVoiceCommand.text = word;
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            word = "szansa";
+            resultOfVoiceCommand.text = word;
         }
     }
 }

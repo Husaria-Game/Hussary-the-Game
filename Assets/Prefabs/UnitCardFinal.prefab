@@ -2907,7 +2907,7 @@ MonoBehaviour:
   cardNameText: {fileID: 114403714604397820}
   cardMoneyText: {fileID: 114511195504400158}
   armorText: {fileID: 114858940673366408}
-  attackText: {fileID: 114103695416644264}
+  attackText: {fileID: 114910776487457216}
   descriptionText: {fileID: 114439923187827036}
   topRibbonImage: {fileID: 114097679138615784}
   profileImage: {fileID: 114580045837583316}
@@ -4536,7 +4536,6 @@ MonoBehaviour:
   damageNumberText: {fileID: 114014121541748428}
   profileImage: {fileID: 114284823005861792}
   unitGlowImage: {fileID: 114016921121025808}
-  SpeechResultText: {fileID: 0}
 --- !u!114 &114897156005324868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7554,7 +7553,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.15163833, y: -3.2413354}
+  m_AnchoredPosition: {x: -0.13366008, y: -3.3697116}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224940309305712334
