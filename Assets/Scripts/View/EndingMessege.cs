@@ -12,8 +12,6 @@ public class EndingMessege : MonoBehaviour {
     public Text afterGameText;
     private string winnerName = "Zwycięzca";
 
-
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -23,6 +21,7 @@ public class EndingMessege : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
+            afterGameText.text = "Zwycięża " + winnerName;
             MessegeCanvasAfterGameIsDone.SetActive(true);
             Time.timeScale = 0;
         }
@@ -47,9 +46,10 @@ public class EndingMessege : MonoBehaviour {
 
     public void PlayAgain()
     {
-
+        ///Code needed to reset cards
     }
 
+    //Method to be used in GameManager to pass winning player name
     public void WhoWonMessege(string player)
     {
         winnerName = player;
