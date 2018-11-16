@@ -38,14 +38,11 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
     private bool isEffectgoingToTakePlace = false; //variable to later achieve effect in unit card
     private IEnumerator toStop = null; //variable to stop coroutine when endTurnButton clicked
-    public AudioGenerator audioGenerator;
-
 
     void Start()
     {
         if (wordsToRecognize != null)
         {
-            audioGenerator = new AudioGenerator();
             recognizer = new KeywordRecognizer(wordsToRecognize, confidenceLevel);
             recognizer.OnPhraseRecognized += WhenPhraseRecognized;
 
@@ -144,7 +141,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         //toStop = ShowSpeechSignCoroutine(signImage, signMark);
         int number = random.Next(5, 20);
 
-        yield return new WaitForSeconds(number);  //Random secund in which system starts to show signImage
+        yield return new WaitForSeconds(number);  //Random second in which system starts to show signImage
         recognizer.Start();
         speechSign.sprite = signImage;
         speechSign.enabled = true;
@@ -166,8 +163,8 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
         if (currentSpeechSignString.Equals(heardWord))
         {
+            GetComponent<AudioSource>().Play();
             isEffectgoingToTakePlace = true;
-            audioGenerator.playClip();
             Debug.Log("EffectOfSpeech");
         }
         else
