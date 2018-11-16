@@ -8,47 +8,47 @@ using System;
 
 public class SpeechRecognitionSystem : MonoBehaviour
 {
-    private string[] wordsToRecognize = new string[] { /*"pomoc", "szansa"*/ "sakwa", "miecz", "tarcza", "trucizna", "ręka" };
+    //Elements needed to creat listening system
+    private string[] wordsToRecognize = new string[] {"sakwa", "miecz", "tarcza", "trucizna", "ręka" };
     private ConfidenceLevel confidenceLevel = ConfidenceLevel.Low;
     private PhraseRecognizer recognizer;
 
-    public Text resultOfVoiceCommand;
-    public string heardWord = "";
-
-    //For testing puropose only
     public enum SpeechSign
     {
         nic, miecz, tarcza, trucizna, sakwa, ręka
     }
-
     public SpeechSign currentSpeechSign;
 
-    public System.Random random = new System.Random();
-
-    private const int SPEECH_EFFECT_CHANCE = 30;
-
-    private IEnumerator toStop = null;
-
-    //Images to load
+    //SpeechSign Images to load
     public Sprite sword;
     public Sprite shield;
     public Sprite pouch;
     public Sprite poison;
     public Sprite hand;
-    
+
     public Image speechSign;
-    private bool isEffectgoingToTakePlace = false;
-    ////////////////////////////////////////////
+
+    //Elements showing what word was heard
+    public Text resultOfVoiceCommand;
+    public string heardWord = "";
+
+    //Other elements
+    public System.Random random = new System.Random();
+    private const int SPEECH_EFFECT_CHANCE = 30;
+
+    private bool isEffectgoingToTakePlace = false; //variable to later achieve effect in unit card
+    private IEnumerator toStop = null; //variable to stop coroutine when endTurnButton clicked
+    public AudioGenerator audioGenerator;
+
 
     void Start()
     {
         if (wordsToRecognize != null)
         {
+            audioGenerator = new AudioGenerator();
             recognizer = new KeywordRecognizer(wordsToRecognize, confidenceLevel);
-            recognizer.Start();
             recognizer.OnPhraseRecognized += WhenPhraseRecognized;
 
-            //For testing puropose only
             speechSign.enabled = false;
             resultOfVoiceCommand.text = heardWord;
         }
@@ -97,6 +97,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
             CheckWhetherToShowSpeechSign();
         }
     }
+    ///////////////////////////// 
 
     public void CheckWhetherToShowSpeechSign()
     {
@@ -106,7 +107,6 @@ public class SpeechRecognitionSystem : MonoBehaviour
             WhatSpeechSignToShow();
             Debug.Log("What effect");
         }
-
     }
 
     public void WhatSpeechSignToShow()
@@ -144,19 +144,20 @@ public class SpeechRecognitionSystem : MonoBehaviour
         //toStop = ShowSpeechSignCoroutine(signImage, signMark);
         int number = random.Next(5, 20);
 
-        yield return new WaitForSeconds(number);
-
+        yield return new WaitForSeconds(number);  //Random secund in which system starts to show signImage
+        recognizer.Start();
         speechSign.sprite = signImage;
         speechSign.enabled = true;
         currentSpeechSign = signMark;
 
-        yield return new WaitForSeconds(5f);
-
+        yield return new WaitForSeconds(5f);      //How long signImage is going to last
         CompareShownSignAndSpeech();
         speechSign.enabled = false;
         currentSpeechSign = SpeechSign.nic;
         heardWord = "";
-        toStop = null;
+        resultOfVoiceCommand.text = heardWord;
+        recognizer.Stop();
+        //toStop = null;
     }
 
     private void CompareShownSignAndSpeech()
@@ -166,6 +167,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         if (currentSpeechSignString.Equals(heardWord))
         {
             isEffectgoingToTakePlace = true;
+            audioGenerator.playClip();
             Debug.Log("EffectOfSpeech");
         }
         else
@@ -173,6 +175,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
             Debug.Log("No Effect");
         }
     }
+
     //not working
     /*
     public void StopCoroutineIfTurnButtonClicked()
@@ -184,5 +187,4 @@ public class SpeechRecognitionSystem : MonoBehaviour
         }
     }
     */
-
 }
