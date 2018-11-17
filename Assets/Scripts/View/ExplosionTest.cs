@@ -22,7 +22,6 @@ public class ExplosionTest : MonoBehaviour, IPointerDownHandler
         explosionTest = this;
         if (eventData.button == PointerEventData.InputButton.Middle)
         {
-            Debug.Log("input.middle");
             StartCoroutine(ReceiveDamage());
         }
     }

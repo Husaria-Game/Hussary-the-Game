@@ -26,7 +26,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Attackablke BEGIN DRAG this " + this);
         // get object reference transform
         t_Reference = this.transform;
 
@@ -106,10 +105,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             {
                 //decrease number of attacks per turn for current card
 
-                Debug.Log("Before attack attacks: " + GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn);
                 GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn--;
-                Debug.Log("After attack attacks: " + GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn);
-
+                
                 GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
                 int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
                 int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
@@ -192,9 +189,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
                 // remove armor from attacker, update visual and model
                 // TODO remove attacker available moves
-                //attackerArmor = (attackerArmor - defenderAttack > 0) ? attackerArmor - defenderAttack : 0;
-                //t_Reference.GetComponent<CardDisplayLoader>().armorText.text = attackerArmor.ToString();
-                //attackableUnit.GetComponent<UnitVisualManager>().armorText.text = attackerArmor.ToString();
 
 
                 // update armor in model, and if hero dead then update model and finish game

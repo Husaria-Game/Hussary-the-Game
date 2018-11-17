@@ -15,7 +15,6 @@ public class DropZone : MonoBehaviour, IDropHandler
     {
         if (dropEventOccurs)
         {
-            Debug.Log("dropEvent on " + this.dropZonePosition);
             foreach (Transform child in dropAreaImage.transform)
             {
                 child.GetComponent<Draggable>().enabled = false;
@@ -53,10 +52,8 @@ public class DropZone : MonoBehaviour, IDropHandler
         foreach (Transform child in dropAreaImage.transform)
         {
             // enable only cards with available attack this turn
-            //Debug.Log("left turns " + GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(child.GetComponent<IDAssignment>().uniqueId).cardName);
-            //Debug.Log("left turns " + GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(child.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn);
             Card cardInModel = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(child.GetComponent<IDAssignment>().uniqueId);
-            Debug.Log("Name  " + child.GetComponent<IDAssignment>().name + " Attacks no: " + cardInModel.currentAttacksPerTurn);
+           
             if (cardInModel.currentAttacksPerTurn > 0)
             {
                 // enable unit glow

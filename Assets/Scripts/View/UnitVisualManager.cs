@@ -27,9 +27,7 @@ public class UnitVisualManager : MonoBehaviour
     }
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0)){
-        //    Debug.Log("Attackable enabled " + unitParentCard.GetComponent<Attackable>().enabled);
-        //}
+
     }
 
     // Method for loading unit parameters from coresponding card

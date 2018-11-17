@@ -75,14 +75,13 @@ public class HandView : MonoBehaviour {
         newCard.GetComponentInChildren<Canvas>().sortingLayerName = "Card";
         this.isDrawingRunning = false;
         yield return new WaitForSeconds(0.5f);
-        GameManager.Instance.recount = true;
+        GameManager.Instance.enablePlayableCardsFlag = true;
     }
 
     public void setPlayableCards(int currentResources)
     {
         foreach (Transform child in transform)
         {
-            Debug.Log("child "+ child.GetComponent<CardDisplayLoader>().cardNameText.text.ToString());
             if (int.Parse(child.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()) <= currentResources)
             {
                 child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = true;

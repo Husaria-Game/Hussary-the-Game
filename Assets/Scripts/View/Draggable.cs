@@ -21,17 +21,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("this Draggable BEGIN Dragging " + this);
-        // get object reference transform
-        //if (transform.GetComponent<UnitVisualManager>() != null)
-        //{
-        //    //if unit then get transform from parent
-        //    t_Reference = transform.GetComponent<UnitVisualManager>().unitParentCard.gameObject.transform;
-        //}
-        //else
-        //{
-        //    t_Reference = this.transform;
-        //}
         t_Reference = this.transform;
         cardState = t_Reference.GetComponent<CardVisualState>().cardVisualStateEnum;
 
@@ -135,7 +124,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
                     // sets dropEventOccurs to true, which disables Draggable script
                     dropZone.dropEventOccurs = true;
-                    GameManager.Instance.recount = true;
+                    GameManager.Instance.enablePlayableCardsFlag = true;
                 }
             }
 

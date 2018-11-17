@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public DropZone dropZoneSouth;
     public GameObject mainMenu;
     public bool gameRunning;
-    public bool recount;
+    public bool enablePlayableCardsFlag;
 
     //Skrypty czytające dane z menu (imiona i frakcje) - MultiPlayer
     public ChooseFactionForFirstPlayer chooseFactionForFirstPlayer;
@@ -55,24 +55,23 @@ public class GameManager : MonoBehaviour
     {
         visuals.SetActive(false);
         mainMenu.SetActive(true);
-        recount = false;
+        enablePlayableCardsFlag = false;
     }
 
     void Update()
     {
-        if (recount)
+        if (enablePlayableCardsFlag)
         {
             if (currentPlayer == playerSouth)
             {
                 southHandView.setPlayableCards(playerSouth.resourcesCurrent);
-                Debug.Log("Resetting");
 
             }
             if (currentPlayer == playerNorth)
             {
                 northHandView.setPlayableCards(playerNorth.resourcesCurrent);
             }
-            recount = false;
+            enablePlayableCardsFlag = false;
         }
     }
 
@@ -113,7 +112,6 @@ public class GameManager : MonoBehaviour
 
         northHandView.blockAllOperations();
         southHandView.blockAllOperations();
-        //whoseTurn = Position.North;
         currentPlayer = playerNorth;
         this.nextTurn();
     }
@@ -139,11 +137,9 @@ public class GameManager : MonoBehaviour
             messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
-
-
+            
             drawNewCardPlayerSouth();
-
-
+            
             playerSouth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
             dropZoneSouth.unlockUnitAttacks();
@@ -159,6 +155,9 @@ public class GameManager : MonoBehaviour
             messageManager.ShowMessage(northName + " \nTwoja tura!", 2f);
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+
+            drawNewCardPlayerNorth();
+
             playerNorth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             northHandView.setPlayableCards(playerNorth.resourcesCurrent);
             dropZoneNorth.unlockUnitAttacks();
