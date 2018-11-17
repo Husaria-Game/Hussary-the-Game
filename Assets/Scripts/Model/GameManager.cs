@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public DropZone dropZoneSouth;
     public GameObject mainMenu;
     public bool gameRunning;
+    public bool recount;
 
     //Skrypty czytające dane z menu (imiona i frakcje) - MultiPlayer
     public ChooseFactionForFirstPlayer chooseFactionForFirstPlayer;
@@ -54,11 +55,25 @@ public class GameManager : MonoBehaviour
     {
         visuals.SetActive(false);
         mainMenu.SetActive(true);
+        recount = false;
     }
 
     void Update()
     {
+        if (recount)
+        {
+            if (currentPlayer == playerSouth)
+            {
+                southHandView.setPlayableCards(playerSouth.resourcesCurrent);
+                Debug.Log("Resetting");
 
+            }
+            if (currentPlayer == playerNorth)
+            {
+                northHandView.setPlayableCards(playerNorth.resourcesCurrent);
+            }
+            recount = false;
+        }
     }
 
     // Use this for initialization
@@ -79,9 +94,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);             
             }
-
-            Card cardDrawn = playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-            southHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerSouth, deckSouth);
+            drawNewCardPlayerSouth();
         }
 
         //// ----------draw 4 cards from deck to Player North
@@ -91,9 +104,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);
             }
-
-            Card cardDrawn = playerNorth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-            northHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerNorth, deckNorth);
+            drawNewCardPlayerNorth();
             while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
             {
                 yield return new WaitForSeconds(0.1f);
@@ -128,6 +139,11 @@ public class GameManager : MonoBehaviour
             messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+
+
+            drawNewCardPlayerSouth();
+
+
             playerSouth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
             dropZoneSouth.unlockUnitAttacks();
@@ -192,6 +208,18 @@ public class GameManager : MonoBehaviour
     public void StartGameWithCouroutine()
     {
         StartCoroutine(startGame());
+    }
+
+    public void drawNewCardPlayerNorth()
+    {
+        Card cardDrawn = playerNorth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+        northHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerNorth, deckNorth);
+    }
+
+    public void drawNewCardPlayerSouth()
+    {
+        Card cardDrawn = playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+        southHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerSouth, deckSouth);
     }
 
     public void QuitGame()

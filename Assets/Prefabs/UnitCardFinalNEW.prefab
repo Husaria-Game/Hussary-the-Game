@@ -789,8 +789,6 @@ GameObject:
   - component: {fileID: 114913493688461472}
   - component: {fileID: 114811090590216448}
   - component: {fileID: 114147988038400534}
-  - component: {fileID: 114546414365822352}
-  - component: {fileID: 114103558531322518}
   m_Layer: 0
   m_Name: UnitFinal
   m_TagString: Untagged
@@ -2060,17 +2058,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 3, y: -1}
   m_UseGraphicAlpha: 1
---- !u!114 &114103558531322518
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1482452190441594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 631c10619452bc84e84b87171180b40c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114112021554795436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3350,30 +3337,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114546414365822352
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1482452190441594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b13dfeaff4c5d4eb3242ff623ed4b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentToReturnTo: {fileID: 0}
-  defenderUnit: {fileID: 0}
-  defenderCard: {fileID: 0}
-  hero: {fileID: 0}
-  initialPosition: {x: 0, y: 0, z: 0}
-  mousePosition: {x: 0, y: 0, z: 0}
-  lineRenderer: {fileID: 120258907871372170}
-  arrow: {fileID: 1389898134345788}
-  attackOnUnitSuccess: 0
-  attackOnHeroSuccess: 0
-  transformCardIntoUnit: 0
-  initialDropZone: {fileID: 0}
-  t_Reference: {fileID: 0}
 --- !u!114 &114555632783572350
 MonoBehaviour:
   m_ObjectHideFlags: 1

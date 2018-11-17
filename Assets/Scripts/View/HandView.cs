@@ -74,21 +74,26 @@ public class HandView : MonoBehaviour {
         newCard.transform.SetParent(this.transform);
         newCard.GetComponentInChildren<Canvas>().sortingLayerName = "Card";
         this.isDrawingRunning = false;
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.recount = true;
     }
 
     public void setPlayableCards(int currentResources)
     {
         foreach (Transform child in transform)
         {
+            Debug.Log("child "+ child.GetComponent<CardDisplayLoader>().cardNameText.text.ToString());
             if (int.Parse(child.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()) <= currentResources)
             {
                 child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = true;
                 child.GetComponent<Draggable>().enabled = true;
+                child.GetComponent<Attackable>().enabled = false;
             }
             else
             {
                 child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
                 child.GetComponent<Draggable>().enabled = false;
+                child.GetComponent<Attackable>().enabled = false;
             }
         }
     }
@@ -101,9 +106,6 @@ public class HandView : MonoBehaviour {
             child.GetComponent<Attackable>().enabled = false;
             child.GetComponent<Defendable>().enabled = false;
             child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
-
-            // block unit attack
-            child.GetComponent<CardDisplayLoader>().cardUnitLoader.transform.GetComponent<Attackable>().enabled = false;
         }
     }
 }

@@ -134,7 +134,8 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     this.GetComponentInChildren<Canvas>().sortingLayerName = "Card";
 
                     // sets dropEventOccurs to true, which disables Draggable script
-                    dropZone.dropEventOccurs = true; 
+                    dropZone.dropEventOccurs = true;
+                    GameManager.Instance.recount = true;
                 }
             }
 
