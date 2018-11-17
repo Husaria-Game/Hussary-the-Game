@@ -173,10 +173,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 // move card to defender and come back
                 t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
 
-                // create explosion for both units
-                // TODO
-                //defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
-                //attackableUnit.GetComponent<UnitVisualManager>().createDamageVisual(defenderAttack);
+                // create explosion for hero
+                hero.GetComponent<HeroVisualManager>().createDamageVisual(attackerAttack);
 
                 // remove armor from defender - in visual
                 defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
