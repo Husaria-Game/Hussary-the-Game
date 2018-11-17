@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     //Skrypt upływającego czasu
     public EndTurnButtonManager endTurnButtonManager;
 
+
+
     public Faction firstFaction;
     public Faction secondFaction;
 
