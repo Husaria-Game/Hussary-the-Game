@@ -42,6 +42,8 @@ public class ArmyCardsModel : MonoBehaviour
         foreach (Card item in deckCardList)
         {
             item.cardID = IDFactory.GetUniqueID();
+            item.maxAttacksPerTurn = 1;
+            item.currentAttacksPerTurn = item.maxAttacksPerTurn;
         }
 
         this.handCardList = new List<Card>();
@@ -82,6 +84,11 @@ public class ArmyCardsModel : MonoBehaviour
         Card cardToMove = handCardList.Single(r => r.cardID == id);
         handCardList.Remove(cardToMove);
         frontCardList.Add(cardToMove);
+
+        foreach (Card item in frontCardList)
+        {
+            Debug.Log("FRONT: name -" + item.cardName + ", cost - " + item.cardCost.ToString() + ", id: " + item.cardID.ToString());
+        }
     }
 
     public void moveCardFromFrontToGraveyard(int id)
@@ -100,6 +107,14 @@ public class ArmyCardsModel : MonoBehaviour
     public Card findCardInFrontByID(int id)
     {
         return frontCardList.Find(x => x.cardID == id);
+    }
+
+    public void restoreCardAttacksPerRound()
+    {
+        foreach (Card item in frontCardList)
+        {
+            item.currentAttacksPerTurn = item.maxAttacksPerTurn;
+        }
     }
 }
 

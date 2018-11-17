@@ -128,6 +128,7 @@ public class GameManager : MonoBehaviour
             messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+            playerSouth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
             dropZoneSouth.unlockUnitAttacks();
 
@@ -142,6 +143,7 @@ public class GameManager : MonoBehaviour
             messageManager.ShowMessage(northName + " \nTwoja tura!", 2f);
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+            playerNorth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             northHandView.setPlayableCards(playerNorth.resourcesCurrent);
             dropZoneNorth.unlockUnitAttacks();
         }

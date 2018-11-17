@@ -165,12 +165,10 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
         {
             GameManager.Instance.resourcesNorth.transform.GetComponent<ResourcePool>().updateResourcesView(updatedCurrentResources, maxResources);
-            GameManager.Instance.dropZoneNorth.unlockUnitAttacks();
         }
         else if (GameManager.Instance.currentPlayer == GameManager.Instance.playerSouth)
         {
             GameManager.Instance.resourcesSouth.transform.GetComponent<ResourcePool>().updateResourcesView(updatedCurrentResources, maxResources);
-            GameManager.Instance.dropZoneSouth.unlockUnitAttacks();
         }
     }
 }

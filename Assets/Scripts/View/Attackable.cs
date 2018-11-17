@@ -104,6 +104,12 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         {
             if (cardState == CardVisualStateEnum.Unit)
             {
+                //decrease number of attacks per turn for current card
+
+                Debug.Log("Before attack attacks: " + GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn);
+                GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn--;
+                Debug.Log("After attack attacks: " + GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn);
+
                 GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
                 int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
                 int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
@@ -146,6 +152,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 if (attackerArmor > 0)
                 {
                     GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(attackerID, attackerArmor);
+                    initialDropZone.attackEventEnded = true;
                 }
                 else
                 {
@@ -164,6 +171,9 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         {
             if (cardState == CardVisualStateEnum.Unit)
             {
+                //decrease number of attacks per turn for current card
+                GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn--;
+
                 GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
                 //int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
                 int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
@@ -191,6 +201,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 if (defenderArmor > 0)
                 {
                     GameManager.Instance.otherPlayer.armymodel.heroModel.currentHealth = defenderArmor;
+                    initialDropZone.attackEventEnded = true;
                 }
                 else
                 {

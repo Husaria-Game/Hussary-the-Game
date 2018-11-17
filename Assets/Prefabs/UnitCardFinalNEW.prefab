@@ -1385,7 +1385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1725601165252968
 GameObject:
   m_ObjectHideFlags: 1
@@ -3364,11 +3364,13 @@ MonoBehaviour:
   parentToReturnTo: {fileID: 0}
   defenderUnit: {fileID: 0}
   defenderCard: {fileID: 0}
+  hero: {fileID: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   mousePosition: {x: 0, y: 0, z: 0}
   lineRenderer: {fileID: 120258907871372170}
   arrow: {fileID: 1389898134345788}
-  attackSuccess: 0
+  attackOnUnitSuccess: 0
+  attackOnHeroSuccess: 0
   transformCardIntoUnit: 0
   initialDropZone: {fileID: 0}
   t_Reference: {fileID: 0}
@@ -4634,11 +4636,13 @@ MonoBehaviour:
   parentToReturnTo: {fileID: 0}
   defenderUnit: {fileID: 0}
   defenderCard: {fileID: 0}
+  hero: {fileID: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   mousePosition: {x: 0, y: 0, z: 0}
   lineRenderer: {fileID: 120258907871372170}
   arrow: {fileID: 1389898134345788}
-  attackSuccess: 0
+  attackOnUnitSuccess: 0
+  attackOnHeroSuccess: 0
   transformCardIntoUnit: 0
   initialDropZone: {fileID: 0}
   t_Reference: {fileID: 0}
@@ -6647,7 +6651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -4.223066, y: -1.7114137}
+  m_AnchoredPosition: {x: -6.1026707, y: 0.312983}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224484021894790660

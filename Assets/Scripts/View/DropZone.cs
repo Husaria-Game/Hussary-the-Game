@@ -8,6 +8,7 @@ public class DropZone : MonoBehaviour, IDropHandler
     public Position dropZonePosition;
     public GameObject dropAreaImage;
     public bool dropEventOccurs = false;
+    public bool attackEventEnded = false;
 
 
     void Update()
@@ -19,10 +20,17 @@ public class DropZone : MonoBehaviour, IDropHandler
             {
                 child.GetComponent<Draggable>().enabled = false;
                 child.GetComponent<Attackable>().enabled = true;
+                child.GetComponent<Attackable>().initialDropZone = this;
                 child.GetComponent<Defendable>().enabled = true;
             }
 
             dropEventOccurs = false;
+        }
+
+        if (attackEventEnded)
+        {
+            unlockUnitAttacks();
+            attackEventEnded = false;
         }
     }
 
@@ -30,8 +38,9 @@ public class DropZone : MonoBehaviour, IDropHandler
     {
 
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
+
         // allow drag if draggable object exists and dropzone belongs to player
-        if (d != null && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)// && this.transform.GetChild(0).GetChild(0) != d.parentToReturnTo)
+        if (d != null && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)
         {
             d.dropZone = this;
             d.dragSuccess = true;
@@ -43,12 +52,27 @@ public class DropZone : MonoBehaviour, IDropHandler
     {
         foreach (Transform child in dropAreaImage.transform)
         {
-            // enable unit attack
-            //Debug.Log("UNLOCK: " + child.GetComponent<CardDisplayLoader>().cardUnitLoader.nameText.text + " " + child.GetComponent<CardDisplayLoader>().Unit.GetComponent<Attackable>().enabled);
-            //child.GetComponent<CardDisplayLoader>().Unit.GetComponent<Attackable>().enabled = true;
-            //Debug.Log("     then : " + child.GetComponent<CardDisplayLoader>().cardUnitLoader.nameText.text + " " + child.GetComponent<CardDisplayLoader>().Unit.GetComponent<Attackable>().enabled);
-            child.GetComponent<Attackable>().enabled = true;
-            //child.GetComponent<CardDisplayLoader>().Unit.GetComponent<Attackable>().transform.GetComponentInChildren<LineRenderer>().enabled = true;
+            // enable only cards with available attack this turn
+            //Debug.Log("left turns " + GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(child.GetComponent<IDAssignment>().uniqueId).cardName);
+            //Debug.Log("left turns " + GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(child.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn);
+            Card cardInModel = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(child.GetComponent<IDAssignment>().uniqueId);
+            Debug.Log("Name  " + child.GetComponent<IDAssignment>().name + " Attacks no: " + cardInModel.currentAttacksPerTurn);
+            if (cardInModel.currentAttacksPerTurn > 0)
+            {
+                // enable unit glow
+                child.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitGlowImage.enabled = true;
+
+                // enable unit attack
+                child.GetComponent<Attackable>().enabled = true;
+            }
+            else
+            {
+                // block unit glow
+                child.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitGlowImage.enabled = false;
+
+                // block unit attack
+                child.GetComponent<Attackable>().enabled = false;
+            }
         }
     }
     
@@ -56,15 +80,10 @@ public class DropZone : MonoBehaviour, IDropHandler
     {
         foreach (Transform child in dropAreaImage.transform)
         {
-            //TODO
             // block unit glow
-            //child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
+            child.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitGlowImage.enabled = false;
 
             // block unit attack
-            //Debug.Log("BLOCK:::: " + child.GetComponent<CardDisplayLoader>().cardUnitLoader.nameText.text + " " + child.GetComponent<CardDisplayLoader>().Unit.GetComponent<Attackable>().enabled);
-            //child.GetComponent<CardDisplayLoader>().Unit.GetComponent<Attackable>().enabled = false;
-            //child.GetComponent<CardDisplayLoader>().Unit.GetComponent<Attackable>().transform.GetComponentInChildren<LineRenderer>().enabled = false;
-            //Debug.Log("       then 2:::: " + child.GetComponent<CardDisplayLoader>().cardUnitLoader.nameText.text + " " + child.GetComponent<CardDisplayLoader>().Unit.GetComponent<Attackable>().enabled);
             child.GetComponent<Attackable>().enabled = false;
         }
     }

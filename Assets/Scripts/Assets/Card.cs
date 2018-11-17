@@ -20,6 +20,8 @@ public class Card : ScriptableObject {
     public Affiliation affiliation;
     public int cardID;
     public string historyDescription;
+    public int maxAttacksPerTurn;
+    public int currentAttacksPerTurn;
 
 
     [Header("Unit Card Info")]
