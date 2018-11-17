@@ -20,7 +20,6 @@ public class AudioGeneratorForBackGround : MonoBehaviour {
     void Start()
     {
         bogurodzicaAudio.Play();
-
     }
 
     void Update () {
@@ -29,10 +28,10 @@ public class AudioGeneratorForBackGround : MonoBehaviour {
             bogurodzicaAudio.Stop();
             if (isMenuMusic)
             {
-                battleThemeAudio.PlayOneShot(BattleTheme, 0.3f);
+                battleThemeAudio.loop = true;
+                battleThemeAudio.PlayOneShot(BattleTheme, 0.2f);
                 isMenuMusic = false;
             }
-
         }
 	}
 

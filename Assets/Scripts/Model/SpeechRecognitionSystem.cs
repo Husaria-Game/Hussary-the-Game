@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
@@ -9,22 +8,22 @@ using System;
 public class SpeechRecognitionSystem : MonoBehaviour
 {
     //Elements needed to creat listening system
-    private string[] wordsToRecognize = new string[] {"sakwa", "miecz", "tarcza", "trucizna", "ręka" };
+    private string[] wordsToRecognize = new string[] {"moc", "obrona", "zbrodnia", "pomur", "fortuna" };
     private ConfidenceLevel confidenceLevel = ConfidenceLevel.Low;
     private PhraseRecognizer recognizer;
 
     public enum SpeechSign
     {
-        nic, miecz, tarcza, trucizna, sakwa, ręka
+        nic, moc, obrona, zbrodnia, pomur, fortuna
     }
     public SpeechSign currentSpeechSign;
 
     //SpeechSign Images to load
-    public Sprite sword;
-    public Sprite shield;
-    public Sprite pouch;
-    public Sprite poison;
-    public Sprite hand;
+    public Sprite power;
+    public Sprite defence;
+    public Sprite blight;
+    public Sprite crime;
+    public Sprite fortune;
 
     public Image speechSign;
 
@@ -37,7 +36,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
     private const int SPEECH_EFFECT_CHANCE = 30;
 
     private bool isEffectgoingToTakePlace = false; //variable to later achieve effect in unit card
-    private IEnumerator toStop = null; //variable to stop coroutine when endTurnButton clicked
+    private IEnumerator toStop = null;
 
     void Start()
     {
@@ -111,23 +110,23 @@ public class SpeechRecognitionSystem : MonoBehaviour
         int number = random.Next(0, 101);
         if(number < 20)
         {
-            ShowSpeechSign(sword, SpeechSign.miecz);
+            ShowSpeechSign(power, SpeechSign.moc);
         }
         else if(number >= 20 && number < 40)
         {
-            ShowSpeechSign(shield, SpeechSign.tarcza);
+            ShowSpeechSign(defence, SpeechSign.obrona);
         }
         else if (number >= 40 && number < 60)
         {
-            ShowSpeechSign(pouch, SpeechSign.sakwa);
+            ShowSpeechSign(blight, SpeechSign.pomur);
         }
         else if (number >= 60 && number < 80)
         {
-            ShowSpeechSign(poison, SpeechSign.trucizna);
+            ShowSpeechSign(crime, SpeechSign.zbrodnia);
         }
         else if (number >= 80 && number < 100)
         {
-            ShowSpeechSign(hand, SpeechSign.ręka);
+            ShowSpeechSign(fortune, SpeechSign.fortuna);
         }
     }
 
@@ -138,7 +137,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
     IEnumerator ShowSpeechSignCoroutine(Sprite signImage, SpeechSign signMark)
     {
-        //toStop = ShowSpeechSignCoroutine(signImage, signMark);
+        toStop = ShowSpeechSignCoroutine(signImage, signMark);
         int number = random.Next(5, 20);
 
         yield return new WaitForSeconds(number);  //Random second in which system starts to show signImage
@@ -154,7 +153,6 @@ public class SpeechRecognitionSystem : MonoBehaviour
         heardWord = "";
         resultOfVoiceCommand.text = heardWord;
         recognizer.Stop();
-        //toStop = null;
     }
 
     private void CompareShownSignAndSpeech()
@@ -174,14 +172,8 @@ public class SpeechRecognitionSystem : MonoBehaviour
     }
 
     //not working
-    /*
     public void StopCoroutineIfTurnButtonClicked()
     {
-        if(toStop != null)
-        {
-            StopCoroutine(toStop);
-            Debug.Log("Coroutine Stopped");
-        }
+        
     }
-    */
 }
