@@ -17,7 +17,12 @@ MonoBehaviour:
   cardCost: 6
   affiliation: 1
   cardID: 0
-  historyDescription: "Najwy\u017Cszy s\u0119dzia wojskowy imperium osma\u0144skiego"
+  historyDescription: "Najwy\u017Cszy s\u0119dzia wojskowy Imperium Osma\u0144skiego.
+    W Turcji funkcjonowa\u0142o dw\xF3ch kazasker\xF3w. Pod jurysdykcj\u0105 jednego
+    (nazywanego Rumeli Kazaskeri) znajdowa\u0142a si\u0119 cz\u0119\u015B\u0107 europejska,
+    za\u015B drugiego (Anadolu Kazaskeri) - cz\u0119\u015B\u0107 azjatycka Imperium
+    Osma\u0144skiego. Obaj wchodzili w sk\u0142ad dywanu, czyli rady doradczej su\u0142tana,
+    obraduj\u0105cej w sprawach przez niego wskazanych."
   attack: 4
   maxHealth: 4
   UnitScriptName: 

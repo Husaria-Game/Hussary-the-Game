@@ -17,8 +17,15 @@ MonoBehaviour:
   cardCost: 5
   affiliation: 1
   cardID: 0
-  historyDescription: "Ci\u0119\u017Cka i dobrze wyszkolona jazda powo\u0142ywana
-    przez sand\u017Cakbej\xF3w"
+  historyDescription: "Mo\u017Cna ich okre\u015Bli\u0107 jako ci\u0119\u017Ck\u0105
+    jazd\u0119, na pewnym etapie swego istnienia stanowili wraz z janczarami rdze\u0144
+    armii tureckiej. Czasami por\xF3wnuje si\u0119 ich z europejskim rycerstwem. Nazywani
+    timariotami, ze wzgl\u0119du na niedu\u017Ce posiad\u0142o\u015Bci (timary), kt\xF3rych
+    byli lennikami. Powo\u0142ani w XIV wieku, do wojska wst\u0119powali dzi\u0119ki
+    sand\u017Cakbejom - namiestnikom posiadaj\u0105cym swoich zwierzchnik\xF3w - bejlerbej\xF3w.
+    W sk\u0142ad ich uzbrojenia wchodzi\u0142o m.in.: szabla, arkan, misiurka lub
+    szyszak perski, tarcza, \u0142uk, para karwaszy. Zlikwidowani przez su\u0142tana
+    Mahmuda II w XIX wieku."
   attack: 4
   maxHealth: 5
   UnitScriptName: 

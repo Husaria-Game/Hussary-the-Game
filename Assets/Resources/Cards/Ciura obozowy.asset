@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Ciura obozowy
   description: "Za ka\u017Cde 5 jednostek obni\u017C koszt jednego towarzysza o 1"
-  cardImage: {fileID: 21300000, guid: b7bc1b957cc4ae44cb011216ef4b0f8a, type: 3}
+  cardImage: {fileID: 21300000, guid: ca442d82c92aea440a731ea8530c1bca, type: 3}
   cardCost: 1
   affiliation: 0
   cardID: 0
