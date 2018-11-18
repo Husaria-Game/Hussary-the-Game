@@ -17,7 +17,14 @@ MonoBehaviour:
   cardCost: 5
   affiliation: 1
   cardID: 0
-  historyDescription: "Lekka jazda uzbrojona w \u0142uki i szable"
+  historyDescription: "Lekka jazda uzbrojona w \u0142uki i szable. Do po\u0142owy
+    XIV wieku stanowili trzon armii tureckiej. Su\u0142tan Urchan przeprowadzi\u0142
+    reform\u0119 wojska, w wyniku kt\xF3rej akind\u017Ci mieli przeprowadza\u0107
+    wyprawy rozpoznawcze i grabienie wroga. W bitwach zajmowali pozycj\u0119 przed
+    g\u0142\xF3wnym szykiem bojowym lub razem ze spahisami na skrzyd\u0142ach. Nie
+    otrzymywali \u017Co\u0142du, jednocze\u015Bnie byli zwolnieni z op\u0142at i danin.
+    Mieli te\u017C prawo do zachowania \u0142up\xF3w wojennych. Ostatecznie zostali
+    rozwi\u0105zani w XVIII wieku."
   attack: 4
   maxHealth: 4
   UnitScriptName: 

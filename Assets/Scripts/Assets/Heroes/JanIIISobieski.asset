@@ -15,7 +15,7 @@ MonoBehaviour:
   description: 
   heroImage: {fileID: 21300000, guid: 00d400879a9cebc42af69636d7ca06d9, type: 3}
   affiliation: 0
-  maxHealth: 20
+  maxHealth: 25
   skillCost: 3
   TacticsScriptName: 
   effectAmount: 0

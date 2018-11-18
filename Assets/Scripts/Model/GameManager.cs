@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     public string southName = "Gracz 1";
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
-    public PlayerModel whoseTurn;
+    public PlayerModel currentPlayer; //player that has active turn
+    public PlayerModel otherPlayer; //player that has waits for his turn
     public MessageManager messageManager;
+    public EndingMessege endingMessage;
     public HandView northHandView;
     public HandView southHandView;
     public GameObject unitCard;
@@ -23,10 +25,13 @@ public class GameManager : MonoBehaviour
     public GameObject deckSouth;
     public GameObject resourcesNorth;
     public GameObject resourcesSouth;
-    public GameObject dropzoneNorth;
-    public GameObject dropzoneSouth;
+    public GameObject heroNorth;
+    public GameObject heroSouth;
+    public DropZone dropZoneNorth;
+    public DropZone dropZoneSouth;
     public GameObject mainMenu;
     public bool gameRunning;
+    public bool enablePlayableCardsFlag;
 
     //Skrypty czytające dane z menu (imiona i frakcje) - MultiPlayer
     public ChooseFactionForFirstPlayer chooseFactionForFirstPlayer;
@@ -56,11 +61,24 @@ public class GameManager : MonoBehaviour
     {
         visuals.SetActive(false);
         mainMenu.SetActive(true);
+        enablePlayableCardsFlag = false;
     }
 
     void Update()
     {
+        if (enablePlayableCardsFlag)
+        {
+            if (currentPlayer == playerSouth)
+            {
+                southHandView.setPlayableCards(playerSouth.resourcesCurrent);
 
+            }
+            if (currentPlayer == playerNorth)
+            {
+                northHandView.setPlayableCards(playerNorth.resourcesCurrent);
+            }
+            enablePlayableCardsFlag = false;
+        }
     }
 
     // Use this for initialization
@@ -81,9 +99,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);             
             }
-
-            Card cardDrawn = playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-            southHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerSouth, deckSouth);
+            drawNewCardPlayerSouth();
         }
 
         //// ----------draw 4 cards from deck to Player North
@@ -93,9 +109,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);
             }
-
-            Card cardDrawn = playerNorth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-            northHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerNorth, deckNorth);
+            drawNewCardPlayerNorth();
             while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
             {
                 yield return new WaitForSeconds(0.1f);
@@ -104,29 +118,38 @@ public class GameManager : MonoBehaviour
 
         northHandView.blockAllOperations();
         southHandView.blockAllOperations();
-        //whoseTurn = Position.North;
-        whoseTurn = playerNorth;
+        currentPlayer = playerNorth;
         this.nextTurn();
     }
 
     public void nextTurn()
     {
-        if (whoseTurn == playerNorth)
+        if (currentPlayer == playerNorth)
         {
-            whoseTurn = playerSouth;
+            currentPlayer = playerSouth;
+            otherPlayer = playerNorth;
         }
-        else if (whoseTurn == playerSouth)
+        else if (currentPlayer == playerSouth)
         {
-            whoseTurn = playerNorth;
+            currentPlayer = playerNorth;
+            otherPlayer = playerSouth;
         }
-        if (whoseTurn == playerSouth)
+        if (currentPlayer == playerSouth)
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
+            dropZoneNorth.blockAllUnitOperations();
+            dropZoneSouth.blockAllUnitOperations();
             messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+            
+            drawNewCardPlayerSouth();
+            
+            playerSouth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
+            dropZoneSouth.unlockUnitAttacks();
+
             endTurnButtonManager.TimerStart();
 
             //For Testing purpose only
@@ -134,15 +157,21 @@ public class GameManager : MonoBehaviour
 
             /////////////////////
         }
-        if (whoseTurn == playerNorth)
+        if (currentPlayer == playerNorth)
         {
             northHandView.blockAllOperations();
             southHandView.blockAllOperations();
+            dropZoneNorth.blockAllUnitOperations();
+            dropZoneSouth.blockAllUnitOperations();
             messageManager.ShowMessage(northName + " \nTwoja tura!", 2f);
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+
+            drawNewCardPlayerNorth();
+
+            playerNorth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             northHandView.setPlayableCards(playerNorth.resourcesCurrent);
-            endTurnButtonManager.TimerStart();
+            dropZoneNorth.unlockUnitAttacks();
         }
     }
 
@@ -155,8 +184,8 @@ public class GameManager : MonoBehaviour
         //Dodane przypiasanie frakcji - Na razie tylko tryb Multiplayer - potem trzeba wprowadić zmienną wybierającą tryb
         attributeNamesAndFactions();
 
-        playerNorth = new PlayerModel(0, "Cooper", secondFaction, Position.North);
-        playerSouth = new PlayerModel(1, "Johnson", firstFaction, Position.South);
+        playerNorth = new PlayerModel(0, northName, secondFaction, Position.North);
+        playerSouth = new PlayerModel(1, southName, firstFaction, Position.South);
         resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
         resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
     }
@@ -189,6 +218,18 @@ public class GameManager : MonoBehaviour
     public void StartGameWithCouroutine()
     {
         StartCoroutine(startGame());
+    }
+
+    public void drawNewCardPlayerNorth()
+    {
+        Card cardDrawn = playerNorth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+        northHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerNorth, deckNorth);
+    }
+
+    public void drawNewCardPlayerSouth()
+    {
+        Card cardDrawn = playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+        southHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerSouth, deckSouth);
     }
 
     public void QuitGame()

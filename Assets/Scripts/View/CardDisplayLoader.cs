@@ -7,6 +7,7 @@ public class CardDisplayLoader : MonoBehaviour {
     public Card card;
     public CardDisplayLoader cardPreviewLoader;
     public UnitVisualManager cardUnitLoader;
+    public GameObject Unit;
     [Header("Text References")]
     public Text cardNameText;
     public Text cardMoneyText;
@@ -32,7 +33,6 @@ public class CardDisplayLoader : MonoBehaviour {
         cardMoneyText.text = card.cardCost.ToString();
         descriptionText.text = card.description;
         profileImage.sprite = card.cardImage;
-        //Debug.Log(card.name);
         if (card.maxHealth > 0)
         {
             armorText.text = card.maxHealth.ToString();

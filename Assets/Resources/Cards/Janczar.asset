@@ -17,8 +17,15 @@ MonoBehaviour:
   cardCost: 3
   affiliation: 1
   cardID: 0
-  historyDescription: "G\u0142\xF3wna si\u0142a impreium, wyposa\u017Cona m.in. w
-    jatagan, w\u0142\xF3cznie, kind\u017Ca\u0142 i muszkiet"
+  historyDescription: "Oddzia\u0142y piechoty tureckiej, od XV do XIX wieku pe\u0142ni\u0105ce
+    fundamentaln\u0105 rol\u0119 w armii Imperium Osma\u0144skiego. Janczarzy pochodzili
+    z powszechnego poboru, w kt\xF3rym co 5-7 lat ka\u017Cda rodzina musia\u0142a
+    odda\u0107 su\u0142tanowi w niewol\u0119 syna (pod warunkiem posiadania przynajmniej
+    dw\xF3ch). Na ekwipunek janczar\xF3w sk\u0142ada\u0142y si\u0119: jatagan (kr\xF3tka
+    szabla), w\u0142\xF3cznie, kind\u017Ca\u0142 (sztylet), \u0142uk (p\xF3\u017Aniej
+    pistolet, a od 1566 roku muszkiet). Korpusy janczar\xF3w dzielono na orty. Ich
+    ostateczne rozwi\u0105zanie nast\u0105pi\u0142o w 1826 roku przez su\u0142tana
+    Mahmuda II."
   attack: 2
   maxHealth: 2
   UnitScriptName: 

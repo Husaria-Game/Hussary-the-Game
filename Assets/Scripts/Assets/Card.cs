@@ -20,11 +20,14 @@ public class Card : ScriptableObject {
     public Affiliation affiliation;
     public int cardID;
     public string historyDescription;
+    public int maxAttacksPerTurn;
+    public int currentAttacksPerTurn;
 
 
     [Header("Unit Card Info")]
     public int attack;
     public int maxHealth;   // if maxHealth == 0 then card is a tactics card
+    public int currentHealth;
     public string UnitScriptName;
 
     [Header("Tactics Card Info")]
