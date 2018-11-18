@@ -23,12 +23,17 @@ public class CardOnHoverPreview : MonoBehaviour, IPointerDownHandler, IPointerCl
             }
             cardInPreview = this;
             previewGameObject.SetActive(!previewGameObject.activeSelf);
+            previewGameObject.GetComponentInChildren<Canvas>().overrideSorting = true;
+            previewGameObject.GetComponentInChildren<Canvas>().sortingLayerName = "ActiveCard";
+
         }
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (cardInPreview != null)
             {
+                previewGameObject.GetComponentInChildren<Canvas>().overrideSorting = false;
                 cardInPreview.previewGameObject.SetActive(false);
+
             }
         }
     }
