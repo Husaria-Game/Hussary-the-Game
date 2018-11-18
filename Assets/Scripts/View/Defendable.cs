@@ -23,7 +23,7 @@ public class Defendable : MonoBehaviour, IDropHandler
                 attackerCard.hero = this.gameObject;
             }
         }
-        else // behaviour for Unit
+        else if (attackerCard.enabled) // behaviour for Unit
         {
             defenderCardTransform = this.transform;
             ownerPosition = defenderCardTransform.GetComponent<IDAssignment>().ownerPosition;

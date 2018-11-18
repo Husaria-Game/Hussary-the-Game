@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public PlayerModel currentPlayer; //player that has active turn
     public PlayerModel otherPlayer; //player that has waits for his turn
     public MessageManager messageManager;
+    public EndingMessege endingMessage;
     public HandView northHandView;
     public HandView southHandView;
     public GameObject unitCard;

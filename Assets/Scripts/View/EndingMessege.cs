@@ -19,12 +19,6 @@ public class EndingMessege : MonoBehaviour {
             MessegeCanvasForQuitGame.SetActive(true);
             Time.timeScale = 0;
         }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            afterGameText.text = "Zwycięża " + winnerName;
-            MessegeCanvasAfterGameIsDone.SetActive(true);
-            Time.timeScale = 0;
-        }
     }
 
     public void StopTheGame()
@@ -50,9 +44,12 @@ public class EndingMessege : MonoBehaviour {
     }
 
     //Method to be used in GameManager to pass winning player name
-    public void WhoWonMessege(string player)
+    public void WhoWonMessege(PlayerModel player)
     {
-        winnerName = player;
+        winnerName = player.name;
+        afterGameText.text = "Zwycięża " + winnerName;
+        MessegeCanvasAfterGameIsDone.SetActive(true);
+        Time.timeScale = 0;
     }
 }
 

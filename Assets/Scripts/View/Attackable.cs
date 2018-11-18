@@ -202,8 +202,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                     GameManager.Instance.otherPlayer.armymodel.heroModel.heroDies();
                     //Destroy(defenderCard.gameObject);
                     // TODO - visual game end
-                    Debug.Log("Game Ended!!!!!!!!!!!!!!!!!!!!!!!!! Won: " + GameManager.Instance.currentPlayer.name);
-
+                    Debug.Log("Game Ended! Won: " + GameManager.Instance.currentPlayer.name);
+                    GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.currentPlayer);
                 }
             }
 
