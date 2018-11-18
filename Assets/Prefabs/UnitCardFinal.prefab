@@ -2904,11 +2904,10 @@ MonoBehaviour:
   card: {fileID: 11400000, guid: e265bbf4f97958f4bbd746cb2b12c366, type: 2}
   cardPreviewLoader: {fileID: 0}
   cardUnitLoader: {fileID: 0}
-  Unit: {fileID: 0}
   cardNameText: {fileID: 114403714604397820}
   cardMoneyText: {fileID: 114511195504400158}
   armorText: {fileID: 114858940673366408}
-  attackText: {fileID: 114103695416644264}
+  attackText: {fileID: 114910776487457216}
   descriptionText: {fileID: 114439923187827036}
   topRibbonImage: {fileID: 114097679138615784}
   profileImage: {fileID: 114580045837583316}
@@ -4351,7 +4350,6 @@ MonoBehaviour:
   card: {fileID: 11400000, guid: e265bbf4f97958f4bbd746cb2b12c366, type: 2}
   cardPreviewLoader: {fileID: 0}
   cardUnitLoader: {fileID: 0}
-  Unit: {fileID: 0}
   cardNameText: {fileID: 114162208634966442}
   cardMoneyText: {fileID: 114006873820945182}
   armorText: {fileID: 114221273722802764}
@@ -4430,7 +4428,6 @@ MonoBehaviour:
   card: {fileID: 11400000, guid: e265bbf4f97958f4bbd746cb2b12c366, type: 2}
   cardPreviewLoader: {fileID: 114350974407344900}
   cardUnitLoader: {fileID: 114893556292546452}
-  Unit: {fileID: 1385408241536312}
   cardNameText: {fileID: 114365185258610474}
   cardMoneyText: {fileID: 114548180357599614}
   armorText: {fileID: 114078657815837682}
@@ -7556,7 +7553,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -4.642123, y: -0.34011072}
+  m_AnchoredPosition: {x: -0.13366008, y: -3.3697116}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224940309305712334

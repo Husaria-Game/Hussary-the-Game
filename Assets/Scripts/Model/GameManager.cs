@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour
     public Faction firstFaction;
     public Faction secondFaction;
 
+    //For test purpose only
+    public SpeechRecognitionSystem speechRecognition;
+
     void Awake()
     {
         Instance = this;
@@ -148,6 +151,11 @@ public class GameManager : MonoBehaviour
             dropZoneSouth.unlockUnitAttacks();
 
             endTurnButtonManager.TimerStart();
+
+            //For Testing purpose only
+            speechRecognition.CheckWhetherToShowSpeechSign();
+
+            /////////////////////
         }
         if (currentPlayer == playerNorth)
         {
