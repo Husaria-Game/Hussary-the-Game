@@ -18,8 +18,13 @@ MonoBehaviour:
   cardCost: 1
   affiliation: 1
   cardID: 0
-  historyDescription: "Cz\u0142onek muzu\u0142ma\u0144skiego bractwa religijnego opartego
-    na doktrynie sufizmu"
+  historyDescription: "Przynale\u017Cny do bractwa religijnego muzu\u0142ma\u0144ski
+    mistyk, r\xF3wnie\u017C \u017Cebrak, asceta lub w\u0119drowny mnich. Naczeln\u0105
+    regu\u0142\u0105 \u017Cycia derwisza by\u0142a zasada sufizmu, polegaj\u0105c\u0105
+    na d\u0105\u017Ceniu do zjednoczenia z b\xF3stwem poprzez kontemplacj\u0119 i
+    ekstaz\u0119. Praktykowali rytualn\u0105, niekiedy wielogodzinn\u0105 modlitw\u0119
+    zwan\u0105 zikr, podczas kt\xF3rej obracali si\u0119 na prawej nodze wok\xF3\u0142
+    w\u0142asnej osi."
   attack: 1
   maxHealth: 1
   UnitScriptName: 
