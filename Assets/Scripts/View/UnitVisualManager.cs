@@ -25,6 +25,10 @@ public class UnitVisualManager : MonoBehaviour
     {
         if (card != null) loadUnitAsset();
     }
+    void Update()
+    {
+
+    }
 
     // Method for loading unit parameters from coresponding card
     public void loadUnitAsset()

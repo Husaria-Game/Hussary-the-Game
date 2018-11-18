@@ -3,28 +3,85 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+public class DropZone : MonoBehaviour, IDropHandler
 {
     public Position dropZonePosition;
+    public GameObject dropAreaImage;
+    public bool dropEventOccurs = false;
+    public bool attackEventEnded = false;
+
+
+    void Update()
+    {
+        if (dropEventOccurs)
+        {
+            foreach (Transform child in dropAreaImage.transform)
+            {
+                child.GetComponent<Draggable>().enabled = false;
+                child.GetComponent<Attackable>().enabled = true;
+                child.GetComponent<Attackable>().initialDropZone = this;
+                child.GetComponent<Defendable>().enabled = true;
+            }
+
+            dropEventOccurs = false;
+        }
+
+        if (attackEventEnded)
+        {
+            unlockUnitAttacks();
+            attackEventEnded = false;
+        }
+    }
+
     public void OnDrop(PointerEventData eventData)
     {
 
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
+
         // allow drag if draggable object exists and dropzone belongs to player
-        if (d != null && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)// && this.transform.GetChild(0).GetChild(0) != d.parentToReturnTo)
+        if (d != null && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)
         {
+            d.dropZone = this;
             d.dragSuccess = true;
             d.parentToReturnTo = this.transform.GetChild(0).GetChild(0);
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void unlockUnitAttacks()
     {
-        //Debug.Log("OnPointerEnter to " + gameObject.name);
-    }
+        foreach (Transform child in dropAreaImage.transform)
+        {
+            // enable only cards with available attack this turn
+            Card cardInModel = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(child.GetComponent<IDAssignment>().uniqueId);
+           
+            if (cardInModel.currentAttacksPerTurn > 0)
+            {
+                // enable unit glow
+                child.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitGlowImage.enabled = true;
 
-    public void OnPointerExit(PointerEventData eventData)
+                // enable unit attack
+                child.GetComponent<Attackable>().enabled = true;
+            }
+            else
+            {
+                // block unit glow
+                child.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitGlowImage.enabled = false;
+
+                // block unit attack
+                child.GetComponent<Attackable>().enabled = false;
+            }
+        }
+    }
+    
+    public void blockAllUnitOperations()
     {
-        //Debug.Log("OnPointerExit to " + gameObject.name);
-	}
+        foreach (Transform child in dropAreaImage.transform)
+        {
+            // block unit glow
+            child.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitGlowImage.enabled = false;
+
+            // block unit attack
+            child.GetComponent<Attackable>().enabled = false;
+        }
+    }
 }

@@ -12,7 +12,7 @@ public class EndTurnButtonManager : MonoBehaviour
     private bool isCounting = false;
     private float timerCountdown;
     private float timeLeft;
-    private const float TIME = 30;  //Czas na turę;
+    private const float TIME = 300;  //Time per round in seconds;
 
     void Update()
     {

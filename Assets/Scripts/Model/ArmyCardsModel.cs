@@ -42,6 +42,8 @@ public class ArmyCardsModel : MonoBehaviour
         foreach (Card item in deckCardList)
         {
             item.cardID = IDFactory.GetUniqueID();
+            item.maxAttacksPerTurn = 1;
+            item.currentAttacksPerTurn = item.maxAttacksPerTurn;
         }
 
         this.handCardList = new List<Card>();
@@ -55,25 +57,14 @@ public class ArmyCardsModel : MonoBehaviour
         int r = UnityEngine.Random.Range(0, this.deckCardList.Count - 1);
 
         Card card = this.deckCardList[r];
-        //Debug.Log("random: " + r + " karta:  " + card.cardName.ToString() + ", id: " + card.cardID);
-
 
         this.deckCardList.RemoveAt(r);
-
-        foreach (Card item in deckCardList)
-        {
-            //Debug.Log("DECK: name -" + item.cardName.ToString() + ", cost - " + item.cardCost.ToString() + ", id: " + card.cardID.ToString());
-        }
         return card;
     }
     public Card moveCardFromDeckListToHandList()
     {
         Card card = drawCardFromDeckList();
         this.handCardList.Add(card);
-        //foreach (Card item in handCardList)
-        //{
-        //    Debug.Log("HAND: name -" + item.cardName.ToString() + ", cost - "+ item.cardCost.ToString() + ", id: " + item.cardID.ToString());
-        //}
         return card;
     }
 
@@ -84,9 +75,30 @@ public class ArmyCardsModel : MonoBehaviour
         frontCardList.Add(cardToMove);
     }
 
-    public void moveCardFromFrontToGraveyard()
+    public void moveCardFromFrontToGraveyard(int id)
+    {
+        Card cardToMove = frontCardList.Single(r => r.cardID == id);
+        frontCardList.Remove(cardToMove);
+        graveyardCardList.Add(cardToMove);
+    }
+
+    public void updateArmorAfterDamageTaken(int cardID, int newArmorValue)
     {
 
+        findCardInFrontByID(cardID).currentHealth = newArmorValue;
+    }
+
+    public Card findCardInFrontByID(int id)
+    {
+        return frontCardList.Find(x => x.cardID == id);
+    }
+
+    public void restoreCardAttacksPerRound()
+    {
+        foreach (Card item in frontCardList)
+        {
+            item.currentAttacksPerTurn = item.maxAttacksPerTurn;
+        }
     }
 }
 

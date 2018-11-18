@@ -14,23 +14,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public GameObject arrow;
     public bool dragSuccess;
     public bool transformCardIntoUnit;
-    public DropZone initialDropZone;
+    public DropZone dropZone;
     private Vector3 pointerDisplacement = Vector3.zero;
     public Transform t_Reference;
     private CardVisualStateEnum cardState;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // get object reference transform
-        if (transform.GetComponent<UnitVisualManager>() != null)
-        {
-            //if unit then get transform from parent
-            t_Reference = transform.GetComponent<UnitVisualManager>().unitParentCard.gameObject.transform;
-        }
-        else
-        {
-            t_Reference = this.transform;
-        }
+        t_Reference = this.transform;
         cardState = t_Reference.GetComponent<CardVisualState>().cardVisualStateEnum;
 
         parentToReturnTo = t_Reference.parent;
@@ -44,8 +35,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         GetComponent<CanvasGroup>().blocksRaycasts = false;
 
         // enable aim icon for unit tactics with aim
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
-        {
+        //if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
+        if (cardState == CardVisualStateEnum.TacticsWithAim)
+            {
             if (lineRenderer != null)
             {
                 lineRenderer.enabled = true;
@@ -63,10 +55,11 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         Vector3 pz = Camera.main.ScreenToWorldPoint(eventData.position);
         pz.z = 0;
 
-       
+
 
         // update aim icon for unit and tactics with aim
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
+        //if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
+        if (cardState == CardVisualStateEnum.TacticsWithAim)
         {
             if (lineRenderer != null)
         {
@@ -80,8 +73,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         {
         t_Reference.position = new Vector2(pz.x - pointerDisplacement.x, pz.y - pointerDisplacement.y);
         }
+        //if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
         if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
-        {
+            {
             if (arrow != null)
             {
                 arrow.transform.position = new Vector2(pz.x, pz.y);
@@ -93,6 +87,20 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnEndDrag(PointerEventData eventData)
     {
         GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+
+        //if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
+        if (cardState == CardVisualStateEnum.TacticsWithAim)
+        {
+            if (lineRenderer != null)
+            {
+                lineRenderer.enabled = false;
+            }
+            if (arrow != null)
+            {
+                arrow.SetActive(false);
+            }
+        }
 
         if (dragSuccess)//for dragging successful
         {
@@ -112,6 +120,11 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
                     cardDraggedToFrontCommand(transform.GetComponent<IDAssignment>().ownerPosition, transform.GetComponent<IDAssignment>().uniqueId);
                     // change card visual from UnitCard to Unit
                     t_Reference.GetComponent<CardVisualState>().changeStateToUnit();
+                    this.GetComponentInChildren<Canvas>().sortingLayerName = "Card";
+
+                    // sets dropEventOccurs to true, which disables Draggable script
+                    dropZone.dropEventOccurs = true;
+                    GameManager.Instance.enablePlayableCardsFlag = true;
                 }
             }
 
@@ -119,17 +132,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         else
         {
             t_Reference.DOMove(initialPosition, 1).SetEase(Ease.OutQuint, 0.5f, 0.1f);
-        }
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
-        {
-            if (lineRenderer != null)
-            {
-                lineRenderer.enabled = false;
-            }
-            if (arrow != null)
-            {
-                arrow.SetActive(false);
-            }
         }
         this.GetComponentInChildren<Canvas>().sortingLayerName = "Card";
 	}
@@ -148,13 +150,13 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void updateResourcesModelAndView()
     {
-        int updatedCurrentResources = GameManager.Instance.whoseTurn.substractCurrentResources(int.Parse(t_Reference.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()));
-        int maxResources = GameManager.Instance.whoseTurn.resourcesMaxThisTurn;
-        if (GameManager.Instance.whoseTurn == GameManager.Instance.playerNorth)
+        int updatedCurrentResources = GameManager.Instance.currentPlayer.substractCurrentResources(int.Parse(t_Reference.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()));
+        int maxResources = GameManager.Instance.currentPlayer.resourcesMaxThisTurn;
+        if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
         {
             GameManager.Instance.resourcesNorth.transform.GetComponent<ResourcePool>().updateResourcesView(updatedCurrentResources, maxResources);
         }
-        else if (GameManager.Instance.whoseTurn == GameManager.Instance.playerSouth)
+        else if (GameManager.Instance.currentPlayer == GameManager.Instance.playerSouth)
         {
             GameManager.Instance.resourcesSouth.transform.GetComponent<ResourcePool>().updateResourcesView(updatedCurrentResources, maxResources);
         }

@@ -12,6 +12,10 @@ public class HeroVisualManager : MonoBehaviour
     public Text nameText;
     public Text healthText;
     public Text skillCostText;
+    public GameObject explosionEffect;
+    public CanvasGroup canvasGroup;
+    public Text damageNumberText;
+    public Position ownerPosition;
     [Header("Image References")]
     public Image profileImage;
 
@@ -41,5 +45,29 @@ public class HeroVisualManager : MonoBehaviour
         {
 
         }
+    }
+    public void createDamageVisual(int damage)
+    {
+        StartCoroutine(ReceiveDamage(damage));
+    }
+
+    public IEnumerator ReceiveDamage(int damage)
+    {
+        damageNumberText.text = damage.ToString();
+        explosionEffect.SetActive(true);
+        canvasGroup.alpha = 0.1f;
+        while (canvasGroup.alpha < 1)
+        {
+            canvasGroup.alpha += 0.05f;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        while (canvasGroup.alpha > 0)
+        {
+            canvasGroup.alpha -= 0.05f;
+            yield return new WaitForSeconds(0.05f);
+        }
+        // after the effect is shown it gets destroyed.
+        //Destroy(this.gameObject);
     }
 }
