@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class CardDisplayLoader : MonoBehaviour {
 
+    public bool isAbleToAttack;
     public Card card;
     public CardDisplayLoader cardPreviewLoader;
     public UnitVisualManager cardUnitLoader;

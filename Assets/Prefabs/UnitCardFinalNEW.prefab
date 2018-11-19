@@ -2462,6 +2462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77d0bc1508701e429edf5f26457af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAbleToAttack: 0
   card: {fileID: 0}
   cardPreviewLoader: {fileID: 0}
   cardUnitLoader: {fileID: 0}
@@ -2781,6 +2782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77d0bc1508701e429edf5f26457af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAbleToAttack: 0
   card: {fileID: 0}
   cardPreviewLoader: {fileID: 114267635634906916}
   cardUnitLoader: {fileID: 114811090590216448}
@@ -4667,6 +4669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77d0bc1508701e429edf5f26457af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAbleToAttack: 0
   card: {fileID: 0}
   cardPreviewLoader: {fileID: 0}
   cardUnitLoader: {fileID: 0}
@@ -6669,7 +6672,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -4.062833, y: 0.31531936}
+  m_AnchoredPosition: {x: -3.0451856, y: -1.4349617}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224484021894790660

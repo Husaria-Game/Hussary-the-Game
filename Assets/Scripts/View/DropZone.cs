@@ -36,10 +36,12 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         {
             foreach (Transform child in dropAreaImage.transform)
             {
-                child.GetComponent<Draggable>().enabled = false;
-                child.GetComponent<Attackable>().enabled = true;
-                child.GetComponent<Attackable>().initialDropZone = this;
-                child.GetComponent<Defendable>().enabled = true;
+                {
+                    child.GetComponent<Draggable>().enabled = false;
+                    //child.GetComponent<Attackable>().enabled = true;
+                    child.GetComponent<Attackable>().initialDropZone = this;
+                    child.GetComponent<Defendable>().enabled = true;
+                }
             }
 
             dropEventOccurs = false;
@@ -81,7 +83,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             // enable only cards with available attack this turn
             Card cardInModel = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(child.GetComponent<IDAssignment>().uniqueId);
            
-            if (cardInModel.currentAttacksPerTurn > 0)
+            if (cardInModel.currentAttacksPerTurn > 0 && cardInModel.isAbleToAttack)
             {
                 // enable unit glow
                 child.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitGlowImage.enabled = true;

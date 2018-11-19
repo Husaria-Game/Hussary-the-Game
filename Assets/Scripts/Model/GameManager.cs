@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
     public SpeechRecognitionSystem speechRecognition;
     public DebugMessege debugMessageBox;
 
+    public int turnNumber = 0;
+    public const int CARD_LIMIT = 6;
+
     void Awake()
     {
         Instance = this;
@@ -53,6 +56,7 @@ public class GameManager : MonoBehaviour
             visuals.SetActive(true);
             mainMenu.SetActive(false);          
             StartGameWithCouroutine();
+            enablePlayableCardsFlag = false;
         }
         else
         {
@@ -69,12 +73,11 @@ public class GameManager : MonoBehaviour
         {
             if (currentPlayer == playerSouth)
             {
-                southHandView.setPlayableCards(playerSouth.resourcesCurrent);
-
+                UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
             }
             if (currentPlayer == playerNorth)
             {
-                northHandView.setPlayableCards(playerNorth.resourcesCurrent);
+                UnblockAllUnitsAndCards(playerNorth, northHandView, dropZoneNorth);
             }
             enablePlayableCardsFlag = false;
         }
@@ -123,6 +126,9 @@ public class GameManager : MonoBehaviour
 
     public void nextTurn()
     {
+        turnNumber++;
+
+        Debug.Log("Tura nr " + turnNumber);
         if (currentPlayer == playerNorth)
         {
             currentPlayer = playerSouth;
@@ -133,43 +139,40 @@ public class GameManager : MonoBehaviour
             currentPlayer = playerNorth;
             otherPlayer = playerSouth;
         }
+
+        BlackAllUnitsAndCards();
+        messageManager.ShowMessage(currentPlayer.name + " \nTwoja tura!", 2f);
+        currentPlayer.updateResourcesNewTurn();
+
         if (currentPlayer == playerSouth)
         {
-            northHandView.blockAllOperations();
-            southHandView.blockAllOperations();
-            dropZoneNorth.blockAllUnitOperations();
-            dropZoneSouth.blockAllUnitOperations();
-            messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
-            playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
-
-            drawNewCard(playerSouth, southHandView, deckSouth, true);
-
-            playerSouth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
-            southHandView.setPlayableCards(playerSouth.resourcesCurrent);
-            dropZoneSouth.unlockUnitAttacks();
-
-            endTurnButtonManager.TimerStart();
+            //Draw Card if not over limit
+            if (southHandView.transform.childCount < CARD_LIMIT) {
+                drawNewCard(playerSouth, southHandView, deckSouth, true);
+            }
+            else
+            {
+                UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
+            }
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
         if (currentPlayer == playerNorth)
         {
-            northHandView.blockAllOperations();
-            southHandView.blockAllOperations();
-            dropZoneNorth.blockAllUnitOperations();
-            dropZoneSouth.blockAllUnitOperations();
-            messageManager.ShowMessage(northName + " \nTwoja tura!", 2f);
-            playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
-
-            drawNewCard(playerNorth, northHandView, deckNorth, true);
-
-            playerNorth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
-            northHandView.setPlayableCards(playerNorth.resourcesCurrent);
-            dropZoneNorth.unlockUnitAttacks();
-
-            endTurnButtonManager.TimerStart();
+            //Draw Card if not over limit
+            if (northHandView.transform.childCount < CARD_LIMIT) {
+                drawNewCard(playerNorth, northHandView, deckNorth, true);
+            }
+            else
+            {
+                UnblockAllUnitsAndCards(playerNorth, northHandView, dropZoneNorth);
+            }
+            //Here should be also SpeechRecognitionCheck if second player is human and not AI
         }
+        //This function unblocks units that were enable to fight in firt turn after being placed in front
+        currentPlayer.armymodel.armyCardsModel.EnableAttacksOfUnitsOnFront(currentPlayer);
+        endTurnButtonManager.TimerStart();
     }
 
     void InitializeGame()
@@ -185,6 +188,8 @@ public class GameManager : MonoBehaviour
 
         playerNorth = new PlayerModel(0, northName, northFaction, Position.North);
         playerSouth = new PlayerModel(1, southName, southFaction, Position.South);
+        heroSouth.GetComponent<HeroVisualManager>().setHeroAcordingToFaction(southFaction);
+        heroNorth.GetComponent<HeroVisualManager>().setHeroAcordingToFaction(northFaction);
         resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
         resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
     }
@@ -199,10 +204,6 @@ public class GameManager : MonoBehaviour
         {
             playerSouth.armymodel.armyCardsModel.moveCardFromHandToFront(cardId);
         }
-    }
-    public void StartGameWithCouroutine()
-    {
-        StartCoroutine(startGame());
     }
 
     public void drawNewCard(PlayerModel playerModel, HandView handView, GameObject deck, bool shouldCardBeDrawnWithDelay)
@@ -224,6 +225,26 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
         handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
+    }
+
+    public void BlackAllUnitsAndCards()
+    {
+        northHandView.blockAllOperations();
+        southHandView.blockAllOperations();
+        dropZoneNorth.blockAllUnitOperations();
+        dropZoneSouth.blockAllUnitOperations();
+    }
+
+    public void UnblockAllUnitsAndCards(PlayerModel player, HandView hand, DropZone drop)
+    {
+        player.armymodel.armyCardsModel.restoreCardAttacksPerRound();
+        hand.setPlayableCards(player.resourcesCurrent);
+        drop.unlockUnitAttacks();
+    }   
+
+    public void StartGameWithCouroutine()
+    {
+        StartCoroutine(startGame());
     }
 
     public void QuitGame()

@@ -68,8 +68,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         Vector3 pz = Camera.main.ScreenToWorldPoint(eventData.position);
         pz.z = 0;
 
-
-
         // update aim icon for unit
         if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim || cardState == CardVisualStateEnum.TacticsAttackAll)
         {
@@ -114,7 +112,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             {
                 tacticsAttacksUnit(pz);
             }
-
         }
         else
         {
@@ -163,7 +160,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                     GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.currentPlayer);
                 }
             }
-
         }
 
         //for attack on All Units successful if there are any units on table - attacker adjusts all the information about the fight, attacker and defender
@@ -240,7 +236,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         // update resources view and model
         updateResourcesModelAndView();
-
+        GameManager.Instance.enablePlayableCardsFlag = true;
         // move card to defender and come back
         t_Reference.DOMove(enemyDropZone.transform.position, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
 

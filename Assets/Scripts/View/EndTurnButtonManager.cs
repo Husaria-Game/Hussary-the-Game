@@ -43,6 +43,7 @@ public class EndTurnButtonManager : MonoBehaviour
     public void TimerStop()
     {
         isCounting = false;
+        gameManager.speechRecognition.StopCoroutineIfTurnButtonClicked();
         gameManager.nextTurn();
     }
 
