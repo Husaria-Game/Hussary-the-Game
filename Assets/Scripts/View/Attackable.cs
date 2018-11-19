@@ -22,6 +22,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private Vector3 pointerDisplacement = Vector3.zero;
     public Transform t_Reference;
     private CardVisualStateEnum cardState;
+
+    private const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
     
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -62,8 +64,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         Vector3 pz = Camera.main.ScreenToWorldPoint(eventData.position);
         pz.z = 0;
-
-
 
         // update aim icon for unit
         if (cardState == CardVisualStateEnum.Unit)
@@ -132,32 +132,9 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 t_Reference.GetComponent<CardDisplayLoader>().armorText.text = attackerArmor.ToString();
                 attackableUnit.GetComponent<UnitVisualManager>().armorText.text = attackerArmor.ToString();
 
-
-                // update armor in model, and if defender dead then update model and delete card from view
-                if (defenderArmor > 0)
-                {
-                    GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
-                }
-                else
-                {
-                    GameManager.Instance.otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
-                    Destroy(defenderCard.gameObject);
-                    
-                }
-
-                // update armor, and if attacker dead then update model and delete card from view
-                if (attackerArmor > 0)
-                {
-                    GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(attackerID, attackerArmor);
-                    initialDropZone.attackEventEnded = true;
-                }
-                else
-                {
-                    GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(attackerID);
-                    Destroy(this.gameObject);
-                }
+                // update fighting units model and destroy if dead
+                CheckWhetherToKillUnitOrNot(defenderArmor, defenderID, attackerArmor, attackerID);
             }
-
         }
         else
         {
@@ -209,9 +186,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         }
 
-
-
-
         if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
         {
             if (lineRenderer != null)
@@ -230,6 +204,38 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public void comeBack()
     {
         t_Reference.DOMove(initialPosition, 1).SetEase(Ease.OutQuint, 0.5f, 0.1f);
+    }
+
+    public void CheckWhetherToKillUnitOrNot(int defenderArmor, int defenderID, int attackerArmor, int attackerID)
+    {
+        StartCoroutine(CheckWhetherToKillUnitOrNotWithCoroutine(defenderArmor, defenderID, attackerArmor, attackerID));
+    }
+
+    IEnumerator CheckWhetherToKillUnitOrNotWithCoroutine(int defenderArmor, int defenderID, int attackerArmor, int attackerID)
+    {
+        //Update armor in model, and if defender dead then update model and delete card from view
+        if (defenderArmor > 0)
+        {
+            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+        }
+        else
+        {
+            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
+            yield return new WaitForSeconds(DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY);
+            Destroy(defenderCard.gameObject);
+        }
+
+        //Update armor, and if attacker dead then update model and delete card from view
+        if (attackerArmor > 0)
+        {
+            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(attackerID, attackerArmor);
+            initialDropZone.attackEventEnded = true;
+        }
+        else
+        {
+            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(attackerID);
+            Destroy(this.gameObject);
+        }
     }
 }
 

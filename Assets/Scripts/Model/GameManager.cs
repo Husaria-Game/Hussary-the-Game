@@ -202,6 +202,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(startGame());
     }
+
     public void drawNewCard(PlayerModel playerModel, HandView handView, GameObject deck, bool isCoroutine)
     {
         if (isCoroutine)
