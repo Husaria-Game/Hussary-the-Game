@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);             
             }
-            drawNewCardPlayerSouth();
+            drawNewCard(playerSouth, southHandView, deckSouth, false);
         }
 
         //// ----------draw 4 cards from deck to Player North
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);
             }
-            drawNewCardPlayerNorth();
+            drawNewCard(playerNorth, northHandView, deckNorth, false);
             while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
             {
                 yield return new WaitForSeconds(0.1f);
@@ -142,19 +142,15 @@ public class GameManager : MonoBehaviour
             messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
-            
-            drawNewCardPlayerSouth();
-            
+
+            drawNewCard(playerSouth, southHandView, deckSouth, true);
+
             playerSouth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
             dropZoneSouth.unlockUnitAttacks();
 
             endTurnButtonManager.TimerStart();
-
-            //For Testing purpose only
             speechRecognition.CheckWhetherToShowSpeechSign();
-
-            /////////////////////
         }
         if (currentPlayer == playerNorth)
         {
@@ -166,11 +162,13 @@ public class GameManager : MonoBehaviour
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
 
-            drawNewCardPlayerNorth();
+            drawNewCard(playerNorth, northHandView, deckNorth, true);
 
             playerNorth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             northHandView.setPlayableCards(playerNorth.resourcesCurrent);
             dropZoneNorth.unlockUnitAttacks();
+
+            endTurnButtonManager.TimerStart();
         }
     }
 
@@ -204,17 +202,25 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(startGame());
     }
-
-    public void drawNewCardPlayerNorth()
+    public void drawNewCard(PlayerModel playerModel, HandView handView, GameObject deck, bool isCoroutine)
     {
-        Card cardDrawn = playerNorth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-        northHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerNorth, deckNorth);
+        if (isCoroutine)
+        {
+            StartCoroutine(drawNewCardWithDelay(playerModel, handView, deck));
+        }
+        else
+        {
+            Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+            handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
+        }
+
     }
-
-    public void drawNewCardPlayerSouth()
+    //Coroutines type of draw card method
+    IEnumerator drawNewCardWithDelay( PlayerModel playerModel, HandView handView, GameObject deck)
     {
-        Card cardDrawn = playerSouth.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-        southHandView.MoveDrawnCardFromDeckToHand(cardDrawn, playerSouth, deckSouth);
+        yield return new WaitForSeconds(2f);
+        Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+        handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
     }
 
     public void QuitGame()
