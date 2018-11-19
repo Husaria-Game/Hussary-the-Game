@@ -6,8 +6,6 @@ public class ChooseFactionForAIPlayer : MonoBehaviour
     public Button startGame;
     public bool isClicked;
 
-    private Faction secondFaction;
-
     void Start()
     {
         startGame.enabled = false;
@@ -35,17 +33,17 @@ public class ChooseFactionForAIPlayer : MonoBehaviour
         switch (name)
         {
             case "Rzeczpospolita Obojga Narodów":
-                secondFaction = Faction.Poland;
+                SettsHolder.instance.northFaction = Faction.Poland;
                 break;
             case "Imperium Osmańskie":
-                secondFaction = Faction.Ottoman;
+                SettsHolder.instance.northFaction = Faction.Ottoman;
                 break;
         }
     }
 
-    public Faction getSecondFaction()
+    public void setSecondPlayersName()
     {
-        return secondFaction;
+        SettsHolder.instance.northName = "Gracz AI";
     }
 
     public void returnToMainMenu()

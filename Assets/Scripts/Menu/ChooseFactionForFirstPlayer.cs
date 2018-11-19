@@ -7,13 +7,9 @@ public class ChooseFactionForFirstPlayer : MonoBehaviour {
     public Button startGame;
     public bool isClicked;
 
-    private string firstPlayersName;
-    private Faction firstFaction;
-
     private void OnEnable()
     {
-        if (SettsHolder.instance.FirstMenuMulti == null)
-            gameObject.transform.SetParent(SettsHolder.instance.transform);
+        gameObject.transform.SetParent(SettsHolder.instance.transform);
     }
     void Start()
     {       
@@ -42,28 +38,25 @@ public class ChooseFactionForFirstPlayer : MonoBehaviour {
         switch(name)
         {
             case "Rzeczpospolita Obojga Narodów":
-                firstFaction = Faction.Poland;
+                SettsHolder.instance.southFaction = Faction.Poland;
                 break;
             case "Imperium Osmańskie":
-                firstFaction = Faction.Ottoman;
+                SettsHolder.instance.southFaction = Faction.Ottoman;
                 break;
         }
     }
 
-    public Faction getFirstFaction()
-    {
-        return firstFaction;
-    }
-
-
     public void setFirstPlayersName()
     {
-        firstPlayersName = inputName.text;
-    }
+        if (string.IsNullOrEmpty(inputName.text))
+        {
+            SettsHolder.instance.southName = "Gracz 1";
+        }
+        else
+        {
+            SettsHolder.instance.southName = inputName.text;
+        }
 
-    public string getFirstPlayersName()
-    {
-        return firstPlayersName;
     }
 
     public void returnToMainMenu()

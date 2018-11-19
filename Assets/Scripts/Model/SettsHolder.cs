@@ -6,19 +6,6 @@ public class SettsHolder : MonoBehaviour {
 
     public static SettsHolder instance;
 
-    //Skrypty czytające dane z menu (imiona i frakcje) - MultiPlayer
-    private ChooseFactionForFirstPlayer chooseFactionForFirstPlayer;
-    private ChooseFactionForSecondPlayer chooseFactionForSecondPlayer;
-
-    //Skrypty czytające dane z menu (imiona i frakcje) - SinglePlayer
-    private ChooseFactionForFirstPlayer chooseFactionForFirstPlayerSingleMode;
-    private ChooseFactionForAIPlayer chooseFactionForAIPlayer;
-
-    public GameObject FirstMenuSingle;
-    public GameObject SecondtMenuSingle;
-    public GameObject FirstMenuMulti;
-    public GameObject SecondtMenuMulti;
-
     private bool isPlayedAgain = false;
     private bool isEnemyHuman = true;
 
@@ -34,17 +21,8 @@ public class SettsHolder : MonoBehaviour {
         if(instance == null)
         {
             instance = this;
-
-            chooseFactionForFirstPlayer = FirstMenuMulti.GetComponent<ChooseFactionForFirstPlayer>();
-            chooseFactionForSecondPlayer = SecondtMenuMulti.GetComponent<ChooseFactionForSecondPlayer>();
-
-            chooseFactionForFirstPlayerSingleMode = FirstMenuSingle.GetComponent<ChooseFactionForFirstPlayer>();
-            chooseFactionForAIPlayer = SecondtMenuSingle.GetComponent<ChooseFactionForAIPlayer>();
-
             DontDestroyOnLoad(this);
             return;
-
-
         }
         Destroy(this.gameObject);
     }
@@ -54,34 +32,6 @@ public class SettsHolder : MonoBehaviour {
     {
 
     }
-
-    public void SaveNamesAndFactions()
-    {
-        if (isEnemyHuman)
-        {
-            //Factions
-            southFaction = chooseFactionForFirstPlayer.getFirstFaction();
-            northFaction = chooseFactionForSecondPlayer.getSecondFaction();
-
-            //Names
-            southName = chooseFactionForFirstPlayer.getFirstPlayersName();
-            northName = chooseFactionForSecondPlayer.getSecondPlayersName();
-            if (string.IsNullOrEmpty(southName)) southName = "Gracz 1";
-            if (string.IsNullOrEmpty(northName)) northName = "Gracz 2";
-        }
-        else
-        {
-            //Factions
-            southFaction = chooseFactionForFirstPlayerSingleMode.getFirstFaction();
-            northFaction = chooseFactionForAIPlayer.getSecondFaction();
-
-            //Names
-            southName = chooseFactionForFirstPlayerSingleMode.getFirstPlayersName();
-            northName = "Gracz AI";
-            if (string.IsNullOrEmpty(southName)) southName = "Gracz 1";
-        }
-    }
-
     public void AttributeGameManagerNamesAndFactions()
     {
         //Factions
@@ -106,5 +56,15 @@ public class SettsHolder : MonoBehaviour {
     public void UnsetIsPlayedAgain()
     {
         isPlayedAgain = false;
+    }
+
+    public void PlayAgainstHuman()
+    {
+        isEnemyHuman = true;
+    }
+
+    public void PlayAgainstAI()
+    {
+        isEnemyHuman = false;
     }
 }
