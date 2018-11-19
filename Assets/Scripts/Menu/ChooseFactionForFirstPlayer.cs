@@ -3,16 +3,13 @@ using UnityEngine.UI;
 
 public class ChooseFactionForFirstPlayer : MonoBehaviour {
 
-    public InputField inputName;
+    public InputField inputName = null;
     public Button startGame;
     public bool isClicked;
 
-    private void OnEnable()
-    {
-        gameObject.transform.SetParent(SettsHolder.instance.transform);
-    }
     void Start()
-    {       
+    {
+        SettsHolder.instance.southName = "Gracz 1";
         startGame.enabled = false;
         isClicked = false;
     }

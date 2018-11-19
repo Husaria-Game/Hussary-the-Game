@@ -7,7 +7,7 @@ public class SettsHolder : MonoBehaviour {
     public static SettsHolder instance;
 
     private bool isPlayedAgain = false;
-    private bool isEnemyHuman = true;
+    public bool isEnemyHuman = true;
 
     public Faction southFaction;
     public Faction northFaction;
@@ -15,7 +15,6 @@ public class SettsHolder : MonoBehaviour {
     public string northName;
     public string southName;
 
-    // Use this for initialization
     void Awake()
     {
         if(instance == null)
@@ -27,11 +26,6 @@ public class SettsHolder : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void AttributeGameManagerNamesAndFactions()
     {
         //Factions

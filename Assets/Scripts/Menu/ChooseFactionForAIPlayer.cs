@@ -8,6 +8,7 @@ public class ChooseFactionForAIPlayer : MonoBehaviour
 
     void Start()
     {
+        SettsHolder.instance.northName = "Gracz AI";
         startGame.enabled = false;
         isClicked = false;
     }

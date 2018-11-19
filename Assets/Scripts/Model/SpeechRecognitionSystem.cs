@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 using System;
 
-
 public class SpeechRecognitionSystem : MonoBehaviour
 {
     //Elements needed to creat listening system
@@ -14,7 +13,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
     public enum SpeechSign
     {
-        nic, moc, obrona, zbrodnia, pomur, fortuna
+        nic, moc, obrona, zbrodnia, pomór, fortuna
     }
     public SpeechSign currentSpeechSign;
 
@@ -44,7 +43,6 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             recognizer = new KeywordRecognizer(wordsToRecognize, confidenceLevel);
             recognizer.OnPhraseRecognized += WhenPhraseRecognized;
-
             speechSign.enabled = false;
             resultOfVoiceCommand.text = heardWord;
         }
@@ -118,7 +116,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         }
         else if (number >= 40 && number < 60)
         {
-            ShowSpeechSign(blight, SpeechSign.pomur);
+            ShowSpeechSign(blight, SpeechSign.pomór);
         }
         else if (number >= 60 && number < 80)
         {
@@ -141,7 +139,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         int number = random.Next(5, 20);
 
         yield return new WaitForSeconds(number);  //Random second in which system starts to show signImage
-        //recognizer.Start();
+        recognizer.Start();
         speechSign.sprite = signImage;
         speechSign.enabled = true;
         currentSpeechSign = signMark;
@@ -152,7 +150,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         currentSpeechSign = SpeechSign.nic;
         heardWord = "";
         resultOfVoiceCommand.text = heardWord;
-        //recognizer.Stop();
+        recognizer.Stop();
     }
 
     private void CompareShownSignAndSpeech()
