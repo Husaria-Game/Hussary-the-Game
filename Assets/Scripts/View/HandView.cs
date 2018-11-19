@@ -17,7 +17,7 @@ public class HandView : MonoBehaviour {
         //Block any action on card that is rotating during draw
         if(idAssignment != null)
         {
-            if(idAssignment.whereIsCard == WhereIsCard.Rotating)
+            if (idAssignment.whereIsCard == WhereIsCard.Rotating)
             {
                 newCard.GetComponent<Draggable>().enabled = false;
                 newCard.GetComponent<Attackable>().enabled = false;
@@ -32,6 +32,7 @@ public class HandView : MonoBehaviour {
                 newCard.GetComponent<CardOnHoverPreview>().enabled = true;
             }
         }
+
     }
     // add new card GameObject to hand
     public void MoveDrawnCardFromDeckToHand(Card cardDrawn, PlayerModel player, GameObject deckVisual)
