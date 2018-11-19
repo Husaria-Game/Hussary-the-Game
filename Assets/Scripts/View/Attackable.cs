@@ -17,8 +17,10 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public GameObject arrow;
     public bool attackOnUnitSuccess;
     public bool attackOnHeroSuccess;
+    public bool attackOnAllUnitsSuccess;
     public bool transformCardIntoUnit;
     public DropZone initialDropZone;
+    public DropZone enemyDropZone;
     private Vector3 pointerDisplacement = Vector3.zero;
     public Transform t_Reference;
     private CardVisualStateEnum cardState;
@@ -46,7 +48,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         GetComponent<CanvasGroup>().blocksRaycasts = false;
 
         // enable aim icon
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
+        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim || cardState == CardVisualStateEnum.TacticsAttackAll)
         {
             if (lineRenderer != null)
             {
@@ -68,7 +70,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
 
         // update aim icon for unit
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
+        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim || cardState == CardVisualStateEnum.TacticsAttackAll)
         {
             if (lineRenderer != null)
             {
@@ -82,7 +84,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         {
             t_Reference.position = new Vector2(pz.x - pointerDisplacement.x, pz.y - pointerDisplacement.y);
         }
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
+        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim || cardState == CardVisualStateEnum.TacticsAttackAll)
         {
             if (arrow != null)
             {
@@ -163,10 +165,16 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         }
 
+        //for attack on All Units successful if there are any units on table - attacker adjusts all the information about the fight, attacker and defender
+        if (attackOnAllUnitsSuccess && (enemyDropZone.dropAreaImage.transform.childCount > 0))
+        {
+            tacticsAttacksAllUnits(pz);
+        }
 
 
 
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
+
+        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim || cardState == CardVisualStateEnum.TacticsAttackAll)
         {
             if (lineRenderer != null)
             {
@@ -256,7 +264,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         updateResourcesModelAndView();
 
         // move card to defender and come back
-        t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
+        t_Reference.DOMove(enemyDropZone.transform.position, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
 
         // create explosion for unit, but not the tactics card
         defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
@@ -294,6 +302,55 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         {
             GameManager.Instance.resourcesSouth.transform.GetComponent<ResourcePool>().updateResourcesView(updatedCurrentResources, maxResources);
         }
+    }
+
+    public void tacticsAttacksAllUnits(Vector3 pz)
+    {
+        // update resources view and model
+        updateResourcesModelAndView();
+
+        int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
+        int attackerArmor = 0;
+        int attackerAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(attackerID).attack;
+
+
+        // move card to defender and come back
+        t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
+
+        foreach (Transform child in enemyDropZone.dropAreaImage.transform)
+        {
+            defenderCard = child.GetComponent<Defendable>();
+            defenderUnit = defenderCard.transform.GetComponent<CardDisplayLoader>().Unit.transform;
+            int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
+
+            int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
+            int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);// create explosion for unit, but not the tactics card
+            defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
+
+            // remove armor from defender - in visual
+            defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
+            defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
+
+            // update armor in model, and if defender dead then update model and delete card from view
+            if (defenderArmor > 0)
+            {
+                GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+            }
+            else
+            {
+                GameManager.Instance.otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
+                Destroy(defenderCard.gameObject);
+            }
+        }
+            //GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
+        
+
+        
+
+        // update model and delete card from view
+        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
+        Destroy(this.gameObject);
     }
 }
 

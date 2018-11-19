@@ -1009,7 +1009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349e95f05136f224bb8db76bc0cde954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardVisualStateEnum: 2
+  cardVisualStateEnum: 3
   cardPanel: {fileID: 1882335949322568}
   unitGameObject: {fileID: 0}
 --- !u!114 &114083078029556298
@@ -1229,8 +1229,10 @@ MonoBehaviour:
   arrow: {fileID: 1016194792569446}
   attackOnUnitSuccess: 0
   attackOnHeroSuccess: 0
+  attackOnAllUnits: 0
   transformCardIntoUnit: 0
   initialDropZone: {fileID: 0}
+  enemyDropZone: {fileID: 0}
   t_Reference: {fileID: 0}
 --- !u!114 &114242431374007216
 MonoBehaviour:

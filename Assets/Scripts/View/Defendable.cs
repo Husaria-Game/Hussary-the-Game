@@ -52,16 +52,23 @@ public class Defendable : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
                 attackerCard.defenderCard = defenderCardTransform.GetComponent<Defendable>();
                 attackerCard.defenderUnit = this.transform.GetComponent<CardDisplayLoader>().Unit.transform;
             }
+            // allow drag success for card with state TacticsAttackAll - behaviour as in dropzone for this card (because drop on card unit blocks detecting drop on enemy dropzone)
+            else if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && (cardState == CardVisualStateEnum.TacticsAttackAll))
+            {
+                this.GetComponent<Draggable>().dropZone.startAttackAll(attackerCard);
+            }
         }
         
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+        // flag to create attack red glow on target
         pointerEnter = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        // flag to disable attack red glow on target
         pointerExit = true;
     }
 

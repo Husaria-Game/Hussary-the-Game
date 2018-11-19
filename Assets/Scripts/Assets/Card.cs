@@ -22,6 +22,7 @@ public class Card : ScriptableObject {
     public string historyDescription;
     public int maxAttacksPerTurn;
     public int currentAttacksPerTurn;
+    public CardVisualStateEnum cardInitialState;
 
 
     [Header("Unit Card Info")]
