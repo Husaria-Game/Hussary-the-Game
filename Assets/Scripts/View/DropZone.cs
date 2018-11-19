@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class DropZone : MonoBehaviour, IDropHandler
+public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Position dropZonePosition;
     public GameObject dropAreaImage;
+    private GameObject sourceCardGOWhenDragging;
     public bool dropEventOccurs = false;
     public bool attackEventEnded = false;
     private bool pointerEnter;
@@ -17,12 +18,20 @@ public class DropZone : MonoBehaviour, IDropHandler
     {
         pointerEnter = false;
         pointerExit = false;
+        sourceCardGOWhenDragging = null;
     }
 
     void Update()
     {
-        setDropZoneRedGlowWhenAimed();
-
+        if (sourceCardGOWhenDragging != null && sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsAttackAll)
+        {
+            setDropZoneRedGlowWhenAimed();
+        }
+        if (sourceCardGOWhenDragging != null && sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsHealAll)
+        {
+            setDropZoneBlueGlowWhenAimed();
+        }
+       
         if (dropEventOccurs)
         {
             foreach (Transform child in dropAreaImage.transform)
@@ -51,7 +60,7 @@ public class DropZone : MonoBehaviour, IDropHandler
         CardVisualStateEnum cardState = eventData.pointerDrag.GetComponent<CardVisualState>().cardVisualStateEnum;
 
         // allow drag if draggable object exists and dropzone belongs to player
-        if (d != null && cardState == CardVisualStateEnum.Card && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)
+        if (d != null && cardState == CardVisualStateEnum.UnitCard && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)
         {
             d.dropZone = this;
             d.dragSuccess = true;
@@ -111,33 +120,66 @@ public class DropZone : MonoBehaviour, IDropHandler
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // flag to create attack red glow on target
-        pointerEnter = true;
+        if (GameManager.Instance.isAttackableDraggingActive)
+        {
+            sourceCardGOWhenDragging = eventData.pointerDrag;
+            // flag to create attack red glow on target
+            pointerEnter = true;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // flag to disable attack red glow on target
-        pointerExit = true;
+        if (GameManager.Instance.isAttackableDraggingActive)
+        {
+            // flag to disable attack red glow on target
+            pointerExit = true;
+        }
     }
     public void setDropZoneRedGlowWhenAimed()
     {
-        //Debug.Log("isAttackableDraggingActive: " + GameManager.Instance.isAttackableDraggingActive);
         if (GameManager.Instance.isAttackableDraggingActive && pointerEnter &&  this.dropZonePosition != GameManager.Instance.currentPlayer.position)
         {
             dropAreaImage.GetComponent<Image>().color = new Color32(255, 0, 0, 125);
             pointerEnter = false;
+            pointerExit = false;
         }
         if (GameManager.Instance.isAttackableDraggingActive && pointerExit && this.dropZonePosition != GameManager.Instance.currentPlayer.position)
         {
             dropAreaImage.GetComponent<Image>().color = new Color32(47, 44, 45, 125);
+            sourceCardGOWhenDragging = null;
+            pointerEnter = false;
             pointerExit = false;
         }
-        //if (!GameManager.Instance.isAttackableDraggingActive)
-        //{
-        //    dropAreaImage.GetComponent<Image>().color = new Color32(47, 44, 45, 125);
-        //}
-
-        //transform.GetComponent<CardVisualState>().cardVisualStateEnum == CardVisualStateEnum.Unit &&
+        if (!GameManager.Instance.isAttackableDraggingActive)
+        {
+            sourceCardGOWhenDragging = null;
+            dropAreaImage.GetComponent<Image>().color = new Color32(47, 44, 45, 125);
+            pointerEnter = false;
+            pointerExit = false;
+        }
+    }
+    public void setDropZoneBlueGlowWhenAimed()
+    {
+        if (GameManager.Instance.isAttackableDraggingActive && pointerEnter && this.dropZonePosition == GameManager.Instance.currentPlayer.position)
+        {
+            dropAreaImage.GetComponent<Image>().color = new Color32(0, 157, 235, 209);
+            pointerEnter = false;
+            pointerExit = false;
+        }
+        if (GameManager.Instance.isAttackableDraggingActive && pointerExit && this.dropZonePosition == GameManager.Instance.currentPlayer.position)
+        {
+            dropAreaImage.GetComponent<Image>().color = new Color32(47, 44, 45, 125);
+            sourceCardGOWhenDragging = null;
+            pointerEnter = false;
+            pointerExit = false;
+        }
+        if (!GameManager.Instance.isAttackableDraggingActive)
+        {
+            sourceCardGOWhenDragging = null;
+            dropAreaImage.GetComponent<Image>().color = new Color32(47, 44, 45, 125);
+            pointerEnter = false;
+            pointerExit = false;
+        }
     }
 }

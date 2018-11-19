@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Affiliation
-{
-    Poland,
-    Ottoman
-}
-
 [CreateAssetMenu(fileName ="New Card", menuName = "Card")]
 public class Card : ScriptableObject {
 
     [Header("General Info")]
+    public CardType cardType;
+    public CardVisualStateEnum cardDetailedType;
     public string cardName;
     [TextArea(2,3)]
     public string description;
@@ -22,7 +18,6 @@ public class Card : ScriptableObject {
     public string historyDescription;
     public int maxAttacksPerTurn;
     public int currentAttacksPerTurn;
-    public CardVisualStateEnum cardInitialState;
 
 
     [Header("Unit Card Info")]

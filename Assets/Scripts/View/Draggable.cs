@@ -105,7 +105,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         if (dragSuccess)//for dragging successful
         {
-            if (cardState == CardVisualStateEnum.Card)
+            if (cardState == CardVisualStateEnum.UnitCard)
             {
                 // change card position in view to Front
                 t_Reference.SetParent(parentToReturnTo);
