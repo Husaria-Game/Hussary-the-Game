@@ -10,6 +10,11 @@ public class ChooseFactionForFirstPlayer : MonoBehaviour {
     private string firstPlayersName;
     private Faction firstFaction;
 
+    private void OnEnable()
+    {
+        if (SettsHolder.instance.FirstMenuMulti == null)
+            gameObject.transform.SetParent(SettsHolder.instance.transform);
+    }
     void Start()
     {       
         startGame.enabled = false;

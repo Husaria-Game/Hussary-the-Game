@@ -10,6 +10,11 @@ public class ChooseFactionForSecondPlayer : MonoBehaviour {
     private string secondPlayersName;
     private Faction secondFaction;
 
+    private void OnEnable()
+    {
+        gameObject.transform.SetParent(SettsHolder.instance.transform);
+    }
+
     void Start()
     {
         startGame.enabled = false;

@@ -8,7 +8,7 @@ using System;
 public class SpeechRecognitionSystem : MonoBehaviour
 {
     //Elements needed to creat listening system
-    private string[] wordsToRecognize = new string[] {"moc", "obrona", "zbrodnia", "pomur", "fortuna" };
+    private string[] wordsToRecognize = new string[] {"moc", "obrona", "zbrodnia", "pomór", "fortuna" };
     private ConfidenceLevel confidenceLevel = ConfidenceLevel.Low;
     private PhraseRecognizer recognizer;
 
@@ -70,22 +70,22 @@ public class SpeechRecognitionSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            heardWord = "sword";
+            heardWord = "moc";
             resultOfVoiceCommand.text = heardWord;
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            heardWord = "shield";
+            heardWord = "obrona";
             resultOfVoiceCommand.text = heardWord;
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            heardWord = "pouch";
+            heardWord = "pomór";
             resultOfVoiceCommand.text = heardWord;
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
-            heardWord = "poison";
+            heardWord = "zbrodnia";
             resultOfVoiceCommand.text = heardWord;
         }
         else if (Input.GetKeyDown(KeyCode.F))
@@ -141,7 +141,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         int number = random.Next(5, 20);
 
         yield return new WaitForSeconds(number);  //Random second in which system starts to show signImage
-        recognizer.Start();
+        //recognizer.Start();
         speechSign.sprite = signImage;
         speechSign.enabled = true;
         currentSpeechSign = signMark;
@@ -152,7 +152,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         currentSpeechSign = SpeechSign.nic;
         heardWord = "";
         resultOfVoiceCommand.text = heardWord;
-        recognizer.Stop();
+        //recognizer.Stop();
     }
 
     private void CompareShownSignAndSpeech()

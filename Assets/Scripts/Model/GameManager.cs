@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     // SINGLETON
     public static GameManager Instance;
 
-    public string northName = "Gracz 2";
-    public string southName = "Gracz 1";
+    public string northName;
+    public string southName;
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
     public PlayerModel currentPlayer; //player that has active turn
@@ -33,23 +33,12 @@ public class GameManager : MonoBehaviour
     public bool gameRunning;
     public bool enablePlayableCardsFlag;
 
-    //Skrypty czytające dane z menu (imiona i frakcje) - MultiPlayer
-    public ChooseFactionForFirstPlayer chooseFactionForFirstPlayer;
-    public ChooseFactionForSecondPlayer chooseFactionForSecondPlayer;
-
-    //Skrypty czytające dane z menu (imiona i frakcje) - SinglePlayer
-    public ChooseFactionForFirstPlayer chooseFactionForFirstPlayerSingleMode;
-    public ChooseFactionForAIPlayer chooseFactionForAIPlayer;
-
     //Skrypt upływającego czasu
     public EndTurnButtonManager endTurnButtonManager;
 
+    public Faction southFaction;
+    public Faction northFaction;
 
-
-    public Faction firstFaction;
-    public Faction secondFaction;
-
-    //For test purpose only
     public SpeechRecognitionSystem speechRecognition;
 
     void Awake()
@@ -59,9 +48,19 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        visuals.SetActive(false);
-        mainMenu.SetActive(true);
-        enablePlayableCardsFlag = false;
+        if (SettsHolder.instance.GetIsPlayedAgain())
+        {
+            visuals.SetActive(true);
+            mainMenu.SetActive(false);          
+            StartGameWithCouroutine();
+        }
+        else
+        {
+            visuals.SetActive(false);
+            mainMenu.SetActive(true);
+            enablePlayableCardsFlag = false;
+        }
+
     }
 
     void Update()
@@ -182,10 +181,10 @@ public class GameManager : MonoBehaviour
         IDFactory.ResetIDs();
 
         //Dodane przypiasanie frakcji - Na razie tylko tryb Multiplayer - potem trzeba wprowadić zmienną wybierającą tryb
-        attributeNamesAndFactions();
+        SettsHolder.instance.AttributeGameManagerNamesAndFactions();
 
-        playerNorth = new PlayerModel(0, northName, secondFaction, Position.North);
-        playerSouth = new PlayerModel(1, southName, firstFaction, Position.South);
+        playerNorth = new PlayerModel(0, northName, northFaction, Position.North);
+        playerSouth = new PlayerModel(1, southName, southFaction, Position.South);
         resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
         resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
     }
@@ -201,20 +200,6 @@ public class GameManager : MonoBehaviour
             playerSouth.armymodel.armyCardsModel.moveCardFromHandToFront(cardId);
         }
     }
-
-    public void attributeNamesAndFactions()
-    {
-        //Factions
-        firstFaction = chooseFactionForFirstPlayer.getFirstFaction();
-        secondFaction = chooseFactionForSecondPlayer.getSecondFaction();
-
-        //Names
-        southName = chooseFactionForFirstPlayer.getFirstPlayersName();
-        northName = chooseFactionForSecondPlayer.getSecondPlayersName();
-        if (string.IsNullOrEmpty(southName)) southName = "Gracz 1";
-        if (string.IsNullOrEmpty(northName)) northName = "Gracz 2";
-    }
-
     public void StartGameWithCouroutine()
     {
         StartCoroutine(startGame());
