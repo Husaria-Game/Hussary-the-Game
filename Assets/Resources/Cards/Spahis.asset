@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Spahis
   m_EditorClassIdentifier: 
   cardName: Spahis
-  description: "Dodaj jednorazowo punkt ataku dla saryd\u017Cy"
+  description: "Ci\u0119\u017Cka jazda, por\xF3wnywana z europejskim rycerstwem"
   cardImage: {fileID: 21300000, guid: 1dca9c018b0389347b3bba97f6c81425, type: 3}
   cardCost: 5
   affiliation: 1
@@ -26,8 +26,11 @@ MonoBehaviour:
     W sk\u0142ad ich uzbrojenia wchodzi\u0142o m.in.: szabla, arkan, misiurka lub
     szyszak perski, tarcza, \u0142uk, para karwaszy. Zlikwidowani przez su\u0142tana
     Mahmuda II w XIX wieku."
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 4
   maxHealth: 5
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

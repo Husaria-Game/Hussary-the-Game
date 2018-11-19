@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Name: Pocztowy
   m_EditorClassIdentifier: 
   cardName: Pocztowy
-  description: "Za ka\u017Cde 5 jednostek dokonaj dodatkowego ataku"
+  description: "Podstawowa jednostka wchodz\u0105ca w sk\u0142ad husarskiego pocztu"
   cardImage: {fileID: 21300000, guid: 226f22db21e8b9c4e88e220d7d23986e, type: 3}
   cardCost: 3
   affiliation: 0
   cardID: 0
   historyDescription: "Podstawowa jednostka wchodz\u0105ca w sk\u0142ad husarskiego
     pocztu"
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 2
   maxHealth: 2
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

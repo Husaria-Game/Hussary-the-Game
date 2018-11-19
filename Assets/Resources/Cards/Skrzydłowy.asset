@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Name: "Skrzyd\u0142owy"
   m_EditorClassIdentifier: 
   cardName: "Skrzyd\u0142owy"
-  description: Dodaj jednorazowo punkt obrony pocztowemu, towarzyszowi husarskiemu
-    lub towarzyszowi pancernemu
+  description: "Dw\xF3ch skrzyd\u0142owych utrzymywa\u0142o szyk oddzia\u0142u"
   cardImage: {fileID: 21300000, guid: cd2e1b3f0b9596b4a9dce2ae6b2989af, type: 3}
   cardCost: 4
   affiliation: 0
   cardID: 0
   historyDescription: "Dw\xF3ch skrzyd\u0142owych utrzymywa\u0142o szyk oddzia\u0142u"
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 4
   maxHealth: 3
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

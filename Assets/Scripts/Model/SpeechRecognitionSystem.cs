@@ -4,17 +4,16 @@ using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 using System;
 
-
 public class SpeechRecognitionSystem : MonoBehaviour
 {
     //Elements needed to creat listening system
-    private string[] wordsToRecognize = new string[] {"moc", "obrona", "zbrodnia", "pomur", "fortuna" };
+    private string[] wordsToRecognize = new string[] {"moc", "obrona", "zbrodnia", "pomór", "fortuna" };
     private ConfidenceLevel confidenceLevel = ConfidenceLevel.Low;
     private PhraseRecognizer recognizer;
 
     public enum SpeechSign
     {
-        nic, moc, obrona, zbrodnia, pomur, fortuna
+        nic, moc, obrona, zbrodnia, pomór, fortuna
     }
     public SpeechSign currentSpeechSign;
 
@@ -44,7 +43,6 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             recognizer = new KeywordRecognizer(wordsToRecognize, confidenceLevel);
             recognizer.OnPhraseRecognized += WhenPhraseRecognized;
-
             speechSign.enabled = false;
             resultOfVoiceCommand.text = heardWord;
         }
@@ -70,22 +68,22 @@ public class SpeechRecognitionSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            heardWord = "sword";
+            heardWord = "moc";
             resultOfVoiceCommand.text = heardWord;
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            heardWord = "shield";
+            heardWord = "obrona";
             resultOfVoiceCommand.text = heardWord;
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            heardWord = "pouch";
+            heardWord = "pomór";
             resultOfVoiceCommand.text = heardWord;
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
-            heardWord = "poison";
+            heardWord = "zbrodnia";
             resultOfVoiceCommand.text = heardWord;
         }
         else if (Input.GetKeyDown(KeyCode.F))
@@ -118,7 +116,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         }
         else if (number >= 40 && number < 60)
         {
-            ShowSpeechSign(blight, SpeechSign.pomur);
+            ShowSpeechSign(blight, SpeechSign.pomór);
         }
         else if (number >= 60 && number < 80)
         {

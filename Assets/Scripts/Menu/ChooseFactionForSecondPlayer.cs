@@ -3,15 +3,13 @@ using UnityEngine.UI;
 
 public class ChooseFactionForSecondPlayer : MonoBehaviour {
 
-    public InputField inputName;
+    public InputField inputName = null;
     public Button startGame;
     public bool isClicked;
 
-    private string secondPlayersName;
-    private Faction secondFaction;
-
     void Start()
     {
+        SettsHolder.instance.northName = "Gracz 2";
         startGame.enabled = false;
         isClicked = false;
     }
@@ -37,27 +35,24 @@ public class ChooseFactionForSecondPlayer : MonoBehaviour {
         switch (name)
         {
             case "Rzeczpospolita Obojga Narodów":
-                secondFaction = Faction.Poland;
+                SettsHolder.instance.northFaction = Faction.Poland;
                 break;
             case "Imperium Osmańskie":
-                secondFaction = Faction.Ottoman;
+                SettsHolder.instance.northFaction = Faction.Ottoman;
                 break;
         }
     }
 
-    public Faction getSecondFaction()
-    {
-        return secondFaction;
-    }
-
     public void setSecondPlayersName()
     {
-        secondPlayersName = inputName.text;
-    }
-
-    public string getSecondPlayersName()
-    {
-        return secondPlayersName;
+        if (string.IsNullOrEmpty(inputName.text))
+        {
+            SettsHolder.instance.northName = "Gracz 2";
+        }
+        else
+        {
+            SettsHolder.instance.northName = inputName.text;
+        }
     }
 
     public void returnToMainMenu()

@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Name: Rotmistrz
   m_EditorClassIdentifier: 
   cardName: Rotmistrz
-  description: Dobierz dodatkowego towarzysza husarskiego
+  description: "Dow\xF3dca roty husarskiej, osobi\u015Bcie zaci\u0105gaj\u0105cy do
+    wojska towarzyszy"
   cardImage: {fileID: 21300000, guid: 45c232b8ee67057418fa875aa1a570e3, type: 3}
   cardCost: 7
   affiliation: 0
   cardID: 0
   historyDescription: "Dow\xF3dca roty husarskiej, osobi\u015Bcie zaci\u0105ga\u0142
     do wojska towarzyszy"
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 5
   maxHealth: 5
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

@@ -15,12 +15,15 @@ MonoBehaviour:
   description: "Ezan! Muezzin nawo\u0142uje do modlitwy. Morale armii rosn\u0105.
     Dodajesz punkt ataku i pancerza wszystkim swoim jednostkom."
   cardImage: {fileID: 21300000, guid: d7f86de9fe5637b4caca6a4ae4074721, type: 3}
-  cardCost: 0
+  cardCost: 2
   affiliation: 1
   cardID: 0
   historyDescription: 
-  attack: 0
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
+  attack: 1
   maxHealth: 0
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

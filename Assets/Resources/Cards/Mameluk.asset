@@ -12,15 +12,22 @@ MonoBehaviour:
   m_Name: Mameluk
   m_EditorClassIdentifier: 
   cardName: Mameluk
-  description: "Za ka\u017Cde 4 jednostki obni\u017C koszt jednego sekbana o 1"
+  description: "Niewolnik pa\u0144stwowy"
   cardImage: {fileID: 21300000, guid: 35e2e0862b3983249953f25d911c1c19, type: 3}
   cardCost: 1
   affiliation: 1
   cardID: 0
-  historyDescription: "Niewolnik pa\u0144stwowy, kupiony i wyszkolony przez w\u0142adc\xF3w
-    muzu\u0142ma\u0144skich"
+  historyDescription: "Niewolnik pa\u0144stwowy, poganin lub chrze\u015Bcijanin kupiony
+    i wyszkolony przez w\u0142adc\xF3w muzu\u0142ma\u0144skich, zmuszony do przyj\u0119cia
+    islamu, niekiedy jeniec wojenny. Mamelucy powstali w IX wieku w kalifacie Abbasyd\xF3w.
+    Nale\u017C\u0105cy do pa\u0144stwa, doskonale wy\u0107wiczeni i zorganizowani,
+    w szczeg\xF3lno\u015Bci ci\u0119\u017Cka jazda mameluk\xF3w egipskich. Ostatecznie
+    zostali eksterminowani w roku 1811 przez Muhammada Alego."
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 2
   maxHealth: 2
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0
