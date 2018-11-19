@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
   m_Name: Spotkanie u hetmana
   m_EditorClassIdentifier: 
+  cardType: 1
+  cardDetailedType: 5
   cardName: Spotkanie u hetmana
   description: "Hetman informuje dow\xF3dc\xF3w chor\u0105gwi o planie najbli\u017Cszej
     bitwy. Dodajesz punkt pancerza wszystkim swoim jednostkom."
@@ -21,6 +23,7 @@ MonoBehaviour:
   historyDescription: 
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
+  isAbleToAttack: 0
   attack: 1
   maxHealth: 0
   currentHealth: 0
