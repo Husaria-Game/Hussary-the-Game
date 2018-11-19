@@ -21,6 +21,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("draggable");
         t_Reference = this.transform;
         cardState = t_Reference.GetComponent<CardVisualState>().cardVisualStateEnum;
 

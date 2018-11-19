@@ -85,8 +85,16 @@ public class HandView : MonoBehaviour {
             if (int.Parse(child.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()) <= currentResources)
             {
                 child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = true;
-                child.GetComponent<Draggable>().enabled = true;
-                child.GetComponent<Attackable>().enabled = false;
+                if((child.GetComponent<CardDisplayLoader>().armorText) != null)
+                {
+                    child.GetComponent<Draggable>().enabled = true;
+                    child.GetComponent<Attackable>().enabled = false;
+                }
+                else
+                {
+                    child.GetComponent<Draggable>().enabled = false;
+                    child.GetComponent<Attackable>().enabled = true;
+                }
             }
             else
             {
@@ -103,7 +111,8 @@ public class HandView : MonoBehaviour {
         {
             child.GetComponent<Draggable>().enabled = false;
             child.GetComponent<Attackable>().enabled = false;
-            child.GetComponent<Defendable>().enabled = false;
+            if(child.GetComponent<Defendable>() != null)
+                child.GetComponent<Defendable>().enabled = false;
             child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
         }
     }

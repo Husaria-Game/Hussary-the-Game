@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainMenu;
     public bool gameRunning;
     public bool enablePlayableCardsFlag;
+    public bool isAttackableDraggingActive;
 
     //Skrypty czytające dane z menu (imiona i frakcje) - MultiPlayer
     public ChooseFactionForFirstPlayer chooseFactionForFirstPlayer;
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
         visuals.SetActive(false);
         mainMenu.SetActive(true);
         enablePlayableCardsFlag = false;
+        isAttackableDraggingActive = false;
     }
 
     void Update()
