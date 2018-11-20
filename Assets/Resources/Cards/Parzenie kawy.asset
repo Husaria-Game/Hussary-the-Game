@@ -15,12 +15,15 @@ MonoBehaviour:
   description: "Dow\xF3dcy rozkoszuj\u0105 si\u0119 aromatyczn\u0105 kaw\u0105. Dodajesz
     punkt pancerza wszystkim swoim jednostkom."
   cardImage: {fileID: 21300000, guid: 4213e0d2ee4b08c4c94af8e6be18c7c1, type: 3}
-  cardCost: 0
+  cardCost: 3
   affiliation: 1
   cardID: 0
   historyDescription: 
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 0
   maxHealth: 0
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

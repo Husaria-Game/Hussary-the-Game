@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Name: "Chor\u0105\u017Cy"
   m_EditorClassIdentifier: 
   cardName: "Chor\u0105\u017Cy"
-  description: Dodaj jednorazowo punkt ataku pocztowemu, towarzyszowi husarskiemu
-    lub towarzyszowi pancernemu
+  description: "Opiekowa\u0142 si\u0119 sztandarem chor\u0105gwi"
   cardImage: {fileID: 21300000, guid: cca9b81347781334595043469f464c5e, type: 3}
   cardCost: 5
   affiliation: 0
   cardID: 0
   historyDescription: "Opiekowa\u0142 si\u0119 sztandarem chor\u0105gwi, w przypadku
     jego utraty grozi\u0142a mu \u015Bmier\u0107"
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 3
   maxHealth: 4
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

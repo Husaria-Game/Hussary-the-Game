@@ -12,14 +12,22 @@ MonoBehaviour:
   m_Name: Kapudan pasza
   m_EditorClassIdentifier: 
   cardName: Kapudan pasza
-  description: Dobierz dodatkowego janczara
+  description: "Admira\u0142, dow\xF3dca i zwierzchnik floty"
   cardImage: {fileID: 21300000, guid: 2e7ba3aadc7078340a269b5d9ac0b2f5, type: 3}
   cardCost: 7
   affiliation: 1
   cardID: 0
-  historyDescription: "Admira\u0142 dowodz\u0105cy flot\u0105"
+  historyDescription: "Stanowisko odpowiadaj\u0105ce admira\u0142owi, dow\xF3dcy i
+    zwierzchnikowi floty. Wchodzi\u0142 w sk\u0142ad dywanu, czyli rady doradczej
+    su\u0142tana. Najs\u0142ynniejszym kapudan pasz\u0105 by\u0142 Hajraddin Barbarossa,
+    najbardziej znany pirat na Morzu \u015Ar\xF3dziemnym. Oficjalnym miejscem pobytu
+    kapudan paszy by\u0142 Z\u0142oty R\xF3g, jednak zgodnie z pe\u0142nion\u0105
+    rol\u0105 bardzo cz\u0119sto wizytowa\u0142 inne miejsca."
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 5
   maxHealth: 5
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0
