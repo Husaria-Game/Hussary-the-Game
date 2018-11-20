@@ -19,10 +19,16 @@ public class EndingMessege : MonoBehaviour {
             MessegeCanvasForQuitGame.SetActive(true);
             Time.timeScale = 0;
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            MessegeCanvasAfterGameIsDone.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 
     public void StopTheGame()
     {
+        SettsHolder.instance.UnsetIsPlayedAgain();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
     }
@@ -40,7 +46,9 @@ public class EndingMessege : MonoBehaviour {
 
     public void PlayAgain()
     {
-        ///Code needed to reset cards
+        SettsHolder.instance.SetIsPlayedAgain();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
     }
 
     //Method to be used in GameManager to pass winning player name

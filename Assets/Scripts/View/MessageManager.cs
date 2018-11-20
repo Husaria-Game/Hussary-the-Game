@@ -35,9 +35,11 @@ public class MessageManager : MonoBehaviour {
     {
         MessageText.text = message;
         MessageCanvasGO.SetActive(true);
+        //Time.timeScale = 0.001f;
 
         yield return new WaitForSeconds(showTime);
 
+        //Time.timeScale = 1;
         MessageCanvasGO.SetActive(false);
     }
 }

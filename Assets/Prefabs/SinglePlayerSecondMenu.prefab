@@ -802,7 +802,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_MethodName: StartGameWithCouroutine
+        m_MethodName: SaveNamesAndFactions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1173,8 +1173,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 349.98444, y: -58.833515}
-  m_SizeDelta: {x: 233.32297, y: 117.66703}
+  m_AnchoredPosition: {x: 912.6956, y: -58.833515}
+  m_SizeDelta: {x: 608.46375, y: 117.66703}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224142255325532526
 RectTransform:
@@ -1344,8 +1344,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 116.66148, y: -58.833515}
-  m_SizeDelta: {x: 233.32297, y: 117.66703}
+  m_AnchoredPosition: {x: 304.23187, y: -58.833515}
+  m_SizeDelta: {x: 608.46375, y: 117.66703}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224794538862668248
 RectTransform:
@@ -1398,6 +1398,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.67628133}
   m_AnchorMax: {x: 1, y: 0.80315596}
-  m_AnchoredPosition: {x: 5.799988, y: 0.19999695}
+  m_AnchoredPosition: {x: 5.799988, y: 0.2000122}
   m_SizeDelta: {x: 0.20000076, y: -1.9000015}
   m_Pivot: {x: 0.5, y: 0.5}

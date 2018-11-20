@@ -29,7 +29,7 @@ public class AudioGeneratorForBackGround : MonoBehaviour {
             if (isMenuMusic)
             {
                 battleThemeAudio.loop = true;
-                battleThemeAudio.PlayOneShot(BattleTheme, 0.2f);
+                battleThemeAudio.PlayOneShot(BattleTheme, 0.1f);
                 isMenuMusic = false;
             }
         }
