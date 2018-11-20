@@ -258,10 +258,10 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         // create explosion for unit, but not the tactics card
         defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
 
+        // create certain effect for unit based on card type
+        GameManager.Instance.createHostileBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
+
         // remove armor from defender - in visual
-        defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
-        defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
-        defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
 
         CheckWhetherToKillUnitOrNotWithCoroutine(defenderArmor, defenderID, attackerArmor, attackerID);
     }
@@ -269,50 +269,21 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public void tacticsBonusUnit(Vector3 pz, CardVisualStateEnum cardDetailedType)
     {
         GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
-        int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
         int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
-
-        int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
-        int attackerArmor = 0;
-        int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);
         int attackerAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(attackerID).attack;
 
         // update resources view and model
         updateResourcesModelAndView();
         GameManager.Instance.enablePlayableCardsFlag = true;
+
         // move card to defender and come back
         t_Reference.DOMove(defenderCard.transform.position, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
 
-        // create certain effect for unit bsed on card type
-        if (cardDetailedType == CardVisualStateEnum.TacticsHealOne)
-        {
-            defenderUnit.GetComponent<UnitVisualManager>().createHealVisual(attackerAttack);
+        // create certain effect for unit based on card type
+        GameManager.Instance.createFriendlyBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
 
-            // add armor to defender - in visual
-            defenderArmor = defenderArmor + attackerAttack;
-            defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
-            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
-            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.color = new Color32(255,0,0,255);
-
-            // add armor to defender - in model
-            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
-        }
-        else if (cardDetailedType == CardVisualStateEnum.TacticsStrengthOne)
-        {
-            defenderUnit.GetComponent<UnitVisualManager>().createStrengthVisual(attackerAttack);
-
-            // add armor to defender - in visual
-            defenderAttack = defenderAttack + attackerAttack;
-            defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text = defenderAttack.ToString();
-            defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.text = defenderAttack.ToString();
-            defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.color = new Color32(255, 0, 0, 255);
-
-            // add armor to defender - in model
-            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateStrengthAfterBonusEvent(defenderID, defenderAttack);
-        }
-        
+        // move tactics card to graveyard and destroy in View
         GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
-            
         Destroy(this.gameObject);
     }
 

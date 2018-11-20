@@ -5,33 +5,36 @@ using UnityEngine.UI;
 
 public class DebugMessege : MonoBehaviour {
 
-    public Image incomingTextImage;
+    public Image incomingTextImageWarning;
+    public Image incomingTextImagePositive;
     public Text incomingText;
 
     void Start() {
         incomingText.enabled = false;
-        incomingTextImage.enabled = false;
+        incomingTextImageWarning.enabled = false;
+        incomingTextImagePositive.enabled = false;
     }
 
 
-    public void ShowDebugText(string s)
+    public void ShowDebugText(string s, bool showPositiveMark)
     {
-        StartCoroutine(ShowDebugTextWithDelay(s));
+        StartCoroutine(ShowDebugTextWithDelay(s, showPositiveMark));
     }
 
-    IEnumerator ShowDebugTextWithDelay(string s)
-    {       
-        incomingTextImage.enabled = true;
-        yield return new WaitForSeconds(2f);
+    IEnumerator ShowDebugTextWithDelay(string s, bool positiveMark)
+    {
+        incomingTextImageWarning.enabled = !positiveMark;
+        incomingTextImagePositive.enabled = positiveMark;
+        //yield return new WaitForSeconds(2f);
     
         incomingText.text = s;
         incomingText.enabled = true;
-        yield return new WaitForSeconds(1f);
-
-        incomingTextImage.enabled = false;
+        //yield return new WaitForSeconds(1f);
         incomingText.enabled = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(6f);
 
         incomingText.enabled = false;
+        incomingTextImageWarning.enabled = false;
+        incomingTextImagePositive.enabled = false;
     }
 }
