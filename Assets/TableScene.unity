@@ -1015,6 +1015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888c84ceed2461449bcd62978f0f3a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnemyHuman: 1
   southFaction: 0
   northFaction: 0
   northName: 
@@ -1514,10 +1515,12 @@ MonoBehaviour:
   mainMenu: {fileID: 867139650}
   gameRunning: 0
   enablePlayableCardsFlag: 0
-  endTurnButtonManager: {fileID: 320543560}
+  isAttackableDraggingActive: 0
   southFaction: 0
   northFaction: 0
+  endTurnButtonManager: {fileID: 320543560}
   speechRecognition: {fileID: 1394874487}
+  debugMessageBox: {fileID: 1852950678}
 --- !u!1001 &1020772465
 Prefab:
   m_ObjectHideFlags: 0
@@ -2075,6 +2078,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4844844622866056, guid: fa2f2d5ad315d224ea16cf168ff63067,
     type: 2}
   m_PrefabInternal: {fileID: 1307729983}
+--- !u!1001 &1376859026
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1978118199}
+    m_Modifications:
+    - target: {fileID: 4146631590529192, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146631590529192, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146631590529192, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146631590529192, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146631590529192, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146631590529192, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146631590529192, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146631590529192, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1368489667431698, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
+      propertyPath: m_Name
+      value: DebugMessagesBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 114039912803291276, guid: fb4a13ad4da43d549944c9ff7bf7f863,
+        type: 2}
+      propertyPath: m_FontData.m_MaxSize
+      value: 62
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1394874485
 GameObject:
   m_ObjectHideFlags: 0
@@ -3147,6 +3201,17 @@ MonoBehaviour:
   Bogurodzica: {fileID: 8300000, guid: 91a5dae60778afa4992a36d16b28800d, type: 3}
   BattleTheme: {fileID: 8300000, guid: d368ff9254cf7c846aa626e2e0221b76, type: 3}
   visuals: {fileID: 1978118198}
+--- !u!4 &1852950677 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4146631590529192, guid: fb4a13ad4da43d549944c9ff7bf7f863,
+    type: 2}
+  m_PrefabInternal: {fileID: 1376859026}
+--- !u!114 &1852950678 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114449555347087788, guid: fb4a13ad4da43d549944c9ff7bf7f863,
+    type: 2}
+  m_PrefabInternal: {fileID: 1376859026}
+  m_Script: {fileID: 11500000, guid: 8ecf735916a405e4589eb658713ebded, type: 3}
 --- !u!1001 &1952506995
 Prefab:
   m_ObjectHideFlags: 0
@@ -3311,7 +3376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1978118199
 Transform:
   m_ObjectHideFlags: 0
@@ -3338,6 +3403,7 @@ Transform:
   - {fileID: 666413361}
   - {fileID: 255112639}
   - {fileID: 637330269}
+  - {fileID: 1852950677}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
