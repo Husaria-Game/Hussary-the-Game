@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     public SpeechRecognitionSystem speechRecognition;
     public DebugMessege debugMessageBox;
 
+    public int turnNumber = 0;
+
     void Awake()
     {
         Instance = this;
@@ -123,6 +125,9 @@ public class GameManager : MonoBehaviour
 
     public void nextTurn()
     {
+        turnNumber++;
+
+        Debug.Log("Tura nr " + turnNumber);
         if (currentPlayer == playerNorth)
         {
             currentPlayer = playerSouth;
@@ -135,10 +140,7 @@ public class GameManager : MonoBehaviour
         }
         if (currentPlayer == playerSouth)
         {
-            northHandView.blockAllOperations();
-            southHandView.blockAllOperations();
-            dropZoneNorth.blockAllUnitOperations();
-            dropZoneSouth.blockAllUnitOperations();
+            BlackAllUnitsAndCards();
             messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
@@ -154,10 +156,7 @@ public class GameManager : MonoBehaviour
         }
         if (currentPlayer == playerNorth)
         {
-            northHandView.blockAllOperations();
-            southHandView.blockAllOperations();
-            dropZoneNorth.blockAllUnitOperations();
-            dropZoneSouth.blockAllUnitOperations();
+            BlackAllUnitsAndCards();
             messageManager.ShowMessage(northName + " \nTwoja tura!", 2f);
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
@@ -170,6 +169,7 @@ public class GameManager : MonoBehaviour
 
             endTurnButtonManager.TimerStart();
         }
+        EnableAttackOfJustPlacedUnits(currentPlayer);
     }
 
     void InitializeGame()
@@ -200,10 +200,6 @@ public class GameManager : MonoBehaviour
             playerSouth.armymodel.armyCardsModel.moveCardFromHandToFront(cardId);
         }
     }
-    public void StartGameWithCouroutine()
-    {
-        StartCoroutine(startGame());
-    }
 
     public void drawNewCard(PlayerModel playerModel, HandView handView, GameObject deck, bool shouldCardBeDrawnWithDelay)
     {
@@ -224,6 +220,37 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
         handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
+    }
+
+    public void BlackAllUnitsAndCards()
+    {
+        northHandView.blockAllOperations();
+        southHandView.blockAllOperations();
+        dropZoneNorth.blockAllUnitOperations();
+        dropZoneSouth.blockAllUnitOperations();
+    }
+
+    public void EnableAttackOfJustPlacedUnits(PlayerModel currentplayer)
+    {
+        if (currentplayer == playerSouth)
+        {
+            foreach (Card item in playerNorth.armymodel.armyCardsModel.frontCardList)
+            {
+                item.isAbleToAttack = true;
+            }
+        }
+        else if (currentplayer == playerNorth)
+        {
+            foreach (Card item in playerSouth.armymodel.armyCardsModel.frontCardList)
+            {
+                item.isAbleToAttack = true;
+            }
+        }
+    }
+
+    public void StartGameWithCouroutine()
+    {
+        StartCoroutine(startGame());
     }
 
     public void QuitGame()

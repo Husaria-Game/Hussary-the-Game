@@ -21,6 +21,7 @@ MonoBehaviour:
     r\xF3wocze\u015Bnie liczne obowi\u0105zki gospodarcze"
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
+  isAbleToAttack: 0
   attack: 2
   maxHealth: 1
   currentHealth: 0

@@ -55,7 +55,7 @@ public class DropZone : MonoBehaviour, IDropHandler
             // enable only cards with available attack this turn
             Card cardInModel = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(child.GetComponent<IDAssignment>().uniqueId);
            
-            if (cardInModel.currentAttacksPerTurn > 0)
+            if (cardInModel.currentAttacksPerTurn > 0 && cardInModel.isAbleToAttack)
             {
                 // enable unit glow
                 child.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitGlowImage.enabled = true;
