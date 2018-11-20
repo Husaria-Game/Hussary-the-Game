@@ -17,7 +17,12 @@ MonoBehaviour:
   cardCost: 4
   affiliation: 0
   cardID: 0
-  historyDescription: "Dw\xF3ch skrzyd\u0142owych utrzymywa\u0142o szyk oddzia\u0142u"
+  historyDescription: "Ich zadaniem by\u0142o utrzymywanie szyku oddzia\u0142u. Ustawiani
+    z prawej i lewej strony chor\u0105gwi. W razie potrzeby mogli zje\u017Cd\u017Ca\u0107
+    do \u015Brodka, \u015Bcie\u015Bniaj\u0105c szyk w ostatnich metrach szar\u017Cy,
+    albo rozje\u017Cd\u017Ca\u0107 si\u0119, rozlu\u017Aniaj\u0105c lini\u0119 je\u017Ad\u017Ac\xF3w.
+    Taki manewr chroni\u0142 przed wi\u0119kszymi stratami w czasie ostrza\u0142u
+    formacji. Wszyscy towarzysze z pierwszego szeregu r\xF3wnali ko\u0144mi do skrzyd\u0142owych."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
   attack: 4

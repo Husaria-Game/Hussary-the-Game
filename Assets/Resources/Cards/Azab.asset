@@ -18,7 +18,12 @@ MonoBehaviour:
   affiliation: 1
   cardID: 0
   historyDescription: "Piechota na \u017Co\u0142dzie sand\u017Cakbej\xF3w i bejlerbej\xF3w,
-    sk\u0142adaj\u0105ca si\u0119 z rzemie\u015Blnik\xF3w i mieszka\u0144c\xF3w wsi"
+    sk\u0142adaj\u0105ca si\u0119 z rzemie\u015Blnik\xF3w i mieszka\u0144c\xF3w wsi.
+    Ich dow\xF3dca nosi\u0142 tytu\u0142 agi azab\xF3w w obr\u0119bie jednego ejaletu.
+    Nieraz wyszkoleni serat\u0142ukowie (kt\xF3rych zadaniem by\u0142o strze\u017Cenie
+    granic) zasilali szeregi azab\xF3w. Podczas walki azabowie pierwsi przyjmowali
+    atak wroga, a nas\u0119pnie rozdzielali si\u0119, aby natarcie mogli przprowadza\u0107
+    janczarzy."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
   attack: 2
