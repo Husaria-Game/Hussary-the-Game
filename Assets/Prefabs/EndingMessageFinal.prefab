@@ -249,6 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4289207715577666}
   - component: {fileID: 114357947162182410}
+  - component: {fileID: 114460787309094854}
   m_Layer: 0
   m_Name: EndingMessageFinal
   m_TagString: Untagged
@@ -925,6 +926,30 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 0.5}
   m_EffectDistance: {x: 5, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &114460787309094854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1781042970256438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b13dfeaff4c5d4eb3242ff623ed4b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentToReturnTo: {fileID: 0}
+  defenderUnit: {fileID: 0}
+  defenderCard: {fileID: 0}
+  hero: {fileID: 0}
+  initialPosition: {x: 0, y: 0, z: 0}
+  mousePosition: {x: 0, y: 0, z: 0}
+  lineRenderer: {fileID: 0}
+  arrow: {fileID: 0}
+  attackOnUnitSuccess: 0
+  attackOnHeroSuccess: 0
+  transformCardIntoUnit: 0
+  initialDropZone: {fileID: 0}
+  t_Reference: {fileID: 0}
 --- !u!114 &114486083698180966
 MonoBehaviour:
   m_ObjectHideFlags: 1

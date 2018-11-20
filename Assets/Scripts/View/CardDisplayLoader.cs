@@ -20,6 +20,12 @@ public class CardDisplayLoader : MonoBehaviour {
     public Image OutsideBGColor;
     public Image cardFaceGlowImage;
     public Image cardBackGlowImage;
+    public CardType cardType;
+
+    public enum CardType
+    {
+        UnitCard, TacticsCard
+    }
 
 
     // Use this for initialization
@@ -35,8 +41,13 @@ public class CardDisplayLoader : MonoBehaviour {
         profileImage.sprite = card.cardImage;
         if (card.maxHealth > 0)
         {
-            armorText.text = card.maxHealth.ToString();
+            cardType = CardType.UnitCard;
             attackText.text = card.attack.ToString();
+            armorText.text = card.maxHealth.ToString();
+        }
+        else
+        {
+            cardType = CardType.TacticsCard;
         }
 
         // load card color based on affiliation
