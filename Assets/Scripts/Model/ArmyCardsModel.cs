@@ -25,18 +25,27 @@ public class ArmyCardsModel : MonoBehaviour
         deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mameluk")));
         deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sarydża")));
         deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sekban")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kapudan pasza")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
 
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Ciura obozowy")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Czeladnik")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Chorąży")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Namiestnik")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Pocztowy")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Porucznik")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Rotmistrz")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Skrzydłowy")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz husarski")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz pancerny")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Ciura obozowy")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Czeladnik")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Chorąży")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Namiestnik")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Pocztowy")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Porucznik")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Rotmistrz")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Skrzydłowy")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz husarski")));
+        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz pancerny")));
 
         // assign unique id for each card in deck
         foreach (Card item in deckCardList)
@@ -82,10 +91,22 @@ public class ArmyCardsModel : MonoBehaviour
         graveyardCardList.Add(cardToMove);
     }
 
+    public void moveCardFromHandToGraveyard(int id)
+    {
+        Card cardToMove = handCardList.Single(r => r.cardID == id);
+        handCardList.Remove(cardToMove);
+        graveyardCardList.Add(cardToMove);
+    }
+
     public void updateArmorAfterDamageTaken(int cardID, int newArmorValue)
     {
 
         findCardInFrontByID(cardID).currentHealth = newArmorValue;
+    }
+
+    public Card findCardInHandByID(int id)
+    {
+        return handCardList.Find(x => x.cardID == id);
     }
 
     public Card findCardInFrontByID(int id)

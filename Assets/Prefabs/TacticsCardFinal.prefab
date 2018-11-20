@@ -666,6 +666,8 @@ GameObject:
   - component: {fileID: 61547994655474290}
   - component: {fileID: 114719552222861082}
   - component: {fileID: 114325214781309644}
+  - component: {fileID: 114242381094218002}
+  - component: {fileID: 114076081858611924}
   m_Layer: 0
   m_Name: TacticsCardFinal
   m_TagString: Untagged
@@ -996,6 +998,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114076081858611924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1691426831155688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349e95f05136f224bb8db76bc0cde954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardVisualStateEnum: 2
+  cardPanel: {fileID: 1882335949322568}
+  unitGameObject: {fileID: 0}
 --- !u!114 &114083078029556298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1192,6 +1208,30 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114242381094218002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1691426831155688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b13dfeaff4c5d4eb3242ff623ed4b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentToReturnTo: {fileID: 0}
+  defenderUnit: {fileID: 0}
+  defenderCard: {fileID: 0}
+  hero: {fileID: 0}
+  initialPosition: {x: 0, y: 0, z: 0}
+  mousePosition: {x: 0, y: 0, z: 0}
+  lineRenderer: {fileID: 120968363280510944}
+  arrow: {fileID: 1016194792569446}
+  attackOnUnitSuccess: 0
+  attackOnHeroSuccess: 0
+  transformCardIntoUnit: 0
+  initialDropZone: {fileID: 0}
+  t_Reference: {fileID: 0}
 --- !u!114 &114242431374007216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1653,6 +1693,7 @@ MonoBehaviour:
   card: {fileID: 11400000, guid: e498df7def9832a43a0a99023a3ef968, type: 2}
   cardPreviewLoader: {fileID: 114704196499924322}
   cardUnitLoader: {fileID: 0}
+  Unit: {fileID: 0}
   cardNameText: {fileID: 114758697161024178}
   cardMoneyText: {fileID: 114502224047323074}
   armorText: {fileID: 0}
@@ -1663,6 +1704,7 @@ MonoBehaviour:
   OutsideBGColor: {fileID: 114497184033731272}
   cardFaceGlowImage: {fileID: 114663078675538722}
   cardBackGlowImage: {fileID: 0}
+  cardType: 0
 --- !u!114 &114551716094201416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1823,9 +1865,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77d0bc1508701e429edf5f26457af26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: dafa0214059fbe04cb265864870eadf6, type: 2}
+  card: {fileID: 0}
   cardPreviewLoader: {fileID: 0}
   cardUnitLoader: {fileID: 0}
+  Unit: {fileID: 0}
   cardNameText: {fileID: 114955296084315848}
   cardMoneyText: {fileID: 114242431374007216}
   armorText: {fileID: 0}
@@ -1836,6 +1879,7 @@ MonoBehaviour:
   OutsideBGColor: {fileID: 114787010871043766}
   cardFaceGlowImage: {fileID: 114337209976078984}
   cardBackGlowImage: {fileID: 0}
+  cardType: 0
 --- !u!114 &114708027221115444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1895,7 +1939,7 @@ MonoBehaviour:
   arrow: {fileID: 1016194792569446}
   dragSuccess: 0
   transformCardIntoUnit: 0
-  initialDropZone: {fileID: 0}
+  dropZone: {fileID: 0}
   t_Reference: {fileID: 0}
 --- !u!114 &114758697161024178
 MonoBehaviour:
@@ -3625,7 +3669,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -3.8068962, y: -5.153236}
+  m_AnchoredPosition: {x: -5.45928, y: 0.28169143}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224931737625825364

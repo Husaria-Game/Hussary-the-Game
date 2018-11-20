@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Kazasker
   m_EditorClassIdentifier: 
   cardName: Kazasker
-  description: Dodaj punkt pancerza kapudan paszy w kolejnej walce
+  description: "Najwy\u017Cszy s\u0119dzia wojskowy"
   cardImage: {fileID: 21300000, guid: 0e56f54188ece9f49895dc9df237940b, type: 3}
   cardCost: 6
   affiliation: 1
@@ -23,8 +23,11 @@ MonoBehaviour:
     za\u015B drugiego (Anadolu Kazaskeri) - cz\u0119\u015B\u0107 azjatycka Imperium
     Osma\u0144skiego. Obaj wchodzili w sk\u0142ad dywanu, czyli rady doradczej su\u0142tana,
     obraduj\u0105cej w sprawach przez niego wskazanych."
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 4
   maxHealth: 4
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Name: Derwisz
   m_EditorClassIdentifier: 
   cardName: Derwisz
-  description: "Za ka\u017Cde 5 jednostek obni\u017C koszt jednego saryd\u017Cy o
-    1"
+  description: "Przynale\u017Cny do bractwa religijnego muzu\u0142ma\u0144ski mistyk"
   cardImage: {fileID: 21300000, guid: a84fe7542f1787b409364f7ab1d01d6b, type: 3}
   cardCost: 1
   affiliation: 1
@@ -25,8 +24,11 @@ MonoBehaviour:
     ekstaz\u0119. Praktykowali rytualn\u0105, niekiedy wielogodzinn\u0105 modlitw\u0119
     zwan\u0105 zikr, podczas kt\xF3rej obracali si\u0119 na prawej nodze wok\xF3\u0142
     w\u0142asnej osi."
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 1
   maxHealth: 1
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

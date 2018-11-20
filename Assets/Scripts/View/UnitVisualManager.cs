@@ -20,6 +20,7 @@ public class UnitVisualManager : MonoBehaviour
     [Header("Image References")]
     public Image profileImage;
     public Image unitGlowImage;
+    public Image unitPointerGlowImage;
 
 
     void Start()

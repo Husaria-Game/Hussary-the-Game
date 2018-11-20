@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Name: Towarzysz husarski
   m_EditorClassIdentifier: 
   cardName: Towarzysz husarski
-  description: "Za ka\u017Cde 5 jednostek dobierz dodatkow\u0105 jednostk\u0119 pocztowego"
+  description: "Szlachcic s\u0142u\u017C\u0105cy w wojsku i zaci\u0105gaj\u0105cy
+    w jego szeregi poddanych sobie pocztowych"
   cardImage: {fileID: 21300000, guid: b81472716aba63a40bc12d85d3281c07, type: 3}
   cardCost: 4
   affiliation: 0
   cardID: 0
   historyDescription: "Szlachcic s\u0142u\u017C\u0105cy w wojsku i zaci\u0105gaj\u0105cy
     w jego szeregi poddanych sobie pocztowych"
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 4
   maxHealth: 3
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

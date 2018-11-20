@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Name: Porucznik
   m_EditorClassIdentifier: 
   cardName: Porucznik
-  description: Dodaj punkt pancerza rotmistrzowi w kolejnej walce
+  description: "Zast\u0119pca rotmistrza i sprawuj\u0105cy w\u0142adz\u0119 w jego
+    imieniu"
   cardImage: {fileID: 21300000, guid: 23f78a39824dbd841a345cc6359c96ef, type: 3}
   cardCost: 6
   affiliation: 0
   cardID: 0
   historyDescription: "Zast\u0119pca rotmistrza i sprawuj\u0105cy w\u0142adz\u0119
     w jego imieniu"
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 4
   maxHealth: 5
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

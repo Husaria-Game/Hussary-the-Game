@@ -15,12 +15,15 @@ MonoBehaviour:
   description: "Tu\u017C przed lini\u0105 wroga oddzia\u0142y zaw\u0119\u017Caj\u0105
     szyk, a konie cwa\u0142uj\u0105. Zadajesz wrogiej jednostce punkt obra\u017Cenia."
   cardImage: {fileID: 21300000, guid: 51aa72fabc347d848b8e0a011d8154d4, type: 3}
-  cardCost: 0
+  cardCost: 1
   affiliation: 0
   cardID: 0
   historyDescription: 
-  attack: 0
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
+  attack: 1
   maxHealth: 0
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

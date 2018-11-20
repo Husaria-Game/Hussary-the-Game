@@ -37,9 +37,10 @@ public class DropZone : MonoBehaviour, IDropHandler
     {
 
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
+        CardVisualStateEnum cardState = eventData.pointerDrag.GetComponent<CardVisualState>().cardVisualStateEnum;
 
         // allow drag if draggable object exists and dropzone belongs to player
-        if (d != null && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)
+        if (d != null && cardState != CardVisualStateEnum.TacticsWithAim && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)
         {
             d.dropZone = this;
             d.dragSuccess = true;
