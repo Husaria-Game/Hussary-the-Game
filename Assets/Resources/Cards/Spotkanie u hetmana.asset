@@ -16,7 +16,7 @@ MonoBehaviour:
   cardName: Spotkanie u hetmana
   description: "Hetman informuje dow\xF3dc\xF3w chor\u0105gwi o planie najbli\u017Cszej
     bitwy. "
-  effect: 'Efekt: +1 Pancerz(W)'
+  effect: +1 Pancerz(W)
   cardImage: {fileID: 21300000, guid: 914481c75d52e3b4c8a62b4b69fae688, type: 3}
   cardCost: 3
   affiliation: 0

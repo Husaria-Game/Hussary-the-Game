@@ -16,7 +16,7 @@ MonoBehaviour:
   cardName: Dostawa broni
   description: "Ci\u0119\u017Cka artyleria wzmacnia si\u0142y armii i ostrzeliwuje
     jednostki wroga."
-  effect: 'Efekt: -1 Pancerz(W)'
+  effect: -1 Pancerz(W)
   cardImage: {fileID: 21300000, guid: 72c13e29f1d4637469a8f07101adf343, type: 3}
   cardCost: 3
   affiliation: 1
