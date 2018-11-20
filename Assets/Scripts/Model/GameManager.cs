@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainMenu;
     public bool gameRunning;
     public bool enablePlayableCardsFlag;
+    public bool isAttackableDraggingActive;
 
     //Skrypt upływającego czasu
     public EndTurnButtonManager endTurnButtonManager;
