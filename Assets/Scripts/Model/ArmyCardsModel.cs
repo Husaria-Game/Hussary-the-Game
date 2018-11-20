@@ -160,6 +160,11 @@ public class ArmyCardsModel : MonoBehaviour
         findCardInFrontByID(cardID).currentHealth = newArmorValue;
     }
 
+    public void updateStrengthAfterBonusEvent(int cardID, int newStrengthValue)
+    {
+        findCardInFrontByID(cardID).attack = newStrengthValue;
+    }
+
     public Card findCardInHandByID(int id)
     {
         return handCardList.Find(x => x.cardID == id);

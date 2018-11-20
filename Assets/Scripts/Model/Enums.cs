@@ -31,10 +31,10 @@ public enum CardVisualStateEnum
     TacticsAttackAll,
     TacticsHealOne,
     TacticsHealAll,
-    TacticsBonusAttackParameterOne,
-    TacticsBonusAttackParameterAll,
-    TacticsHealAndBonusAttackParameterOne,
-    TacticsHealAndBonusAttackParameterAll
+    TacticsStrengthOne,
+    TacticsStrengthAll,
+    TacticsHealAndStrengthOne,
+    TacticsHealAndStrengthAll
 }
 
 public enum WhereIsCard

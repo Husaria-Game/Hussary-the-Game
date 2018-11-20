@@ -21,6 +21,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public bool healOnAllUnitsSuccess;
     public bool transformCardIntoUnit;
     public bool healOnOneUnitSuccess;
+    public bool strenghtOnOneUnitSuccess;
     public DropZone initialDropZone;
     public DropZone friendlyDropZone;
     public DropZone enemyDropZone;
@@ -118,10 +119,13 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 tacticsAttacksUnit(pz);
             }
         }
-
-        if (healOnOneUnitSuccess && cardDetailedType == CardVisualStateEnum.TacticsHealOne)//for heal on Unit successful 
+        if (healOnOneUnitSuccess)//for heal on Unit successful 
         {
-            tacticsHealsUnit(pz);
+            tacticsBonusUnit(pz, cardDetailedType);
+        }
+        if (strenghtOnOneUnitSuccess)//for strenght on Unit successful 
+        {
+            tacticsBonusUnit(pz, cardDetailedType);
         }
 
         if (attackOnHeroSuccess)//for attack on Hero successful - attacker adjusts all the information about the fight, attacker and defender
@@ -262,7 +266,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         CheckWhetherToKillUnitOrNotWithCoroutine(defenderArmor, defenderID, attackerArmor, attackerID);
     }
 
-    public void tacticsHealsUnit(Vector3 pz)
+    public void tacticsBonusUnit(Vector3 pz, CardVisualStateEnum cardDetailedType)
     {
         GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
         int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
@@ -279,16 +283,33 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         // move card to defender and come back
         t_Reference.DOMove(defenderCard.transform.position, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
 
-        // create heal effect for unit
-        defenderUnit.GetComponent<UnitVisualManager>().createHealVisual(attackerAttack);
+        // create certain effect for unit bsed on card type
+        if (cardDetailedType == CardVisualStateEnum.TacticsHealOne)
+        {
+            defenderUnit.GetComponent<UnitVisualManager>().createHealVisual(attackerAttack);
 
-        // add armor to defender - in visual
-        defenderArmor = defenderArmor + attackerAttack;
-        defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
-        defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
+            // add armor to defender - in visual
+            defenderArmor = defenderArmor + attackerAttack;
+            defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.color = new Color32(255,0,0,255);
 
-        // add armor to defender - in model
-        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+            // add armor to defender - in model
+            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+        }
+        else if (cardDetailedType == CardVisualStateEnum.TacticsStrengthOne)
+        {
+            defenderUnit.GetComponent<UnitVisualManager>().createStrengthVisual(attackerAttack);
+
+            // add armor to defender - in visual
+            defenderAttack = defenderAttack + attackerAttack;
+            defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text = defenderAttack.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.text = defenderAttack.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.color = new Color32(255, 0, 0, 255);
+
+            // add armor to defender - in model
+            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateStrengthAfterDamageTaken(defenderID, defenderAttack);
+        }
         
         GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
             
@@ -386,6 +407,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             defenderArmor = defenderArmor + healerAttack;
             defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
             defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.color = new Color32(255, 0, 0, 255);
 
             // update armor in model
             GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
