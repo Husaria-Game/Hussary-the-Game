@@ -81,7 +81,7 @@ public class HandView : MonoBehaviour {
         for (float f = 1f; f >= 0; f -= 0.02f)
         {
             newCard.transform.rotation = Quaternion.Euler(0, 180.0f * f, 0);
-            newCard.transform.localScale += new Vector3(0.0001f, 0.0001f, 0);
+            newCard.transform.localScale += new Vector3(0.00015f, 0.00015f, 0);
             newCard.transform.position += cardMovementVector;
             yield return new WaitForSeconds(.01f);
         }
@@ -91,7 +91,7 @@ public class HandView : MonoBehaviour {
         for (float f = 1; f >= 0; f -= 0.02f)
         {
 
-            newCard.transform.localScale -= new Vector3(0.0001f, 0.0001f, 0);
+            newCard.transform.localScale -= new Vector3(0.00015f, 0.00015f, 0);
             newCard.transform.SetPositionAndRotation(new Vector3(this.transform.position.x - distanceX * f, this.transform.position.y - distanceY * f, 0), Quaternion.identity);
             yield return new WaitForSeconds(.01f);
         }

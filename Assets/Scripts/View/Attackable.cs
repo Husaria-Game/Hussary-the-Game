@@ -256,21 +256,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
         defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
         defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
-        
-        // update armor in model, and if defender dead then update model and delete card from view
-        if (defenderArmor > 0)
-        {
-            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
-        }
-        else
-        {
-            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
-            Destroy(defenderCard.gameObject);
-        }
 
-        // update model and delete card from view
-        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
-        Destroy(this.gameObject);
+        CheckWhetherToKillUnitOrNotWithCoroutine(defenderArmor, defenderID, attackerArmor, attackerID);
     }
 
     public void updateResourcesModelAndView()
@@ -405,7 +392,14 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         else
         {
             //Add if which check if attacker id belongs to tactics or unit and then change movCard function
-            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(attackerID);
+            if (GetComponent<CardDisplayLoader>().cardType == CardType.TacticsCard)
+            {
+                GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
+            }
+            else if(GetComponent<CardDisplayLoader>().cardType == CardType.UnitCard)
+            {
+                GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(attackerID);
+            }
             Destroy(this.gameObject);
         }
     }
