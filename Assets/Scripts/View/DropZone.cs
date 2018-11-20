@@ -57,10 +57,10 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
         Attackable a = eventData.pointerDrag.GetComponent<Attackable>();
-        CardVisualStateEnum cardState = eventData.pointerDrag.GetComponent<CardVisualState>().cardVisualStateEnum;
+        CardVisualStateEnum cardDetailedType = eventData.pointerDrag.GetComponent<CardDisplayLoader>().cardDetailedType;
 
         // allow drag if draggable object exists and dropzone belongs to player
-        if (d != null && cardState == CardVisualStateEnum.UnitCard && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)
+        if (d != null && cardDetailedType == CardVisualStateEnum.UnitCard && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)
         {
             d.dropZone = this;
             d.dragSuccess = true;
@@ -68,9 +68,15 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         }
 
         // allow drag (attack) if cardState is TacticsAttackAll
-        if (a != null && cardState == CardVisualStateEnum.TacticsAttackAll && dropZonePosition != a.t_Reference.GetComponent<IDAssignment>().ownerPosition)
+        if (a != null && cardDetailedType == CardVisualStateEnum.TacticsAttackAll && dropZonePosition != a.t_Reference.GetComponent<IDAssignment>().ownerPosition)
         {
             startAttackAll(a);
+        }
+
+        // allow drag (heal) if cardState is TacticsAttackAll
+        if (a != null && cardDetailedType == CardVisualStateEnum.TacticsHealAll && dropZonePosition == a.t_Reference.GetComponent<IDAssignment>().ownerPosition)
+        {
+            startHealAll(a);
         }
     }
 
@@ -116,6 +122,13 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     {
         a.enemyDropZone = this;
         a.attackOnAllUnitsSuccess = true;
+        a.parentToReturnTo = transform.GetChild(0).GetChild(0);
+    }
+
+    public void startHealAll(Attackable a)
+    {
+        a.friendlyDropZone = this;
+        a.healOnAllUnitsSuccess = true;
         a.parentToReturnTo = transform.GetChild(0).GetChild(0);
     }
     public void OnPointerEnter(PointerEventData eventData)

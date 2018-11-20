@@ -10,13 +10,16 @@ public class UnitVisualManager : MonoBehaviour
     public Card card;
     public CardDisplayLoader cardPreviewLoader;
     public GameObject explosionEffect;
+    public GameObject healEffect;
     public GameObject unitParentCard;
-    public CanvasGroup canvasGroup;
+    public CanvasGroup explosionCanvasGroup;
+    public CanvasGroup healCanvasGroup;
     [Header("Text References")]
     public Text nameText;
     public Text armorText;
     public Text attackText;
     public Text damageNumberText;
+    public Text healNumberText;
     [Header("Image References")]
     public Image profileImage;
     public Image unitGlowImage;
@@ -69,23 +72,44 @@ public class UnitVisualManager : MonoBehaviour
         StartCoroutine(ReceiveDamage(damage));
     }
 
+    public void createHealVisual(int heal)
+    {
+        StartCoroutine(ReceiveHeal(heal));
+    }
+
     public IEnumerator ReceiveDamage(int damage)
     {
         damageNumberText.text = damage.ToString();
         explosionEffect.SetActive(true);
-        canvasGroup.alpha = 0.1f;
-        while (canvasGroup.alpha < 1)
+        explosionCanvasGroup.alpha = 0.1f;
+        while (explosionCanvasGroup.alpha < 1)
         {
-            canvasGroup.alpha += 0.05f;
+            explosionCanvasGroup.alpha += 0.05f;
             yield return new WaitForSeconds(0.05f);
         }
 
-        while (canvasGroup.alpha > 0)
+        while (explosionCanvasGroup.alpha > 0)
         {
-            canvasGroup.alpha -= 0.05f;
+            explosionCanvasGroup.alpha -= 0.05f;
             yield return new WaitForSeconds(0.05f);
         }
-        // after the effect is shown it gets destroyed.
-        //Destroy(this.gameObject);
+    }
+
+    public IEnumerator ReceiveHeal(int heal)
+    {
+        healNumberText.text = heal.ToString();
+        healEffect.SetActive(true);
+        healCanvasGroup.alpha = 0.1f;
+        while (healCanvasGroup.alpha < 1)
+        {
+            healCanvasGroup.alpha += 0.05f;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        while (healCanvasGroup.alpha > 0)
+        {
+            healCanvasGroup.alpha -= 0.05f;
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 }

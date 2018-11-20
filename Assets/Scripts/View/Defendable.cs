@@ -43,19 +43,24 @@ public class Defendable : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
         {
             defenderCardTransform = this.transform;
             ownerPosition = defenderCardTransform.GetComponent<IDAssignment>().ownerPosition;
-            CardVisualStateEnum cardState = attackerCard.t_Reference.GetComponent<CardVisualState>().cardVisualStateEnum;
+            CardVisualStateEnum attackerCardDetailedType = attackerCard.t_Reference.GetComponent<CardDisplayLoader>().cardDetailedType;
 
             // allow drag if draggable object exists and card belongs to other player
-            if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim))
+            if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && (attackerCardDetailedType == CardVisualStateEnum.Unit || attackerCardDetailedType == CardVisualStateEnum.TacticsWithAim))
             {
                 attackerCard.attackOnUnitSuccess = true;
                 attackerCard.defenderCard = defenderCardTransform.GetComponent<Defendable>();
                 attackerCard.defenderUnit = this.transform.GetComponent<CardDisplayLoader>().Unit.transform;
             }
             // allow drag success for card with state TacticsAttackAll - behaviour as in dropzone for this card (because drop on card unit blocks detecting drop on enemy dropzone)
-            else if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && (cardState == CardVisualStateEnum.TacticsAttackAll))
+            else if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && (attackerCardDetailedType == CardVisualStateEnum.TacticsAttackAll))
             {
                 this.GetComponent<Draggable>().dropZone.startAttackAll(attackerCard);
+            }
+            // allow drag success for card with state TacticsHealAll - behaviour as in dropzone for this card (because drop on card unit blocks detecting drop on friendly dropzone)
+            else if (attackerCard != null && ownerPosition == attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && (attackerCardDetailedType == CardVisualStateEnum.TacticsHealAll))
+            {
+                this.GetComponent<Draggable>().dropZone.startHealAll(attackerCard);
             }
         }
         
@@ -74,20 +79,20 @@ public class Defendable : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
 
     public void setCardRedGlowWhenAimed()
     {
-        if (transform.GetComponent<CardVisualState>() != null && GameManager.Instance.isAttackableDraggingActive && pointerEnter && transform.GetComponent<CardVisualState>().cardVisualStateEnum == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition != GameManager.Instance.currentPlayer.position)
+        if (transform.GetComponent<CardDisplayLoader>() != null && GameManager.Instance.isAttackableDraggingActive && pointerEnter && transform.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition != GameManager.Instance.currentPlayer.position)
         {
             Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
             unitPointerGlowImage.enabled = true;
             unitPointerGlowImage.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
             pointerEnter = false;
         }
-        if (transform.GetComponent<CardVisualState>() != null && GameManager.Instance.isAttackableDraggingActive && pointerExit && transform.GetComponent<CardVisualState>().cardVisualStateEnum == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition != GameManager.Instance.currentPlayer.position)
+        if (transform.GetComponent<CardDisplayLoader>() != null && GameManager.Instance.isAttackableDraggingActive && pointerExit && transform.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition != GameManager.Instance.currentPlayer.position)
         {
             Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
             unitPointerGlowImage.enabled = false;
             pointerExit = false;
         }
-        if (transform.GetComponent<CardVisualState>() != null && !GameManager.Instance.isAttackableDraggingActive )
+        if (transform.GetComponent<CardDisplayLoader>() != null && !GameManager.Instance.isAttackableDraggingActive )
         {
             Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
             unitPointerGlowImage.enabled = false;

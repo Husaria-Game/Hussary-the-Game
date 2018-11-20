@@ -17,13 +17,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public DropZone dropZone;
     private Vector3 pointerDisplacement = Vector3.zero;
     public Transform t_Reference;
-    private CardVisualStateEnum cardState;
+    private CardVisualStateEnum cardDetailedType;
+    private CardType cardType;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("draggable");
         t_Reference = this.transform;
-        cardState = t_Reference.GetComponent<CardVisualState>().cardVisualStateEnum;
+        cardDetailedType = t_Reference.GetComponent<CardDisplayLoader>().cardDetailedType;
 
         parentToReturnTo = t_Reference.parent;
         initialPosition = t_Reference.position;
@@ -34,53 +35,16 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         t_Reference.gameObject.GetComponentInChildren<Canvas>().sortingLayerName = "ActiveCard";
 
         GetComponent<CanvasGroup>().blocksRaycasts = false;
-
-        // enable aim icon for unit tactics with aim
-        //if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
-        if (cardState == CardVisualStateEnum.TacticsWithAim)
-            {
-            if (lineRenderer != null)
-            {
-                lineRenderer.enabled = true;
-                lineRenderer.SetPosition(0, initialPosition);
-            }
-            if (arrow != null)
-            {
-                arrow.SetActive(true);
-            }
-        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         Vector3 pz = Camera.main.ScreenToWorldPoint(eventData.position);
         pz.z = 0;
-
-
-
-        // update aim icon for unit and tactics with aim
-        //if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
-        if (cardState == CardVisualStateEnum.TacticsWithAim)
+        
+        if (cardDetailedType == CardVisualStateEnum.UnitCard)
         {
-            if (lineRenderer != null)
-        {
-            Vector3 A = initialPosition;
-
-                Vector3 P = Vector3.Lerp(A, pz, 0.90f);
-                lineRenderer.SetPosition(1, new Vector2((P.x), (P.y)));
-            }
-        }
-        else
-        {
-        t_Reference.position = new Vector2(pz.x - pointerDisplacement.x, pz.y - pointerDisplacement.y);
-        }
-        //if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
-            {
-            if (arrow != null)
-            {
-                arrow.transform.position = new Vector2(pz.x, pz.y);
-            }
+            t_Reference.position = new Vector2(pz.x - pointerDisplacement.x, pz.y - pointerDisplacement.y);
         }
 
     }
@@ -89,23 +53,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
-
-        //if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
-        if (cardState == CardVisualStateEnum.TacticsWithAim)
-        {
-            if (lineRenderer != null)
-            {
-                lineRenderer.enabled = false;
-            }
-            if (arrow != null)
-            {
-                arrow.SetActive(false);
-            }
-        }
-
         if (dragSuccess)//for dragging successful
         {
-            if (cardState == CardVisualStateEnum.UnitCard)
+            if (cardDetailedType == CardVisualStateEnum.UnitCard)
             {
                 // change card position in view to Front
                 t_Reference.SetParent(parentToReturnTo);
