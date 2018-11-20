@@ -15,12 +15,15 @@ MonoBehaviour:
   description: "Trudne warunki terenowe zmuszaj\u0105 do ponownego ataku. Zadajesz
     punkt obra\u017Cenia wszystkim jednostkom wroga."
   cardImage: {fileID: 21300000, guid: a7c793f2e5ed11946be8c6c718f714e7, type: 3}
-  cardCost: 0
+  cardCost: 3
   affiliation: 0
   cardID: 0
   historyDescription: 
-  attack: 0
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
+  attack: 1
   maxHealth: 0
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

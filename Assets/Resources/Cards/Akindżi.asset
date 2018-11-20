@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: "Akind\u017Ci"
   m_EditorClassIdentifier: 
   cardName: "Akind\u017Ci"
-  description: Dodaj jednorazowo punkt obrony dla sekbana
+  description: "Lekka jazda uzbrojona w \u0142uki i szable"
   cardImage: {fileID: 21300000, guid: 345e3fffd86015840a1cee9c75e1adcd, type: 3}
   cardCost: 5
   affiliation: 1
@@ -25,8 +25,11 @@ MonoBehaviour:
     otrzymywali \u017Co\u0142du, jednocze\u015Bnie byli zwolnieni z op\u0142at i danin.
     Mieli te\u017C prawo do zachowania \u0142up\xF3w wojennych. Ostatecznie zostali
     rozwi\u0105zani w XVIII wieku."
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 4
   maxHealth: 4
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

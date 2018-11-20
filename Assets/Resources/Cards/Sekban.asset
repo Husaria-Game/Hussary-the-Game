@@ -12,15 +12,24 @@ MonoBehaviour:
   m_Name: Sekban
   m_EditorClassIdentifier: 
   cardName: Sekban
-  description: "Ka\u017Cde 3 jednostki dodaj\u0105 1 do nast\u0119pnego ataku saryd\u017Cy"
+  description: "Najemnik turecki, nie wchodz\u0105cy na stae\u0142e w sk\u0142ad armii"
   cardImage: {fileID: 21300000, guid: e269f9901bf7f5346b95a33eab6ba036, type: 3}
   cardCost: 4
   affiliation: 1
   cardID: 0
-  historyDescription: "Jazda rekrutowana w\u015Br\xF3d ch\u0142op\xF3w zamieszkuj\u0105cych
-    tereny przygraniczne"
+  historyDescription: "Najemnik turecki, nie wchodz\u0105cy w sk\u0142ad sta\u0142ej
+    armii Imperium Osma\u0144skiego. Sekbani byli wynajmowani za pieni\u0105dze i
+    utrzymywani z dodatkowych podatk\xF3w. Rekrutowani w tak du\u017Cej ilo\u015Bci,
+    \u017Ce stanowili znaczny odsetek armii tureckiej. Gdy okaza\u0142o si\u0119,
+    \u017Ce ich ogromna liczba przesta\u0142a by\u0107 potrzebna, w zwi\u0105zku z
+    brakiem zatrudnienia w armii rozpocz\u0119li \u017Cycie rozb\xF3jnicze. W ko\u0144cu
+    Ye\u011Fen Osman Pasha zdelegalizowa\u0142 sakban\xF3w, kt\xF3rzy mieli dobrowolnie
+    si\u0119 rozej\u015B\u0107. W przeciwnym wypadku czeka\u0142a ich egzekucja."
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 3
   maxHealth: 4
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0

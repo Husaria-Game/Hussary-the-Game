@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Janczar
   m_EditorClassIdentifier: 
   cardName: Janczar
-  description: "Za ka\u017Cde 5 jendostek dobierz dodatkow\u0105 jednostk\u0119 azaba"
+  description: "Oddzia\u0142y piechoty tureckiej"
   cardImage: {fileID: 21300000, guid: 52d582146cc125444addc3a7a5e2b21a, type: 3}
   cardCost: 3
   affiliation: 1
@@ -26,8 +26,11 @@ MonoBehaviour:
     pistolet, a od 1566 roku muszkiet). Korpusy janczar\xF3w dzielono na orty. Ich
     ostateczne rozwi\u0105zanie nast\u0105pi\u0142o w 1826 roku przez su\u0142tana
     Mahmuda II."
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
   attack: 2
   maxHealth: 2
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0
