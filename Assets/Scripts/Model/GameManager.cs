@@ -138,8 +138,32 @@ public class GameManager : MonoBehaviour
             currentPlayer = playerNorth;
             otherPlayer = playerSouth;
         }
+        ///Test///
+        BlackAllUnitsAndCards();
+        messageManager.ShowMessage(currentPlayer.name + " \nTwoja tura!", 2f);
+        currentPlayer.updateResourcesNewTurn();
+
         if (currentPlayer == playerSouth)
         {
+            resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+            drawNewCard(playerSouth, southHandView, deckSouth, true);
+            UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
+      
+            speechRecognition.CheckWhetherToShowSpeechSign();
+        }
+        if (currentPlayer == playerNorth)
+        {
+            resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+            drawNewCard(playerNorth, northHandView, deckNorth, true);
+
+            UnblockAllUnitsAndCards(playerNorth, northHandView, dropZoneNorth);
+        }
+        endTurnButtonManager.TimerStart();
+        EnableAttackOfJustPlacedUnits(currentPlayer);
+        /*
+        if (currentPlayer == playerSouth)
+        {
+
             BlackAllUnitsAndCards();
             messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
             playerSouth.updateResourcesNewTurn();
@@ -170,6 +194,7 @@ public class GameManager : MonoBehaviour
             endTurnButtonManager.TimerStart();
         }
         EnableAttackOfJustPlacedUnits(currentPlayer);
+        */
     }
 
     void InitializeGame()
@@ -228,6 +253,13 @@ public class GameManager : MonoBehaviour
         southHandView.blockAllOperations();
         dropZoneNorth.blockAllUnitOperations();
         dropZoneSouth.blockAllUnitOperations();
+    }
+
+    public void UnblockAllUnitsAndCards(PlayerModel player, HandView hand, DropZone drop)
+    {
+        player.armymodel.armyCardsModel.restoreCardAttacksPerRound();
+        hand.setPlayableCards(player.resourcesCurrent);
+        drop.unlockUnitAttacks();
     }
 
     public void EnableAttackOfJustPlacedUnits(PlayerModel currentplayer)
