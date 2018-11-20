@@ -298,6 +298,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         }
         else
         {
+            //Add if which check if attacker id belongs to tactics or unit and then change movCard function
             GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(attackerID);
             Destroy(this.gameObject);
         }

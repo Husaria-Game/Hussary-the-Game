@@ -34,13 +34,12 @@ public class GameManager : MonoBehaviour
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
 
-    //Skrypt upływającego czasu
-    public EndTurnButtonManager endTurnButtonManager;
-
     public Faction southFaction;
     public Faction northFaction;
 
+    public EndTurnButtonManager endTurnButtonManager;
     public SpeechRecognitionSystem speechRecognition;
+    public DebugMessege debugMessageBox;
 
     void Awake()
     {
@@ -176,6 +175,8 @@ public class GameManager : MonoBehaviour
     void InitializeGame()
     {
         Debug.Log("GameManger INITIALIZATION");
+        Instance.debugMessageBox.ShowDebugText("Gra Inicjalizowana");
+        
         gameRunning = true;
         IDFactory.ResetIDs();
 
