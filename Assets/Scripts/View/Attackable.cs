@@ -308,7 +308,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.color = new Color32(255, 0, 0, 255);
 
             // add armor to defender - in model
-            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateStrengthAfterDamageTaken(defenderID, defenderAttack);
+            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateStrengthAfterBonusEvent(defenderID, defenderAttack);
         }
         
         GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
