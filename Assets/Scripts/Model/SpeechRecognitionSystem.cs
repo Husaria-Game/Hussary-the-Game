@@ -35,7 +35,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
     private const int SPEECH_EFFECT_CHANCE = 30;
 
     private bool isEffectgoingToTakePlace = false; //variable to later achieve effect in unit card
-    private IEnumerator toStop = null;
+    Coroutine co;
 
     void Start()
     {
@@ -86,6 +86,11 @@ public class SpeechRecognitionSystem : MonoBehaviour
             heardWord = "zbrodnia";
             resultOfVoiceCommand.text = heardWord;
         }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            heardWord = "fortuna";
+            resultOfVoiceCommand.text = heardWord;
+        }
         else if (Input.GetKeyDown(KeyCode.F))
         {
             CheckWhetherToShowSpeechSign();
@@ -95,6 +100,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
     public void CheckWhetherToShowSpeechSign()
     {
+        co = null; //reset coroutine of ASR so that pushing turnButton wont work when dont needed
         int number = random.Next(0, 101);
         if(number < SPEECH_EFFECT_CHANCE)
         {
@@ -130,16 +136,15 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
     public void ShowSpeechSign(Sprite signImage, SpeechSign signMark)
     {
-        StartCoroutine(ShowSpeechSignCoroutine(signImage, signMark));
+        co = StartCoroutine(ShowSpeechSignCoroutine(signImage, signMark));
     }
 
     IEnumerator ShowSpeechSignCoroutine(Sprite signImage, SpeechSign signMark)
     {
-        toStop = ShowSpeechSignCoroutine(signImage, signMark);
         int number = random.Next(5, 20);
 
         yield return new WaitForSeconds(number);  //Random second in which system starts to show signImage
-        recognizer.Start();
+        //recognizer.Start();
         speechSign.sprite = signImage;
         speechSign.enabled = true;
         currentSpeechSign = signMark;
@@ -150,7 +155,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         currentSpeechSign = SpeechSign.nic;
         heardWord = "";
         resultOfVoiceCommand.text = heardWord;
-        recognizer.Stop();
+        //recognizer.Stop();
     }
 
     private void CompareShownSignAndSpeech()
@@ -169,9 +174,19 @@ public class SpeechRecognitionSystem : MonoBehaviour
         }
     }
 
-    //not working
     public void StopCoroutineIfTurnButtonClicked()
     {
-        
+        if(co != null)
+        {
+            Debug.Log("Stopped Coroutine");
+            StopCoroutine(co);
+            //Those are in case turnButton clicked when speech sign is already shown and recognizer listen
+            speechSign.enabled = false;
+            currentSpeechSign = SpeechSign.nic;
+            heardWord = "";
+            resultOfVoiceCommand.text = heardWord;
+            //recognizer.Stop();
+        }
+
     }
 }

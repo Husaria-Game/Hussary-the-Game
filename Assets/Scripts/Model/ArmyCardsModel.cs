@@ -11,41 +11,97 @@ public class ArmyCardsModel : MonoBehaviour
     public List<Card> frontCardList { get; set; }
     public List<Card> graveyardCardList { get; set; }
 
-    public ArmyCardsModel()
+    public ArmyCardsModel(Faction faction)
     {
         this.deckCardList = new List<Card>();
 
         // Generate deck for an army
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Spahis")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Akindżi")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Azab")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Janczar")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kazasker")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Derwisz")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mameluk")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sarydża")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sekban")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
-        deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
 
-        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Ciura obozowy")));
-        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Czeladnik")));
-        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Chorąży")));
-        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Namiestnik")));
-        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Pocztowy")));
-        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Porucznik")));
-        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Rotmistrz")));
-        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Skrzydłowy")));
-        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz husarski")));
-        //deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz pancerny")));
+        if (faction == Faction.Ottoman) {
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Derwisz")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Derwisz")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mameluk")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mameluk")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mameluk")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Azab")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Azab")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Azab")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Azab")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Janczar")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Janczar")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Janczar")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Janczar")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sarydża")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sarydża")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sekban")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Sekban")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Spahis")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Akindżi")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kazasker")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kapudan pasza")));
+
+
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Śpiew muezzina")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mehter")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mehter")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mehter")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Parzenie kawy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Parzenie kawy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Dostawa broni")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Żywiołowy atak")));
+        }
+
+        if (faction == Faction.Poland) {
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Ciura obozowy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Ciura obozowy")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Czeladnik")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Czeladnik")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Czeladnik")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Pocztowy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Pocztowy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Pocztowy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Pocztowy")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz husarski")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz husarski")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz husarski")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz husarski")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz pancerny")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Towarzysz pancerny")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Skrzydłowy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Skrzydłowy")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Chorąży")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Namiestnik")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Porucznik")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Rotmistrz")));
+
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Bogurodzica")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Bogurodzica")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Bogurodzica")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Zbroja husarska")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Zbroja husarska")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Zbroja husarska")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Spotkanie u hetmana")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Spotkanie u hetmana")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Najazd falowy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Zwarcie szyku")));
+        }
 
         // assign unique id for each card in deck
         foreach (Card item in deckCardList)

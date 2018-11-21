@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public DebugMessege debugMessageBox;
 
     public int turnNumber = 0;
+    public const int CARD_LIMIT = 6;
 
     void Awake()
     {
@@ -146,14 +147,22 @@ public class GameManager : MonoBehaviour
         if (currentPlayer == playerSouth)
         {
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
-            drawNewCard(playerSouth, southHandView, deckSouth, true);  
+            //Draw Card if not over limit
+            if (southHandView.transform.childCount < CARD_LIMIT) {
+                drawNewCard(playerSouth, southHandView, deckSouth, true);
+            }
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
         if (currentPlayer == playerNorth)
         {
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
-            drawNewCard(playerNorth, northHandView, deckNorth, true);
+            //Draw Card if not over limit
+            if (northHandView.transform.childCount < CARD_LIMIT) {
+                drawNewCard(playerNorth, northHandView, deckNorth, true);
+            }
+            //Here should be also SpeechRecognitionCheck if second player is human and not AI
         }
+
         endTurnButtonManager.TimerStart();
         EnableAttackOfJustPlacedUnits(currentPlayer);
     }
