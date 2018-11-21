@@ -15,22 +15,20 @@ public class HandView : MonoBehaviour {
     private void Update()
     {
         //Block any action on card that is rotating during draw
-        if(idAssignment != null)
+        if(idAssignment.whereIsCard == WhereIsCard.Rotating)
         {
-            if(idAssignment.whereIsCard == WhereIsCard.Rotating)
-            {
-                newCard.GetComponent<Draggable>().enabled = false;
-                newCard.GetComponent<Attackable>().enabled = false;
-                if (newCard.GetComponent<Defendable>() != null)
-                    newCard.GetComponent<Defendable>().enabled = false;
-                newCard.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
-                newCard.GetComponent<CardOnHoverPreview>().enabled = false;
-            }
-            //Unblock preview of card when it is placed in hand
-            else if (idAssignment.whereIsCard == WhereIsCard.Hand)
-            {
-                newCard.GetComponent<CardOnHoverPreview>().enabled = true;
-            }
+            Debug.Log("Card rotting");
+            newCard.GetComponent<Draggable>().enabled = false;
+            newCard.GetComponent<Attackable>().enabled = false;
+            if (newCard.GetComponent<Defendable>() != null)
+                newCard.GetComponent<Defendable>().enabled = false;
+            newCard.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
+            newCard.GetComponent<CardOnHoverPreview>().enabled = false;
+        }
+        //Unblock preview of card when it is placed in hand
+        else if(idAssignment.whereIsCard == WhereIsCard.Hand)
+        {
+            newCard.GetComponent<CardOnHoverPreview>().enabled = true;
         }
     }
     // add new card GameObject to hand
