@@ -225,7 +225,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         // update resources view and model
         updateResourcesModelAndView();
-
+        GameManager.Instance.enablePlayableCardsFlag = true;
         // move card to defender and come back
         t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
 

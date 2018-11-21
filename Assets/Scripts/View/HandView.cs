@@ -10,12 +10,33 @@ public class HandView : MonoBehaviour {
     public Position handPosition;
     public bool isDrawingRunning = false;
 
+    private GameObject newCard;
+    private IDAssignment idAssignment;
+    private void Update()
+    {
+        //Block any action on card that is rotating during draw
+        if(idAssignment.whereIsCard == WhereIsCard.Rotating)
+        {
+            Debug.Log("Card rotting");
+            newCard.GetComponent<Draggable>().enabled = false;
+            newCard.GetComponent<Attackable>().enabled = false;
+            if (newCard.GetComponent<Defendable>() != null)
+                newCard.GetComponent<Defendable>().enabled = false;
+            newCard.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
+            newCard.GetComponent<CardOnHoverPreview>().enabled = false;
+        }
+        //Unblock preview of card when it is placed in hand
+        else if(idAssignment.whereIsCard == WhereIsCard.Hand)
+        {
+            newCard.GetComponent<CardOnHoverPreview>().enabled = true;
+        }
+    }
     // add new card GameObject to hand
     public void MoveDrawnCardFromDeckToHand(Card cardDrawn, PlayerModel player, GameObject deckVisual)
     {
         // ----------instantiate drawn card given as parameter and load its display in player's hand
         this.isDrawingRunning = true;
-        GameObject newCard;
+        
         if (cardDrawn.maxHealth > 0)
         {
             newCard = Instantiate(GameManager.Instance.unitCard, deckVisual.transform.position, Quaternion.Euler(0, 180, 0), GameManager.Instance.visuals.transform);
@@ -25,14 +46,14 @@ public class HandView : MonoBehaviour {
             newCard = Instantiate(GameManager.Instance.tacticsCard, deckVisual.transform.position, Quaternion.Euler(0, 180, 0), GameManager.Instance.visuals.transform);
         }
 
-        IDAssignment idAssignment = newCard.GetComponent(typeof(IDAssignment)) as IDAssignment;
+        idAssignment = newCard.GetComponent(typeof(IDAssignment)) as IDAssignment;
 
 
         if (idAssignment != null)
         {
             idAssignment.uniqueId = cardDrawn.cardID;
             idAssignment.ownerPosition = handPosition;
-            idAssignment.whereIsCard = WhereIsCard.Hand;
+            idAssignment.whereIsCard = WhereIsCard.Rotating;
         }
 
         CardDisplayLoader cardDisplayLoader = newCard.GetComponent<CardDisplayLoader>();
@@ -74,6 +95,7 @@ public class HandView : MonoBehaviour {
         newCard.transform.SetParent(this.transform);
         newCard.GetComponentInChildren<Canvas>().sortingLayerName = "Card";
         this.isDrawingRunning = false;
+        idAssignment.whereIsCard = WhereIsCard.Hand;
         yield return new WaitForSeconds(0.5f);
         GameManager.Instance.enablePlayableCardsFlag = true;
     }

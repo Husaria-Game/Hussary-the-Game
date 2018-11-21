@@ -1,4 +1,4 @@
 ﻿public enum WhereIsCard
 {
-    Undefined, Hand, Front
+    Undefined, Hand, Front, Rotating
 }
