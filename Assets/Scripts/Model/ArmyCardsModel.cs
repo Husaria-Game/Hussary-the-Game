@@ -18,7 +18,7 @@ public class ArmyCardsModel : MonoBehaviour
         // Generate deck for an army
 
         if (faction == Faction.Ottoman) {
-
+            /*
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Derwisz")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Derwisz")));
 
@@ -45,7 +45,7 @@ public class ArmyCardsModel : MonoBehaviour
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Spahis")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Akindżi")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kazasker")));
-            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kapudan pasza")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kapudan pasza")));*/
 
 
 

@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
             currentPlayer = playerNorth;
             otherPlayer = playerSouth;
         }
-        ///Test///
+
         BlackAllUnitsAndCards();
         messageManager.ShowMessage(currentPlayer.name + " \nTwoja tura!", 2f);
         currentPlayer.updateResourcesNewTurn();
@@ -151,6 +151,10 @@ public class GameManager : MonoBehaviour
             if (southHandView.transform.childCount < CARD_LIMIT) {
                 drawNewCard(playerSouth, southHandView, deckSouth, true);
             }
+            else
+            {
+                UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
+            }
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
         if (currentPlayer == playerNorth)
@@ -159,6 +163,10 @@ public class GameManager : MonoBehaviour
             //Draw Card if not over limit
             if (northHandView.transform.childCount < CARD_LIMIT) {
                 drawNewCard(playerNorth, northHandView, deckNorth, true);
+            }
+            else
+            {
+                UnblockAllUnitsAndCards(playerNorth, northHandView, dropZoneNorth);
             }
             //Here should be also SpeechRecognitionCheck if second player is human and not AI
         }
