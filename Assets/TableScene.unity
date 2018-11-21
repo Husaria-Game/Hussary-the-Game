@@ -1521,6 +1521,7 @@ MonoBehaviour:
   endTurnButtonManager: {fileID: 320543560}
   speechRecognition: {fileID: 1394874487}
   debugMessageBox: {fileID: 1852950678}
+  turnNumber: 0
 --- !u!1001 &1020772465
 Prefab:
   m_ObjectHideFlags: 0
