@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
             visuals.SetActive(true);
             mainMenu.SetActive(false);          
             StartGameWithCouroutine();
+            enablePlayableCardsFlag = false;
         }
         else
         {
@@ -71,12 +72,11 @@ public class GameManager : MonoBehaviour
         {
             if (currentPlayer == playerSouth)
             {
-                southHandView.setPlayableCards(playerSouth.resourcesCurrent);
-
+                UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
             }
             if (currentPlayer == playerNorth)
             {
-                northHandView.setPlayableCards(playerNorth.resourcesCurrent);
+                UnblockAllUnitsAndCards(playerNorth, northHandView, dropZoneNorth);
             }
             enablePlayableCardsFlag = false;
         }
@@ -146,55 +146,16 @@ public class GameManager : MonoBehaviour
         if (currentPlayer == playerSouth)
         {
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
-            drawNewCard(playerSouth, southHandView, deckSouth, true);
-            UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
-      
+            drawNewCard(playerSouth, southHandView, deckSouth, true);  
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
         if (currentPlayer == playerNorth)
         {
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
             drawNewCard(playerNorth, northHandView, deckNorth, true);
-
-            UnblockAllUnitsAndCards(playerNorth, northHandView, dropZoneNorth);
         }
         endTurnButtonManager.TimerStart();
         EnableAttackOfJustPlacedUnits(currentPlayer);
-        /*
-        if (currentPlayer == playerSouth)
-        {
-
-            BlackAllUnitsAndCards();
-            messageManager.ShowMessage(southName + " \nTwoja tura!", 2f);
-            playerSouth.updateResourcesNewTurn();
-            resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
-
-            drawNewCard(playerSouth, southHandView, deckSouth, true);
-
-            playerSouth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
-            southHandView.setPlayableCards(playerSouth.resourcesCurrent);
-            dropZoneSouth.unlockUnitAttacks();
-
-            endTurnButtonManager.TimerStart();
-            speechRecognition.CheckWhetherToShowSpeechSign();
-        }
-        if (currentPlayer == playerNorth)
-        {
-            BlackAllUnitsAndCards();
-            messageManager.ShowMessage(northName + " \nTwoja tura!", 2f);
-            playerNorth.updateResourcesNewTurn();
-            resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
-
-            drawNewCard(playerNorth, northHandView, deckNorth, true);
-
-            playerNorth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
-            northHandView.setPlayableCards(playerNorth.resourcesCurrent);
-            dropZoneNorth.unlockUnitAttacks();
-
-            endTurnButtonManager.TimerStart();
-        }
-        EnableAttackOfJustPlacedUnits(currentPlayer);
-        */
     }
 
     void InitializeGame()
