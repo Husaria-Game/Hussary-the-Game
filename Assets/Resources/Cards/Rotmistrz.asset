@@ -18,8 +18,16 @@ MonoBehaviour:
   cardCost: 7
   affiliation: 0
   cardID: 0
-  historyDescription: "Dow\xF3dca roty husarskiej, osobi\u015Bcie zaci\u0105ga\u0142
-    do wojska towarzyszy"
+  historyDescription: "Dow\xF3dca roty albo chor\u0105gwi. Hetman wielki przedstawia\u0142
+    kr\xF3lowi kandydat\xF3w na rotmistrz\xF3w. Po zatwierdzeniu nominacji kr\xF3l
+    wystawia\u0142 list przypowiedni, na kt\xF3rego podstawie rotmistrz formowa\u0142
+    dowodzon\u0105 przez siebie rot\u0119 konn\u0105 lub piesz\u0105. Osobi\u015Bcie
+    zaci\u0105ga\u0142 towarzyszy, odpowiada\u0142 za dyscyplin\u0119 ich oraz pocztowych
+    w ramach w\u0142asnej chor\u0105gwii. Szkoli\u0142 swoich \u017Co\u0142nierzy,
+    wyp\u0142aca\u0142 i \u017Co\u0142d, organizowa\u0142 kwatery, dba\u0142 o zaoparzenie,
+    m\xF3g\u0142 r\xF3wnie\u017C usuwa\u0107 towarzyszy. Je\u015Bli znalaz\u0142by
+    si\u0119 w niewoli, do obowi\u0105zk\xF3w kr\xF3la nale\u017Ca\u0142o wykupienie
+    rotmistrza."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
   attack: 5

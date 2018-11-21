@@ -17,8 +17,15 @@ MonoBehaviour:
   cardCost: 5
   affiliation: 0
   cardID: 0
-  historyDescription: "Opiekowa\u0142 si\u0119 sztandarem chor\u0105gwi, w przypadku
-    jego utraty grozi\u0142a mu \u015Bmier\u0107"
+  historyDescription: "Mia\u0142 w opiece sztandar chor\u0105gwi. Gdyby go utraci\u0142,
+    m\xF3g\u0142by zosta\u0107 skazany na \u015Bmier\u0107 przez rotmistrza lub hetmana.
+    Pod sztandarem zbierali si\u0119 towarzysze i pocztowi, gdy szyki uleg\u0142y
+    rozproszeniu. Manewry chor\u0105\u017Cego powtarzali inni \u017Co\u0142nierze
+    z oddzia\u0142u. Pocz\u0105tkowo nie mia\u0142 rangi oficerskiej, jednak z czasem
+    oficerami danej chor\u0105gwi byli rotmistrz, porucznik i chor\u0105\u017Cy. Synom
+    chor\u0105\u017Cego przys\u0142ugiwa\u0142 tytu\u0142 chor\u0105\u017Cyca, a c\xF3rkom
+    chor\u0105\u017Canki. \u017Bony mia\u0142y prawo do tytu\u0142u odm\u0119\u017Cowskiego
+    \u2013 chor\u0105\u017Cyna."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
   attack: 3

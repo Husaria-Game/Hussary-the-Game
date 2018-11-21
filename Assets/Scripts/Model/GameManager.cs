@@ -143,7 +143,9 @@ public class GameManager : MonoBehaviour
             playerSouth.updateResourcesNewTurn();
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
 
-            drawNewCard(playerSouth, southHandView, deckSouth, true);
+            if (southHandView.transform.childCount < 6) {
+                drawNewCard(playerSouth, southHandView, deckSouth, true);
+            }
 
             playerSouth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             southHandView.setPlayableCards(playerSouth.resourcesCurrent);
@@ -162,8 +164,10 @@ public class GameManager : MonoBehaviour
             playerNorth.updateResourcesNewTurn();
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
 
-            drawNewCard(playerNorth, northHandView, deckNorth, true);
-
+            if (northHandView.transform.childCount < 6) {
+                drawNewCard(playerNorth, northHandView, deckNorth, true);
+            }
+           
             playerNorth.armymodel.armyCardsModel.restoreCardAttacksPerRound();
             northHandView.setPlayableCards(playerNorth.resourcesCurrent);
             dropZoneNorth.unlockUnitAttacks();
