@@ -171,6 +171,8 @@ public class GameManager : MonoBehaviour
 
         playerNorth = new PlayerModel(0, northName, northFaction, Position.North);
         playerSouth = new PlayerModel(1, southName, southFaction, Position.South);
+        heroSouth.GetComponent<HeroVisualManager>().setHeroAcordingToFaction(southFaction);
+        heroNorth.GetComponent<HeroVisualManager>().setHeroAcordingToFaction(northFaction);
         resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
         resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
     }
