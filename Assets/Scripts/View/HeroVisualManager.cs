@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class HeroVisualManager : MonoBehaviour
 {
-
-    public Hero hero;
+    private Hero hero;
     [Header("Text References")]
     public Text nameText;
     public Text healthText;
@@ -19,11 +19,6 @@ public class HeroVisualManager : MonoBehaviour
     [Header("Image References")]
     public Image profileImage;
 
-    // Use this for initialization
-    void Start()
-    {
-        if (hero != null) loadHeroAsset();
-    }
 
     // Method for loading hero parameters from coresponding hero
     void loadHeroAsset()
@@ -69,5 +64,20 @@ public class HeroVisualManager : MonoBehaviour
         }
         // after the effect is shown it gets destroyed.
         //Destroy(this.gameObject);
+    }
+
+    public void setHeroAcordingToFaction(Faction f)
+    {
+        if (f == Faction.Poland)
+        {
+            hero = (Hero)AssetDatabase.LoadAssetAtPath("Assets/Resources/Heroes/JanIIISobieski.asset", typeof(Hero));
+            loadHeroAsset();
+        }
+        else if(f == Faction.Ottoman)
+        {
+
+            hero = (Hero)AssetDatabase.LoadAssetAtPath("Assets/Resources/Heroes/Mehmed4.asset", typeof(Hero));
+            loadHeroAsset();
+        }
     }
 }

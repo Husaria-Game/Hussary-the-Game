@@ -66,8 +66,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         Vector3 pz = Camera.main.ScreenToWorldPoint(eventData.position);
         pz.z = 0;
 
-
-
         // update aim icon for unit
         if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)
         {
@@ -112,7 +110,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             {
                 tacticsAttacksUnit(pz);
             }
-
         }
         else
         {
@@ -161,7 +158,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                     GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.currentPlayer);
                 }
             }
-
         }
 
         if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim)

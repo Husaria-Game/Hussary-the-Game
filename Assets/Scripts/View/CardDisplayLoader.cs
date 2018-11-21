@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class CardDisplayLoader : MonoBehaviour {
 
+    public bool isAbleToAttack;
     public Card card;
     public CardDisplayLoader cardPreviewLoader;
     public UnitVisualManager cardUnitLoader;
@@ -35,6 +36,7 @@ public class CardDisplayLoader : MonoBehaviour {
 
     public void loadCardAsset()
     {
+        isAbleToAttack = card.isAbleToAttack;
         cardNameText.text = card.cardName ;
         cardMoneyText.text = card.cardCost.ToString();
         descriptionText.text = card.description;
