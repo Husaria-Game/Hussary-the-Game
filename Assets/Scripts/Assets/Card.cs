@@ -23,7 +23,7 @@ public class Card : ScriptableObject {
     public int maxAttacksPerTurn;
     public int currentAttacksPerTurn;
 
-    public bool isAbleToAttack = false;
+    public bool isAbleToAttack;
 
     [Header("Unit Card Info")]
     public int attack;

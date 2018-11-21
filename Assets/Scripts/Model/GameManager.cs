@@ -170,9 +170,9 @@ public class GameManager : MonoBehaviour
             }
             //Here should be also SpeechRecognitionCheck if second player is human and not AI
         }
-
+        //This function unblocks units that were enable to fight in firt turn after being placed in front
+        currentPlayer.armymodel.armyCardsModel.EnableAttacksOfUnitsOnFront(currentPlayer);
         endTurnButtonManager.TimerStart();
-        EnableAttackOfJustPlacedUnits(currentPlayer);
     }
 
     void InitializeGame()
@@ -240,25 +240,7 @@ public class GameManager : MonoBehaviour
         player.armymodel.armyCardsModel.restoreCardAttacksPerRound();
         hand.setPlayableCards(player.resourcesCurrent);
         drop.unlockUnitAttacks();
-    }
-
-    public void EnableAttackOfJustPlacedUnits(PlayerModel currentplayer)
-    {
-        if (currentplayer == playerSouth)
-        {
-            foreach (Card item in playerNorth.armymodel.armyCardsModel.frontCardList)
-            {
-                item.isAbleToAttack = true;
-            }
-        }
-        else if (currentplayer == playerNorth)
-        {
-            foreach (Card item in playerSouth.armymodel.armyCardsModel.frontCardList)
-            {
-                item.isAbleToAttack = true;
-            }
-        }
-    }
+    }   
 
     public void StartGameWithCouroutine()
     {

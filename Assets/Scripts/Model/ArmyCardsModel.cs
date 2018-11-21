@@ -18,7 +18,7 @@ public class ArmyCardsModel : MonoBehaviour
         // Generate deck for an army
 
         if (faction == Faction.Ottoman) {
-            /*
+            
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Derwisz")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Derwisz")));
 
@@ -45,7 +45,7 @@ public class ArmyCardsModel : MonoBehaviour
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Spahis")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Akindżi")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kazasker")));
-            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kapudan pasza")));*/
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Kapudan pasza")));
 
 
 
@@ -109,8 +109,9 @@ public class ArmyCardsModel : MonoBehaviour
             item.cardID = IDFactory.GetUniqueID();
             item.maxAttacksPerTurn = 1;
             item.currentAttacksPerTurn = item.maxAttacksPerTurn;
+            item.isAbleToAttack = false;
         }
-
+        
         this.handCardList = new List<Card>();
         this.frontCardList = new List<Card>();
         this.graveyardCardList = new List<Card>();
@@ -175,6 +176,24 @@ public class ArmyCardsModel : MonoBehaviour
         foreach (Card item in frontCardList)
         {
             item.currentAttacksPerTurn = item.maxAttacksPerTurn;
+        }
+    }
+
+    public void EnableAttacksOfUnitsOnFront(PlayerModel playerModel)
+    {
+        if (playerModel == GameManager.Instance.playerSouth)
+        {
+            foreach (Card item in GameManager.Instance.playerNorth.armymodel.armyCardsModel.frontCardList)
+            {
+                item.isAbleToAttack = true;
+            }
+        }
+        else if (playerModel == GameManager.Instance.playerNorth)
+        {
+            foreach (Card item in GameManager.Instance.playerSouth.armymodel.armyCardsModel.frontCardList)
+            {
+                item.isAbleToAttack = true;
+            }
         }
     }
 }

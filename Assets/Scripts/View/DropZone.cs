@@ -17,10 +17,12 @@ public class DropZone : MonoBehaviour, IDropHandler
         {
             foreach (Transform child in dropAreaImage.transform)
             {
-                child.GetComponent<Draggable>().enabled = false;
-                child.GetComponent<Attackable>().enabled = true;
-                child.GetComponent<Attackable>().initialDropZone = this;
-                child.GetComponent<Defendable>().enabled = true;
+                {
+                    child.GetComponent<Draggable>().enabled = false;
+                    //child.GetComponent<Attackable>().enabled = true;
+                    child.GetComponent<Attackable>().initialDropZone = this;
+                    child.GetComponent<Defendable>().enabled = true;
+                }
             }
 
             dropEventOccurs = false;
