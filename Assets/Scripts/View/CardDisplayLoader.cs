@@ -36,6 +36,7 @@ public class CardDisplayLoader : MonoBehaviour {
 
     public void loadCardAsset()
     {
+        isAbleToAttack = card.isAbleToAttack;
         cardNameText.text = card.cardName ;
         cardMoneyText.text = card.cardCost.ToString();
         descriptionText.text = card.description;
