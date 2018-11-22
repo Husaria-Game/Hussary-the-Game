@@ -13,5 +13,6 @@ public class CardVisualState : MonoBehaviour {
         cardPanel.SetActive(false);
         unitGameObject.SetActive(true);
         cardVisualStateEnum = CardVisualStateEnum.Unit;
+        transform.GetComponent<CardDisplayLoader>().cardDetailedType = CardVisualStateEnum.Unit;
     }
 }

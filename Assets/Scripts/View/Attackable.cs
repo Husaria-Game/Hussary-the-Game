@@ -18,12 +18,15 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public bool attackOnUnitSuccess;
     public bool attackOnHeroSuccess;
     public bool attackOnAllUnitsSuccess;
+    public bool healOnAllUnitsSuccess;
     public bool transformCardIntoUnit;
     public DropZone initialDropZone;
+    public DropZone friendlyDropZone;
     public DropZone enemyDropZone;
     private Vector3 pointerDisplacement = Vector3.zero;
     public Transform t_Reference;
-    private CardVisualStateEnum cardState;
+    private CardVisualStateEnum cardDetailedType;
+    private CardType cardType;
 
     private const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
 
@@ -34,7 +37,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         // get object reference transform
         t_Reference = this.transform;
 
-        cardState = t_Reference.GetComponent<CardVisualState>().cardVisualStateEnum;
+        cardDetailedType = t_Reference.GetComponent<CardDisplayLoader>().cardDetailedType;
+        cardType = t_Reference.GetComponent<CardDisplayLoader>().cardType;
 
         //parentToReturnTo = t_Reference.parent;
         initialPosition = t_Reference.position;
@@ -49,7 +53,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         GetComponent<CanvasGroup>().blocksRaycasts = false;
 
         // enable aim icon
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim || cardState == CardVisualStateEnum.TacticsAttackAll)
+        if (cardDetailedType == CardVisualStateEnum.Unit || cardType == CardType.TacticsCard)
         {
             if (lineRenderer != null)
             {
@@ -69,7 +73,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         pz.z = 0;
 
         // update aim icon for unit
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim || cardState == CardVisualStateEnum.TacticsAttackAll)
+        if (cardDetailedType == CardVisualStateEnum.Unit || cardType == CardType.TacticsCard)
         {
             if (lineRenderer != null)
             {
@@ -83,7 +87,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         {
             t_Reference.position = new Vector2(pz.x - pointerDisplacement.x, pz.y - pointerDisplacement.y);
         }
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim || cardState == CardVisualStateEnum.TacticsAttackAll)
+        if (cardDetailedType == CardVisualStateEnum.Unit || cardType == CardType.TacticsCard)
         {
             if (arrow != null)
             {
@@ -104,11 +108,11 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         if (attackOnUnitSuccess)//for attack on Unit successful - attacker adjusts all the information about the fight, attacker and defender
         {
-            if (cardState == CardVisualStateEnum.Unit)
+            if (cardDetailedType == CardVisualStateEnum.Unit)
             {
                 unitAttacksUnit(pz);
             }
-            else if (cardState == CardVisualStateEnum.TacticsWithAim)
+            else if (cardDetailedType == CardVisualStateEnum.TacticsWithAim)
             {
                 tacticsAttacksUnit(pz);
             }
@@ -120,7 +124,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         if (attackOnHeroSuccess)//for attack on Hero successful - attacker adjusts all the information about the fight, attacker and defender
         {
-            if (cardState == CardVisualStateEnum.Unit)
+            if (cardDetailedType == CardVisualStateEnum.Unit)
             {
                 //decrease number of attacks per turn for current card
                 GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn--;
@@ -168,10 +172,15 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             tacticsAttacksAllUnits(pz);
         }
 
+        if (healOnAllUnitsSuccess && (friendlyDropZone.dropAreaImage.transform.childCount > 0))
+        {
+            tacticsHealAllUnits(pz);
+        }
 
 
 
-        if (cardState == CardVisualStateEnum.Unit || cardState == CardVisualStateEnum.TacticsWithAim || cardState == CardVisualStateEnum.TacticsAttackAll)
+
+        if (cardDetailedType == CardVisualStateEnum.Unit || cardType == CardType.TacticsCard)
         {
             if (lineRenderer != null)
             {
@@ -276,7 +285,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         {
             GameManager.Instance.resourcesSouth.transform.GetComponent<ResourcePool>().updateResourcesView(updatedCurrentResources, maxResources);
         }
-    }    
+    }
 
     public void tacticsAttacksAllUnits(Vector3 pz)
     {
@@ -326,6 +335,47 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
         Destroy(this.gameObject);
     }
+
+    public void tacticsHealAllUnits(Vector3 pz)
+    {
+        // update resources view and model
+        updateResourcesModelAndView();
+
+        int healerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
+
+        // below is the parameter for the amount to be healed/added to armor
+        int healerAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(healerID).attack;
+
+
+        // move card to defender and come back
+        t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
+
+        foreach (Transform child in friendlyDropZone.dropAreaImage.transform)
+        {
+            defenderCard = child.GetComponent<Defendable>();
+            defenderUnit = defenderCard.transform.GetComponent<CardDisplayLoader>().Unit.transform;
+            int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
+
+            int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
+            int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);// create explosion for unit, but not the tactics card
+            defenderUnit.GetComponent<UnitVisualManager>().createHealVisual(healerAttack);
+
+            // add armor to defender - in visual
+            defenderArmor = defenderArmor + healerAttack;
+            defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
+
+            // update armor in model
+            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+        }
+        //GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
+        
+        // update model and delete healer card from view
+        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(healerID);
+        Destroy(this.gameObject);
+    }
+
+    
 
     public void CheckWhetherToKillUnitOrNot(int defenderArmor, int defenderID, int attackerArmor, int attackerID)
     {
