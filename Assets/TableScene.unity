@@ -451,6 +451,11 @@ Prefab:
       propertyPath: m_Color.a
       value: 0.49019608
       objectReference: {fileID: 0}
+    - target: {fileID: 114773500201477948, guid: 537454bd85d9ecd409719e78cf23eea8,
+        type: 2}
+      propertyPath: dropZonePosition
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114754336669843332, guid: 537454bd85d9ecd409719e78cf23eea8, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 537454bd85d9ecd409719e78cf23eea8, type: 2}

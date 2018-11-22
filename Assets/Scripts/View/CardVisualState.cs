@@ -15,8 +15,3 @@ public class CardVisualState : MonoBehaviour {
         cardVisualStateEnum = CardVisualStateEnum.Unit;
     }
 }
-
-public enum CardVisualStateEnum
-{
-    Card, Unit, TacticsWithAim, TacticsNoAim
-}
