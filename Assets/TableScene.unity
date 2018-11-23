@@ -2635,6 +2635,16 @@ Prefab:
       propertyPath: m_AnchoredPosition.x
       value: 130
       objectReference: {fileID: 0}
+    - target: {fileID: 224925280985539132, guid: cdb4eb718c04a7e48a226959b7ccb73d,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 154.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 224925280985539132, guid: cdb4eb718c04a7e48a226959b7ccb73d,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 195.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb4eb718c04a7e48a226959b7ccb73d, type: 2}
   m_IsPrefabAsset: 0
@@ -2909,21 +2919,6 @@ Prefab:
     - target: {fileID: 1562057252825332, guid: 53f61686b1b28b04aad62bc04d3046ba, type: 2}
       propertyPath: m_Name
       value: DeckSouth
-      objectReference: {fileID: 0}
-    - target: {fileID: 224008197060650912, guid: 53f61686b1b28b04aad62bc04d3046ba,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -877
-      objectReference: {fileID: 0}
-    - target: {fileID: 224165694014291130, guid: 53f61686b1b28b04aad62bc04d3046ba,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.003
-      objectReference: {fileID: 0}
-    - target: {fileID: 224165694014291130, guid: 53f61686b1b28b04aad62bc04d3046ba,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53f61686b1b28b04aad62bc04d3046ba, type: 2}
