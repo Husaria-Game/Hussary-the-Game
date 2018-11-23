@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour
         }
 
         endTurnButtonManager.TimerStart();
-        EnableAttackOfJustPlacedUnits(currentPlayer);
+        currentPlayer.armymodel.armyCardsModel.EnableAttackOfJustPlacedUnits(currentPlayer);
     }
 
     void InitializeGame()
@@ -240,24 +240,6 @@ public class GameManager : MonoBehaviour
         player.armymodel.armyCardsModel.restoreCardAttacksPerRound();
         hand.setPlayableCards(player.resourcesCurrent);
         drop.unlockUnitAttacks();
-    }
-
-    public void EnableAttackOfJustPlacedUnits(PlayerModel currentplayer)
-    {
-        if (currentplayer == playerSouth)
-        {
-            foreach (Card item in playerNorth.armymodel.armyCardsModel.frontCardList)
-            {
-                item.isAbleToAttack = true;
-            }
-        }
-        else if (currentplayer == playerNorth)
-        {
-            foreach (Card item in playerSouth.armymodel.armyCardsModel.frontCardList)
-            {
-                item.isAbleToAttack = true;
-            }
-        }
     }
 
     public void StartGameWithCouroutine()
