@@ -11,15 +11,18 @@ public class UnitVisualManager : MonoBehaviour
     public CardDisplayLoader cardPreviewLoader;
     public GameObject explosionEffect;
     public GameObject healEffect;
+    public GameObject strengthEffect;
     public GameObject unitParentCard;
     public CanvasGroup explosionCanvasGroup;
     public CanvasGroup healCanvasGroup;
+    public CanvasGroup strengthCanvasGroup;
     [Header("Text References")]
     public Text nameText;
     public Text armorText;
     public Text attackText;
     public Text damageNumberText;
     public Text healNumberText;
+    public Text strengthNumberText;
     [Header("Image References")]
     public Image profileImage;
     public Image unitGlowImage;
@@ -77,6 +80,11 @@ public class UnitVisualManager : MonoBehaviour
         StartCoroutine(ReceiveHeal(heal));
     }
 
+    public void createStrengthVisual(int strength)
+    {
+        StartCoroutine(ReceiveStrength(strength));
+    }
+
     public IEnumerator ReceiveDamage(int damage)
     {
         damageNumberText.text = damage.ToString();
@@ -109,6 +117,24 @@ public class UnitVisualManager : MonoBehaviour
         while (healCanvasGroup.alpha > 0)
         {
             healCanvasGroup.alpha -= 0.05f;
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    public IEnumerator ReceiveStrength(int heal)
+    {
+        strengthNumberText.text = heal.ToString();
+        strengthEffect.SetActive(true);
+        strengthCanvasGroup.alpha = 0.1f;
+        while (strengthCanvasGroup.alpha < 1)
+        {
+            strengthCanvasGroup.alpha += 0.05f;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        while (strengthCanvasGroup.alpha > 0)
+        {
+            strengthCanvasGroup.alpha -= 0.05f;
             yield return new WaitForSeconds(0.05f);
         }
     }

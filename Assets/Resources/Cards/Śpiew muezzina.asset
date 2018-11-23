@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: "\u015Apiew muezzina"
   m_EditorClassIdentifier: 
   cardType: 1
-  cardDetailedType: 9
+  cardDetailedType: 6
   cardName: "\u015Apiew muezzina"
   description: "Ezan! Muezzin nawo\u0142uje do modlitwy. Morale armii rosn\u0105.
     Dodajesz punkt ataku i pancerza wszystkim swoim jednostkom."

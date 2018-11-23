@@ -21,16 +21,19 @@ public class Defendable : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
 
     public void Update()
     {
-        if (sourceCardGOWhenDragging != null && sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsWithAim)
+        if (sourceCardGOWhenDragging != null && (sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsWithAim ||
+            sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit))
         {
-            setCardRedGlowWhenAimed();
+            setCardGlowWhenAimed(new Color32(255, 0, 0, 255), true);
         }
         if (sourceCardGOWhenDragging != null && sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsHealOne)
         {
-            setCardBlueGlowWhenAimed();
+            setCardGlowWhenAimed(new Color32(63, 79, 246, 255), false);
         }
-
-        
+        if (sourceCardGOWhenDragging != null && sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsStrengthOne)
+        {
+            setCardGlowWhenAimed(new Color32(253, 239, 6, 255), false);
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -70,6 +73,13 @@ public class Defendable : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
                 attackerCard.defenderUnit = this.transform.GetComponent<CardDisplayLoader>().Unit.transform;
                 attackerCard.healOnOneUnitSuccess = true;
             }
+            // allow STRENGTH ON ONE unit if attackable object exists and card belongs to current player
+            else if (attackerCard != null && ownerPosition == attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && (attackerCardDetailedType == CardVisualStateEnum.TacticsStrengthOne))
+            {
+                attackerCard.defenderCard = defenderCardTransform.GetComponent<Defendable>();
+                attackerCard.defenderUnit = this.transform.GetComponent<CardDisplayLoader>().Unit.transform;
+                attackerCard.strenghtOnOneUnitSuccess = true;
+            }
             // allow drag success for card with state TacticsAttackAll - behaviour as in dropzone for this card (because drop on card unit blocks detecting drop on enemy dropzone)
             else if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && (attackerCardDetailedType == CardVisualStateEnum.TacticsAttackAll))
             {
@@ -96,48 +106,47 @@ public class Defendable : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
         pointerExit = true;
     }
 
-    public void setCardRedGlowWhenAimed()
+    public void setCardGlowWhenAimed(Color32 glowColor, bool isGlowForEnemyUnits)
     {
-        if (transform.GetComponent<CardDisplayLoader>() != null && GameManager.Instance.isAttackableDraggingActive && pointerEnter && transform.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition != GameManager.Instance.currentPlayer.position)
-        {
-            Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
-            unitPointerGlowImage.enabled = true;
-            unitPointerGlowImage.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
-            pointerEnter = false;
+        if (isGlowForEnemyUnits)
+        {  // Glow for enemy units
+            if (transform.GetComponent<CardDisplayLoader>() != null && GameManager.Instance.isAttackableDraggingActive && pointerEnter && transform.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition != GameManager.Instance.currentPlayer.position)
+            {
+                Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
+                unitPointerGlowImage.enabled = true;
+                unitPointerGlowImage.GetComponent<Image>().color = glowColor;
+                pointerEnter = false;
+                pointerExit = false;
+            }
+            if (transform.GetComponent<CardDisplayLoader>() != null && GameManager.Instance.isAttackableDraggingActive && pointerExit && transform.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition != GameManager.Instance.currentPlayer.position)
+            {
+                Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
+                sourceCardGOWhenDragging = null;
+                unitPointerGlowImage.enabled = false;
+                pointerEnter = false;
+                pointerExit = false;
+            }
         }
-        if (transform.GetComponent<CardDisplayLoader>() != null && GameManager.Instance.isAttackableDraggingActive && pointerExit && transform.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition != GameManager.Instance.currentPlayer.position)
+        else // Glow for friendly units
         {
-            Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
-            sourceCardGOWhenDragging = null;
-            unitPointerGlowImage.enabled = false;
-            pointerExit = false;
+            if (transform.GetComponent<CardDisplayLoader>() != null && GameManager.Instance.isAttackableDraggingActive && pointerEnter && transform.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition == GameManager.Instance.currentPlayer.position)
+            {
+                Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
+                unitPointerGlowImage.enabled = true;
+                unitPointerGlowImage.GetComponent<Image>().color = glowColor;
+                pointerEnter = false;
+                pointerExit = false;
+            }
+            if (transform.GetComponent<CardDisplayLoader>() != null && GameManager.Instance.isAttackableDraggingActive && pointerExit && transform.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition == GameManager.Instance.currentPlayer.position)
+            {
+                Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
+                sourceCardGOWhenDragging = null;
+                unitPointerGlowImage.enabled = false;
+                pointerEnter = false;
+                pointerExit = false;
+            }
         }
-        if (transform.GetComponent<CardDisplayLoader>() != null && !GameManager.Instance.isAttackableDraggingActive)
-        {
-            Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
-            sourceCardGOWhenDragging = null;
-            unitPointerGlowImage.enabled = false;
-        }
-    }
 
-    public void setCardBlueGlowWhenAimed()
-    {
-        if (transform.GetComponent<CardDisplayLoader>() != null && GameManager.Instance.isAttackableDraggingActive && pointerEnter && transform.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition == GameManager.Instance.currentPlayer.position)
-        {
-            Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
-            unitPointerGlowImage.enabled = true;
-            unitPointerGlowImage.GetComponent<Image>().color = new Color32(63, 79, 246, 255);
-            pointerEnter = false;
-            pointerExit = false;
-        }
-        if (transform.GetComponent<CardDisplayLoader>() != null && GameManager.Instance.isAttackableDraggingActive && pointerExit && transform.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit && transform.GetComponent<IDAssignment>().ownerPosition == GameManager.Instance.currentPlayer.position)
-        {
-            Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
-            sourceCardGOWhenDragging = null;
-            unitPointerGlowImage.enabled = false;
-            pointerEnter = false;
-            pointerExit = false;
-        }
         if (transform.GetComponent<CardDisplayLoader>() != null && !GameManager.Instance.isAttackableDraggingActive)
         {
             Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;

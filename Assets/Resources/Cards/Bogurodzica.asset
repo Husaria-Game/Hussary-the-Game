@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Bogurodzica
   m_EditorClassIdentifier: 
   cardType: 1
-  cardDetailedType: 9
+  cardDetailedType: 6
   cardName: Bogurodzica
   description: "Rota gromadzi si\u0119 na wsp\xF3lnej modlitwie przed bitw\u0105.
     Dodajesz punkt ataku i pancerza wszystkim swoim jednostkom."
