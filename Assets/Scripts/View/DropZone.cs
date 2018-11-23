@@ -68,6 +68,10 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             d.dragSuccess = true;
             d.parentToReturnTo = this.transform.GetChild(0).GetChild(0);
         }
+        else if (dropAreaImage.transform.childCount >= DROPZONE_UNIT_AMOUNT_LIMIT) {
+            GameManager.Instance.debugMessageBox.ShowDebugText("Osiągnięto maksymalną liczbę jednostek na stole: " + DROPZONE_UNIT_AMOUNT_LIMIT + ".");
+        }
+
 
         // allow drag (attack) if cardState is TacticsAttackAll
         if (a != null && cardDetailedType == CardVisualStateEnum.TacticsAttackAll && dropZonePosition != a.t_Reference.GetComponent<IDAssignment>().ownerPosition)
