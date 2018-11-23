@@ -15,6 +15,7 @@ public class CardDisplayLoader : MonoBehaviour {
     public Text armorText;
     public Text attackText;
     public Text descriptionText;
+    public Text effectText;
     [Header("Image References")]
     public Image topRibbonImage;
     public Image profileImage;
@@ -36,6 +37,7 @@ public class CardDisplayLoader : MonoBehaviour {
         cardNameText.text = card.cardName ;
         cardMoneyText.text = card.cardCost.ToString();
         descriptionText.text = card.description;
+        if(effectText != null) effectText.text = card.effect;
         profileImage.sprite = card.cardImage;
         cardType = card.cardType;
         cardDetailedType = card.cardDetailedType;

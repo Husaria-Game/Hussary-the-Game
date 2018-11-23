@@ -2698,6 +2698,7 @@ MonoBehaviour:
   armorText: {fileID: 114280901087541674}
   attackText: {fileID: 114723890660702004}
   descriptionText: {fileID: 114350229244549726}
+  effectText: {fileID: 0}
   topRibbonImage: {fileID: 114539552958089146}
   profileImage: {fileID: 114957566432018372}
   OutsideBGColor: {fileID: 114530735695347866}
@@ -2953,10 +2954,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7b724b77570b8b04bac09d8ede0b2beb, type: 3}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 200
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -2986,7 +2987,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7b724b77570b8b04bac09d8ede0b2beb, type: 3}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -3019,6 +3020,7 @@ MonoBehaviour:
   armorText: {fileID: 114680340141656338}
   attackText: {fileID: 114723890660702004}
   descriptionText: {fileID: 114353824957997338}
+  effectText: {fileID: 0}
   topRibbonImage: {fileID: 114052124618818010}
   profileImage: {fileID: 114628118967649980}
   OutsideBGColor: {fileID: 114475573799750534}
@@ -5040,6 +5042,7 @@ MonoBehaviour:
   armorText: {fileID: 114278058568896028}
   attackText: {fileID: 114321051609517420}
   descriptionText: {fileID: 114089744210741900}
+  effectText: {fileID: 0}
   topRibbonImage: {fileID: 114718094584214268}
   profileImage: {fileID: 114781069486674202}
   OutsideBGColor: {fileID: 114688899178025138}
@@ -7140,7 +7143,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -5.1581106, y: 0.04387278}
+  m_AnchoredPosition: {x: 1.53272, y: -0.7572832}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224484021894790660

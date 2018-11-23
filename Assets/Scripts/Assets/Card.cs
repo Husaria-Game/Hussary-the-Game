@@ -11,6 +11,7 @@ public class Card : ScriptableObject {
     public string cardName;
     [TextArea(2,3)]
     public string description;
+    public string effect;
     public Sprite cardImage;
     public int cardCost;
     public Affiliation affiliation;
