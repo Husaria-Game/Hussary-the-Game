@@ -13,6 +13,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     public bool attackEventEnded = false;
     private bool pointerEnter;
     private bool pointerExit;
+    private const int DROPZONE_UNIT_AMOUNT_LIMIT = 6;
 
     public void Start()
     {
@@ -60,7 +61,8 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         CardVisualStateEnum cardDetailedType = eventData.pointerDrag.GetComponent<CardDisplayLoader>().cardDetailedType;
 
         // allow drag if draggable object exists and dropzone belongs to player
-        if (d != null && cardDetailedType == CardVisualStateEnum.UnitCard && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition)
+        if (d != null && cardDetailedType == CardVisualStateEnum.UnitCard && dropZonePosition == d.t_Reference.GetComponent<IDAssignment>().ownerPosition &&
+            dropAreaImage.transform.childCount < DROPZONE_UNIT_AMOUNT_LIMIT)
         {
             d.dropZone = this;
             d.dragSuccess = true;
