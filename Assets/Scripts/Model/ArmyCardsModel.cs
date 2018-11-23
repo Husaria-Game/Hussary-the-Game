@@ -182,5 +182,23 @@ public class ArmyCardsModel : MonoBehaviour
             item.currentAttacksPerTurn = item.maxAttacksPerTurn;
         }
     }
+
+    public void EnableAttackOfJustPlacedUnits(PlayerModel currentplayer)
+    {
+        if (currentplayer == GameManager.Instance.playerSouth)
+        {
+            foreach (Card item in GameManager.Instance.playerNorth.armymodel.armyCardsModel.frontCardList)
+            {
+                item.isAbleToAttack = true;
+            }
+        }
+        else if (currentplayer == GameManager.Instance.playerNorth)
+        {
+            foreach (Card item in GameManager.Instance.playerSouth.armymodel.armyCardsModel.frontCardList)
+            {
+                item.isAbleToAttack = true;
+            }
+        }
+    }
 }
 
