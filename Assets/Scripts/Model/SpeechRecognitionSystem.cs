@@ -29,11 +29,13 @@ public class SpeechRecognitionSystem : MonoBehaviour
     //Elements showing what word was heard
     public Text resultOfVoiceCommand;
     public string heardWord = "";
+    private string debugText;
 
     //Other elements
     public System.Random random = new System.Random();
     private const int SPEECH_EFFECT_CHANCE = 30;
 
+    //Variables needed to achieve s
     private bool isEffectgoingToTakePlace = false; //variable to later achieve effect in unit card
     Coroutine co;
 
@@ -70,26 +72,31 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             heardWord = "moc";
             resultOfVoiceCommand.text = heardWord;
+            debugText = "W następnej turze losowa jednostka otrzyma + 1 Siła.";
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             heardWord = "obrona";
             resultOfVoiceCommand.text = heardWord;
+            debugText = "W następnej turze losowa jednostka otrzyma + 1 Pancerz.";
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             heardWord = "pomór";
             resultOfVoiceCommand.text = heardWord;
+            debugText = "W następnej turze wrogie jednostki stracą -1 Pancerza.";
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
             heardWord = "zbrodnia";
             resultOfVoiceCommand.text = heardWord;
+            debugText = "W następnej turze wrogi bohater straci - 1 Pancerza.";
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
             heardWord = "fortuna";
             resultOfVoiceCommand.text = heardWord;
+            debugText = "W następnej turze będziesz miał możliwość wylosować dodakową kartę.";
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
@@ -105,7 +112,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         if(number < SPEECH_EFFECT_CHANCE)
         {
             WhatSpeechSignToShow();
-            Debug.Log("What effect");
+            Debug.Log("ASR Effect Possible");
         }
     }
 
@@ -164,13 +171,18 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
         if (currentSpeechSignString.Equals(heardWord))
         {
-            GetComponent<AudioSource>().Play();
+            //Play sound effect and put text in debugMessegeBox
+            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano słowo:   " + currentSpeechSignString + ". " + debugText);
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.effectAudio);
             isEffectgoingToTakePlace = true;
-            Debug.Log("EffectOfSpeech");
+            Debug.Log("Effect of Speech");
         }
         else
         {
-            Debug.Log("No Effect");
+            //Play sound effect and put text in debugMessegeBox
+            GameManager.Instance.debugMessageBox.ShowDebugText("Nie rozpoznano słów - brak efektu");
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.noEffectAudio);
+            Debug.Log("No Effect of Speech");
         }
     }
 
@@ -178,7 +190,6 @@ public class SpeechRecognitionSystem : MonoBehaviour
     {
         if(co != null)
         {
-            Debug.Log("Stopped Coroutine");
             StopCoroutine(co);
             //Those are in case turnButton clicked when speech sign is already shown and recognizer listen
             speechSign.enabled = false;

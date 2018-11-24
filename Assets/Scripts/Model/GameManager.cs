@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     public Faction southFaction;
     public Faction northFaction;
 
+    public AudioGenerator audioGenerator;
     public EndTurnButtonManager endTurnButtonManager;
     public SpeechRecognitionSystem speechRecognition;
     public DebugMessege debugMessageBox;

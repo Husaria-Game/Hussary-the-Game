@@ -1371,6 +1371,7 @@ MonoBehaviour:
   isAttackableDraggingActive: 0
   southFaction: 0
   northFaction: 0
+  audioGenerator: {fileID: 1850974878}
   endTurnButtonManager: {fileID: 320543560}
   speechRecognition: {fileID: 1394874487}
   debugMessageBox: {fileID: 1852950678}
@@ -1877,6 +1878,22 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 117.80914
       objectReference: {fileID: 0}
+    - target: {fileID: 1551499457882364, guid: ea95e125bc877814995be5a0c0fc6f70, type: 2}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532272622807598, guid: ea95e125bc877814995be5a0c0fc6f70, type: 2}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625559094754410, guid: ea95e125bc877814995be5a0c0fc6f70, type: 2}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688694048943404, guid: ea95e125bc877814995be5a0c0fc6f70, type: 2}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea95e125bc877814995be5a0c0fc6f70, type: 2}
   m_IsPrefabAsset: 0
@@ -1992,7 +2009,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1394874486}
   - component: {fileID: 1394874487}
-  - component: {fileID: 1394874488}
   m_Layer: 0
   m_Name: SpeechRecognitionSystem
   m_TagString: Untagged
@@ -2033,18 +2049,6 @@ MonoBehaviour:
   speechSign: {fileID: 978859996}
   resultOfVoiceCommand: {fileID: 637330268}
   heardWord: 
---- !u!114 &1394874488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1394874485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ef0413c895757143b131038d50ce317, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 6c8ce6fc4bef86e4b9ca69847e3d7227, type: 3}
 --- !u!1001 &1418181126
 Prefab:
   m_ObjectHideFlags: 0
@@ -3083,8 +3087,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 737759ab8e8d8754c80d97528da30c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bogurodzica: {fileID: 8300000, guid: 91a5dae60778afa4992a36d16b28800d, type: 3}
-  BattleTheme: {fileID: 8300000, guid: d368ff9254cf7c846aa626e2e0221b76, type: 3}
+  bogurodzica: {fileID: 8300000, guid: 91a5dae60778afa4992a36d16b28800d, type: 3}
+  battleTheme: {fileID: 8300000, guid: d368ff9254cf7c846aa626e2e0221b76, type: 3}
+  attack: {fileID: 8300000, guid: b1062f0014084d844bb23f22bc887d19, type: 3}
+  powerUp: {fileID: 8300000, guid: 983fe1cdbfb977b4a839e2e449ba9be2, type: 3}
+  enhencement: {fileID: 8300000, guid: ddc3e7f7fbfe4dd42812cc4855a486d8, type: 3}
+  cannon: {fileID: 8300000, guid: 219cd78a6f2208d4aafa9be8329c3bb1, type: 3}
+  heroHurt: {fileID: 8300000, guid: a4f94fa77532af2409eceded8cbaf835, type: 3}
+  effect: {fileID: 8300000, guid: 6c8ce6fc4bef86e4b9ca69847e3d7227, type: 3}
+  noEffect: {fileID: 8300000, guid: 9f24e78538585ca468ea2e211d92e0da, type: 3}
+  button: {fileID: 8300000, guid: c0edc1c45c773314aab5c033316bce4e, type: 3}
+  bogurodzicaAudio: {fileID: 0}
+  battleThemeAudio: {fileID: 0}
+  attackAudio: {fileID: 0}
+  powerUpAudio: {fileID: 0}
+  enhencementAudio: {fileID: 0}
+  cannonAudio: {fileID: 0}
+  heroHurtAudio: {fileID: 0}
+  effectAudio: {fileID: 0}
+  noEffectAudio: {fileID: 0}
+  buttonAudio: {fileID: 0}
   visuals: {fileID: 1978118198}
 --- !u!4 &1852950677 stripped
 Transform:
