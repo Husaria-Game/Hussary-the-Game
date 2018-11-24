@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 using System;
 
+
 public class SpeechRecognitionSystem : MonoBehaviour
 {
     //Elements needed to creat listening system
@@ -43,6 +44,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             recognizer = new KeywordRecognizer(wordsToRecognize, confidenceLevel);
             recognizer.OnPhraseRecognized += WhenPhraseRecognized;
+
             speechSign.enabled = false;
             resultOfVoiceCommand.text = heardWord;
         }
@@ -66,20 +68,47 @@ public class SpeechRecognitionSystem : MonoBehaviour
     //For testing puropose only
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             heardWord = "moc";
             resultOfVoiceCommand.text = heardWord;
+
+            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano poprawną komendę głosową ' " 
+                + heardWord.ToUpper() + " '. Bonus +1 do Siły dla losowej przyjaznej jednostki.", true);
+            Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
+            if (randomCard != null)
+            {
+                Transform cardUnit = randomCard.GetComponent<CardDisplayLoader>().Unit.transform;
+                GameManager.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsStrengthOne, 1);
+            }
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             heardWord = "obrona";
             resultOfVoiceCommand.text = heardWord;
+
+            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano poprawną komendę głosową ' "
+                + heardWord.ToUpper() + " '. Strata -1 do Pancerza dla losowej wrogiej jednostki.", true);
+            Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.otherPlayer);
+            if (randomCard != null)
+            {
+                Transform cardUnit = randomCard.GetComponent<CardDisplayLoader>().Unit.transform;
+                GameManager.Instance.createHostileBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsWithAim, 1);
+            }
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             heardWord = "pomór";
             resultOfVoiceCommand.text = heardWord;
+
+            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano poprawną komendę głosową ' "
+                + heardWord.ToUpper() + " '. Bonus +1 do Pancerza dla losowej przyjaznej jednostki.", true);
+            Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
+            if (randomCard != null)
+            {
+                Transform cardUnit = randomCard.GetComponent<CardDisplayLoader>().Unit.transform;
+                GameManager.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsHealOne, 2);
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
