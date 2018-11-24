@@ -297,7 +297,7 @@ public class GameManager : MonoBehaviour
         int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
         int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);
         
-        if (cardDetailedTypeForEffect == CardVisualStateEnum.TacticsWithAim)
+        if (cardDetailedTypeForEffect == CardVisualStateEnum.TacticsAttackOne)
         {
             defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
 

@@ -115,7 +115,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             {
                 unitAttacksUnit(pz);
             }
-            else if (cardDetailedType == CardVisualStateEnum.TacticsWithAim)
+            else if (cardDetailedType == CardVisualStateEnum.TacticsAttackOne)
             {
                 tacticsAttacksUnit(pz);
             }

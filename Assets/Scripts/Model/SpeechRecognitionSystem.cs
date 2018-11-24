@@ -36,8 +36,8 @@ public class SpeechRecognitionSystem : MonoBehaviour
     public System.Random random = new System.Random();
     private const int SPEECH_EFFECT_CHANCE = 30;
 
-    //Variables needed to achieve s
-    private bool isEffectgoingToTakePlace = false; //variable to later achieve effect in unit card
+    private int effectPower;
+    private CardVisualStateEnum effectOfSpeech;
     Coroutine co;
 
     void Start()
@@ -70,6 +70,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
     //For testing puropose only
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Q))
         {
             heardWord = "moc";
@@ -91,7 +92,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
             if (randomCard != null)
             {
                 Transform cardUnit = randomCard.GetComponent<CardDisplayLoader>().Unit.transform;
-                GameManager.Instance.createHostileBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsWithAim, 1);
+                GameManager.Instance.createHostileBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsAttackOne, 1);
             }
         }
         else if (Input.GetKeyDown(KeyCode.D))
@@ -122,6 +123,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             CheckWhetherToShowSpeechSign();
         }
+        */
     }
 
     public void CheckWhetherToShowSpeechSign()
@@ -141,22 +143,37 @@ public class SpeechRecognitionSystem : MonoBehaviour
         if(number < 20)
         {
             ShowSpeechSign(power, SpeechSign.moc);
+            debugText = "Twoja losowa jednostka otrzymuje wsparcie zaopatrzeniowe + 1 Siła.";
+            effectOfSpeech = CardVisualStateEnum.TacticsStrengthOne;
+            effectPower = 1;
         }
         else if(number >= 20 && number < 40)
         {
             ShowSpeechSign(defence, SpeechSign.obrona);
+            debugText = "Twoja losowa jednostka otrzymuje wsparcie zaopatrzeniowe + 1 Pancerz.";
+            effectOfSpeech = CardVisualStateEnum.TacticsHealOne;
+            effectPower = 1;
         }
         else if (number >= 40 && number < 60)
         {
             ShowSpeechSign(blight, SpeechSign.pomór);
+            debugText = "Wrogie jednostki trawione chorobą tracą -1 Pancerza.";
+            effectOfSpeech = CardVisualStateEnum.TacticsAttackAll;
+            effectPower = 1;
         }
         else if (number >= 60 && number < 80)
         {
             ShowSpeechSign(crime, SpeechSign.zbrodnia);
+            debugText = "Wrogi bohater otruty przez szpiegów traci - 1 Pancerza.";
+            //effectOfSpeech
+            effectPower = 1;
         }
         else if (number >= 80 && number < 100)
         {
             ShowSpeechSign(fortune, SpeechSign.fortuna);
+            debugText = "Jednostki wsparcia przybywają - losujesz dodakową kartę.";
+            //effectOfSpeech
+            effectPower = 1;
         }
     }
 
@@ -170,7 +187,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         int number = random.Next(5, 20);
 
         yield return new WaitForSeconds(number);  //Random second in which system starts to show signImage
-        //recognizer.Start();
+        recognizer.Start();
         speechSign.sprite = signImage;
         speechSign.enabled = true;
         currentSpeechSign = signMark;
@@ -181,19 +198,19 @@ public class SpeechRecognitionSystem : MonoBehaviour
         currentSpeechSign = SpeechSign.nic;
         heardWord = "";
         resultOfVoiceCommand.text = heardWord;
-        //recognizer.Stop();
+        recognizer.Stop();
     }
 
     private void CompareShownSignAndSpeech()
     {     
         string currentSpeechSignString = currentSpeechSign.ToString();
-
         if (currentSpeechSignString.Equals(heardWord))
         {
+            currentSpeechSignString = currentSpeechSignString.ToUpper();
+            WhatSpeechBonusToGive(effectOfSpeech, effectPower);
             //Play sound effect and put text in debugMessegeBox
-            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano komendę głosową:   " + currentSpeechSignString + ". " + debugText, true);
+            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano komendę głosową:   " + currentSpeechSignString + ".\n " + debugText, true);
             GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.effectAudio);
-            isEffectgoingToTakePlace = true;
             Debug.Log("Effect of Speech");
         }
         else
@@ -202,6 +219,24 @@ public class SpeechRecognitionSystem : MonoBehaviour
             GameManager.Instance.debugMessageBox.ShowDebugText("Nie rozpoznano komendy głosowej - brak efektu", false);
             GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.noEffectAudio);
             Debug.Log("No Effect of Speech");
+        }
+    }
+
+    public void WhatSpeechBonusToGive(CardVisualStateEnum effectToDo, int effectPower)
+    {
+        Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
+        if (randomCard != null)
+        {
+            Transform cardUnit = randomCard.GetComponent<CardDisplayLoader>().Unit.transform;
+            if(effectToDo == CardVisualStateEnum.TacticsHealOne || effectToDo == CardVisualStateEnum.TacticsStrengthOne)
+            {
+                GameManager.Instance.createFriendlyBonusEffect(randomCard, cardUnit, effectToDo, effectPower);
+            }
+            else if(effectToDo == CardVisualStateEnum.TacticsAttackAll)
+            {
+                GameManager.Instance.createHostileBonusEffect(randomCard, cardUnit, effectToDo, effectPower);
+            }
+            //zrobić jeszcze dla fortuny i zbrodni
         }
     }
 
@@ -215,7 +250,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
             currentSpeechSign = SpeechSign.nic;
             heardWord = "";
             resultOfVoiceCommand.text = heardWord;
-            //recognizer.Stop();
+            recognizer.Stop();
         }
 
     }

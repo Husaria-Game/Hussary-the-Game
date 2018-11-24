@@ -27,7 +27,7 @@ public enum CardVisualStateEnum
 {
     UnitCard,
     Unit,
-    TacticsWithAim, // this should be named TacticsAttackOne - need to refactor
+    TacticsAttackOne,
     TacticsAttackAll,
     TacticsHealOne,
     TacticsHealAll,
