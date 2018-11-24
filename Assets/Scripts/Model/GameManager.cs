@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public Faction southFaction;
     public Faction northFaction;
 
+    public AudioGenerator audioGenerator;
     public EndTurnButtonManager endTurnButtonManager;
     public SpeechRecognitionSystem speechRecognition;
     public DebugMessege debugMessageBox;
@@ -279,7 +280,8 @@ public class GameManager : MonoBehaviour
             defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
             defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
             defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.color = new Color32(255, 0, 0, 255);
-
+            //music
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.enhencementAudio);
             // add armor to defender - in model
             GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
         }
@@ -292,7 +294,8 @@ public class GameManager : MonoBehaviour
             defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text = defenderAttack.ToString();
             defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.text = defenderAttack.ToString();
             defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.color = new Color32(255, 0, 0, 255);
-
+            //music
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.powerUpAudio);
             // add armor to defender - in model
             GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateStrengthAfterBonusEvent(defenderID, defenderAttack);
         }
@@ -313,7 +316,8 @@ public class GameManager : MonoBehaviour
             defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
             defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
             //defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.color = new Color32(255, 0, 0, 255);
-
+            //music
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.cannonAudio);
             // adjust armor to defender - in model
             GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
             StartCoroutine(CheckWhetherToKillUnitAfterBonusWithCoroutine(defenderCard, defenderID, defenderArmor));

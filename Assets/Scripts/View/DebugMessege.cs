@@ -25,11 +25,9 @@ public class DebugMessege : MonoBehaviour {
     {
         incomingTextImageWarning.enabled = !positiveMark;
         incomingTextImagePositive.enabled = positiveMark;
-        //yield return new WaitForSeconds(2f);
     
         incomingText.text = s;
-        incomingText.enabled = true;
-        //yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);
         incomingText.enabled = true;
         yield return new WaitForSeconds(6f);
 
