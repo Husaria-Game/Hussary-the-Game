@@ -74,7 +74,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             heardWord = "moc";
             resultOfVoiceCommand.text = heardWord;
-            debugText = "W następnej turze losowa jednostka otrzyma + 1 Siła.";
+            debugText = "Twoja losowa jednostka otrzymuje wsparcie zaopatrzeniowe + 1 Siła.";
             Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
             if (randomCard != null)
             {
@@ -86,7 +86,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             heardWord = "obrona";
             resultOfVoiceCommand.text = heardWord;
-            debugText = "W następnej turze losowa jednostka otrzyma + 1 Pancerz.";
+            debugText = "Twoja losowa jednostka otrzymuje wsparcie zaopatrzeniowe + 1 Pancerz.";
             Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.otherPlayer);
             if (randomCard != null)
             {
@@ -98,7 +98,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             heardWord = "pomór";
             resultOfVoiceCommand.text = heardWord;
-            debugText = "W następnej turze wrogie jednostki stracą -1 Pancerza.";
+            debugText = "Wrogie jednostki trawione chorobą tracą -1 Pancerza.";
             Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
             if (randomCard != null)
             {
@@ -110,13 +110,13 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             heardWord = "zbrodnia";
             resultOfVoiceCommand.text = heardWord;
-            debugText = "W następnej turze wrogi bohater straci - 1 Pancerza.";
+            debugText = "Wrogi bohater otruty przez szpiegów traci - 1 Pancerza.";
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
             heardWord = "fortuna";
             resultOfVoiceCommand.text = heardWord;
-            debugText = "W następnej turze będziesz miał możliwość wylosować dodakową kartę.";
+            debugText = "Jednostki wsparcia przybywają - losujesz dodakową kartę.";
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
