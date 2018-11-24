@@ -150,12 +150,14 @@ public class GameManager : MonoBehaviour
         if (currentPlayer == playerSouth)
         {
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+            resourcesSouth.GetComponent<ResourcePool>().ProgressText.color = new Color32(0, 0, 0, 255);
             drawNewCard(playerSouth, true);
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
         if (currentPlayer == playerNorth)
         {
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+            resourcesNorth.GetComponent<ResourcePool>().ProgressText.color = new Color32(0, 0, 0, 255);
             drawNewCard(playerNorth, true);
         }
 
@@ -321,6 +323,53 @@ public class GameManager : MonoBehaviour
             // adjust armor to defender - in model
             GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
             StartCoroutine(CheckWhetherToKillUnitAfterBonusWithCoroutine(defenderCard, defenderID, defenderArmor));
+        }
+    }
+
+    public void createHostileEffectHero(GameObject hero, int attackerAttack, DropZone initialDropZone)
+    {
+        // create explosion for hero
+        hero.GetComponent<HeroVisualManager>().createDamageVisual(attackerAttack);
+        int defenderArmor = int.Parse(hero.transform.GetComponent<HeroVisualManager>().healthText.text);
+
+        // remove armor from defender - in visual
+        defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
+        hero.transform.GetComponent<HeroVisualManager>().healthText.text = defenderArmor.ToString();
+
+        //music
+        GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.heroHurtAudio);
+
+        // update armor in model, and if hero dead then update model and finish game
+        if (defenderArmor > 0)
+        {
+            GameManager.Instance.otherPlayer.armymodel.heroModel.currentHealth = defenderArmor;
+            initialDropZone.attackEventEnded = true;
+        }
+        else
+        {
+            GameManager.Instance.otherPlayer.armymodel.heroModel.heroDies();
+            Debug.Log("Game Ended! Won: " + GameManager.Instance.currentPlayer.name);
+
+            // show final dialog with Winner after some amount of time
+            StartCoroutine(GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.currentPlayer));
+        }
+
+    }
+
+    public void createMoneyGainEffect(int moneyReceived)
+    {
+        GameManager.Instance.currentPlayer.addCurrentResources(moneyReceived);
+        if (GameManager.Instance.currentPlayer == GameManager.Instance.playerSouth)
+        {
+            GameManager.Instance.resourcesSouth.GetComponent<ResourcePool>().showMoneyGainAnimation();
+            GameManager.Instance.resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+            GameManager.Instance.southHandView.setPlayableCards(playerSouth.resourcesCurrent);
+        }
+        else if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
+        {
+            GameManager.Instance.resourcesNorth.GetComponent<ResourcePool>().showMoneyGainAnimation();
+            GameManager.Instance.resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+            GameManager.Instance.northHandView.setPlayableCards(playerNorth.resourcesCurrent);
         }
     }
 

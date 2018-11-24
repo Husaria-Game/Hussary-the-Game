@@ -246,32 +246,6 @@ Prefab:
       propertyPath: m_Name
       value: HeroNorth
       objectReference: {fileID: 0}
-    - target: {fileID: 224728357282604980, guid: cdb4eb718c04a7e48a226959b7ccb73d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 130
-      objectReference: {fileID: 0}
-    - target: {fileID: 224802060704852936, guid: cdb4eb718c04a7e48a226959b7ccb73d,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.0039999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 224802060704852936, guid: cdb4eb718c04a7e48a226959b7ccb73d,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.0039999997
-      objectReference: {fileID: 0}
-    - target: {fileID: 114074065404115878, guid: cdb4eb718c04a7e48a226959b7ccb73d,
-        type: 2}
-      propertyPath: ownerPosition
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114074065404115878, guid: cdb4eb718c04a7e48a226959b7ccb73d,
-        type: 2}
-      propertyPath: hero
-      value: 
-      objectReference: {fileID: 11400000, guid: c35d0f0371ddf124ab1a10f8ae72c519,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb4eb718c04a7e48a226959b7ccb73d, type: 2}
   m_IsPrefabAsset: 0
@@ -536,7 +510,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &255112639 stripped
 Transform:
@@ -1323,27 +1297,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 224455864318309848, guid: d5d6d51544b47dc4982e4c0b49e0f3bf,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224455864318309848, guid: d5d6d51544b47dc4982e4c0b49e0f3bf,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 27.78
-      objectReference: {fileID: 0}
     - target: {fileID: 1770514370180424, guid: d5d6d51544b47dc4982e4c0b49e0f3bf, type: 2}
       propertyPath: m_Name
       value: ResourcesNorth
-      objectReference: {fileID: 0}
-    - target: {fileID: 4727634010285798, guid: d5d6d51544b47dc4982e4c0b49e0f3bf, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.015
-      objectReference: {fileID: 0}
-    - target: {fileID: 4727634010285798, guid: d5d6d51544b47dc4982e4c0b49e0f3bf, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.015
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5d6d51544b47dc4982e4c0b49e0f3bf, type: 2}
@@ -1797,7 +1753,7 @@ Transform:
   m_LocalScale: {x: 0.9013722, y: 0.8092022, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1301799187
 Prefab:
@@ -1836,7 +1792,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4395445519270916, guid: ea95e125bc877814995be5a0c0fc6f70, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114772154817248258, guid: ea95e125bc877814995be5a0c0fc6f70,
         type: 2}
@@ -2422,7 +2378,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4179063371395346, guid: 0e73b4ccc0cf8fa48af9aab56fc945fa, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114296278925976284, guid: 0e73b4ccc0cf8fa48af9aab56fc945fa,
         type: 2}
@@ -2752,6 +2708,11 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 195.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114074065404115878, guid: cdb4eb718c04a7e48a226959b7ccb73d,
+        type: 2}
+      propertyPath: ownerPosition
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb4eb718c04a7e48a226959b7ccb73d, type: 2}
