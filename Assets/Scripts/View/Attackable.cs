@@ -30,6 +30,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private CardVisualStateEnum cardDetailedType;
     private CardType cardType;
 
+
     private const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -150,7 +151,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 // remove armor from defender - in visual
                 defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
                 hero.transform.GetComponent<HeroVisualManager>().healthText.text = defenderArmor.ToString();
-
+                //music
+                GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.heroHurtAudio);
                 // remove armor from attacker, update visual and model
                 // TODO remove attacker available moves
 
@@ -234,7 +236,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         attackerArmor = (attackerArmor - defenderAttack > 0) ? attackerArmor - defenderAttack : 0;
         t_Reference.GetComponent<CardDisplayLoader>().armorText.text = attackerArmor.ToString();
         attackableUnit.GetComponent<UnitVisualManager>().armorText.text = attackerArmor.ToString();
-
+        //music
+        GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.attackAudio);
         CheckWhetherToKillUnitOrNot(defenderArmor, defenderID, attackerArmor, attackerID);
     }
 
@@ -261,8 +264,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         // create certain effect for unit based on card type
         GameManager.Instance.createHostileBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
 
-        // remove armor from defender - in visual
-
         CheckWhetherToKillUnitOrNotWithCoroutine(defenderArmor, defenderID, attackerArmor, attackerID);
     }
 
@@ -281,8 +282,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         // create certain effect for unit based on card type
         GameManager.Instance.createFriendlyBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
-
-        // move tactics card to graveyard and destroy in View
+       
         GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
         Destroy(this.gameObject);
     }
@@ -328,7 +328,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
             defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
             defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
-
+            //music
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.cannonAudio);
             // update armor in model, and if defender dead then update model and delete card from view
             if (defenderArmor > 0)
             {
@@ -379,7 +380,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
             defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
             defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.color = new Color32(255, 0, 0, 255);
-
+            //music
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.enhencementAudio);
             // update armor in model
             GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
         }

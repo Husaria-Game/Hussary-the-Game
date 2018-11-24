@@ -30,11 +30,13 @@ public class SpeechRecognitionSystem : MonoBehaviour
     //Elements showing what word was heard
     public Text resultOfVoiceCommand;
     public string heardWord = "";
+    private string debugText;
 
     //Other elements
     public System.Random random = new System.Random();
     private const int SPEECH_EFFECT_CHANCE = 30;
 
+    //Variables needed to achieve s
     private bool isEffectgoingToTakePlace = false; //variable to later achieve effect in unit card
     Coroutine co;
 
@@ -72,9 +74,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             heardWord = "moc";
             resultOfVoiceCommand.text = heardWord;
-
-            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano poprawną komendę głosową ' " 
-                + heardWord.ToUpper() + " '. Bonus +1 do Siły dla losowej przyjaznej jednostki.", true);
+            debugText = "Twoja losowa jednostka otrzymuje wsparcie zaopatrzeniowe + 1 Siła.";
             Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
             if (randomCard != null)
             {
@@ -86,9 +86,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             heardWord = "obrona";
             resultOfVoiceCommand.text = heardWord;
-
-            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano poprawną komendę głosową ' "
-                + heardWord.ToUpper() + " '. Strata -1 do Pancerza dla losowej wrogiej jednostki.", true);
+            debugText = "Twoja losowa jednostka otrzymuje wsparcie zaopatrzeniowe + 1 Pancerz.";
             Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.otherPlayer);
             if (randomCard != null)
             {
@@ -100,9 +98,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             heardWord = "pomór";
             resultOfVoiceCommand.text = heardWord;
-
-            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano poprawną komendę głosową ' "
-                + heardWord.ToUpper() + " '. Bonus +1 do Pancerza dla losowej przyjaznej jednostki.", true);
+            debugText = "Wrogie jednostki trawione chorobą tracą -1 Pancerza.";
             Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
             if (randomCard != null)
             {
@@ -114,18 +110,19 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             heardWord = "zbrodnia";
             resultOfVoiceCommand.text = heardWord;
+            debugText = "Wrogi bohater otruty przez szpiegów traci - 1 Pancerza.";
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
             heardWord = "fortuna";
             resultOfVoiceCommand.text = heardWord;
+            debugText = "Jednostki wsparcia przybywają - losujesz dodakową kartę.";
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {
             CheckWhetherToShowSpeechSign();
         }
     }
-    ///////////////////////////// 
 
     public void CheckWhetherToShowSpeechSign()
     {
@@ -134,7 +131,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         if(number < SPEECH_EFFECT_CHANCE)
         {
             WhatSpeechSignToShow();
-            Debug.Log("What effect");
+            Debug.Log("ASR Effect Possible");
         }
     }
 
@@ -193,13 +190,18 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
         if (currentSpeechSignString.Equals(heardWord))
         {
-            GetComponent<AudioSource>().Play();
+            //Play sound effect and put text in debugMessegeBox
+            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano komendę głosową:   " + currentSpeechSignString + ". " + debugText, true);
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.effectAudio);
             isEffectgoingToTakePlace = true;
-            Debug.Log("EffectOfSpeech");
+            Debug.Log("Effect of Speech");
         }
         else
         {
-            Debug.Log("No Effect");
+            //Play sound effect and put text in debugMessegeBox
+            GameManager.Instance.debugMessageBox.ShowDebugText("Nie rozpoznano komendy głosowej - brak efektu", false);
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.noEffectAudio);
+            Debug.Log("No Effect of Speech");
         }
     }
 
@@ -207,7 +209,6 @@ public class SpeechRecognitionSystem : MonoBehaviour
     {
         if(co != null)
         {
-            Debug.Log("Stopped Coroutine");
             StopCoroutine(co);
             //Those are in case turnButton clicked when speech sign is already shown and recognizer listen
             speechSign.enabled = false;
