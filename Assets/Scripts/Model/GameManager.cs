@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);             
             }
-            drawNewCard(playerSouth, southHandView, deckSouth, false);
+            drawNewCard(playerSouth, false);
         }
 
         //// ----------draw 4 cards from deck to Player North
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);
             }
-            drawNewCard(playerNorth, northHandView, deckNorth, false);
+            drawNewCard(playerNorth, false);
             while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
             {
                 yield return new WaitForSeconds(0.1f);
@@ -150,28 +150,15 @@ public class GameManager : MonoBehaviour
         if (currentPlayer == playerSouth)
         {
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
-            //Draw Card if not over limit
-            if (southHandView.transform.childCount < CARD_LIMIT) {
-                drawNewCard(playerSouth, southHandView, deckSouth, true);
-            }
-            else
-            {
-                UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
-            }
+            resourcesSouth.GetComponent<ResourcePool>().ProgressText.color = new Color32(0, 0, 0, 255);
+            drawNewCard(playerSouth, true);
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
         if (currentPlayer == playerNorth)
         {
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
-            //Draw Card if not over limit
-            if (northHandView.transform.childCount < CARD_LIMIT) {
-                drawNewCard(playerNorth, northHandView, deckNorth, true);
-            }
-            else
-            {
-                UnblockAllUnitsAndCards(playerNorth, northHandView, dropZoneNorth);
-            }
-            //Here should be also SpeechRecognitionCheck if second player is human and not AI
+            resourcesNorth.GetComponent<ResourcePool>().ProgressText.color = new Color32(0, 0, 0, 255);
+            drawNewCard(playerNorth, true);
         }
 
         endTurnButtonManager.TimerStart();
@@ -209,17 +196,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void drawNewCard(PlayerModel playerModel, HandView handView, GameObject deck, bool shouldCardBeDrawnWithDelay)
+    public void drawNewCard(PlayerModel playerModel, bool shouldCardBeDrawnWithDelay)
     {
-        if (shouldCardBeDrawnWithDelay)
+        HandView handView = null;
+        GameObject deck = null;
+
+        //Set hand view and deck based on player
+        if (playerModel == playerNorth)
         {
-            StartCoroutine(drawNewCardWithDelay(playerModel, handView, deck));
+            handView = GameManager.Instance.northHandView;
+            deck = GameManager.Instance.deckNorth;
+        }
+        else if (playerModel == playerSouth)
+        {
+            handView = GameManager.Instance.southHandView;
+            deck = GameManager.Instance.deckSouth;
+        }
+
+        //Draw Card if not over limit
+        if (playerModel.armymodel.armyCardsModel.handCardList.Count < CARD_LIMIT)
+        {
+            if (shouldCardBeDrawnWithDelay)
+            {
+                StartCoroutine(drawNewCardWithDelay(playerModel, handView, deck));
+            }
+            else
+            {
+                Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+                handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
+            }
         }
         else
         {
-            Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-            handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
+            UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
         }
+
+        
 
     }
     //Coroutines type of draw card method
@@ -311,6 +323,53 @@ public class GameManager : MonoBehaviour
             // adjust armor to defender - in model
             GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
             StartCoroutine(CheckWhetherToKillUnitAfterBonusWithCoroutine(defenderCard, defenderID, defenderArmor));
+        }
+    }
+
+    public void createHostileEffectHero(GameObject hero, int attackerAttack, DropZone initialDropZone)
+    {
+        // create explosion for hero
+        hero.GetComponent<HeroVisualManager>().createDamageVisual(attackerAttack);
+        int defenderArmor = int.Parse(hero.transform.GetComponent<HeroVisualManager>().healthText.text);
+
+        // remove armor from defender - in visual
+        defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
+        hero.transform.GetComponent<HeroVisualManager>().healthText.text = defenderArmor.ToString();
+
+        //music
+        GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.heroHurtAudio);
+
+        // update armor in model, and if hero dead then update model and finish game
+        if (defenderArmor > 0)
+        {
+            GameManager.Instance.otherPlayer.armymodel.heroModel.currentHealth = defenderArmor;
+            initialDropZone.attackEventEnded = true;
+        }
+        else
+        {
+            GameManager.Instance.otherPlayer.armymodel.heroModel.heroDies();
+            Debug.Log("Game Ended! Won: " + GameManager.Instance.currentPlayer.name);
+
+            // show final dialog with Winner after some amount of time
+            StartCoroutine(GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.currentPlayer));
+        }
+
+    }
+
+    public void createMoneyGainEffect(int moneyReceived)
+    {
+        GameManager.Instance.currentPlayer.addCurrentResources(moneyReceived);
+        if (GameManager.Instance.currentPlayer == GameManager.Instance.playerSouth)
+        {
+            GameManager.Instance.resourcesSouth.GetComponent<ResourcePool>().showMoneyGainAnimation();
+            GameManager.Instance.resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+            GameManager.Instance.southHandView.setPlayableCards(playerSouth.resourcesCurrent);
+        }
+        else if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
+        {
+            GameManager.Instance.resourcesNorth.GetComponent<ResourcePool>().showMoneyGainAnimation();
+            GameManager.Instance.resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+            GameManager.Instance.northHandView.setPlayableCards(playerNorth.resourcesCurrent);
         }
     }
 

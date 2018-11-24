@@ -129,49 +129,9 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             tacticsBonusUnit(pz, cardDetailedType);
         }
 
-        if (attackOnHeroSuccess)//for attack on Hero successful - attacker adjusts all the information about the fight, attacker and defender
+        if (attackOnHeroSuccess && cardDetailedType == CardVisualStateEnum.Unit)//for attack on Hero successful - attacker adjusts all the information about the fight, attacker and defender
         {
-            if (cardDetailedType == CardVisualStateEnum.Unit)
-            {
-                //decrease number of attacks per turn for current card
-                GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn--;
-
-                GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
-                //int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
-                int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
-                int defenderArmor = int.Parse(hero.transform.GetComponent<HeroVisualManager>().healthText.text);
-                int attackerAttack = int.Parse(t_Reference.GetComponent<CardDisplayLoader>().attackText.text);
-
-                // move card to defender and come back
-                t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
-
-                // create explosion for hero
-                hero.GetComponent<HeroVisualManager>().createDamageVisual(attackerAttack);
-
-                // remove armor from defender - in visual
-                defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
-                hero.transform.GetComponent<HeroVisualManager>().healthText.text = defenderArmor.ToString();
-                //music
-                GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.heroHurtAudio);
-                // remove armor from attacker, update visual and model
-                // TODO remove attacker available moves
-
-
-                // update armor in model, and if hero dead then update model and finish game
-                if (defenderArmor > 0)
-                {
-                    GameManager.Instance.otherPlayer.armymodel.heroModel.currentHealth = defenderArmor;
-                    initialDropZone.attackEventEnded = true;
-                }
-                else
-                {
-                    GameManager.Instance.otherPlayer.armymodel.heroModel.heroDies();
-                    //Destroy(defenderCard.gameObject);
-                    // TODO - visual game end
-                    Debug.Log("Game Ended! Won: " + GameManager.Instance.currentPlayer.name);
-                    GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.currentPlayer);
-                }
-            }
+            unitAttacksHero(pz);
         }
 
         //for attack on All Units successful if there are any units on table - attacker adjusts all the information about the fight, attacker and defender
@@ -239,6 +199,21 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         //music
         GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.attackAudio);
         CheckWhetherToKillUnitOrNot(defenderArmor, defenderID, attackerArmor, attackerID);
+    }
+
+    public void unitAttacksHero(Vector3 pz)
+    {
+        //decrease number of attacks per turn for current card
+        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn--;
+
+        GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
+        int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
+        int attackerAttack = int.Parse(t_Reference.GetComponent<CardDisplayLoader>().attackText.text);
+
+        // move card to defender and come back
+        t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
+        
+        GameManager.Instance.createHostileEffectHero(hero, attackerAttack, initialDropZone);
     }
 
     public void tacticsAttacksUnit(Vector3 pz)
