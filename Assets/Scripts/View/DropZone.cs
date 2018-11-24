@@ -38,7 +38,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             foreach (Transform child in dropAreaImage.transform)
             {
                 child.GetComponent<Draggable>().enabled = false;
-                child.GetComponent<Attackable>().enabled = true;
+                //child.GetComponent<Attackable>().enabled = true;
                 child.GetComponent<Attackable>().initialDropZone = this;
                 child.GetComponent<Defendable>().enabled = true;
             }
@@ -69,7 +69,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             d.parentToReturnTo = this.transform.GetChild(0).GetChild(0);
         }
         else if (dropAreaImage.transform.childCount >= DROPZONE_UNIT_AMOUNT_LIMIT) {
-            GameManager.Instance.debugMessageBox.ShowDebugText("Osiągnięto maksymalną liczbę jednostek na stole: " + DROPZONE_UNIT_AMOUNT_LIMIT + ".");
+            GameManager.Instance.debugMessageBox.ShowDebugText("Osiągnięto maksymalną liczbę jednostek na stole: " + DROPZONE_UNIT_AMOUNT_LIMIT + ".", false);
         }
 
 
@@ -199,6 +199,21 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             dropAreaImage.GetComponent<Image>().color = new Color32(47, 44, 45, 125);
             pointerEnter = false;
             pointerExit = false;
+        }
+    }
+
+    public Defendable chooseRandowCardOnDropZone()
+    {
+        int dropZoneAreaChildCardsCount = dropAreaImage.transform.childCount;
+        if(dropZoneAreaChildCardsCount > 0)
+        {
+            System.Random random = new System.Random();
+            int r = random.Next(0, dropZoneAreaChildCardsCount);
+            return dropAreaImage.transform.GetChild(r).GetComponent<Defendable>();
+        }
+        else
+        {
+            return null;
         }
     }
 }

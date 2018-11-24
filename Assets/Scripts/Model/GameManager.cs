@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
 
+    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
+
     public Faction southFaction;
     public Faction northFaction;
 
@@ -173,13 +175,13 @@ public class GameManager : MonoBehaviour
         }
 
         endTurnButtonManager.TimerStart();
-        EnableAttackOfJustPlacedUnits(currentPlayer);
+        currentPlayer.armymodel.armyCardsModel.EnableAttackOfJustPlacedUnits(currentPlayer);
     }
 
     void InitializeGame()
     {
         Debug.Log("GameManger INITIALIZATION");
-        Instance.debugMessageBox.ShowDebugText("Gra Inicjalizowana");
+        Instance.debugMessageBox.ShowDebugText("Gra Inicjalizowana", true);
         
         gameRunning = true;
         IDFactory.ResetIDs();
@@ -243,24 +245,6 @@ public class GameManager : MonoBehaviour
         drop.unlockUnitAttacks();
     }
 
-    public void EnableAttackOfJustPlacedUnits(PlayerModel currentplayer)
-    {
-        if (currentplayer == playerSouth)
-        {
-            foreach (Card item in playerNorth.armymodel.armyCardsModel.frontCardList)
-            {
-                item.isAbleToAttack = true;
-            }
-        }
-        else if (currentplayer == playerNorth)
-        {
-            foreach (Card item in playerSouth.armymodel.armyCardsModel.frontCardList)
-            {
-                item.isAbleToAttack = true;
-            }
-        }
-    }
-
     public void StartGameWithCouroutine()
     {
         StartCoroutine(startGame());
@@ -269,5 +253,90 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void createFriendlyBonusEffect(Defendable defenderCard, Transform defenderUnit, CardVisualStateEnum cardDetailedTypeForEffect, int attackerAttack)
+    {
+        int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
+        int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
+        int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);
+        
+        if (cardDetailedTypeForEffect == CardVisualStateEnum.TacticsHealOne)
+        {
+            defenderUnit.GetComponent<UnitVisualManager>().createHealVisual(attackerAttack);
+
+            // add armor to defender - in visual
+            defenderArmor = defenderArmor + attackerAttack;
+            defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.color = new Color32(255, 0, 0, 255);
+            //music
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.enhencementAudio);
+            // add armor to defender - in model
+            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+        }
+        else if (cardDetailedTypeForEffect == CardVisualStateEnum.TacticsStrengthOne)
+        {
+            defenderUnit.GetComponent<UnitVisualManager>().createStrengthVisual(attackerAttack);
+
+            // add armor to defender - in visual
+            defenderAttack = defenderAttack + attackerAttack;
+            defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text = defenderAttack.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.text = defenderAttack.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.color = new Color32(255, 0, 0, 255);
+            //music
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.powerUpAudio);
+            // add armor to defender - in model
+            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateStrengthAfterBonusEvent(defenderID, defenderAttack);
+        }
+    }
+
+    public void createHostileBonusEffect(Defendable defenderCard, Transform defenderUnit, CardVisualStateEnum cardDetailedTypeForEffect, int attackerAttack)
+    {
+        int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
+        int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
+        int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);
+        
+        if (cardDetailedTypeForEffect == CardVisualStateEnum.TacticsWithAim)
+        {
+            defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
+
+            // add armor to defender - in visual
+            defenderArmor = defenderArmor - attackerAttack;
+            defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
+            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
+            //defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.color = new Color32(255, 0, 0, 255);
+            //music
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.cannonAudio);
+            // adjust armor to defender - in model
+            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+            StartCoroutine(CheckWhetherToKillUnitAfterBonusWithCoroutine(defenderCard, defenderID, defenderArmor));
+        }
+    }
+
+    IEnumerator CheckWhetherToKillUnitAfterBonusWithCoroutine(Defendable defenderCard, int defenderID, int defenderArmor)
+    {
+        //Update armor in model, and if defender dead then update model and delete card from view
+        if (defenderArmor <= 0)
+        {
+            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
+            // TODO: make below const global and without duplicates
+            yield return new WaitForSeconds(DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY);
+            Destroy(defenderCard.gameObject);
+        }
+    }
+
+    public Defendable pickRandomDropZoneUnitCard(PlayerModel playerAffectedWithEffect)
+    {
+        Defendable randomCard = null;
+        if (playerAffectedWithEffect == GameManager.Instance.playerNorth)
+        {
+            randomCard = GameManager.Instance.dropZoneNorth.chooseRandowCardOnDropZone();
+        }
+        else if (playerAffectedWithEffect == GameManager.Instance.playerSouth)
+        {
+            randomCard = GameManager.Instance.dropZoneSouth.chooseRandowCardOnDropZone();
+        }
+        return randomCard;
     }
 }

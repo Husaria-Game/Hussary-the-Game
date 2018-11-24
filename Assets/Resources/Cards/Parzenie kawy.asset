@@ -15,7 +15,7 @@ MonoBehaviour:
   cardDetailedType: 5
   cardName: Parzenie kawy
   description: "Dow\xF3dcy rozkoszuj\u0105 si\u0119 aromatyczn\u0105 kaw\u0105. "
-  effect: 'Efekt: +1 Pancerz(W)'
+  effect: +1 Pancerz(W)
   cardImage: {fileID: 21300000, guid: 4213e0d2ee4b08c4c94af8e6be18c7c1, type: 3}
   cardCost: 3
   affiliation: 1

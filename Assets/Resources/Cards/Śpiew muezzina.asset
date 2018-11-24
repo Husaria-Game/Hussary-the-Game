@@ -15,7 +15,7 @@ MonoBehaviour:
   cardDetailedType: 6
   cardName: "\u015Apiew muezzina"
   description: "Ezan! Muezzin nawo\u0142uje do modlitwy. Morale armii rosn\u0105."
-  effect: "Efekt: +1 Si\u0142a(W)"
+  effect: "+1 Si\u0142a(W)"
   cardImage: {fileID: 21300000, guid: d7f86de9fe5637b4caca6a4ae4074721, type: 3}
   cardCost: 2
   affiliation: 1

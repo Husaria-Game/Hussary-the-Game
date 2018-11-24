@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 using System;
 
+
 public class SpeechRecognitionSystem : MonoBehaviour
 {
     //Elements needed to creat listening system
@@ -45,6 +46,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             recognizer = new KeywordRecognizer(wordsToRecognize, confidenceLevel);
             recognizer.OnPhraseRecognized += WhenPhraseRecognized;
+
             speechSign.enabled = false;
             resultOfVoiceCommand.text = heardWord;
         }
@@ -68,23 +70,41 @@ public class SpeechRecognitionSystem : MonoBehaviour
     //For testing puropose only
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             heardWord = "moc";
             resultOfVoiceCommand.text = heardWord;
             debugText = "W następnej turze losowa jednostka otrzyma + 1 Siła.";
+            Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
+            if (randomCard != null)
+            {
+                Transform cardUnit = randomCard.GetComponent<CardDisplayLoader>().Unit.transform;
+                GameManager.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsStrengthOne, 1);
+            }
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             heardWord = "obrona";
             resultOfVoiceCommand.text = heardWord;
             debugText = "W następnej turze losowa jednostka otrzyma + 1 Pancerz.";
+            Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.otherPlayer);
+            if (randomCard != null)
+            {
+                Transform cardUnit = randomCard.GetComponent<CardDisplayLoader>().Unit.transform;
+                GameManager.Instance.createHostileBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsWithAim, 1);
+            }
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             heardWord = "pomór";
             resultOfVoiceCommand.text = heardWord;
             debugText = "W następnej turze wrogie jednostki stracą -1 Pancerza.";
+            Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
+            if (randomCard != null)
+            {
+                Transform cardUnit = randomCard.GetComponent<CardDisplayLoader>().Unit.transform;
+                GameManager.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsHealOne, 2);
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -103,7 +123,6 @@ public class SpeechRecognitionSystem : MonoBehaviour
             CheckWhetherToShowSpeechSign();
         }
     }
-    ///////////////////////////// 
 
     public void CheckWhetherToShowSpeechSign()
     {
@@ -172,7 +191,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         if (currentSpeechSignString.Equals(heardWord))
         {
             //Play sound effect and put text in debugMessegeBox
-            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano słowo:   " + currentSpeechSignString + ". " + debugText);
+            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano komendę głosową:   " + currentSpeechSignString + ". " + debugText, true);
             GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.effectAudio);
             isEffectgoingToTakePlace = true;
             Debug.Log("Effect of Speech");
@@ -180,13 +199,13 @@ public class SpeechRecognitionSystem : MonoBehaviour
         else
         {
             //Play sound effect and put text in debugMessegeBox
-            GameManager.Instance.debugMessageBox.ShowDebugText("Nie rozpoznano słów - brak efektu");
+            GameManager.Instance.debugMessageBox.ShowDebugText("Nie rozpoznano komendy głosowej - brak efektu", true);
             GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.noEffectAudio);
             Debug.Log("No Effect of Speech");
         }
     }
 
-    public void StopCoroutineIfTurnButtonClicked()
+    public void StopCoroutineIfTurnButtonClicked()x
     {
         if(co != null)
         {
