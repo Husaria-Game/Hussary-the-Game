@@ -114,6 +114,10 @@ public class SpeechRecognitionSystem : MonoBehaviour
         {
             heardWord = "zbrodnia";
             resultOfVoiceCommand.text = heardWord;
+
+            GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano poprawną komendę głosową ' "
+                + heardWord.ToUpper() + " '. Bonus +1 nowa karta dla gracza.", true);
+            GameManager.Instance.drawNewCard(GameManager.Instance.currentPlayer, false);
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {

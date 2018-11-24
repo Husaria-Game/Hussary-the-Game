@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);             
             }
-            drawNewCard(playerSouth, southHandView, deckSouth, false);
+            drawNewCard(playerSouth, false);
         }
 
         //// ----------draw 4 cards from deck to Player North
@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);
             }
-            drawNewCard(playerNorth, northHandView, deckNorth, false);
+            drawNewCard(playerNorth, false);
             while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
             {
                 yield return new WaitForSeconds(0.1f);
@@ -149,28 +149,13 @@ public class GameManager : MonoBehaviour
         if (currentPlayer == playerSouth)
         {
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
-            //Draw Card if not over limit
-            if (southHandView.transform.childCount < CARD_LIMIT) {
-                drawNewCard(playerSouth, southHandView, deckSouth, true);
-            }
-            else
-            {
-                UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
-            }
+            drawNewCard(playerSouth, true);
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
         if (currentPlayer == playerNorth)
         {
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
-            //Draw Card if not over limit
-            if (northHandView.transform.childCount < CARD_LIMIT) {
-                drawNewCard(playerNorth, northHandView, deckNorth, true);
-            }
-            else
-            {
-                UnblockAllUnitsAndCards(playerNorth, northHandView, dropZoneNorth);
-            }
-            //Here should be also SpeechRecognitionCheck if second player is human and not AI
+            drawNewCard(playerNorth, true);
         }
 
         endTurnButtonManager.TimerStart();
@@ -208,17 +193,42 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void drawNewCard(PlayerModel playerModel, HandView handView, GameObject deck, bool shouldCardBeDrawnWithDelay)
+    public void drawNewCard(PlayerModel playerModel, bool shouldCardBeDrawnWithDelay)
     {
-        if (shouldCardBeDrawnWithDelay)
+        HandView handView = null;
+        GameObject deck = null;
+
+        //Set hand view and deck based on player
+        if (playerModel == playerNorth)
         {
-            StartCoroutine(drawNewCardWithDelay(playerModel, handView, deck));
+            handView = GameManager.Instance.northHandView;
+            deck = GameManager.Instance.deckNorth;
+        }
+        else if (playerModel == playerSouth)
+        {
+            handView = GameManager.Instance.southHandView;
+            deck = GameManager.Instance.deckSouth;
+        }
+
+        //Draw Card if not over limit
+        if (playerModel.armymodel.armyCardsModel.handCardList.Count < CARD_LIMIT)
+        {
+            if (shouldCardBeDrawnWithDelay)
+            {
+                StartCoroutine(drawNewCardWithDelay(playerModel, handView, deck));
+            }
+            else
+            {
+                Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+                handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
+            }
         }
         else
         {
-            Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-            handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
+            UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
         }
+
+        
 
     }
     //Coroutines type of draw card method
