@@ -112,12 +112,32 @@ public class SpeechRecognitionSystem : MonoBehaviour
             heardWord = "zbrodnia";
             resultOfVoiceCommand.text = heardWord;
             debugText = "Wrogi bohater otruty przez szpiegów traci - 1 Pancerza.";
+
+            GameObject hero = null;
+            DropZone initialDropZone = null;
+            if (GameManager.Instance.currentPlayer == GameManager.Instance.playerSouth)
+            {
+                hero = GameManager.Instance.heroNorth;
+                initialDropZone = GameManager.Instance.dropZoneSouth;
+            }
+            else if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
+            {
+                hero = GameManager.Instance.heroSouth;
+                initialDropZone = GameManager.Instance.dropZoneNorth;
+
+            }
+            GameManager.Instance.createHostileEffectHero(hero, 1, initialDropZone);
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
             heardWord = "fortuna";
             resultOfVoiceCommand.text = heardWord;
             debugText = "Jednostki wsparcia przybywają - losujesz dodakową kartę.";
+            GameManager.Instance.drawNewCard(GameManager.Instance.currentPlayer, false);
+        }
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            GameManager.Instance.createMoneyGainEffect(2);
         }
         else if (Input.GetKeyDown(KeyCode.F))
         {

@@ -21,15 +21,24 @@ public class Defendable : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
 
     public void Update()
     {
+        // glow for attack on Unit with other Unit or TacticsAttackOne
         if (sourceCardGOWhenDragging != null && (sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsAttackOne ||
             sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit))
         {
             setCardGlowWhenAimed(new Color32(255, 0, 0, 255), true);
         }
+        // glow for attack on Hero with other Unit
+        if (sourceCardGOWhenDragging != null && (sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit &&
+            GetComponent<HeroVisualManager>() != null))
+        {
+            setHeroGlowWhenAimed(new Color32(255, 0, 0, 255), true);
+        }
+        // glow for bonus armor on Unit
         if (sourceCardGOWhenDragging != null && sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsHealOne)
         {
             setCardGlowWhenAimed(new Color32(63, 79, 246, 255), false);
         }
+        // glow on bonus strength on Unit
         if (sourceCardGOWhenDragging != null && sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsStrengthOne)
         {
             setCardGlowWhenAimed(new Color32(253, 239, 6, 255), false);
@@ -152,6 +161,39 @@ public class Defendable : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
             Image unitPointerGlowImage = transform.GetComponent<CardDisplayLoader>().Unit.GetComponent<UnitVisualManager>().unitPointerGlowImage;
             sourceCardGOWhenDragging = null;
             unitPointerGlowImage.enabled = false;
+            pointerEnter = false;
+            pointerExit = false;
+        }
+    }
+
+    public void setHeroGlowWhenAimed(Color32 glowColor, bool isGlowForEnemyHero)
+    {
+        Image unitPointerFrame = transform.GetComponent<HeroVisualManager>().frame;
+        if (isGlowForEnemyHero)
+        {  // Glow for enemy hero
+            if (GameManager.Instance.isAttackableDraggingActive && pointerEnter &&
+                transform.GetComponent<HeroVisualManager>().ownerPosition != GameManager.Instance.currentPlayer.position)
+            {
+                unitPointerFrame = transform.GetComponent<HeroVisualManager>().frame;
+                //unitPointerFrame.enabled = true;
+                unitPointerFrame.GetComponent<Image>().color = glowColor;
+                pointerEnter = false;
+                pointerExit = false;
+            }
+            if (GameManager.Instance.isAttackableDraggingActive && pointerExit &&
+                transform.GetComponent<HeroVisualManager>().ownerPosition != GameManager.Instance.currentPlayer.position)
+            {
+                unitPointerFrame = transform.GetComponent<HeroVisualManager>().frame;
+                sourceCardGOWhenDragging = null;
+                unitPointerFrame.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+                pointerEnter = false;
+                pointerExit = false;
+            }
+        }
+        if (!GameManager.Instance.isAttackableDraggingActive)
+        {
+            sourceCardGOWhenDragging = null;
+            unitPointerFrame.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
             pointerEnter = false;
             pointerExit = false;
         }

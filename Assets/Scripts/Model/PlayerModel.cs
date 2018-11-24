@@ -42,7 +42,13 @@ public class PlayerModel {
         this.resourcesCurrent = this.resourcesMaxThisTurn;
     }
 
-	public int substractCurrentResources(int usedResources){
-		return this.resourcesCurrent -= usedResources;
-	}
+    public int substractCurrentResources(int usedResources)
+    {
+        return this.resourcesCurrent -= usedResources;
+    }
+
+    public int addCurrentResources(int usedResources)
+    {
+        return this.resourcesCurrent += usedResources;
+    }
 }

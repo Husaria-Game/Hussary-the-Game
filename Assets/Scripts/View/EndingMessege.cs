@@ -52,10 +52,11 @@ public class EndingMessege : MonoBehaviour {
     }
 
     //Method to be used in GameManager to pass winning player name
-    public void WhoWonMessege(PlayerModel player)
+    public IEnumerator WhoWonMessege(PlayerModel player)
     {
         winnerName = player.name;
         afterGameText.text = "Zwycięża " + winnerName;
+        yield return new WaitForSeconds(1f);
         MessegeCanvasAfterGameIsDone.SetActive(true);
         Time.timeScale = 0;
     }
