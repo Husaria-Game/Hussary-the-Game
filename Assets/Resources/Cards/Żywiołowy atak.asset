@@ -16,7 +16,7 @@ MonoBehaviour:
   cardName: "\u017Bywio\u0142owy atak"
   description: "Rozw\u015Bcieczone oddzia\u0142y imperium osma\u0144skiego przeprowadzaj\u0105
     gwa\u0142towny najazd."
-  effect: 'Efekt: -1 Pancerz'
+  effect: -1 Pancerz
   cardImage: {fileID: 21300000, guid: 15825775783d0ae439d4916c91aee343, type: 3}
   cardCost: 1
   affiliation: 1
