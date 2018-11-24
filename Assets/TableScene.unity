@@ -2096,6 +2096,11 @@ Prefab:
       propertyPath: m_Name
       value: DebugMessagesBox
       objectReference: {fileID: 0}
+    - target: {fileID: 114039912803291276, guid: fb4a13ad4da43d549944c9ff7bf7f863,
+        type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
   m_IsPrefabAsset: 0
@@ -3192,7 +3197,7 @@ MonoBehaviour:
   powerUp: {fileID: 8300000, guid: 983fe1cdbfb977b4a839e2e449ba9be2, type: 3}
   enhencement: {fileID: 8300000, guid: ddc3e7f7fbfe4dd42812cc4855a486d8, type: 3}
   cannon: {fileID: 8300000, guid: 219cd78a6f2208d4aafa9be8329c3bb1, type: 3}
-  heroHurt: {fileID: 8300000, guid: a4f94fa77532af2409eceded8cbaf835, type: 3}
+  heroHurt: {fileID: 8300000, guid: 8677c5527430b2e4fb7ada38792a1349, type: 3}
   effect: {fileID: 8300000, guid: 6c8ce6fc4bef86e4b9ca69847e3d7227, type: 3}
   noEffect: {fileID: 8300000, guid: 9f24e78538585ca468ea2e211d92e0da, type: 3}
   button: {fileID: 8300000, guid: c0edc1c45c773314aab5c033316bce4e, type: 3}

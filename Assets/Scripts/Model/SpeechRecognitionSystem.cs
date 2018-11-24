@@ -199,13 +199,13 @@ public class SpeechRecognitionSystem : MonoBehaviour
         else
         {
             //Play sound effect and put text in debugMessegeBox
-            GameManager.Instance.debugMessageBox.ShowDebugText("Nie rozpoznano komendy głosowej - brak efektu", true);
+            GameManager.Instance.debugMessageBox.ShowDebugText("Nie rozpoznano komendy głosowej - brak efektu", false);
             GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.noEffectAudio);
             Debug.Log("No Effect of Speech");
         }
     }
 
-    public void StopCoroutineIfTurnButtonClicked()x
+    public void StopCoroutineIfTurnButtonClicked()
     {
         if(co != null)
         {
