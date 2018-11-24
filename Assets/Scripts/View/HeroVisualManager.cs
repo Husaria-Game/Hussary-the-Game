@@ -18,6 +18,7 @@ public class HeroVisualManager : MonoBehaviour
     public Position ownerPosition;
     [Header("Image References")]
     public Image profileImage;
+    public Image frame;
 
 
     // Method for loading hero parameters from coresponding hero

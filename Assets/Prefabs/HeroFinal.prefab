@@ -345,15 +345,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89a276f855aa4e4e9d9c4792fb4365b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hero: {fileID: 11400000, guid: ab4f63cb727c17b458b51374a8bd92b8, type: 2}
   nameText: {fileID: 114577157718235420}
   healthText: {fileID: 114170448908658082}
   skillCostText: {fileID: 114226773357750384}
   explosionEffect: {fileID: 1724087251722580}
   canvasGroup: {fileID: 225828300568566020}
   damageNumberText: {fileID: 114097196950666306}
-  ownerPosition: 1
+  ownerPosition: 0
   profileImage: {fileID: 114331506983610064}
+  frame: {fileID: 114635440580903170}
 --- !u!114 &114086361923496306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1312,7 +1312,7 @@ RectTransform:
   m_GameObject: {fileID: 1515019024752632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.004, y: 0.004, z: 0}
+  m_LocalScale: {x: 0.0039999997, y: 0.0039999997, z: 0}
   m_Children:
   - {fileID: 224728357282604980}
   - {fileID: 224115299816433780}
@@ -1321,7 +1321,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -6.6, y: -2.5}
+  m_AnchoredPosition: {x: -6.79, y: 3.15}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224872765225554278
