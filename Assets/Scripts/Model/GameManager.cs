@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public Faction southFaction;
     public Faction northFaction;
 
+    public HybridEffectsSystem hybridEffectsSystem;
     public AudioGenerator audioGenerator;
     public EndTurnButtonManager endTurnButtonManager;
     public SpeechRecognitionSystem speechRecognition;
@@ -158,6 +159,8 @@ public class GameManager : MonoBehaviour
             {
                 UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
             }
+
+            //going to replace it with hybridEffectsSystem.CheckWhetherToUseHybridEffect()
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
         if (currentPlayer == playerNorth)

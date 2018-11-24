@@ -128,7 +128,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
     public void CheckWhetherToShowSpeechSign()
     {
-        co = null; //reset coroutine of ASR so that pushing turnButton wont work when dont needed
+        //co = null; //reset coroutine of ASR so that pushing turnButton wont work when dont needed
         int number = random.Next(0, 101);
         if(number < SPEECH_EFFECT_CHANCE)
         {
@@ -139,6 +139,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
     public void WhatSpeechSignToShow()
     {
+        co = null; //reset coroutine of ASR so that pushing turnButton wont work when dont needed
         int number = random.Next(0, 101);
         if(number < 20)
         {
