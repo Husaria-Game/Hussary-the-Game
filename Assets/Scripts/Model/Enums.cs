@@ -33,11 +33,16 @@ public enum CardVisualStateEnum
     TacticsHealAll,
     TacticsStrengthOne,
     TacticsStrengthAll,
-    TacticsHealAndStrengthOne,
-    TacticsHealAndStrengthAll
+    //TacticsHealAndStrengthOne,
+    //TacticsHealAndStrengthAll
 }
 
 public enum WhereIsCard
 {
     Undefined, Hand, Front, Rotating
+}
+
+public enum GameMode
+{
+    Human, Computer
 }

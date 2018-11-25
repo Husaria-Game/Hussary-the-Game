@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
     // SINGLETON
     public static GameManager Instance;
 
-    public string northName;
-    public string southName;
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
     public PlayerModel currentPlayer; //player that has active turn
@@ -37,8 +35,14 @@ public class GameManager : MonoBehaviour
 
     public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
 
+    //Data From SettsHoldera
+    public GameMode typeOfEnemy;
+
     public Faction southFaction;
     public Faction northFaction;
+
+    public string northName;
+    public string southName;
 
     public HybridEffectsSystem hybridEffectsSystem;
     public AudioGenerator audioGenerator;
@@ -181,8 +185,10 @@ public class GameManager : MonoBehaviour
         gameRunning = true;
         IDFactory.ResetIDs();
 
-        //Dodane przypiasanie frakcji - Na razie tylko tryb Multiplayer - potem trzeba wprowadić zmienną wybierającą tryb
+        //Attribute factions, names, and mode of game
         SettsHolder.instance.AttributeGameManagerNamesAndFactions();
+
+        Debug.Log(typeOfEnemy);
 
         playerNorth = new PlayerModel(0, northName, northFaction, Position.North);
         playerSouth = new PlayerModel(1, southName, southFaction, Position.South);
