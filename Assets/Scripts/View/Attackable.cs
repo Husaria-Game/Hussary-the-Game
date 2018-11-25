@@ -115,7 +115,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             {
                 unitAttacksUnit(pz);
             }
-            else if (cardDetailedType == CardVisualStateEnum.TacticsWithAim)
+            else if (cardDetailedType == CardVisualStateEnum.TacticsAttackOne)
             {
                 tacticsAttacksUnit(pz);
             }
@@ -213,7 +213,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         // move card to defender and come back
         t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
         
-        GameManager.Instance.createHostileEffectHero(hero, attackerAttack, initialDropZone);
+        GameManager.Instance.createHostileEffectHero(hero, initialDropZone, attackerAttack);
     }
 
     public void tacticsAttacksUnit(Vector3 pz)

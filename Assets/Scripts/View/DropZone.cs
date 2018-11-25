@@ -202,7 +202,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         }
     }
 
-    public Defendable chooseRandowCardOnDropZone()
+    public Defendable chooseRandomCardOnDropZone()
     {
         int dropZoneAreaChildCardsCount = dropAreaImage.transform.childCount;
         if(dropZoneAreaChildCardsCount > 0)
