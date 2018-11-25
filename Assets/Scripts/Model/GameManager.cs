@@ -233,9 +233,6 @@ public class GameManager : MonoBehaviour
         {
             UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
         }
-
-        
-
     }
     //Coroutines type of draw card method
     IEnumerator drawNewCardWithDelay( PlayerModel playerModel, HandView handView, GameObject deck)
@@ -329,7 +326,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void createHostileEffectHero(GameObject hero, int attackerAttack, DropZone initialDropZone)
+    public void createHostileEffectHero(GameObject hero, DropZone initialDropZone, int attackerAttack)
     {
         // create explosion for hero
         hero.GetComponent<HeroVisualManager>().createDamageVisual(attackerAttack);
@@ -393,11 +390,11 @@ public class GameManager : MonoBehaviour
         Defendable randomCard = null;
         if (playerAffectedWithEffect == GameManager.Instance.playerNorth)
         {
-            randomCard = GameManager.Instance.dropZoneNorth.chooseRandowCardOnDropZone();
+            randomCard = GameManager.Instance.dropZoneNorth.chooseRandomCardOnDropZone();
         }
         else if (playerAffectedWithEffect == GameManager.Instance.playerSouth)
         {
-            randomCard = GameManager.Instance.dropZoneSouth.chooseRandowCardOnDropZone();
+            randomCard = GameManager.Instance.dropZoneSouth.chooseRandomCardOnDropZone();
         }
         return randomCard;
     }

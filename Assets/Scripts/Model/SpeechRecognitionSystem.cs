@@ -8,13 +8,13 @@ using System;
 public class SpeechRecognitionSystem : MonoBehaviour
 {
     //Elements needed to creat listening system
-    private string[] wordsToRecognize = new string[] {"moc", "obrona", "zbrodnia", "pomór", "fortuna" };
+    private string[] wordsToRecognize = new string[] {"atak", "obrona", "zbrodnia", "pomór", "fortuna" };
     private ConfidenceLevel confidenceLevel = ConfidenceLevel.Low;
     private PhraseRecognizer recognizer;
 
     public enum SpeechSign
     {
-        nic, moc, obrona, zbrodnia, pomór, fortuna
+        nic, atak, obrona, zbrodnia, pomór, fortuna
     }
     public SpeechSign currentSpeechSign;
 
@@ -34,10 +34,9 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
     //Other elements
     public System.Random random = new System.Random();
-    private const int SPEECH_EFFECT_CHANCE = 30;
+    private const int SPEECH_EFFECT_CHANCE = 90;
 
     private int effectPower;
-    private CardVisualStateEnum effectOfSpeech;
     Coroutine co;
 
     void Start()
@@ -73,7 +72,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         /*
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            heardWord = "moc";
+            heardWord = "atak";
             resultOfVoiceCommand.text = heardWord;
             debugText = "Twoja losowa jednostka otrzymuje wsparcie zaopatrzeniowe + 1 Siła.";
             Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
@@ -161,41 +160,36 @@ public class SpeechRecognitionSystem : MonoBehaviour
     {
         co = null; //reset coroutine of ASR so that pushing turnButton wont work when dont needed
         int number = random.Next(0, 101);
-        if(number < 20)
+        if(number < 100)
         {
-            ShowSpeechSign(power, SpeechSign.moc);
+            ShowSpeechSign(power, SpeechSign.atak);
             debugText = "Twoja losowa jednostka otrzymuje wsparcie zaopatrzeniowe + 1 Siła.";
-            effectOfSpeech = CardVisualStateEnum.TacticsStrengthOne;
             effectPower = 1;
-        }
+        }/*
         else if(number >= 20 && number < 40)
         {
             ShowSpeechSign(defence, SpeechSign.obrona);
             debugText = "Twoja losowa jednostka otrzymuje wsparcie zaopatrzeniowe + 1 Pancerz.";
-            effectOfSpeech = CardVisualStateEnum.TacticsHealOne;
             effectPower = 1;
         }
         else if (number >= 40 && number < 60)
         {
             ShowSpeechSign(blight, SpeechSign.pomór);
             debugText = "Wrogie jednostki trawione chorobą tracą -1 Pancerza.";
-            effectOfSpeech = CardVisualStateEnum.TacticsAttackAll;
             effectPower = 1;
         }
         else if (number >= 60 && number < 80)
         {
             ShowSpeechSign(crime, SpeechSign.zbrodnia);
             debugText = "Wrogi bohater otruty przez szpiegów traci - 1 Pancerza.";
-            //effectOfSpeech
             effectPower = 1;
         }
         else if (number >= 80 && number < 100)
         {
             ShowSpeechSign(fortune, SpeechSign.fortuna);
             debugText = "Jednostki wsparcia przybywają - losujesz dodakową kartę.";
-            //effectOfSpeech
             effectPower = 1;
-        }
+        }*/
     }
 
     public void ShowSpeechSign(Sprite signImage, SpeechSign signMark)
@@ -227,8 +221,8 @@ public class SpeechRecognitionSystem : MonoBehaviour
         string currentSpeechSignString = currentSpeechSign.ToString();
         if (currentSpeechSignString.Equals(heardWord))
         {
+            WhatSpeechBonusToGive(currentSpeechSignString, effectPower);
             currentSpeechSignString = currentSpeechSignString.ToUpper();
-            WhatSpeechBonusToGive(effectOfSpeech, effectPower);
             //Play sound effect and put text in debugMessegeBox
             GameManager.Instance.debugMessageBox.ShowDebugText("Rozpoznano komendę głosową:   " + currentSpeechSignString + ".\n " + debugText, true);
             GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.effectAudio);
@@ -243,22 +237,56 @@ public class SpeechRecognitionSystem : MonoBehaviour
         }
     }
 
-    public void WhatSpeechBonusToGive(CardVisualStateEnum effectToDo, int effectPower)
+    public void WhatSpeechBonusToGive(string effectToDo, int effectPower)
     {
-        Defendable randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
+        Defendable randomCard;
+        if (effectToDo == "pomór")
+        {
+            randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.otherPlayer);
+        }
+        else
+        {
+            randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
+        }
         if (randomCard != null)
         {
             Transform cardUnit = randomCard.GetComponent<CardDisplayLoader>().Unit.transform;
-            if(effectToDo == CardVisualStateEnum.TacticsHealOne || effectToDo == CardVisualStateEnum.TacticsStrengthOne)
+            if (effectToDo == "atak")
             {
-                GameManager.Instance.createFriendlyBonusEffect(randomCard, cardUnit, effectToDo, effectPower);
+                GameManager.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsStrengthOne, effectPower);
             }
-            else if(effectToDo == CardVisualStateEnum.TacticsAttackAll)
+            else if (effectToDo == "obrona")
             {
-                GameManager.Instance.createHostileBonusEffect(randomCard, cardUnit, effectToDo, effectPower);
+                GameManager.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsHealOne, effectPower);
             }
-            //zrobić jeszcze dla fortuny i zbrodni
+            else if (effectToDo == "pomór")
+            {
+                if (cardUnit != null)
+                    GameManager.Instance.createHostileBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsAttackOne, effectPower);
+            }
         }
+
+        if (effectToDo == "zbrodnia")
+        {
+            GameObject hero = null;
+            DropZone initialDropZone = null;
+            if (GameManager.Instance.currentPlayer == GameManager.Instance.playerSouth)
+            {
+                hero = GameManager.Instance.heroNorth;
+                initialDropZone = GameManager.Instance.dropZoneSouth;
+            }
+            else if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
+            {
+                hero = GameManager.Instance.heroSouth;
+                initialDropZone = GameManager.Instance.dropZoneNorth;
+
+            }
+            GameManager.Instance.createHostileEffectHero(hero, initialDropZone, effectPower);
+        }
+        else if (effectToDo == "fortuna")
+        {
+            GameManager.Instance.drawNewCard(GameManager.Instance.currentPlayer, false);
+        }    
     }
 
     public void StopCoroutineIfTurnButtonClicked()
