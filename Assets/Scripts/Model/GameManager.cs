@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     public bool gameRunning;
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
+
 
     public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
 
@@ -83,6 +85,11 @@ public class GameManager : MonoBehaviour
                 UnblockAllUnitsAndCards(playerNorth, northHandView, dropZoneNorth);
             }
             enablePlayableCardsFlag = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            goToARScene();
         }
     }
 
@@ -397,5 +404,19 @@ public class GameManager : MonoBehaviour
             randomCard = GameManager.Instance.dropZoneSouth.chooseRandowCardOnDropZone();
         }
         return randomCard;
+    }
+
+    void goToARScene()
+    {
+        //Output this to console when Button1 or Button3 is clicked
+        //Time.timeScale = 0;
+        Debug.Log("You have chosen to change Scenes to AR !");
+        //visuals.SetActive(false);
+        SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
+    }
+
+    public void ARSceneResult(bool ARResult)
+    {
+        Debug.Log("AR scene result is " + ARResult);
     }
 }
