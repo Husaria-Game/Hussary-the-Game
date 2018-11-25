@@ -22,7 +22,7 @@ public class Defendable : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
     public void Update()
     {
         // glow for attack on Unit with other Unit or TacticsAttackOne
-        if (sourceCardGOWhenDragging != null && (sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsWithAim ||
+        if (sourceCardGOWhenDragging != null && (sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.TacticsAttackOne ||
             sourceCardGOWhenDragging.GetComponent<CardDisplayLoader>().cardDetailedType == CardVisualStateEnum.Unit))
         {
             setCardGlowWhenAimed(new Color32(255, 0, 0, 255), true);
@@ -69,7 +69,7 @@ public class Defendable : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPo
             CardVisualStateEnum attackerCardDetailedType = attackerCard.t_Reference.GetComponent<CardDisplayLoader>().cardDetailedType;
 
             // allow ATTACK ON ONE unit if attackable object exists and card belongs to other player
-            if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && (attackerCardDetailedType == CardVisualStateEnum.Unit || attackerCardDetailedType == CardVisualStateEnum.TacticsWithAim))
+            if (attackerCard != null && ownerPosition != attackerCard.t_Reference.GetComponent<IDAssignment>().ownerPosition && (attackerCardDetailedType == CardVisualStateEnum.Unit || attackerCardDetailedType == CardVisualStateEnum.TacticsAttackOne))
             {
                 attackerCard.defenderCard = defenderCardTransform.GetComponent<Defendable>();
                 attackerCard.defenderUnit = this.transform.GetComponent<CardDisplayLoader>().Unit.transform;

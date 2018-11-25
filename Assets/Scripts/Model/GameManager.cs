@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     public Faction southFaction;
     public Faction northFaction;
 
+    public HybridEffectsSystem hybridEffectsSystem;
     public AudioGenerator audioGenerator;
     public EndTurnButtonManager endTurnButtonManager;
     public SpeechRecognitionSystem speechRecognition;
@@ -159,6 +160,8 @@ public class GameManager : MonoBehaviour
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
             resourcesSouth.GetComponent<ResourcePool>().ProgressText.color = new Color32(0, 0, 0, 255);
             drawNewCard(playerSouth, true);
+
+            //going to replace it with hybridEffectsSystem
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
         if (currentPlayer == playerNorth)
@@ -237,9 +240,6 @@ public class GameManager : MonoBehaviour
         {
             UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
         }
-
-        
-
     }
     //Coroutines type of draw card method
     IEnumerator drawNewCardWithDelay( PlayerModel playerModel, HandView handView, GameObject deck)
@@ -316,7 +316,7 @@ public class GameManager : MonoBehaviour
         int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
         int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);
         
-        if (cardDetailedTypeForEffect == CardVisualStateEnum.TacticsWithAim)
+        if (cardDetailedTypeForEffect == CardVisualStateEnum.TacticsAttackOne)
         {
             defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
 
@@ -333,7 +333,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void createHostileEffectHero(GameObject hero, int attackerAttack, DropZone initialDropZone)
+    public void createHostileEffectHero(GameObject hero, DropZone initialDropZone, int attackerAttack)
     {
         // create explosion for hero
         hero.GetComponent<HeroVisualManager>().createDamageVisual(attackerAttack);
@@ -397,11 +397,11 @@ public class GameManager : MonoBehaviour
         Defendable randomCard = null;
         if (playerAffectedWithEffect == GameManager.Instance.playerNorth)
         {
-            randomCard = GameManager.Instance.dropZoneNorth.chooseRandowCardOnDropZone();
+            randomCard = GameManager.Instance.dropZoneNorth.chooseRandomCardOnDropZone();
         }
         else if (playerAffectedWithEffect == GameManager.Instance.playerSouth)
         {
-            randomCard = GameManager.Instance.dropZoneSouth.chooseRandowCardOnDropZone();
+            randomCard = GameManager.Instance.dropZoneSouth.chooseRandomCardOnDropZone();
         }
         return randomCard;
     }

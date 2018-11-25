@@ -2057,6 +2057,26 @@ Prefab:
       propertyPath: m_FontData.m_Alignment
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 224782581346241632, guid: fb4a13ad4da43d549944c9ff7bf7f863,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.084259585
+      objectReference: {fileID: 0}
+    - target: {fileID: 224782581346241632, guid: fb4a13ad4da43d549944c9ff7bf7f863,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.022837903
+      objectReference: {fileID: 0}
+    - target: {fileID: 224782581346241632, guid: fb4a13ad4da43d549944c9ff7bf7f863,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 1040.2428
+      objectReference: {fileID: 0}
+    - target: {fileID: 224782581346241632, guid: fb4a13ad4da43d549944c9ff7bf7f863,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.9321885
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb4a13ad4da43d549944c9ff7bf7f863, type: 2}
   m_IsPrefabAsset: 0
