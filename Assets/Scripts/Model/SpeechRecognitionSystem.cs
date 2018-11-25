@@ -202,7 +202,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         int number = random.Next(5, 20);
 
         yield return new WaitForSeconds(number);  //Random second in which system starts to show signImage
-        recognizer.Start();
+        //recognizer.Start();
         speechSign.sprite = signImage;
         speechSign.enabled = true;
         currentSpeechSign = signMark;
@@ -213,7 +213,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         currentSpeechSign = SpeechSign.nic;
         heardWord = "";
         resultOfVoiceCommand.text = heardWord;
-        recognizer.Stop();
+        //recognizer.Stop();
     }
 
     private void CompareShownSignAndSpeech()
@@ -242,27 +242,27 @@ public class SpeechRecognitionSystem : MonoBehaviour
         Defendable randomCard;
         if (effectToDo == "pomór")
         {
-            randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.otherPlayer);
+            randomCard = BonusEffects.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.otherPlayer);
         }
         else
         {
-            randomCard = GameManager.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
+            randomCard = BonusEffects.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.currentPlayer);
         }
         if (randomCard != null)
         {
             Transform cardUnit = randomCard.GetComponent<CardDisplayLoader>().Unit.transform;
             if (effectToDo == "atak")
             {
-                GameManager.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsStrengthOne, effectPower);
+                BonusEffects.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsStrengthOne, effectPower);
             }
             else if (effectToDo == "obrona")
             {
-                GameManager.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsHealOne, effectPower);
+                BonusEffects.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsHealOne, effectPower);
             }
             else if (effectToDo == "pomór")
             {
                 if (cardUnit != null)
-                    GameManager.Instance.createHostileBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsAttackOne, effectPower);
+                    BonusEffects.Instance.createHostileBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsAttackOne, effectPower);
             }
         }
 
@@ -281,11 +281,11 @@ public class SpeechRecognitionSystem : MonoBehaviour
                 initialDropZone = GameManager.Instance.dropZoneNorth;
 
             }
-            GameManager.Instance.createHostileEffectHero(hero, initialDropZone, effectPower);
+            BonusEffects.Instance.createHostileEffectHero(hero, initialDropZone, effectPower);
         }
         else if (effectToDo == "fortuna")
         {
-            GameManager.Instance.drawNewCard(GameManager.Instance.currentPlayer, false);
+            BonusEffects.Instance.drawNewCard(GameManager.Instance.currentPlayer, false);
         }    
     }
 
@@ -299,7 +299,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
             currentSpeechSign = SpeechSign.nic;
             heardWord = "";
             resultOfVoiceCommand.text = heardWord;
-            recognizer.Stop();
+            //recognizer.Stop();
         }
 
     }

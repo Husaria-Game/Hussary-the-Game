@@ -212,8 +212,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         // move card to defender and come back
         t_Reference.DOMove(pz, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
-        
-        GameManager.Instance.createHostileEffectHero(hero, initialDropZone, attackerAttack);
+
+        BonusEffects.Instance.createHostileEffectHero(hero, initialDropZone, attackerAttack);
     }
 
     public void tacticsAttacksUnit(Vector3 pz)
@@ -237,7 +237,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
 
         // create certain effect for unit based on card type
-        GameManager.Instance.createHostileBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
+        BonusEffects.Instance.createHostileBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
 
         CheckWhetherToKillUnitOrNotWithCoroutine(defenderArmor, defenderID, attackerArmor, attackerID);
     }
@@ -256,7 +256,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         t_Reference.DOMove(defenderCard.transform.position, 0.5f).SetEase(Ease.InQuint, 0.5f, 0.1f).OnComplete(comeBack);
 
         // create certain effect for unit based on card type
-        GameManager.Instance.createFriendlyBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
+        BonusEffects.Instance.createFriendlyBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
        
         GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
         Destroy(this.gameObject);

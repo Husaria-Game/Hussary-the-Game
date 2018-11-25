@@ -4,4 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/TableScene.unity
+    guid: 01d8603c39e95e94e9f357d3e0336067
+  - enabled: 1
+    path: Assets/ARScene.unity
+    guid: d32d26d3cfb655e46915bbf4ae9c12a3
+  m_configObjects: {}
