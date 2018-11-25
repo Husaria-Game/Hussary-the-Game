@@ -8,7 +8,7 @@ public class SettsHolder : MonoBehaviour {
 
     private bool isPlayedAgain = false;
 
-    private GameMode typeOfEnemy;
+    public GameMode typeOfEnemy;
 
     public Faction southFaction;
     public Faction northFaction;
@@ -58,11 +58,11 @@ public class SettsHolder : MonoBehaviour {
 
     public void PlayAgainstHuman()
     {
-        instance.typeOfEnemy = GameMode.Human;
+        typeOfEnemy = GameMode.Human;
     }
 
     public void PlayAgainstAI()
     {
-        instance.typeOfEnemy = GameMode.Computer;
+        typeOfEnemy = GameMode.Computer;
     }
 }
