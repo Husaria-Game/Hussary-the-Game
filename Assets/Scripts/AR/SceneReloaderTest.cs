@@ -21,7 +21,7 @@ public class SceneReloaderTest : MonoBehaviour
     {
         //Output this to console when Button1 or Button3 is clicked
         Debug.Log("You have clicked the" + isARBonusGranted + "Button!");
-        GameManager.Instance.ARSceneResult(isARBonusGranted);
-        SceneManager.UnloadSceneAsync("BattleScene");
+        ARManager.Instance.ARSceneResult(isARBonusGranted);
+        SceneManager.UnloadSceneAsync("ARScene");
     }
 }

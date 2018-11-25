@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -48,7 +47,6 @@ public class GameManager : MonoBehaviour
     public DebugMessege debugMessageBox;
 
     public int turnNumber = 0;
-    public const int CARD_LIMIT = 6;
 
     void Awake()
     {
@@ -90,7 +88,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            goToARScene();
+            ARManager.Instance.goToARScene();
         }
     }
 
@@ -112,7 +110,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);             
             }
-            drawNewCard(playerSouth, false);
+            BonusEffects.Instance.drawNewCard(playerSouth, false);
         }
 
         //// ----------draw 4 cards from deck to Player North
@@ -122,7 +120,7 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(0.2f);
             }
-            drawNewCard(playerNorth, false);
+            BonusEffects.Instance.drawNewCard(playerNorth, false);
             while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
             {
                 yield return new WaitForSeconds(0.1f);
@@ -159,7 +157,7 @@ public class GameManager : MonoBehaviour
         {
             resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
             resourcesSouth.GetComponent<ResourcePool>().ProgressText.color = new Color32(0, 0, 0, 255);
-            drawNewCard(playerSouth, true);
+            BonusEffects.Instance.drawNewCard(playerSouth, true);
 
             //going to replace it with hybridEffectsSystem
             speechRecognition.CheckWhetherToShowSpeechSign();
@@ -168,7 +166,7 @@ public class GameManager : MonoBehaviour
         {
             resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
             resourcesNorth.GetComponent<ResourcePool>().ProgressText.color = new Color32(0, 0, 0, 255);
-            drawNewCard(playerNorth, true);
+            BonusEffects.Instance.drawNewCard(playerNorth, true);
         }
 
         endTurnButtonManager.TimerStart();
@@ -206,49 +204,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void drawNewCard(PlayerModel playerModel, bool shouldCardBeDrawnWithDelay)
-    {
-        HandView handView = null;
-        GameObject deck = null;
-
-        //Set hand view and deck based on player
-        if (playerModel == playerNorth)
-        {
-            handView = GameManager.Instance.northHandView;
-            deck = GameManager.Instance.deckNorth;
-        }
-        else if (playerModel == playerSouth)
-        {
-            handView = GameManager.Instance.southHandView;
-            deck = GameManager.Instance.deckSouth;
-        }
-
-        //Draw Card if not over limit
-        if (playerModel.armymodel.armyCardsModel.handCardList.Count < CARD_LIMIT)
-        {
-            if (shouldCardBeDrawnWithDelay)
-            {
-                StartCoroutine(drawNewCardWithDelay(playerModel, handView, deck));
-            }
-            else
-            {
-                Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-                handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
-            }
-        }
-        else
-        {
-            UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
-        }
-    }
-    //Coroutines type of draw card method
-    IEnumerator drawNewCardWithDelay( PlayerModel playerModel, HandView handView, GameObject deck)
-    {
-        yield return new WaitForSeconds(2f);
-        Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-        handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
-    }
-
     public void BlackAllUnitsAndCards()
     {
         northHandView.blockAllOperations();
@@ -274,113 +229,7 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void createFriendlyBonusEffect(Defendable defenderCard, Transform defenderUnit, CardVisualStateEnum cardDetailedTypeForEffect, int attackerAttack)
-    {
-        int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
-        int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
-        int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);
-        
-        if (cardDetailedTypeForEffect == CardVisualStateEnum.TacticsHealOne)
-        {
-            defenderUnit.GetComponent<UnitVisualManager>().createHealVisual(attackerAttack);
-
-            // add armor to defender - in visual
-            defenderArmor = defenderArmor + attackerAttack;
-            defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
-            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
-            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.color = new Color32(255, 0, 0, 255);
-            //music
-            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.enhencementAudio);
-            // add armor to defender - in model
-            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
-        }
-        else if (cardDetailedTypeForEffect == CardVisualStateEnum.TacticsStrengthOne)
-        {
-            defenderUnit.GetComponent<UnitVisualManager>().createStrengthVisual(attackerAttack);
-
-            // add armor to defender - in visual
-            defenderAttack = defenderAttack + attackerAttack;
-            defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text = defenderAttack.ToString();
-            defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.text = defenderAttack.ToString();
-            defenderUnit.transform.GetComponent<UnitVisualManager>().attackText.color = new Color32(255, 0, 0, 255);
-            //music
-            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.powerUpAudio);
-            // add armor to defender - in model
-            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateStrengthAfterBonusEvent(defenderID, defenderAttack);
-        }
-    }
-
-    public void createHostileBonusEffect(Defendable defenderCard, Transform defenderUnit, CardVisualStateEnum cardDetailedTypeForEffect, int attackerAttack)
-    {
-        int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
-        int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
-        int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);
-        
-        if (cardDetailedTypeForEffect == CardVisualStateEnum.TacticsAttackOne)
-        {
-            defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
-
-            // add armor to defender - in visual
-            defenderArmor = defenderArmor - attackerAttack;
-            defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text = defenderArmor.ToString();
-            defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.text = defenderArmor.ToString();
-            //defenderUnit.transform.GetComponent<UnitVisualManager>().armorText.color = new Color32(255, 0, 0, 255);
-            //music
-            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.cannonAudio);
-            // adjust armor to defender - in model
-            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
-            StartCoroutine(CheckWhetherToKillUnitAfterBonusWithCoroutine(defenderCard, defenderID, defenderArmor));
-        }
-    }
-
-    public void createHostileEffectHero(GameObject hero, DropZone initialDropZone, int attackerAttack)
-    {
-        // create explosion for hero
-        hero.GetComponent<HeroVisualManager>().createDamageVisual(attackerAttack);
-        int defenderArmor = int.Parse(hero.transform.GetComponent<HeroVisualManager>().healthText.text);
-
-        // remove armor from defender - in visual
-        defenderArmor = (defenderArmor - attackerAttack > 0) ? defenderArmor - attackerAttack : 0;
-        hero.transform.GetComponent<HeroVisualManager>().healthText.text = defenderArmor.ToString();
-
-        //music
-        GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.heroHurtAudio);
-
-        // update armor in model, and if hero dead then update model and finish game
-        if (defenderArmor > 0)
-        {
-            GameManager.Instance.otherPlayer.armymodel.heroModel.currentHealth = defenderArmor;
-            initialDropZone.attackEventEnded = true;
-        }
-        else
-        {
-            GameManager.Instance.otherPlayer.armymodel.heroModel.heroDies();
-            Debug.Log("Game Ended! Won: " + GameManager.Instance.currentPlayer.name);
-
-            // show final dialog with Winner after some amount of time
-            StartCoroutine(GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.currentPlayer));
-        }
-
-    }
-
-    public void createMoneyGainEffect(int moneyReceived)
-    {
-        GameManager.Instance.currentPlayer.addCurrentResources(moneyReceived);
-        if (GameManager.Instance.currentPlayer == GameManager.Instance.playerSouth)
-        {
-            GameManager.Instance.resourcesSouth.GetComponent<ResourcePool>().showMoneyGainAnimation();
-            GameManager.Instance.resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
-            GameManager.Instance.southHandView.setPlayableCards(playerSouth.resourcesCurrent);
-        }
-        else if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
-        {
-            GameManager.Instance.resourcesNorth.GetComponent<ResourcePool>().showMoneyGainAnimation();
-            GameManager.Instance.resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
-            GameManager.Instance.northHandView.setPlayableCards(playerNorth.resourcesCurrent);
-        }
-    }
-
-    IEnumerator CheckWhetherToKillUnitAfterBonusWithCoroutine(Defendable defenderCard, int defenderID, int defenderArmor)
+    public IEnumerator CheckWhetherToKillUnitAfterBonusWithCoroutine(Defendable defenderCard, int defenderID, int defenderArmor)
     {
         //Update armor in model, and if defender dead then update model and delete card from view
         if (defenderArmor <= 0)
@@ -390,33 +239,5 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY);
             Destroy(defenderCard.gameObject);
         }
-    }
-
-    public Defendable pickRandomDropZoneUnitCard(PlayerModel playerAffectedWithEffect)
-    {
-        Defendable randomCard = null;
-        if (playerAffectedWithEffect == GameManager.Instance.playerNorth)
-        {
-            randomCard = GameManager.Instance.dropZoneNorth.chooseRandomCardOnDropZone();
-        }
-        else if (playerAffectedWithEffect == GameManager.Instance.playerSouth)
-        {
-            randomCard = GameManager.Instance.dropZoneSouth.chooseRandomCardOnDropZone();
-        }
-        return randomCard;
-    }
-
-    void goToARScene()
-    {
-        //Output this to console when Button1 or Button3 is clicked
-        //Time.timeScale = 0;
-        Debug.Log("You have chosen to change Scenes to AR !");
-        //visuals.SetActive(false);
-        SceneManager.LoadScene("BattleScene", LoadSceneMode.Additive);
-    }
-
-    public void ARSceneResult(bool ARResult)
-    {
-        Debug.Log("AR scene result is " + ARResult);
     }
 }

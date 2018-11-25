@@ -1171,6 +1171,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1018208618}
+  - {fileID: 873216881}
   - {fileID: 1394874486}
   - {fileID: 1850974877}
   m_Father: {fileID: 0}
@@ -1356,6 +1357,46 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1636266884219080, guid: ea95e125bc877814995be5a0c0fc6f70,
     type: 2}
   m_PrefabInternal: {fileID: 1301799187}
+--- !u!1 &873216880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 873216881}
+  - component: {fileID: 873216882}
+  m_Layer: 0
+  m_Name: ARManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &873216881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 873216880}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 685375047}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &873216882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 873216880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79566412ac0f057419dbb9d50107cbcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &911815417 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4289207715577666, guid: 75198594d89322f41aca919560cf21d3,
@@ -1376,6 +1417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1018208618}
   - component: {fileID: 1018208619}
+  - component: {fileID: 1018208620}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1431,11 +1473,23 @@ MonoBehaviour:
   isAttackableDraggingActive: 0
   southFaction: 0
   northFaction: 0
+  hybridEffectsSystem: {fileID: 0}
   audioGenerator: {fileID: 1850974878}
   endTurnButtonManager: {fileID: 320543560}
   speechRecognition: {fileID: 1394874487}
   debugMessageBox: {fileID: 1852950678}
   turnNumber: 0
+--- !u!114 &1018208620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1018208617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9846d093b1d608544b2ed6e160302ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1020772465
 Prefab:
   m_ObjectHideFlags: 0
@@ -2107,7 +2161,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 685375047}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1394874487
 MonoBehaviour:
@@ -3159,7 +3213,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 685375047}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1850974878
 MonoBehaviour:
