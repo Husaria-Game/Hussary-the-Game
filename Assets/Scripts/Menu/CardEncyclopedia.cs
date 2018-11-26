@@ -30,10 +30,14 @@ public class CardEncyclopedia : MonoBehaviour {
         //Loading all Card Templates from Unity
         cards = Resources.LoadAll("Cards", typeof(Card));
 
+        
+
         //Changing loaded object from type Object[] to List<Card>
         foreach (Card card in cards)
         {
-            allCards.Add(card);
+            if (card.cardType == CardType.UnitCard) {
+                allCards.Add(card);
+            }
         }
 
         currentListToDisplay = allCards.ToList();

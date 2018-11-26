@@ -11,16 +11,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
   m_Name: Namiestnik
   m_EditorClassIdentifier: 
+  cardType: 0
+  cardDetailedType: 0
   cardName: Namiestnik
   description: Towarzysz pancerny zyskuje punkt pancerza w kolejnej walce
+  effect: 
   cardImage: {fileID: 21300000, guid: 4260badd3e01a6b488165960d1988d8f, type: 3}
   cardCost: 5
   affiliation: 0
   cardID: 0
   historyDescription: "Wyznaczany przez porucznika, m\xF3g\u0142 w jego imieniu zarz\u0105dza\u0107
-    chor\u0105gwi\u0105"
+    chor\u0105gwi\u0105 w imieniu tytularnego rotmistrza. By\u0142 oficerem jazdy
+    polskiej i piechoty. Tak rozumiane stanowisko porucznika istnia\u0142o w XVII
+    i XVIII wieku."
+  maxAttacksPerTurn: 0
+  currentAttacksPerTurn: 0
+  isAbleToAttack: 0
   attack: 4
   maxHealth: 4
+  currentHealth: 0
   UnitScriptName: 
   TacticsScriptName: 
   effectAmount: 0
