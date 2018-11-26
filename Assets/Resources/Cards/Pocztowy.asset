@@ -11,16 +11,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
   m_Name: Pocztowy
   m_EditorClassIdentifier: 
+  cardType: 0
+  cardDetailedType: 0
   cardName: Pocztowy
   description: "Podstawowa jednostka wchodz\u0105ca w sk\u0142ad husarskiego pocztu"
+  effect: 
   cardImage: {fileID: 21300000, guid: 226f22db21e8b9c4e88e220d7d23986e, type: 3}
   cardCost: 3
   affiliation: 0
   cardID: 0
   historyDescription: "Podstawowa jednostka wchodz\u0105ca w sk\u0142ad husarskiego
-    pocztu"
+    pocztu. Zwykle pochodzenia ch\u0142opskiego, s\u0142u\u017C\u0105cy towarzyszowi,
+    wybierany i szkolony przez niego. Liczba pocztowych wskazywa\u0142a na zamo\u017Cno\u015B\u0107
+    towarzyszy. Cz\u0119sto pocztowi ubrani byli skromniej ni\u017C towarzysze, np
+    w wilcze lub nied\u017Awiedzie sk\xF3ry, wyposa\u017Ceni w \u0142uk, a od XVII
+    wieku obowi\u0105zkowo w d\u0142ug\u0105 bro\u0144 paln\u0105. Za dyscyplin\u0119
+    pocztowych odpowiada\u0142 rotmistrz. "
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
+  isAbleToAttack: 0
   attack: 2
   maxHealth: 2
   currentHealth: 0

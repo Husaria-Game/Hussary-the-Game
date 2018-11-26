@@ -11,17 +11,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
   m_Name: Porucznik
   m_EditorClassIdentifier: 
+  cardType: 0
+  cardDetailedType: 0
   cardName: Porucznik
   description: "Zast\u0119pca rotmistrza i sprawuj\u0105cy w\u0142adz\u0119 w jego
     imieniu"
+  effect: 
   cardImage: {fileID: 21300000, guid: 23f78a39824dbd841a345cc6359c96ef, type: 3}
   cardCost: 6
   affiliation: 0
   cardID: 0
   historyDescription: "Zast\u0119pca rotmistrza i sprawuj\u0105cy w\u0142adz\u0119
-    w jego imieniu"
+    w jego imieniu. W czasie bitwy czuwa\u0142 nad tym, aby rozkazy rotmistrza by\u0142y
+    wykonywane. W tym celu z w\u0142asnym pocztem stawa\u0142 po drugiej stronie chor\u0105gwi.
+    Je\u015Bli dowodzi\u0142 rot\u0105 osobi\u015Bcie, na jego miejscu pojawia\u0142
+    si\u0119 w zast\u0119pstwie namiestnik."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
+  isAbleToAttack: 0
   attack: 4
   maxHealth: 5
   currentHealth: 0

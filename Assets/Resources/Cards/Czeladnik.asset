@@ -11,14 +11,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
   m_Name: Czeladnik
   m_EditorClassIdentifier: 
+  cardType: 0
+  cardDetailedType: 0
   cardName: Czeladnik
   description: "Fachowy rzemie\u015Blnik wykonuj\u0105cy liczne obowi\u0105zki gospodarcze"
+  effect: 
   cardImage: {fileID: 21300000, guid: 11ce655a7ff4b3a4b90d57a2c230d98b, type: 3}
   cardCost: 1
   affiliation: 0
   cardID: 0
   historyDescription: "Zaanga\u017Cowana w wojn\u0119 czelad\u017A wykonywa\u0142a
-    r\xF3wocze\u015Bnie liczne obowi\u0105zki gospodarcze"
+    r\xF3wocze\u015Bnie liczne obowi\u0105zki gospodarcze. Jedynie czelad\u017A podprowadzaj\u0105ca
+    zapasowe konie dla walcz\u0105cych \u017Co\u0142nierzy mog\u0142a wyje\u017Cd\u017Ca\u0107
+    z obozu w czasie bitwy, pozosta\u0142a tzw \"lu\u017Ana czelad\u017A\" musia\u0142a
+    w nim nadal przebywa\u0107. Niekiedy uzbrojeni czeladnicy stanowili jako \u017Co\u0142nierze
+    pe\u0142noprawn\u0105 cz\u0119\u015B\u0107 towarzyskiego pocztu."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
   isAbleToAttack: 0

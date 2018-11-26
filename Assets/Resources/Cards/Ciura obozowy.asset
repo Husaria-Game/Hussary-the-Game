@@ -11,16 +11,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
   m_Name: Ciura obozowy
   m_EditorClassIdentifier: 
+  cardType: 0
+  cardDetailedType: 0
   cardName: Ciura obozowy
   description: "Wiernie s\u0142u\u017Cy\u0142 towarzyszowi i dba\u0142 o jego dobytek"
+  effect: 
   cardImage: {fileID: 21300000, guid: ca442d82c92aea440a731ea8530c1bca, type: 3}
   cardCost: 1
   affiliation: 0
   cardID: 0
-  historyDescription: "Wiernie s\u0142u\u017Cy\u0142 towarzyszowi i dba\u0142 o jego
-    dobytek"
+  historyDescription: "Pacho\u0142ek wojskowy, nale\u017C\u0105cy do czeladzi obozowej.
+    S\u0142u\u017Cy\u0142 towarzyszom w wyprawie wojennej oraz codziennym \u017Cyciu.
+    Do jego zada\u0144 nale\u017Ca\u0142o m.in roz\u0142o\u017Cenia namiotu obozowego,
+    ugotowanie strawy, dbanie o w\xF3z taborowy. Zdarzali si\u0119 r\xF3wnie\u017C
+    ciurowie, kt\xF3rzy na wojn\u0119 szli wy\u0142\u0105cznie po trofea wojenne.
+    Niekiedy u\u017Cywano ciur\xF3w, aby wizualnie zwi\u0119kszy\u0107 liczb\u0119
+    wojska lub aby zmyli\u0107 przeciwnik\xF3w."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
+  isAbleToAttack: 0
   attack: 1
   maxHealth: 1
   currentHealth: 0
