@@ -160,12 +160,12 @@ public class SpeechRecognitionSystem : MonoBehaviour
     {
         co = null; //reset coroutine of ASR so that pushing turnButton wont work when dont needed
         int number = random.Next(0, 101);
-        if(number < 100)
+        if(number < 20)
         {
             ShowSpeechSign(power, SpeechSign.atak);
             debugText = "Twoja losowa jednostka otrzymuje wsparcie zaopatrzeniowe + 1 Siła.";
             effectPower = 1;
-        }/*
+        }
         else if(number >= 20 && number < 40)
         {
             ShowSpeechSign(defence, SpeechSign.obrona);
@@ -189,7 +189,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
             ShowSpeechSign(fortune, SpeechSign.fortuna);
             debugText = "Jednostki wsparcia przybywają - losujesz dodakową kartę.";
             effectPower = 1;
-        }*/
+        }
     }
 
     public void ShowSpeechSign(Sprite signImage, SpeechSign signMark)
@@ -202,7 +202,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         int number = random.Next(5, 20);
 
         yield return new WaitForSeconds(number);  //Random second in which system starts to show signImage
-        //recognizer.Start();
+        recognizer.Start();
         speechSign.sprite = signImage;
         speechSign.enabled = true;
         currentSpeechSign = signMark;
@@ -213,7 +213,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         currentSpeechSign = SpeechSign.nic;
         heardWord = "";
         resultOfVoiceCommand.text = heardWord;
-        //recognizer.Stop();
+        recognizer.Stop();
     }
 
     private void CompareShownSignAndSpeech()
@@ -299,7 +299,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
             currentSpeechSign = SpeechSign.nic;
             heardWord = "";
             resultOfVoiceCommand.text = heardWord;
-            //recognizer.Stop();
+            recognizer.Stop();
         }
 
     }

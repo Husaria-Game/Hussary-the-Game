@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 114752171316098226}
   m_Layer: 0
   m_Name: MultiPlayerButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 114990054579554616}
   m_Layer: 0
   m_Name: SinglePlayerButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 114772154817248258}
   m_Layer: 0
   m_Name: UnitDescButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,13 +177,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4395445519270916}
+  - component: {fileID: 114274664909792820}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1688694048943404
 GameObject:
   m_ObjectHideFlags: 1
@@ -197,7 +198,7 @@ GameObject:
   - component: {fileID: 114601698026174350}
   m_Layer: 0
   m_Name: QuitButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -402,6 +403,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114274664909792820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636266884219080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08efcd5abdf906846b9de29bf4fc047e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  singlePlayer: {fileID: 114990054579554616}
+  multiPlayer: {fileID: 114752171316098226}
 --- !u!114 &114292454567323384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1265,10 +1279,10 @@ RectTransform:
   m_Father: {fileID: 224791138277047024}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 609.48236, y: -431.682}
+  m_SizeDelta: {x: 1218.9647, y: 117.80914}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224283332601895048
 RectTransform:
@@ -1284,10 +1298,10 @@ RectTransform:
   m_Father: {fileID: 224791138277047024}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 609.48236, y: -58.90457}
+  m_SizeDelta: {x: 1218.9647, y: 117.80914}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224420064277402266
 RectTransform:
@@ -1344,10 +1358,10 @@ RectTransform:
   m_Father: {fileID: 224791138277047024}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 609.48236, y: -183.16371}
+  m_SizeDelta: {x: 1218.9647, y: 117.80914}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224653841023075896
 RectTransform:
@@ -1417,10 +1431,10 @@ RectTransform:
   m_Father: {fileID: 224791138277047024}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 609.48236, y: -307.42285}
+  m_SizeDelta: {x: 1218.9647, y: 117.80914}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224791138277047024
 RectTransform:
