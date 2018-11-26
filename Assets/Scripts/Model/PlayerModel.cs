@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerModel {
+public class PlayerModel : MonoBehaviour{
 
     public int playerID;
     public string name;
@@ -11,13 +11,17 @@ public class PlayerModel {
     public ArmyModel armymodel;
     public int resourcesMaxThisTurn { get; set; }
     public int resourcesCurrent { get; set; }
+    public HandView handViewVisual;
+    public DropZone dropZoneVisual;
+    public GameObject deckVisual;
+    public HeroVisualManager heroVisual;
+    public ResourcePool resourceVisual;
 
-    public PlayerModel(int playerID, string name, Faction faction, Position position)
+    public void setInitialValues(int playerID, string name, Faction faction)
     {
         this.playerID = playerID;
         this.name = name;
         this.faction = faction;
-        this.position = position;
 
         if (position == Position.North)
         {
