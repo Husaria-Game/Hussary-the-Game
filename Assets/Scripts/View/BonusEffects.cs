@@ -17,46 +17,32 @@ public class BonusEffects : MonoBehaviour
 
     public void drawNewCard(PlayerModel playerModel, bool shouldCardBeDrawnWithDelay)
     {
-        HandView handView = null;
-        GameObject deck = null;
-
-        //Set hand view and deck based on player
-        if (playerModel == GameManager.Instance.playerNorth)
-        {
-            handView = GameManager.Instance.northHandView;
-            deck = GameManager.Instance.deckNorth;
-        }
-        else if (playerModel == GameManager.Instance.playerSouth)
-        {
-            handView = GameManager.Instance.southHandView;
-            deck = GameManager.Instance.deckSouth;
-        }
 
         //Draw Card if not over limit
         if (playerModel.armymodel.armyCardsModel.handCardList.Count < CARD_LIMIT)
         {
             if (shouldCardBeDrawnWithDelay)
             {
-                StartCoroutine(drawNewCardWithDelay(playerModel, handView, deck));
+                StartCoroutine(drawNewCardWithDelay(playerModel));
             }
             else
             {
                 Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-                handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
+                playerModel.handViewVisual.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel);
             }
         }
         else
         {
-            GameManager.Instance.UnblockAllUnitsAndCards(GameManager.Instance.playerSouth, GameManager.Instance.southHandView, GameManager.Instance.dropZoneSouth);
+            GameManager.Instance.UnblockAllUnitsAndCards(GameManager.Instance.playerSouth);
         }
     }
 
     //Coroutines type of draw card method
-    IEnumerator drawNewCardWithDelay(PlayerModel playerModel, HandView handView, GameObject deck)
+    IEnumerator drawNewCardWithDelay(PlayerModel playerModel)
     {
         yield return new WaitForSeconds(2f);
         Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
-        handView.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel, deck);
+        playerModel.handViewVisual.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel);
     }
 
     public void createFriendlyBonusEffect(Defendable defenderCard, Transform defenderUnit, CardVisualStateEnum cardDetailedTypeForEffect, int attackerAttack)
@@ -151,31 +137,17 @@ public class BonusEffects : MonoBehaviour
     public void createMoneyGainEffect(int moneyReceived)
     {
         GameManager.Instance.currentPlayer.addCurrentResources(moneyReceived);
-        if (GameManager.Instance.currentPlayer == GameManager.Instance.playerSouth)
-        {
-            GameManager.Instance.resourcesSouth.GetComponent<ResourcePool>().showMoneyGainAnimation();
-            GameManager.Instance.resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(GameManager.Instance.playerSouth.resourcesCurrent, GameManager.Instance.playerSouth.resourcesMaxThisTurn);
-            GameManager.Instance.southHandView.setPlayableCards(GameManager.Instance.playerSouth.resourcesCurrent);
-        }
-        else if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
-        {
-            GameManager.Instance.resourcesNorth.GetComponent<ResourcePool>().showMoneyGainAnimation();
-            GameManager.Instance.resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(GameManager.Instance.playerNorth.resourcesCurrent, GameManager.Instance.playerNorth.resourcesMaxThisTurn);
-            GameManager.Instance.northHandView.setPlayableCards(GameManager.Instance.playerNorth.resourcesCurrent);
-        }
+        GameManager.Instance.currentPlayer.resourceVisual.showMoneyGainAnimation();
+        GameManager.Instance.currentPlayer.resourceVisual.updateResourcesView(GameManager.Instance.currentPlayer.resourcesCurrent, GameManager.Instance.currentPlayer.resourcesMaxThisTurn);
+        GameManager.Instance.currentPlayer.handViewVisual.setPlayableCards(GameManager.Instance.currentPlayer.resourcesCurrent);       
     }
 
     public Defendable pickRandomDropZoneUnitCard(PlayerModel playerAffectedWithEffect)
     {
         Defendable randomCard = null;
-        if (playerAffectedWithEffect == GameManager.Instance.playerNorth)
-        {
-            randomCard = GameManager.Instance.dropZoneNorth.chooseRandomCardOnDropZone();
-        }
-        else if (playerAffectedWithEffect == GameManager.Instance.playerSouth)
-        {
-            randomCard = GameManager.Instance.dropZoneSouth.chooseRandomCardOnDropZone();
-        }
+
+        randomCard = playerAffectedWithEffect.dropZoneVisual.chooseRandomCardOnDropZone();
+
         return randomCard;
     }
 

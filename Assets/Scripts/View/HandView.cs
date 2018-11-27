@@ -35,18 +35,18 @@ public class HandView : MonoBehaviour {
 
     }
     // add new card GameObject to hand
-    public void MoveDrawnCardFromDeckToHand(Card cardDrawn, PlayerModel player, GameObject deckVisual)
+    public void MoveDrawnCardFromDeckToHand(Card cardDrawn, PlayerModel player)
     {
         // ----------instantiate drawn card given as parameter and load its display in player's hand
         this.isDrawingRunning = true;
         
         if (cardDrawn.maxHealth > 0)
         {
-            newCard = Instantiate(GameManager.Instance.unitCard, deckVisual.transform.position, Quaternion.Euler(0, 180, 0), GameManager.Instance.visuals.transform);
+            newCard = Instantiate(GameManager.Instance.unitCard, player.deckVisual.transform.position, Quaternion.Euler(0, 180, 0), GameManager.Instance.visuals.transform);
         }
         else
         {
-            newCard = Instantiate(GameManager.Instance.tacticsCard, deckVisual.transform.position, Quaternion.Euler(0, 180, 0), GameManager.Instance.visuals.transform);
+            newCard = Instantiate(GameManager.Instance.tacticsCard, player.deckVisual.transform.position, Quaternion.Euler(0, 180, 0), GameManager.Instance.visuals.transform);
         }
 
         idAssignment = newCard.GetComponent(typeof(IDAssignment)) as IDAssignment;

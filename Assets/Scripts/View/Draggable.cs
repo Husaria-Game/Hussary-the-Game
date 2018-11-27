@@ -103,13 +103,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         int updatedCurrentResources = GameManager.Instance.currentPlayer.substractCurrentResources(int.Parse(t_Reference.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()));
         int maxResources = GameManager.Instance.currentPlayer.resourcesMaxThisTurn;
-        if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
-        {
-            GameManager.Instance.resourcesNorth.transform.GetComponent<ResourcePool>().updateResourcesView(updatedCurrentResources, maxResources);
-        }
-        else if (GameManager.Instance.currentPlayer == GameManager.Instance.playerSouth)
-        {
-            GameManager.Instance.resourcesSouth.transform.GetComponent<ResourcePool>().updateResourcesView(updatedCurrentResources, maxResources);
-        }
+        GameManager.Instance.currentPlayer.resourceVisual.updateResourcesView(updatedCurrentResources, maxResources);
     }
 }

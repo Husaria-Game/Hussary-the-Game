@@ -268,20 +268,8 @@ public class SpeechRecognitionSystem : MonoBehaviour
 
         if (effectToDo == "zbrodnia")
         {
-            GameObject hero = null;
-            DropZone initialDropZone = null;
-            if (GameManager.Instance.currentPlayer == GameManager.Instance.playerSouth)
-            {
-                hero = GameManager.Instance.heroNorth;
-                initialDropZone = GameManager.Instance.dropZoneSouth;
-            }
-            else if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
-            {
-                hero = GameManager.Instance.heroSouth;
-                initialDropZone = GameManager.Instance.dropZoneNorth;
-
-            }
-            BonusEffects.Instance.createHostileEffectHero(hero, initialDropZone, effectPower);
+            BonusEffects.Instance.createHostileEffectHero(GameManager.Instance.otherPlayer.heroVisual.gameObject, 
+                GameManager.Instance.currentPlayer.dropZoneVisual, effectPower);
         }
         else if (effectToDo == "fortuna")
         {
