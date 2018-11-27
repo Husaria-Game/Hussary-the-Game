@@ -139,7 +139,9 @@ public class BonusEffects : MonoBehaviour
         GameManager.Instance.currentPlayer.addCurrentResources(moneyReceived);
         GameManager.Instance.currentPlayer.resourceVisual.showMoneyGainAnimation();
         GameManager.Instance.currentPlayer.resourceVisual.updateResourcesView(GameManager.Instance.currentPlayer.resourcesCurrent, GameManager.Instance.currentPlayer.resourcesMaxThisTurn);
-        GameManager.Instance.currentPlayer.handViewVisual.setPlayableCards(GameManager.Instance.currentPlayer.resourcesCurrent);       
+        GameManager.Instance.currentPlayer.handViewVisual.setPlayableCards(GameManager.Instance.currentPlayer.resourcesCurrent);
+        //music
+        GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.coinGainAudio);
     }
 
     public Defendable pickRandomDropZoneUnitCard(PlayerModel playerAffectedWithEffect)

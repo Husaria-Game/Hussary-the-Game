@@ -22,7 +22,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("draggable");
         t_Reference = this.transform;
         cardDetailedType = t_Reference.GetComponent<CardDisplayLoader>().cardDetailedType;
 

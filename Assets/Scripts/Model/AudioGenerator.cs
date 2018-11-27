@@ -16,6 +16,8 @@ public class AudioGenerator : MonoBehaviour {
     [Header("ASR")]
     public AudioClip effect;
     public AudioClip noEffect;
+    [Header("AR")]
+    public AudioClip coinGain;
     [Header("Button")]
     public AudioClip button;
     [Header("AudioSources")]
@@ -26,6 +28,7 @@ public class AudioGenerator : MonoBehaviour {
     public AudioSource enhencementAudio;
     public AudioSource cannonAudio;
     public AudioSource heroHurtAudio;
+    public AudioSource coinGainAudio;
     public AudioSource effectAudio;
     public AudioSource noEffectAudio;
     public AudioSource buttonAudio;
@@ -50,6 +53,7 @@ public class AudioGenerator : MonoBehaviour {
         enhencementAudio = AddAudio(enhencement, false);
         cannonAudio = AddAudio(cannon, false);
         heroHurtAudio = AddAudio(heroHurt, false);
+        coinGainAudio = AddAudio(coinGain, false);
         effectAudio = AddAudio(effect, false);
         noEffectAudio = AddAudio(noEffect, false);
         buttonAudio = AddAudio(button, false);

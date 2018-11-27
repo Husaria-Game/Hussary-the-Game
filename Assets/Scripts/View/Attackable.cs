@@ -36,7 +36,6 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public void OnBeginDrag(PointerEventData eventData)
     {
         GameManager.Instance.isAttackableDraggingActive = true;
-        Debug.Log("attackable");
         // get object reference transform
         t_Reference = this.transform;
 
