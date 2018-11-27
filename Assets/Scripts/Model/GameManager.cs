@@ -14,19 +14,9 @@ public class GameManager : MonoBehaviour
     public PlayerModel otherPlayer; //player that waits for his turn
     public MessageManager messageManager;
     public EndingMessege endingMessage;
-    //public HandView northHandView;
-    //public HandView southHandView;
     public GameObject unitCard;
     public GameObject tacticsCard;
     public GameObject visuals;
-    //public GameObject deckNorth;
-    //public GameObject deckSouth;
-    //public GameObject resourcesNorth;
-    //public GameObject resourcesSouth;
-    //public GameObject heroNorth;
-    //public GameObject heroSouth;
-    //public DropZone dropZoneNorth;
-    //public DropZone dropZoneSouth;
     public GameObject mainMenu;
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
