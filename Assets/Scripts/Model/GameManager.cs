@@ -11,31 +11,20 @@ public class GameManager : MonoBehaviour
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
     public PlayerModel currentPlayer; //player that has active turn
-    public PlayerModel otherPlayer; //player that has waits for his turn
+    public PlayerModel otherPlayer; //player that waits for his turn
     public MessageManager messageManager;
     public EndingMessege endingMessage;
-    public HandView northHandView;
-    public HandView southHandView;
     public GameObject unitCard;
     public GameObject tacticsCard;
     public GameObject visuals;
-    public GameObject deckNorth;
-    public GameObject deckSouth;
-    public GameObject resourcesNorth;
-    public GameObject resourcesSouth;
-    public GameObject heroNorth;
-    public GameObject heroSouth;
-    public DropZone dropZoneNorth;
-    public DropZone dropZoneSouth;
     public GameObject mainMenu;
-    public bool gameRunning;
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
 
 
     public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
 
-    //Data From SettsHoldera
+    //Data From SettsHolder
     public GameMode typeOfEnemy;
 
     public Faction southFaction;
@@ -81,11 +70,11 @@ public class GameManager : MonoBehaviour
         {
             if (currentPlayer == playerSouth)
             {
-                UnblockAllUnitsAndCards(playerSouth, southHandView, dropZoneSouth);
+                UnblockAllUnitsAndCards(playerSouth);
             }
             if (currentPlayer == playerNorth)
             {
-                UnblockAllUnitsAndCards(playerNorth, northHandView, dropZoneNorth);
+                UnblockAllUnitsAndCards(playerNorth);
             }
             enablePlayableCardsFlag = false;
         }
@@ -107,32 +96,32 @@ public class GameManager : MonoBehaviour
         messageManager.playerSouthName = southName;
 
 
-        //// ----------draw 4 cards from deck to Player South
-        for (int i=0;i<2; i++)
+        //// ----------draw cards from deck to Player South
+        for (int i=0; i < 2; i++)
         {            
-            while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
+            while (playerNorth.handViewVisual.isDrawingRunning || playerSouth.handViewVisual.isDrawingRunning)
             {
                 yield return new WaitForSeconds(0.2f);             
             }
             BonusEffects.Instance.drawNewCard(playerSouth, false);
         }
 
-        //// ----------draw 4 cards from deck to Player North
+        //// ----------draw cards from deck to Player North
         for (int i = 0; i < 2; i++)
         {
-            while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
+            while (playerNorth.handViewVisual.isDrawingRunning || playerSouth.handViewVisual.isDrawingRunning)
             {
                 yield return new WaitForSeconds(0.2f);
             }
             BonusEffects.Instance.drawNewCard(playerNorth, false);
-            while (northHandView.isDrawingRunning || southHandView.isDrawingRunning)
+            while (playerNorth.handViewVisual.isDrawingRunning || playerSouth.handViewVisual.isDrawingRunning)
             {
                 yield return new WaitForSeconds(0.1f);
             }
         }
 
-        northHandView.blockAllOperations();
-        southHandView.blockAllOperations();
+        playerNorth.handViewVisual.blockAllOperations();
+        playerSouth.handViewVisual.blockAllOperations();
         currentPlayer = playerNorth;
         this.nextTurn();
     }
@@ -156,21 +145,14 @@ public class GameManager : MonoBehaviour
         BlackAllUnitsAndCards();
         messageManager.ShowMessage(currentPlayer.name + " \nTwoja tura!", 2f);
         currentPlayer.updateResourcesNewTurn();
+        currentPlayer.resourceVisual.updateResourcesView(currentPlayer.resourcesCurrent, currentPlayer.resourcesMaxThisTurn);
+        currentPlayer.resourceVisual.ProgressText.color = new Color32(0, 0, 0, 255);
+        BonusEffects.Instance.drawNewCard(currentPlayer, true);
 
         if (currentPlayer == playerSouth)
         {
-            resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
-            resourcesSouth.GetComponent<ResourcePool>().ProgressText.color = new Color32(0, 0, 0, 255);
-            BonusEffects.Instance.drawNewCard(playerSouth, true);
-
             //going to replace it with hybridEffectsSystem
             speechRecognition.CheckWhetherToShowSpeechSign();
-        }
-        if (currentPlayer == playerNorth)
-        {
-            resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
-            resourcesNorth.GetComponent<ResourcePool>().ProgressText.color = new Color32(0, 0, 0, 255);
-            BonusEffects.Instance.drawNewCard(playerNorth, true);
         }
 
         endTurnButtonManager.TimerStart();
@@ -181,8 +163,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GameManger INITIALIZATION");
         Instance.debugMessageBox.ShowDebugText("Gra Inicjalizowana", true);
-        
-        gameRunning = true;
+
         IDFactory.ResetIDs();
 
         //Attribute factions, names, and mode of game
@@ -190,12 +171,12 @@ public class GameManager : MonoBehaviour
 
         Debug.Log(typeOfEnemy);
 
-        playerNorth = new PlayerModel(0, northName, northFaction, Position.North);
-        playerSouth = new PlayerModel(1, southName, southFaction, Position.South);
-        heroSouth.GetComponent<HeroVisualManager>().setHeroAcordingToFaction(southFaction);
-        heroNorth.GetComponent<HeroVisualManager>().setHeroAcordingToFaction(northFaction);
-        resourcesNorth.GetComponent<ResourcePool>().updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
-        resourcesSouth.GetComponent<ResourcePool>().updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+        playerNorth.setInitialValues(0, northName, northFaction);
+        playerSouth.setInitialValues(1, southName, southFaction);
+        playerSouth.heroVisual.setHeroAcordingToFaction(southFaction);
+        playerNorth.heroVisual.setHeroAcordingToFaction(northFaction);
+        playerNorth.resourceVisual.updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
+        playerSouth.resourceVisual.updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
     }
 
     public void cardDraggedToFrontCommand(Position playerPosition, int cardId)
@@ -212,17 +193,17 @@ public class GameManager : MonoBehaviour
 
     public void BlackAllUnitsAndCards()
     {
-        northHandView.blockAllOperations();
-        southHandView.blockAllOperations();
-        dropZoneNorth.blockAllUnitOperations();
-        dropZoneSouth.blockAllUnitOperations();
+        playerNorth.handViewVisual.blockAllOperations();
+        playerSouth.handViewVisual.blockAllOperations();
+        playerNorth.dropZoneVisual.blockAllUnitOperations();
+        playerSouth.dropZoneVisual.blockAllUnitOperations();
     }
 
-    public void UnblockAllUnitsAndCards(PlayerModel player, HandView hand, DropZone drop)
+    public void UnblockAllUnitsAndCards(PlayerModel player)
     {
         player.armymodel.armyCardsModel.restoreCardAttacksPerRound();
-        hand.setPlayableCards(player.resourcesCurrent);
-        drop.unlockUnitAttacks();
+        player.handViewVisual.setPlayableCards(player.resourcesCurrent);
+        player.dropZoneVisual.unlockUnitAttacks();
     }
 
     public void StartGameWithCouroutine()
