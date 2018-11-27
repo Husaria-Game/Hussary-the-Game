@@ -20,7 +20,6 @@ public class SceneReloaderTest : MonoBehaviour
     void goBackToTableScene(bool isARBonusGranted)
     {
         //Output this to console when Button1 or Button3 is clicked
-        Debug.Log("You have clicked the" + isARBonusGranted + "Button!");
         ARManager.Instance.ARSceneResult(isARBonusGranted);
         SceneManager.UnloadSceneAsync("ARScene");
     }
