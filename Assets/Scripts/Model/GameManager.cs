@@ -157,6 +157,10 @@ public class GameManager : MonoBehaviour
 
         endTurnButtonManager.TimerStart();
         currentPlayer.armymodel.armyCardsModel.EnableAttackOfJustPlacedUnits(currentPlayer);
+        if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth)
+        {
+            AIManager.Instance.canAIMakeMove = true;
+        }
     }
 
     void InitializeGame()
