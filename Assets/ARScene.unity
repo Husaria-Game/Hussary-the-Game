@@ -1412,7 +1412,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2005745034}
   - component: {fileID: 2005745033}
-  - component: {fileID: 2005745032}
   - component: {fileID: 2005745031}
   - component: {fileID: 2005745030}
   m_Layer: 0
@@ -1446,13 +1445,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mWorldCenterMode: 2
   mWorldCenter: {fileID: 0}
---- !u!81 &2005745032
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2005745029}
-  m_Enabled: 1
 --- !u!20 &2005745033
 Camera:
   m_ObjectHideFlags: 0
