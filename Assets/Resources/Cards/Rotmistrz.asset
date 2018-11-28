@@ -11,9 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
   m_Name: Rotmistrz
   m_EditorClassIdentifier: 
+  cardType: 0
+  cardDetailedType: 0
   cardName: Rotmistrz
-  description: "Dow\xF3dca roty husarskiej, osobi\u015Bcie zaci\u0105gaj\u0105cy do
-    wojska towarzyszy"
+  description: "Dow\xF3dca roty husarskiej"
+  effect: 
   cardImage: {fileID: 21300000, guid: 45c232b8ee67057418fa875aa1a570e3, type: 3}
   cardCost: 7
   affiliation: 0
@@ -30,6 +32,7 @@ MonoBehaviour:
     rotmistrza."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
+  isAbleToAttack: 0
   attack: 5
   maxHealth: 5
   currentHealth: 0

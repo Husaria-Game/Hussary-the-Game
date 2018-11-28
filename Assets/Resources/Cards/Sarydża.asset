@@ -11,18 +11,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
   m_Name: "Saryd\u017Ca"
   m_EditorClassIdentifier: 
+  cardType: 0
+  cardDetailedType: 0
   cardName: "Saryd\u017Ca"
   description: "Piechota rekrutowana z ch\u0142opstwa, uzbrojona w bro\u0144 paln\u0105"
+  effect: 
   cardImage: {fileID: 21300000, guid: 464aa275c89c1c24086b44dabcb17f8b, type: 3}
   cardCost: 4
   affiliation: 1
   cardID: 0
   historyDescription: "Piechota rekrutowana z anatolijskiego ch\u0142opstwa, wyszkolona
     i uzbrojona w bro\u0144 paln\u0105. Od ko\u0144ca XVI wieku ich ilo\u015B\u0107
-    stale ros\u0142a. Ka\u017Cdorazowo formowana na potrzeby wojny, nie tworzy\u0142a
-    regularnego wsparcia armii, lecz rozwi\u0105zywana po zako\u0144czeniu danej wojny."
+    stale ros\u0142a. Ka\u017Cdorazowo formowana na bie\u017C\u0105ce potrzeby, nie
+    tworzy\u0142a regularnego wsparcia armii, lecz rozwi\u0105zywana po zako\u0144czeniu
+    danej wojny."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
+  isAbleToAttack: 0
   attack: 4
   maxHealth: 3
   currentHealth: 0

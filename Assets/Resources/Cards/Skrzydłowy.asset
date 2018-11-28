@@ -14,7 +14,7 @@ MonoBehaviour:
   cardType: 0
   cardDetailedType: 0
   cardName: "Skrzyd\u0142owy"
-  description: "Dw\xF3ch skrzyd\u0142owych utrzymywa\u0142o szyk oddzia\u0142u"
+  description: "Dw\xF3ch skrzyd\u0142owych utrzymuje szyk oddzia\u0142u"
   effect: 
   cardImage: {fileID: 21300000, guid: cd2e1b3f0b9596b4a9dce2ae6b2989af, type: 3}
   cardCost: 4
