@@ -222,11 +222,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224802060704852936, guid: cdb4eb718c04a7e48a226959b7ccb73d,
     type: 2}
   m_PrefabInternal: {fileID: 81902412}
---- !u!1 &81902414 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1515019024752632, guid: cdb4eb718c04a7e48a226959b7ccb73d,
-    type: 2}
-  m_PrefabInternal: {fileID: 81902412}
 --- !u!114 &81902416 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114074065404115878, guid: cdb4eb718c04a7e48a226959b7ccb73d,
@@ -556,11 +551,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1911193563098204, guid: 47b0fc9dff3d8e746af20406aa38282c,
     type: 2}
   m_PrefabInternal: {fileID: 1952506995}
---- !u!1 &396078479 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1770514370180424, guid: d5d6d51544b47dc4982e4c0b49e0f3bf,
-    type: 2}
-  m_PrefabInternal: {fileID: 740418415}
 --- !u!4 &396078480 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4727634010285798, guid: d5d6d51544b47dc4982e4c0b49e0f3bf,
@@ -1197,20 +1187,10 @@ MonoBehaviour:
   otherPlayer: {fileID: 0}
   messageManager: {fileID: 1642594580}
   endingMessage: {fileID: 1139976452}
-  northHandView: {fileID: 1432928458}
-  southHandView: {fileID: 147453527}
   unitCard: {fileID: 1286417557770694, guid: 0817e419b116e284a8ac4ed5c97e46e4, type: 2}
   tacticsCard: {fileID: 1691426831155688, guid: 32627f39f6c3f6a4299ecb81ab49f4e1,
     type: 2}
   visuals: {fileID: 1978118198}
-  deckNorth: {fileID: 1467810637}
-  deckSouth: {fileID: 1079237310}
-  resourcesNorth: {fileID: 396078479}
-  resourcesSouth: {fileID: 1163318314}
-  heroNorth: {fileID: 81902414}
-  heroSouth: {fileID: 1810843749}
-  dropZoneNorth: {fileID: 1968538252}
-  dropZoneSouth: {fileID: 1089850089}
   mainMenu: {fileID: 867139650}
   enablePlayableCardsFlag: 0
   isAttackableDraggingActive: 0
@@ -1350,11 +1330,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1723501866}
   m_Script: {fileID: 11500000, guid: 23434c6d20387a84cb56073504e84c07, type: 3}
---- !u!1 &1163318314 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1770514370180424, guid: d5d6d51544b47dc4982e4c0b49e0f3bf,
-    type: 2}
-  m_PrefabInternal: {fileID: 83861240}
 --- !u!4 &1163318315 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4727634010285798, guid: d5d6d51544b47dc4982e4c0b49e0f3bf,
@@ -2563,11 +2538,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53f61686b1b28b04aad62bc04d3046ba, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1810843749 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1515019024752632, guid: cdb4eb718c04a7e48a226959b7ccb73d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1680021750}
 --- !u!114 &1810843751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114074065404115878, guid: cdb4eb718c04a7e48a226959b7ccb73d,
@@ -2623,6 +2593,7 @@ MonoBehaviour:
   heroHurt: {fileID: 8300000, guid: 8677c5527430b2e4fb7ada38792a1349, type: 3}
   effect: {fileID: 8300000, guid: 6c8ce6fc4bef86e4b9ca69847e3d7227, type: 3}
   noEffect: {fileID: 8300000, guid: 9f24e78538585ca468ea2e211d92e0da, type: 3}
+  coinGain: {fileID: 0}
   button: {fileID: 8300000, guid: c0edc1c45c773314aab5c033316bce4e, type: 3}
   bogurodzicaAudio: {fileID: 0}
   battleThemeAudio: {fileID: 0}
@@ -2631,6 +2602,7 @@ MonoBehaviour:
   enhencementAudio: {fileID: 0}
   cannonAudio: {fileID: 0}
   heroHurtAudio: {fileID: 0}
+  coinGainAudio: {fileID: 0}
   effectAudio: {fileID: 0}
   noEffectAudio: {fileID: 0}
   buttonAudio: {fileID: 0}
