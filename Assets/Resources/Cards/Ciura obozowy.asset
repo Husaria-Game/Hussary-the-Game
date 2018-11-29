@@ -14,7 +14,7 @@ MonoBehaviour:
   cardType: 0
   cardDetailedType: 0
   cardName: Ciura obozowy
-  description: "Wiernie s\u0142u\u017Cy\u0142 towarzyszowi i dba\u0142 o jego dobytek"
+  description: "Wiernie s\u0142u\u017Cy towarzyszowi i dba o jego dobytek"
   effect: 
   cardImage: {fileID: 21300000, guid: ca442d82c92aea440a731ea8530c1bca, type: 3}
   cardCost: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   cardType: 1
   cardDetailedType: 6
   cardName: Bogurodzica
-  description: "Rota gromadzi si\u0119 na wsp\xF3lnej modlitwie przed bitw\u0105. "
+  description: "Rota gromadzi si\u0119 na wsp\xF3lnej modlitwie przed bitw\u0105"
   effect: "+1 Si\u0142a(W)"
   cardImage: {fileID: 21300000, guid: 9caf62b21e163ab4b9f8416ee8c7cfd2, type: 3}
   cardCost: 2

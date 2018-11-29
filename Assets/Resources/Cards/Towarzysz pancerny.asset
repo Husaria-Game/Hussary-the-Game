@@ -11,16 +11,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
   m_Name: Towarzysz pancerny
   m_EditorClassIdentifier: 
+  cardType: 0
+  cardDetailedType: 0
   cardName: Towarzysz pancerny
   description: "Ci\u0119\u017Cko uzbrojona jazda wspieraj\u0105ca oddzia\u0142y husarii"
+  effect: 
   cardImage: {fileID: 21300000, guid: 4be41727e58398043b3c71a629a633b8, type: 3}
   cardCost: 4
   affiliation: 0
   cardID: 0
   historyDescription: "Ci\u0119\u017Cko uzbrojona jazda wspieraj\u0105ca oddzia\u0142y
-    husarii"
+    husarii, wywodz\u0105ca si\u0119z jazdy kozackiej. W bitwach pe\u0142nili wa\u017Cne
+    role, jak cho\u0107by wzmocnienie atak\xF3w husarii, wykonywanie manewr\xF3w oskrzydlenia,
+    definitywne pokonanie przeciwnika, po prze\u0142amaniu frontu przez husari\u0119.
+    Na str\xF3j towarzysza pancernego sk\u0142ada\u0142y si\u0119: kolczuga (lub bechter),
+    kaptury kolcze, misiurki, szyszaki. Podstawowy ekwipunek do walki stanowi\u0142y
+    ka\u0142kany, szable, \u0142uki, bro\u0144 palna, czekany lub bro\u0144 drzewcowa
+    i w\u0142\xF3cznia. Zaci\u0105g do wojska odbywa\u0142 si\u0119 analogicznie jak
+    w przypadku husarii."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
+  isAbleToAttack: 0
   attack: 3
   maxHealth: 4
   currentHealth: 0
