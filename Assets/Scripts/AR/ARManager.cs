@@ -28,7 +28,8 @@ public class ARManager : MonoBehaviour
         //Time.timeScale = 1;
         if (ARResult)
         {
-            BonusEffects.Instance.createMoneyGainEffect(2);
+            BonusEffects.Instance.createMoneyGainEffect(ARControl.arPoints);
+            ARControl.arPoints = 0;
         }
     }
 }

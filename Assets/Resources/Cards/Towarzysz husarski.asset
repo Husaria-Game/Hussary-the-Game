@@ -11,17 +11,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c10b34eff94bacf42abc139750ea6fb0, type: 3}
   m_Name: Towarzysz husarski
   m_EditorClassIdentifier: 
+  cardType: 0
+  cardDetailedType: 0
   cardName: Towarzysz husarski
-  description: "Szlachcic s\u0142u\u017C\u0105cy w wojsku i zaci\u0105gaj\u0105cy
-    w jego szeregi poddanych sobie pocztowych"
+  description: "Szlachcic zaci\u0105gaj\u0105cy poddanych sobie pocztowych"
+  effect: 
   cardImage: {fileID: 21300000, guid: b81472716aba63a40bc12d85d3281c07, type: 3}
   cardCost: 4
   affiliation: 0
   cardID: 0
-  historyDescription: "Szlachcic s\u0142u\u017C\u0105cy w wojsku i zaci\u0105gaj\u0105cy
-    w jego szeregi poddanych sobie pocztowych"
+  historyDescription: "Polski lub litewski szlachcic s\u0142u\u017C\u0105cy w wojsku,
+    zaci\u0105gany przez rotmistrza i wystawiaj\u0105cy poczet z poddanymi sobie pocztowymi.
+    Koszt wystawienia pocztu m\xF3g\u0142 by\u0107 por\xF3wnywalny z kupnem ca\u0142ej
+    wsi. Towarzysze husarscy posiadali kilka koni, kopi\u0119 do skruszenia przy pocz\u0105tkowym
+    ataku w bitwie, koncerz, pa\u0142asz, \u0142uk lub ewentualnie czekan. Raz na
+    kwarta\u0142 otrzymywali \u017Co\u0142d, z kt\xF3rego p\xF3\u017Aniej wyp\u0142aca\u0142
+    nale\u017Cno\u015B\u0107 pocztowym."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
+  isAbleToAttack: 0
   attack: 4
   maxHealth: 3
   currentHealth: 0

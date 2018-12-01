@@ -154,6 +154,14 @@ public class GameManager : MonoBehaviour
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
 
+        //To change
+        if (currentPlayer == playerNorth)
+        {
+            //going to replace it with hybridEffectsSystem
+            ARManager.Instance.goToARScene();
+        }
+
+
         endTurnButtonManager.TimerStart();
         currentPlayer.armymodel.armyCardsModel.EnableAttackOfJustPlacedUnits(currentPlayer);
         if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth)

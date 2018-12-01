@@ -14,7 +14,7 @@ MonoBehaviour:
   cardType: 1
   cardDetailedType: 3
   cardName: Najazd falowy
-  description: "Trudne warunki terenowe zmuszaj\u0105 do ponownego ataku."
+  description: "Trudne warunki terenowe zmuszaj\u0105 do ponownego ataku"
   effect: -1 Pancerz(W)
   cardImage: {fileID: 21300000, guid: a7c793f2e5ed11946be8c6c718f714e7, type: 3}
   cardCost: 3

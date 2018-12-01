@@ -14,16 +14,17 @@ MonoBehaviour:
   cardType: 0
   cardDetailedType: 0
   cardName: Namiestnik
-  description: Towarzysz pancerny zyskuje punkt pancerza w kolejnej walce
+  description: "Wyznaczany przez porucznika jako jego zast\u0119pca"
   effect: 
   cardImage: {fileID: 21300000, guid: 4260badd3e01a6b488165960d1988d8f, type: 3}
   cardCost: 5
   affiliation: 0
   cardID: 0
-  historyDescription: "Wyznaczany przez porucznika, m\xF3g\u0142 w jego imieniu zarz\u0105dza\u0107
-    chor\u0105gwi\u0105 w imieniu tytularnego rotmistrza. By\u0142 oficerem jazdy
-    polskiej i piechoty. Tak rozumiane stanowisko porucznika istnia\u0142o w XVII
-    i XVIII wieku."
+  historyDescription: "Wyznaczany przez porucznika, m\xF3g\u0142 zarz\u0105dza\u0107
+    chor\u0105gwi\u0105 w imieniu tytularnego rotmistrza. Zazwyczaj wy\u0142aniany
+    w\u015Br\xF3d do\u015Bwiadczonych towarzyszy, gotowy do zada\u0144 dow\xF3dczych
+    w przypadku niedyspozycji porucznika. Oficer jazdy polskiej i piechoty. Tak rozumiana
+    funkcja tytularna namiestnika istnia\u0142a w XVII i XVIII wieku."
   maxAttacksPerTurn: 0
   currentAttacksPerTurn: 0
   isAbleToAttack: 0

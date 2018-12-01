@@ -14,7 +14,7 @@ MonoBehaviour:
   cardType: 1
   cardDetailedType: 4
   cardName: Zbroja husarska
-  description: "Czeladnicy ulepszaj\u0105 zbroj\u0119 towarzyszy i pocztowych."
+  description: "Czeladnicy ulepszaj\u0105 zbroj\u0119 towarzyszy i pocztowych"
   effect: +1 Pancerz
   cardImage: {fileID: 21300000, guid: eaa228235b84ae64a9d36568d1146aae, type: 3}
   cardCost: 1

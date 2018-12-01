@@ -14,7 +14,7 @@ MonoBehaviour:
   cardType: 1
   cardDetailedType: 4
   cardName: Mehter
-  description: "W korpusie janczar\xF3w rozbrzmiewa przera\u017Aliwa melodia. "
+  description: "W korpusie janczar\xF3w rozbrzmiewa przera\u017Aliwa melodia"
   effect: +1 Pancerz
   cardImage: {fileID: 21300000, guid: ae7eb342279300743a453e2602ea14ba, type: 3}
   cardCost: 1
