@@ -27,6 +27,11 @@ public class ARBomb : MonoBehaviour {
             foreach (GameObject enemy in gameObjects)
                 GameObject.Destroy(enemy);
 
+            gameObjects = GameObject.FindGameObjectsWithTag("Bomb");
+
+            foreach (GameObject enemy in gameObjects)
+                GameObject.Destroy(enemy);
+
             Destroy(gameObject);
             Destroy(transform.root.gameObject);
             
