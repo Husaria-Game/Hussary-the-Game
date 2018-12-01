@@ -28,7 +28,7 @@ public class ARControl : MonoBehaviour {
         //After press 8 -Back and no bonus money
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            ARManager.Instance.ARSceneResult(true);
+            ARManager.Instance.ARSceneResult(false);
             SceneManager.UnloadScene(ARScene);
         }
 
@@ -41,4 +41,5 @@ public class ARControl : MonoBehaviour {
         }
 
     }
+
 }
