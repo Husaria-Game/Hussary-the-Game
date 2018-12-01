@@ -66,17 +66,16 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (enablePlayableCardsFlag)
+        if (enablePlayableCardsFlag && currentPlayer != null)
         {
-            if (currentPlayer == playerSouth)
-            {
-                UnblockAllUnitsAndCards(playerSouth);
-            }
-            if (currentPlayer == playerNorth)
-            {
-                UnblockAllUnitsAndCards(playerNorth);
-            }
+            UnblockAllUnitsAndCards(currentPlayer);
             enablePlayableCardsFlag = false;
+            if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && 
+                GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth &&
+                AIManager.Instance.canAIMakeMove)
+            {
+                AIManager.Instance.manageMoves();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
@@ -159,6 +158,7 @@ public class GameManager : MonoBehaviour
         currentPlayer.armymodel.armyCardsModel.EnableAttackOfJustPlacedUnits(currentPlayer);
         if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth)
         {
+            Debug.Log("GameManager: AI can make move");
             AIManager.Instance.canAIMakeMove = true;
         }
     }

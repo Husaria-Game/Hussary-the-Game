@@ -10,6 +10,7 @@ public class AIManager : MonoBehaviour
     public static AIManager Instance;
     public bool canAIMakeMove;
     public List<GameObject> playableCardList { get; set; }
+    public List<GameObject> attackableUnitList { get; set; }
 
     void Awake()
     {
@@ -20,26 +21,15 @@ public class AIManager : MonoBehaviour
     {
         canAIMakeMove = false;
         this.playableCardList = new List<GameObject>();
-    }
-
-    void Update()
-    {
-        if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && 
-            GameManager.Instance.enablePlayableCardsFlag && 
-            GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth &&
-            canAIMakeMove)
-        {
-            manageMoves();
-        }
+        this.attackableUnitList = new List<GameObject>();
     }
 
     public void manageMoves()
     {
         canAIMakeMove = false;
         Debug.Log("0");
-        if (GameManager.Instance.enablePlayableCardsFlag && GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
+        if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
         {
-            Debug.Log("manageMoves");
             foreach (Transform child in GameManager.Instance.currentPlayer.handViewVisual.transform)
             {
                 Debug.Log("foreach");
@@ -52,22 +42,36 @@ public class AIManager : MonoBehaviour
             Debug.Log("playableCount " + playableCardList.Count);
             if (playableCardList.Count > 0 && playableCardList[0].GetComponent<CardDisplayLoader>().cardType == CardType.UnitCard)
             {
-                Debug.Log("moving");
-                moveDesiredUnitCardToFront(playableCardList[0]);
+                dragCardFromHandToFrontAI(playableCardList[0]);
             }
         }
     }
 
-    public void moveDesiredUnitCardToFront(GameObject cardGO)
+    public void dragCardFromHandToFrontAI(GameObject cardToMove)
     {
-        if(playableCardList.Count > 0)
-        {
-            Debug.Log("really moving");
-            cardGO.transform.DOMove(GameManager.Instance.currentPlayer.dropZoneVisual.transform.position, 1).SetEase(Ease.OutQuint, 0.5f, 0.1f);
-        }
-        playableCardList.RemoveAt(0);
-        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToFront(cardGO.GetComponent<IDAssignment>().uniqueId);
-        cardGO.transform.SetParent(GameManager.Instance.currentPlayer.dropZoneVisual.transform.GetChild(0).GetChild(0));
+        PointerEventData eventDataDrag = new PointerEventData(EventSystem.current);
+        eventDataDrag.position = cardToMove.transform.position;
+                
+        cardToMove.GetComponent<Draggable>().OnBeginDrag(eventDataDrag);
+//                playableCardList[0].transform.DOMove(GameManager.Instance.currentPlayer.dropZoneVisual.transform.position, 1).SetEase(Ease.OutQuint, 0.5f, 0.1f);
+        eventDataDrag.pointerDrag = playableCardList[0].gameObject;
+        GameManager.Instance.currentPlayer.dropZoneVisual.OnDrop(eventDataDrag);
+        cardToMove.GetComponent<Draggable>().OnEndDrag(eventDataDrag);
+        playableCardList.Clear();
+    }
+
+    public void unitAttacksEnemyUnitAI(GameObject cardToMove)
+    {
+        Debug.Log("attack Unit");
+        PointerEventData eventDataDrag = new PointerEventData(EventSystem.current);
+        eventDataDrag.position = cardToMove.transform.position;
+                
+        cardToMove.GetComponent<Draggable>().OnBeginDrag(eventDataDrag);
+//                playableCardList[0].transform.DOMove(GameManager.Instance.currentPlayer.dropZoneVisual.transform.position, 1).SetEase(Ease.OutQuint, 0.5f, 0.1f);
+        eventDataDrag.pointerDrag = playableCardList[0].gameObject;
+        GameManager.Instance.currentPlayer.dropZoneVisual.OnDrop(eventDataDrag);
+        cardToMove.GetComponent<Draggable>().OnEndDrag(eventDataDrag);
+        playableCardList.Clear();
     }
 
 
