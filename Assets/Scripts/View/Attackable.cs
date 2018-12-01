@@ -104,8 +104,18 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         GameManager.Instance.isAttackableDraggingActive = false;
 
         GetComponent<CanvasGroup>().blocksRaycasts = true;
-
-        Vector3 pz = Camera.main.ScreenToWorldPoint(eventData.position);
+        
+        Vector3 pz = new Vector3();
+        
+        if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
+        {
+            pz = eventData.position;
+        }
+        else
+        {
+            pz = Camera.main.ScreenToWorldPoint(eventData.position);
+        }
+        
         pz.z = 0;
 
         if (attackOnUnitSuccess)//for attack on Unit successful - attacker adjusts all the information about the fight, attacker and defender

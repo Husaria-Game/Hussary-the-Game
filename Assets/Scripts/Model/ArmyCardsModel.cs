@@ -200,5 +200,26 @@ public class ArmyCardsModel : MonoBehaviour
             }
         }
     }
+
+    public void showCardLists()
+    {
+//        foreach (Card item in GameManager.Instance.playerNorth.armymodel.armyCardsModel.deckCardList)
+//        {
+//            Debug.Log("1. Deck: " + item.cardName.ToString());
+//        }
+        foreach (Card item in GameManager.Instance.playerNorth.armymodel.armyCardsModel.handCardList)
+        {
+            Debug.Log("2. Hand: " + item.cardName.ToString());
+        }
+        foreach (Card item in GameManager.Instance.playerNorth.armymodel.armyCardsModel.frontCardList)
+        {
+            Debug.Log("3. Front: " + item.cardName.ToString());
+        }
+        foreach (Card item in GameManager.Instance.playerNorth.armymodel.armyCardsModel.graveyardCardList)
+        {
+            Debug.Log("4. Grave: " + item.cardName.ToString());
+        }
+        
+    }
 }
 
