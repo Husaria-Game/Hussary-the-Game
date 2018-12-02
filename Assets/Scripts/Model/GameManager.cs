@@ -154,8 +154,8 @@ public class GameManager : MonoBehaviour
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
 
-        //To change
-        if (currentPlayer == playerNorth)
+        // TODO: get rid of this condition later on
+        if (currentPlayer == playerNorth && SettsHolder.instance.typeOfEnemy != GameMode.Computer)
         {
             //going to replace it with hybridEffectsSystem
             ARManager.Instance.goToARScene();
