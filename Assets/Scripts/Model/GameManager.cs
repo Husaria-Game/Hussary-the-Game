@@ -147,6 +147,8 @@ public class GameManager : MonoBehaviour
         currentPlayer.resourceVisual.updateResourcesView(currentPlayer.resourcesCurrent, currentPlayer.resourcesMaxThisTurn);
         currentPlayer.resourceVisual.ProgressText.color = new Color32(0, 0, 0, 255);
         BonusEffects.Instance.drawNewCard(currentPlayer, true);
+        currentPlayer.namePanel.changeNamePanelColors();
+        otherPlayer.namePanel.changeNamePanelColors();
 
         if (currentPlayer == playerSouth)
         {
@@ -189,6 +191,8 @@ public class GameManager : MonoBehaviour
         playerNorth.heroVisual.setHeroAcordingToFaction(northFaction);
         playerNorth.resourceVisual.updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
         playerSouth.resourceVisual.updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+        playerNorth.namePanel.NameText.text = playerNorth.name;
+        playerSouth.namePanel.NameText.text = playerSouth.name;
     }
 
     public void cardDraggedToFrontCommand(Position playerPosition, int cardId)
