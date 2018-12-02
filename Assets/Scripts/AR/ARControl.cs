@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ARControl : MonoBehaviour {
 
@@ -9,9 +10,11 @@ public class ARControl : MonoBehaviour {
     private string ARScene = "ARScene";
     public static int arPoints = 0;
 
+
     // Use this for initialization
     void Start () {
-       
+        //Set Player Name
+        GameObject.Find("PlayerNameText").GetComponent<Text>().text = "Husaria - AR Event";
 
     }
 	
