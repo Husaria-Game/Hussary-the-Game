@@ -66,17 +66,16 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (enablePlayableCardsFlag)
+        if (enablePlayableCardsFlag && currentPlayer != null)
         {
-            if (currentPlayer == playerSouth)
-            {
-                UnblockAllUnitsAndCards(playerSouth);
-            }
-            if (currentPlayer == playerNorth)
-            {
-                UnblockAllUnitsAndCards(playerNorth);
-            }
+            UnblockAllUnitsAndCards(currentPlayer);
             enablePlayableCardsFlag = false;
+            if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && 
+                GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth &&
+                AIManager.Instance.canAIMakeMove)
+            {
+                AIManager.Instance.manageMoves();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
@@ -155,8 +154,8 @@ public class GameManager : MonoBehaviour
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
 
-        //To change
-        if (currentPlayer == playerNorth)
+        // TODO: get rid of this condition later on
+        if (currentPlayer == playerNorth && SettsHolder.instance.typeOfEnemy != GameMode.Computer)
         {
             //going to replace it with hybridEffectsSystem
             ARManager.Instance.goToARScene();
@@ -165,6 +164,11 @@ public class GameManager : MonoBehaviour
 
         endTurnButtonManager.TimerStart();
         currentPlayer.armymodel.armyCardsModel.EnableAttackOfJustPlacedUnits(currentPlayer);
+        if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth)
+        {
+            Debug.Log("GameManager: AI can make move");
+            AIManager.Instance.canAIMakeMove = true;
+        }
     }
 
     void InitializeGame()
