@@ -32,7 +32,15 @@ public class EndTurnButtonManager : MonoBehaviour
     public void TimerStart()
     {
         timeLeft = TIME;
-        InitialButtonBlock(5f);
+        if(gameManager.typeOfEnemy == GameMode.Computer && gameManager.currentPlayer == gameManager.playerNorth)
+        {
+            Debug.Log("Tura computera");
+            ButtonDisable();
+        }
+        else
+        {
+            InitialButtonBlock(5f);
+        }
         StartCoroutine(TimerStartWithDelay());
     }
 
@@ -49,6 +57,30 @@ public class EndTurnButtonManager : MonoBehaviour
         gameManager.nextTurn();
     }
 
+    public void ButtonDisable()
+    {
+        endTurnButton.enabled = false;
+        buttonText.text = "Czekaj...";
+    }
+
+    public void ButtonEnable()
+    {
+        endTurnButton.enabled = true;
+        buttonText.text = "Koniec Tury";
+    }
+
+    public void InitialButtonBlock(float blockTime)
+    {
+        StartCoroutine(InitialButtonBlockWithCoroutine(blockTime));
+    }
+
+    IEnumerator InitialButtonBlockWithCoroutine(float blockTime)
+    {
+        ButtonDisable();
+        yield return new WaitForSeconds(blockTime);
+        ButtonEnable();
+    }
+
     public override string ToString()
     {
         int seconds = Mathf.RoundToInt(timeLeft);
@@ -59,19 +91,6 @@ public class EndTurnButtonManager : MonoBehaviour
         return string.Format("{0}", secondsText + "s.");
     }
 
-    public void InitialButtonBlock(float blockTime)
-    {
-        StartCoroutine(InitialButtonBlockWithCoroutine(blockTime));
-    }
-
-    IEnumerator InitialButtonBlockWithCoroutine(float blockTime)
-    {
-        endTurnButton.enabled = false;
-        buttonText.text = "Czekaj...";
-        yield return new WaitForSeconds(blockTime);
-        endTurnButton.enabled = true;
-        buttonText.text = "Koniec Tury";
-    }
 
 
 }

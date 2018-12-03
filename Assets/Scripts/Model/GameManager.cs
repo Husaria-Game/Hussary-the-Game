@@ -21,9 +21,6 @@ public class GameManager : MonoBehaviour
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
 
-
-    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
-
     //Data From SettsHolder - General
     public bool isARAvailable;
     public bool isASRAvailable;
@@ -37,13 +34,13 @@ public class GameManager : MonoBehaviour
     public string northName;
     public string southName;
 
-
     public HybridEffectsSystem hybridEffectsSystem;
     public AudioGenerator audioGenerator;
     public EndTurnButtonManager endTurnButtonManager;
     public SpeechRecognitionSystem speechRecognition;
     public DebugMessege debugMessageBox;
 
+    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
     public int turnNumber = 0;
 
     void Awake()
@@ -66,7 +63,6 @@ public class GameManager : MonoBehaviour
             mainMenu.SetActive(true);
             enablePlayableCardsFlag = false;
         }
-
     }
 
     void Update()
@@ -89,7 +85,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Use this for initialization
     IEnumerator startGame()
     {
         /*
