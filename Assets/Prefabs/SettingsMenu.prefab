@@ -190,14 +190,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224763233992439970}
-  - component: {fileID: 114475323384236242}
+  - component: {fileID: 114606660120633194}
   m_Layer: 0
   m_Name: SettingsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1453568663133678
 GameObject:
   m_ObjectHideFlags: 1
@@ -669,18 +669,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: changeMusicInGamePlaying
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
@@ -752,18 +741,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: changeARAvailable
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
@@ -833,23 +811,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Powr\xF3t"
---- !u!114 &114475323384236242
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1363547670603758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1528ecb6454e464a9bf207e36f424ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardName: {fileID: 0}
-  cardImage: {fileID: 0}
-  cardHistoryDescription: {fileID: 0}
-  factionMenu: {fileID: 0}
-  nextCardButton: {fileID: 0}
-  previousCardButton: {fileID: 0}
 --- !u!114 &114514484261699684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -937,6 +898,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Ustawienia Gry
+--- !u!114 &114606660120633194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363547670603758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e4ba54923b70ba4d9ab7ad621ef4c5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arAvailable: {fileID: 114401405708707348}
+  asrAvailable: {fileID: 114684096092615446}
+  aIPlayerCardsSeen: {fileID: 114840905169432640}
+  musicinGamePlaying: {fileID: 114386079695404724}
 --- !u!114 &114650017973125302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1019,18 +995,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: changeASRAvailable
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
@@ -1211,18 +1176,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: changeAIPlayerCardsSeen
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
@@ -1693,7 +1647,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224763262389822610}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1786,12 +1740,12 @@ RectTransform:
   m_Children:
   - {fileID: 224439145635796050}
   m_Father: {fileID: 224763262389822610}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3453368, y: 0.07983032}
   m_AnchorMax: {x: 0.65413475, y: 0.19600001}
-  m_AnchoredPosition: {x: 0.5168457, y: 0}
-  m_SizeDelta: {x: -9, y: -8.333008}
+  m_AnchoredPosition: {x: 2.5084229, y: 0}
+  m_SizeDelta: {x: -5.0168, y: -8.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224466148202247102
 RectTransform:
@@ -1823,7 +1777,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224763262389822610}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.10975306, y: 0.69100004}
   m_AnchorMax: {x: 0.8884439, y: 0.8741697}
@@ -1952,9 +1906,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 224460665248063596}
   - {fileID: 224352789433842742}
   - {fileID: 224479548779324162}
+  - {fileID: 224460665248063596}
   - {fileID: 224445346351933020}
   - {fileID: 224166681728948044}
   - {fileID: 224214645296152280}
