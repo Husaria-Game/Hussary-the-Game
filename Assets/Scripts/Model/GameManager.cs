@@ -21,12 +21,17 @@ public class GameManager : MonoBehaviour
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
 
-    //Data From SettsHolder
-    public GameMode typeOfEnemy;
+    //Data From SettsHolder - General
+    public bool isARAvailable;
+    public bool isASRAvailable;
+    public bool aIPlayerCardsSeen;
+    public bool isMusicInGamePlaying;
 
+    //Data From SettsHolder - Player
+    
+    public GameMode typeOfEnemy;
     public Faction southFaction;
     public Faction northFaction;
-
     public string northName;
     public string southName;
 
@@ -36,6 +41,7 @@ public class GameManager : MonoBehaviour
     public SpeechRecognitionSystem speechRecognition;
     public DebugMessege debugMessageBox;
 
+    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
     public int turnNumber = 0;
 
     void Awake()
@@ -58,7 +64,6 @@ public class GameManager : MonoBehaviour
             mainMenu.SetActive(true);
             enablePlayableCardsFlag = false;
         }
-
     }
 
     void Update()
@@ -81,16 +86,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Use this for initialization
     IEnumerator startGame()
     {
+        /*
         while (messageManager.enabled == false)
         {
             yield return new WaitForSeconds(0.05f);
         }
-        InitializeGame();
         messageManager.playerSouthName = southName;
-
+        */
+        currentPlayer = playerNorth;
+        InitializeGame();
+        
+        endTurnButtonManager.InitialButtonBlock(16f);
 
         //// ----------draw cards from deck to Player South
         for (int i=0; i < 2; i++)
@@ -118,7 +126,7 @@ public class GameManager : MonoBehaviour
 
         playerNorth.handViewVisual.blockAllOperations();
         playerSouth.handViewVisual.blockAllOperations();
-        currentPlayer = playerNorth;
+        
         this.nextTurn();
     }
 
@@ -179,8 +187,6 @@ public class GameManager : MonoBehaviour
 
         //Attribute factions, names, and mode of game
         SettsHolder.instance.AttributeGameManagerNamesAndFactions();
-
-        Debug.Log(typeOfEnemy);
 
         playerNorth.setInitialValues(0, northName, northFaction);
         playerSouth.setInitialValues(1, southName, southFaction);
