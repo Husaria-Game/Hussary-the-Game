@@ -8,6 +8,7 @@ public class EndTurnButtonManager : MonoBehaviour
     public Button endTurnButton;
     public GameManager gameManager;
     public Text timerText;
+    public Text buttonText;
 
     private bool isCounting = false;
     private float timerCountdown;
@@ -31,6 +32,7 @@ public class EndTurnButtonManager : MonoBehaviour
     public void TimerStart()
     {
         timeLeft = TIME;
+        InitialButtonBlock(5f);
         StartCoroutine(TimerStartWithDelay());
     }
 
@@ -56,5 +58,21 @@ public class EndTurnButtonManager : MonoBehaviour
 
         return string.Format("{0}", secondsText + "s.");
     }
+
+    public void InitialButtonBlock(float blockTime)
+    {
+        StartCoroutine(InitialButtonBlockWithCoroutine(blockTime));
+    }
+
+    IEnumerator InitialButtonBlockWithCoroutine(float blockTime)
+    {
+        endTurnButton.enabled = false;
+        buttonText.text = "Czekaj...";
+        yield return new WaitForSeconds(blockTime);
+        endTurnButton.enabled = true;
+        buttonText.text = "Koniec Tury";
+    }
+
+
 }
 

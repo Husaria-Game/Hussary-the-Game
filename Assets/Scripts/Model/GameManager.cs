@@ -92,13 +92,17 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     IEnumerator startGame()
     {
+        /*
         while (messageManager.enabled == false)
         {
             yield return new WaitForSeconds(0.05f);
         }
-        InitializeGame();
         messageManager.playerSouthName = southName;
-
+        */
+        currentPlayer = playerNorth;
+        InitializeGame();
+        
+        endTurnButtonManager.InitialButtonBlock(16f);
 
         //// ----------draw cards from deck to Player South
         for (int i=0; i < 2; i++)
@@ -126,7 +130,7 @@ public class GameManager : MonoBehaviour
 
         playerNorth.handViewVisual.blockAllOperations();
         playerSouth.handViewVisual.blockAllOperations();
-        currentPlayer = playerNorth;
+        
         this.nextTurn();
     }
 
