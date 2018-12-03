@@ -36,74 +36,16 @@ public class AIManager : MonoBehaviour
         GameManager.Instance.currentPlayer.armymodel.armyCardsModel.showCardLists();
         if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
         {
-            // create list of attackable friendly units 
-            foreach (Transform child in GameManager.Instance.currentPlayer.dropZoneVisual.dropAreaImage.transform)
-            {
-                Card cardInModel =
-                    GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(
-                        child.GetComponent<IDAssignment>().uniqueId);
-                if (cardInModel.currentAttacksPerTurn > 0 && cardInModel.isAbleToAttack)
-                {
-                    attackableUnitList.Add(child.gameObject);
-                }
-            }
+            // create list of attackable friendly units
+            updateAttackableUnitsList();
 
             // create list of defendable enemy units 
-            foreach (Transform child in GameManager.Instance.otherPlayer.dropZoneVisual.dropAreaImage.transform)
-            {
-                Card cardInModel =
-                    GameManager.Instance.otherPlayer.armymodel.armyCardsModel.findCardInFrontByID(
-                        child.GetComponent<IDAssignment>().uniqueId);
-                defendableUnitList.Add(child.gameObject);
-            }
-            
+            updateDefendableUnitsList();
             
             // create list of playable cards 
-            foreach (Transform child in GameManager.Instance.currentPlayer.handViewVisual.transform)
-            {
-                CardVisualStateEnum cardDetailedType = child.GetComponent<CardDisplayLoader>().cardDetailedType;
-                
-                // for affordable cards...
-                if (int.Parse(child.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()) <=
-                    GameManager.Instance.currentPlayer.resourcesCurrent)
-                {
-                    // ...add to playable card list if card will have any effect (heal, strenghten or attack any Unit) 
-                    switch(child.GetComponent<CardDisplayLoader>().cardDetailedType)
-                    {
-                        case CardVisualStateEnum.UnitCard:
-                        {
-                            playableCardList.Add(child.gameObject);
-                            break;
-                        }
-                        case CardVisualStateEnum.TacticsAttackAll:
-                        case CardVisualStateEnum.TacticsAttackOne:
-                        case CardVisualStateEnum.TacticsHealAll:
-                        case CardVisualStateEnum.TacticsHealOne:
-                        {
-                            if (defendableUnitList.Count > 0)
-                            {
-                                playableCardList.Add(child.gameObject);
-                            }
-                            break;
-                        }
-                        case CardVisualStateEnum.TacticsStrengthAll:
-                        case CardVisualStateEnum.TacticsStrengthOne:
-                        {
-                            if (attackableUnitList.Count > 0)
-                            {
-                                playableCardList.Add(child.gameObject);
-                            }
-                            break;
-                        }
-                        default:
-                            Debug.Log("default");
-                            break;
-                        
-                    }
-                }
-                
-            }
+            updatePlayableCardsList();
 
+            // if no playables and attackables then end turn
             if (playableCardList.Count <= 0 && attackableUnitList.Count <= 0)
             {
                 StartCoroutine(endTurnAI());
@@ -148,16 +90,36 @@ public class AIManager : MonoBehaviour
                         GameManager.Instance.otherPlayer.dropZoneVisual.gameObject);
                 }
             }
-            else if (attackableUnitList.Count > 0 && defendableUnitList.Count > 0)
+            else if (attackableUnitList.Count > 0) // player has available unit moves
             {
-                    // attacks either hero or unit (50% chance of each)
-                    attackUnitOrHeroAI(attackableUnitList[0],
-                    defendableUnitList[defendableUnitRandom]);
-            }
-            else if (attackableUnitList.Count > 0)
-            {
-                unitAttacksEnemyHeroAI(attackableUnitList[0], 
-                    GameManager.Instance.otherPlayer.heroVisual.gameObject);
+                int allFriendlyUnitsStrenght = getAllUnitsStrenght(attackableUnitList);
+                int allEnemyUnitsStrenght = getAllUnitsStrenght(defendableUnitList);
+                
+                // 1) if enemyHero can be killed this turn then attack this hero
+                if (int.Parse(GameManager.Instance.otherPlayer.heroVisual.healthText.text) <= allFriendlyUnitsStrenght)
+                {
+                    unitAttacksEnemyUnitOrHeroAI(attackableUnitList[attackableCardRandom],
+                        GameManager.Instance.otherPlayer.heroVisual.gameObject);
+                }
+                // 2) "Obligatory Kill" - if friendlyHero can be killed this turn then attack enemy units with attempt
+                // to kill any unit
+                else if (defendableUnitList.Count > 0 &&
+                         int.Parse(GameManager.Instance.currentPlayer.heroVisual.healthText.text) <=
+                         allEnemyUnitsStrenght)
+                {
+                    chooseToAttackUnitOrHero(attackableUnitList[attackableCardRandom], true);
+                }
+                // 3) decide which - unit or hero - to attack when enemy units are available
+                else if (defendableUnitList.Count > 0)
+                {
+                    chooseToAttackUnitOrHero(attackableUnitList[attackableCardRandom], false);
+                }
+                // 4) attack hero if no enemy units available
+                else
+                {
+                    unitAttacksEnemyUnitOrHeroAI(attackableUnitList[attackableCardRandom],
+                        GameManager.Instance.otherPlayer.heroVisual.gameObject);
+                }
             }
             else
             {
@@ -192,7 +154,7 @@ public class AIManager : MonoBehaviour
         cardToMove.GetComponent<Draggable>().OnEndDrag(eventDataDrag);
     }
 
-    public void unitAttacksEnemyUnitAI(GameObject attackingUnit, GameObject defendingUnit)
+    public void unitAttacksEnemyUnitOrHeroAI(GameObject attackingUnit, GameObject defendingUnit)
     {
         PointerEventData eventDataDrag = new PointerEventData(EventSystem.current);
         eventDataDrag.position = attackingUnit.transform.position;
@@ -231,29 +193,176 @@ public class AIManager : MonoBehaviour
         attackingUnit.GetComponent<Attackable>().OnEndDrag(eventDataDrag);
     }
 
-    public void unitAttacksEnemyHeroAI(GameObject attackingUnit, GameObject defendingHero)
+    // decide whether to attack enemy unit or hero
+    public void chooseToAttackUnitOrHero(GameObject attacker, bool obligatoryUnitKill)
     {
-        PointerEventData eventDataDrag = new PointerEventData(EventSystem.current);
-        eventDataDrag.position = attackingUnit.transform.position;
-
-        attackingUnit.GetComponent<Attackable>().OnBeginDrag(eventDataDrag);
-        eventDataDrag.pointerDrag = attackingUnit;
-        defendingHero.GetComponent<Defendable>().OnDrop(eventDataDrag);
-        eventDataDrag.position = defendingHero.transform.position;
-        attackingUnit.GetComponent<Attackable>().initialPosition = attackingUnit.transform.position;
-        attackingUnit.GetComponent<Attackable>().OnEndDrag(eventDataDrag);
-    }
-
-    public void attackUnitOrHeroAI(GameObject attacker, GameObject defender)
-    {
-        // attacks either hero or unit (50% chance of each)
-        if (Random.value > 0.5f)
+        int attackerBiggestProfit;
+        GameObject currentTarget = null;
+        
+        // 0) initial target is first unit for obligatory kill or enemy hero when normal situation
+        if (obligatoryUnitKill)
         {
-            unitAttacksEnemyHeroAI(attacker, defender);
+            attackerBiggestProfit = -99;
         }
         else
         {
-            unitAttacksEnemyUnitAI(attacker, GameManager.Instance.otherPlayer.heroVisual.gameObject);
+            currentTarget = GameManager.Instance.otherPlayer.heroVisual.gameObject;
+            attackerBiggestProfit = 0;
         }
+        
+        int attackerStrenght = int.Parse(attacker.GetComponent<CardDisplayLoader>().attackText.text);
+        int attackerArmor = int.Parse(attacker.GetComponent<CardDisplayLoader>().armorText.text);
+        
+        // 1) look for enemy with profitable fight outcome
+        foreach (GameObject unitGO in defendableUnitList)
+        {
+            int defenderStrenght = int.Parse(unitGO.GetComponent<CardDisplayLoader>().attackText.text);
+            int defenderArmor = int.Parse(unitGO.GetComponent<CardDisplayLoader>().armorText.text);
+
+            // armor stats after potential fight
+            int defenderOutcomeArmor = defenderArmor - attackerStrenght > 0 ? defenderArmor - attackerStrenght : 0;
+            int attackerOutcomeArmor = attackerArmor - defenderStrenght > 0 ? attackerArmor - defenderStrenght : 0;
+
+            // armor stats change after potential fight
+            int defenderArmorChange = defenderArmor - defenderOutcomeArmor;
+            int attackerArmorChange = attackerArmor - attackerOutcomeArmor;
+
+            int defenderLoss = defenderOutcomeArmor == 0 ? defenderStrenght + defenderArmor : defenderArmorChange;
+            int attackerLoss = attackerOutcomeArmor == 0 ? attackerStrenght + attackerArmor : attackerArmorChange;
+
+            int fightProfit = defenderLoss - attackerLoss;
+
+            if (obligatoryUnitKill && isAttackerAbleToKillAnyEnemyUnit(attacker))
+            {
+                // search for obligatory kill
+                if (fightProfit > attackerBiggestProfit && defenderOutcomeArmor == 0)
+                {
+                    // fight profitable
+                    attackerBiggestProfit = fightProfit;
+                    currentTarget = unitGO;
+                }
+            }
+            else
+            {
+                if (fightProfit > attackerBiggestProfit)
+                {
+                    // fight profitable or in case of obligatory kill generates less loss
+                    attackerBiggestProfit = fightProfit;
+                    currentTarget = unitGO;
+                }
+                else if (fightProfit == attackerBiggestProfit && attackerOutcomeArmor > 0 && defenderOutcomeArmor == 0)
+                {
+                    // fight equal but unit kills other unit and survives
+                    currentTarget = unitGO;
+                }
+            }
+        }
+            
+        unitAttacksEnemyUnitOrHeroAI(attacker, currentTarget);
+    }
+
+    // creates list of attackable friendly units
+    public void updateAttackableUnitsList()
+    { 
+        foreach (Transform child in GameManager.Instance.currentPlayer.dropZoneVisual.dropAreaImage.transform)
+        {
+            Card cardInModel =
+                GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(
+                    child.GetComponent<IDAssignment>().uniqueId);
+            if (cardInModel.currentAttacksPerTurn > 0 && cardInModel.isAbleToAttack)
+            {
+                attackableUnitList.Add(child.gameObject);
+            }
+        }
+        
+    }
+
+    // creates list of defendable enemy units 
+    public void updateDefendableUnitsList()
+    {
+        foreach (Transform child in GameManager.Instance.otherPlayer.dropZoneVisual.dropAreaImage.transform)
+        {
+            Card cardInModel =
+                GameManager.Instance.otherPlayer.armymodel.armyCardsModel.findCardInFrontByID(
+                    child.GetComponent<IDAssignment>().uniqueId);
+            defendableUnitList.Add(child.gameObject);
+        }
+        
+    }
+
+    // creates list of playable cards 
+    public void updatePlayableCardsList()
+    {
+        foreach (Transform child in GameManager.Instance.currentPlayer.handViewVisual.transform)
+        {
+            CardVisualStateEnum cardDetailedType = child.GetComponent<CardDisplayLoader>().cardDetailedType;
+
+            // for affordable cards...
+            if (int.Parse(child.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()) <=
+                GameManager.Instance.currentPlayer.resourcesCurrent)
+            {
+                // ...add to playable card list if card will have any effect (heal, strenghten or attack any Unit) 
+                switch (child.GetComponent<CardDisplayLoader>().cardDetailedType)
+                {
+                    case CardVisualStateEnum.UnitCard:
+                    {
+                        playableCardList.Add(child.gameObject);
+                        break;
+                    }
+                    case CardVisualStateEnum.TacticsAttackAll:
+                    case CardVisualStateEnum.TacticsAttackOne:
+                    case CardVisualStateEnum.TacticsHealAll:
+                    case CardVisualStateEnum.TacticsHealOne:
+                    {
+                        if (defendableUnitList.Count > 0)
+                        {
+                            playableCardList.Add(child.gameObject);
+                        }
+
+                        break;
+                    }
+                    case CardVisualStateEnum.TacticsStrengthAll:
+                    case CardVisualStateEnum.TacticsStrengthOne:
+                    {
+                        if (attackableUnitList.Count > 0)
+                        {
+                            playableCardList.Add(child.gameObject);
+                        }
+
+                        break;
+                    }
+                    default:
+                        Debug.Log("default");
+                        break;
+                }
+            }
+        }
+    }
+
+    public int getAllUnitsStrenght(List<GameObject> unitList)
+    {
+        int tableUnitsStrenghtSum = 0;
+        foreach (GameObject unitGO in unitList)
+        {
+            tableUnitsStrenghtSum += int.Parse(unitGO.GetComponent<CardDisplayLoader>().attackText.text);
+            Debug.Log("tableUnitsStrenghtSum: " + tableUnitsStrenghtSum);
+        }
+
+        return tableUnitsStrenghtSum;
+    }
+
+    public bool isAttackerAbleToKillAnyEnemyUnit(GameObject attacker)
+    {
+        int attackerStrenght = int.Parse(attacker.GetComponent<CardDisplayLoader>().attackText.text);
+
+        foreach (GameObject unitGO in defendableUnitList)
+        {
+            int defenderArmor = int.Parse(unitGO.GetComponent<CardDisplayLoader>().armorText.text);
+            if (attackerStrenght >= defenderArmor)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
