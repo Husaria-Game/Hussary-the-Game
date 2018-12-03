@@ -9,6 +9,7 @@ public class BonusEffects : MonoBehaviour
     // SINGLETON
     public static BonusEffects Instance;
     public const int CARD_LIMIT = 6;
+    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
 
     void Awake()
     {
@@ -100,7 +101,7 @@ public class BonusEffects : MonoBehaviour
             GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.cannonAudio);
             // adjust armor to defender - in model
             GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
-            StartCoroutine(GameManager.Instance.CheckWhetherToKillUnitAfterBonusWithCoroutine(defenderCard, defenderID, defenderArmor));
+            StartCoroutine(CheckWhetherToKillUnitAfterBonusWithCoroutine(defenderCard, defenderID, defenderArmor));
         }
     }
 
@@ -151,6 +152,18 @@ public class BonusEffects : MonoBehaviour
         randomCard = playerAffectedWithEffect.dropZoneVisual.chooseRandomCardOnDropZone();
 
         return randomCard;
+    }
+
+    public IEnumerator CheckWhetherToKillUnitAfterBonusWithCoroutine(Defendable defenderCard, int defenderID, int defenderArmor)
+    {
+        //Update armor in model, and if defender dead then update model and delete card from view
+        if (defenderArmor <= 0)
+        {
+            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
+            // TODO: make below const global and without duplicates
+            yield return new WaitForSeconds(DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY);
+            Destroy(defenderCard.gameObject);
+        }
     }
 
 }

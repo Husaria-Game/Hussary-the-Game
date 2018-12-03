@@ -21,9 +21,6 @@ public class GameManager : MonoBehaviour
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
 
-
-    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
-
     //Data From SettsHolder
     public GameMode typeOfEnemy;
 
@@ -230,17 +227,5 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    public IEnumerator CheckWhetherToKillUnitAfterBonusWithCoroutine(Defendable defenderCard, int defenderID, int defenderArmor)
-    {
-        //Update armor in model, and if defender dead then update model and delete card from view
-        if (defenderArmor <= 0)
-        {
-            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
-            // TODO: make below const global and without duplicates
-            yield return new WaitForSeconds(DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY);
-            Destroy(defenderCard.gameObject);
-        }
     }
 }
