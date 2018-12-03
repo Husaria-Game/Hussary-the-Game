@@ -40,7 +40,6 @@ public class AIManager : MonoBehaviour
         defendableUnitList.Clear();
         cardToBeDrawnList.Clear();
         
-        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.showCardLists();
         if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
         {
             // create list of attackable friendly units
@@ -364,7 +363,7 @@ public class AIManager : MonoBehaviour
     {
         int numberOfPlayableCards = playableCardList.Count;
         int numberOfResourcesAvailable = GameManager.Instance.currentPlayer.resourcesCurrent;
-        
+
         int[,] knapstackArray = new int[numberOfPlayableCards + 1, numberOfResourcesAvailable + 1];
         for (int i = 0; i <= numberOfPlayableCards; i++)
         {
@@ -373,12 +372,25 @@ public class AIManager : MonoBehaviour
             int cardCost = i > 0
                 ? int.Parse(playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardMoneyText.text)
                 : 0;
-            
+
             // assign card attack - from model for tacticsCard or directly from view for unitCard
             if (i > 0 && playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardType == CardType.TacticsCard)
             {
                 cardId = playableCardList[i - 1].GetComponent<IDAssignment>().uniqueId;
-                cardAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(cardId).attack;
+                int tacticsCardMultiplier = 1;
+                if (playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardDetailedType ==
+                    CardVisualStateEnum.TacticsHealAll)
+                {
+                    tacticsCardMultiplier = attackablePotentiallyUnitList.Count > 0 ? attackablePotentiallyUnitList.Count : 1;
+                }
+                else if (playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardDetailedType ==
+                    CardVisualStateEnum.TacticsHealAll)
+                {
+                    tacticsCardMultiplier = defendableUnitList.Count > 0 ? defendableUnitList.Count : 1;
+                }
+                    
+                cardAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(cardId).attack *
+                    tacticsCardMultiplier;
             }
             else if (i > 0 && playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardType == CardType.UnitCard)
             {
