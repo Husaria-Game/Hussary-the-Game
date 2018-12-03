@@ -11,6 +11,8 @@ public class AIManager : MonoBehaviour
     public bool canAIMakeMove;
     public List<GameObject> playableCardList { get; set; }
     public List<GameObject> attackableUnitList { get; set; }
+    // list including attackable units that are currently blocked from attacking:
+    public List<GameObject> attackablePotentiallyUnitList { get; set; } 
     public List<GameObject> defendableUnitList { get; set; }
     public List<GameObject> cardToBeDrawnList { get; set; }
 
@@ -24,6 +26,7 @@ public class AIManager : MonoBehaviour
         canAIMakeMove = false;
         this.playableCardList = new List<GameObject>();
         this.attackableUnitList = new List<GameObject>();
+        this.attackablePotentiallyUnitList = new List<GameObject>();
         this.defendableUnitList = new List<GameObject>();
         this.cardToBeDrawnList = new List<GameObject>();
     }
@@ -33,6 +36,7 @@ public class AIManager : MonoBehaviour
         canAIMakeMove = false;
         playableCardList.Clear();
         attackableUnitList.Clear();
+        attackablePotentiallyUnitList.Clear();
         defendableUnitList.Clear();
         cardToBeDrawnList.Clear();
         
@@ -62,7 +66,7 @@ public class AIManager : MonoBehaviour
                 // decide which cards are at this moment optimal to play based on attack as value and money as cost
                 knapstack();
                 // draw chosen cards
-                StartCoroutine(drawAllPossibleCardFromHandsCoroutine());
+                StartCoroutine(drawAllPossibleCardFromHandsCoroutineAndLoopBack());
             }
             else if (attackableUnitList.Count > 0) // player has available unit moves
             {
@@ -94,13 +98,14 @@ public class AIManager : MonoBehaviour
                     unitAttacksEnemyUnitOrHeroAI(attackableUnitList[0],
                         GameManager.Instance.otherPlayer.heroVisual.gameObject);
                 }
+                StartCoroutine(doAnotherMoveAI());
             }
             else
             {
                 StartCoroutine(endTurnAI());
                 return;
             }
-            StartCoroutine(doAnotherMoveAI());
+//            StartCoroutine(doAnotherMoveAI());
         }
     }
 
@@ -113,11 +118,11 @@ public class AIManager : MonoBehaviour
     IEnumerator doAnotherMoveAI()
     {
         // has to be above 2 seconds
-        yield return new WaitForSeconds(2.3f);
+        yield return new WaitForSeconds(2.5f);
         manageMoves();
     }
 
-    IEnumerator drawAllPossibleCardFromHandsCoroutine()
+    IEnumerator drawAllPossibleCardFromHandsCoroutineAndLoopBack()
     {
         yield return new WaitForSeconds(0.2f);
         for (int i=0; i<cardToBeDrawnList.Count;i++)
@@ -126,9 +131,10 @@ public class AIManager : MonoBehaviour
             {
                 drawCardFromHands(cardToBeDrawnList[i]);
                 // has to be above 2 seconds
-                yield return new WaitForSeconds(2.3f);
+                yield return new WaitForSeconds(2.1f);
             }
         }
+        manageMoves();
     }
 
     public void dragCardFromHandToFrontAI(GameObject cardToMove)
@@ -257,6 +263,7 @@ public class AIManager : MonoBehaviour
             Card cardInModel =
                 GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(
                     child.GetComponent<IDAssignment>().uniqueId);
+            attackablePotentiallyUnitList.Add(child.gameObject);
             if (cardInModel.currentAttacksPerTurn > 0 && cardInModel.isAbleToAttack)
             {
                 attackableUnitList.Add(child.gameObject);
@@ -312,7 +319,7 @@ public class AIManager : MonoBehaviour
                     case CardVisualStateEnum.TacticsStrengthAll:
                     case CardVisualStateEnum.TacticsStrengthOne:
                     {
-                        if (attackableUnitList.Count > 0)
+                        if (attackablePotentiallyUnitList.Count > 0)
                         {
                             playableCardList.Add(child.gameObject);
                         }
@@ -457,7 +464,7 @@ public class AIManager : MonoBehaviour
     {
         int referenceArmor = 0;
         GameObject chosenTarget = null;
-        foreach (GameObject unitGO in attackableUnitList)
+        foreach (GameObject unitGO in attackablePotentiallyUnitList)
         {
             if (int.Parse(unitGO.GetComponent<CardDisplayLoader>().armorText.text) > referenceArmor)
             {
@@ -472,7 +479,7 @@ public class AIManager : MonoBehaviour
     {
         int referenceStrenght = 0;
         GameObject chosenTarget = null;
-        foreach (GameObject unitGO in attackableUnitList)
+        foreach (GameObject unitGO in attackablePotentiallyUnitList)
         {
             if (int.Parse(unitGO.GetComponent<CardDisplayLoader>().attackText.text) > referenceStrenght)
             {
