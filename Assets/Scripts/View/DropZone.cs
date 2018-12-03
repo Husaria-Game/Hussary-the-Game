@@ -13,7 +13,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
     public bool attackEventEnded = false;
     private bool pointerEnter;
     private bool pointerExit;
-    private const int DROPZONE_UNIT_AMOUNT_LIMIT = 6;
+    public const int DROPZONE_UNIT_AMOUNT_LIMIT = 6;
 
     public void Start()
     {

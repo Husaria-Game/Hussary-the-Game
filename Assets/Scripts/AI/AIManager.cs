@@ -300,7 +300,10 @@ public class AIManager : MonoBehaviour
                 {
                     case CardVisualStateEnum.UnitCard:
                     {
-                        playableCardList.Add(child.gameObject);
+                        if (attackablePotentiallyUnitList.Count < DropZone.DROPZONE_UNIT_AMOUNT_LIMIT)
+                        {
+                            playableCardList.Add(child.gameObject);
+                        }
                         break;
                     }
                     case CardVisualStateEnum.TacticsAttackAll:
