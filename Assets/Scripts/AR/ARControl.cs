@@ -14,7 +14,7 @@ public class ARControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //Set Player Name
-        GameObject.Find("PlayerNameText").GetComponent<Text>().text = "Husaria - AR Event";
+        GameObject.Find("PlayerNameText").GetComponent<Text>().text = GameManager.Instance.currentPlayer.name;
 
     }
 	
