@@ -21,9 +21,6 @@ public class GameManager : MonoBehaviour
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
 
-
-    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
-
     //Data From SettsHolder - General
     public bool isARAvailable;
     public bool isASRAvailable;
@@ -37,13 +34,13 @@ public class GameManager : MonoBehaviour
     public string northName;
     public string southName;
 
-
     public HybridEffectsSystem hybridEffectsSystem;
     public AudioGenerator audioGenerator;
     public EndTurnButtonManager endTurnButtonManager;
     public SpeechRecognitionSystem speechRecognition;
     public DebugMessege debugMessageBox;
 
+    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
     public int turnNumber = 0;
 
     void Awake()
@@ -66,7 +63,6 @@ public class GameManager : MonoBehaviour
             mainMenu.SetActive(true);
             enablePlayableCardsFlag = false;
         }
-
     }
 
     void Update()
@@ -89,16 +85,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Use this for initialization
     IEnumerator startGame()
     {
+        /*
         while (messageManager.enabled == false)
         {
             yield return new WaitForSeconds(0.05f);
         }
-        InitializeGame();
         messageManager.playerSouthName = southName;
-
+        */
+        currentPlayer = playerNorth;
+        InitializeGame();
+        
+        endTurnButtonManager.InitialButtonBlock(16f);
 
         //// ----------draw cards from deck to Player South
         for (int i=0; i < 2; i++)
@@ -126,7 +125,7 @@ public class GameManager : MonoBehaviour
 
         playerNorth.handViewVisual.blockAllOperations();
         playerSouth.handViewVisual.blockAllOperations();
-        currentPlayer = playerNorth;
+        
         this.nextTurn();
     }
 
