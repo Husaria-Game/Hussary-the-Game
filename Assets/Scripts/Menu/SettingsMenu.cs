@@ -14,7 +14,7 @@ public class SettingsMenu : MonoBehaviour {
     {
         if (SettsHolder.instance.isARAvailable == false) arAvailable.isOn = false;
         if (SettsHolder.instance.isASRAvailable == false) asrAvailable.isOn = false;
-        if (SettsHolder.instance.AIPlayerCardsSeen == false) aIPlayerCardsSeen.isOn = false;
+        if (SettsHolder.instance.aIPlayerCardsSeen == false) aIPlayerCardsSeen.isOn = false;
         if (SettsHolder.instance.isMusicInGamePlaying == false) musicinGamePlaying.isOn = false;
 
         arAvailable.onValueChanged.AddListener(delegate { SettsHolder.instance.changeARAvailable(); });

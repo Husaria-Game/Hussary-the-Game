@@ -24,14 +24,19 @@ public class GameManager : MonoBehaviour
 
     public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
 
-    //Data From SettsHolder
-    public GameMode typeOfEnemy;
+    //Data From SettsHolder - General
+    public bool isARAvailable;
+    public bool isASRAvailable;
+    public bool aIPlayerCardsSeen;
+    public bool isMusicInGamePlaying;
 
+    //Data From SettsHolder - Player
+    public GameMode typeOfEnemy;
     public Faction southFaction;
     public Faction northFaction;
-
     public string northName;
     public string southName;
+
 
     public HybridEffectsSystem hybridEffectsSystem;
     public AudioGenerator audioGenerator;
@@ -182,8 +187,6 @@ public class GameManager : MonoBehaviour
 
         //Attribute factions, names, and mode of game
         SettsHolder.instance.AttributeGameManagerNamesAndFactions();
-
-        Debug.Log(typeOfEnemy);
 
         playerNorth.setInitialValues(0, northName, northFaction);
         playerSouth.setInitialValues(1, southName, southFaction);

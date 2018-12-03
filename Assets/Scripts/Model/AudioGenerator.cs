@@ -78,7 +78,10 @@ public class AudioGenerator : MonoBehaviour {
             if (isMenuMusic)
             {
                 battleThemeAudio.loop = true;
-                battleThemeAudio.PlayOneShot(battleTheme, 0.1f);
+                if (GameManager.Instance.isMusicInGamePlaying)
+                {
+                    battleThemeAudio.PlayOneShot(battleTheme, 0.1f);
+                }
                 isMenuMusic = false;
             }
         }

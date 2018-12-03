@@ -11,7 +11,7 @@ public class SettsHolder : MonoBehaviour {
     //General settings
     public bool isARAvailable = true;
     public bool isASRAvailable = true;
-    public bool AIPlayerCardsSeen = true;
+    public bool aIPlayerCardsSeen = true;
     public bool isMusicInGamePlaying = true;
 
     //Players settings
@@ -34,6 +34,12 @@ public class SettsHolder : MonoBehaviour {
 
     public void AttributeGameManagerNamesAndFactions()
     {
+        //General Settings
+        GameManager.Instance.isARAvailable = isARAvailable;
+        GameManager.Instance.isASRAvailable = isASRAvailable;
+        GameManager.Instance.aIPlayerCardsSeen = aIPlayerCardsSeen;
+        GameManager.Instance.isMusicInGamePlaying = isMusicInGamePlaying;
+
         //Game Mode
         GameManager.Instance.typeOfEnemy = typeOfEnemy;
 
@@ -83,7 +89,7 @@ public class SettsHolder : MonoBehaviour {
 
     public void changeAIPlayerCardsSeen()
     {
-        AIPlayerCardsSeen = !AIPlayerCardsSeen;
+        aIPlayerCardsSeen = !aIPlayerCardsSeen;
     }
 
     public void changeMusicInGamePlaying()

@@ -43,9 +43,11 @@ public class SpeechRecognitionSystem : MonoBehaviour
     {
         if (wordsToRecognize != null)
         {
-            recognizer = new KeywordRecognizer(wordsToRecognize, confidenceLevel);
+            if(recognizer == null)
+            {
+                recognizer = new KeywordRecognizer(wordsToRecognize, confidenceLevel);
+            }
             recognizer.OnPhraseRecognized += WhenPhraseRecognized;
-
             speechSign.enabled = false;
             resultOfVoiceCommand.text = heardWord;
         }
