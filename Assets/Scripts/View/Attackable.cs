@@ -253,10 +253,12 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void tacticsBonusUnit(Vector3 pz, CardVisualStateEnum cardDetailedType)
     {
+        if (GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(
+                this.gameObject.GetComponent<IDAssignment>().uniqueId) == null) return;
+        
         GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
         int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
         int attackerAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(attackerID).attack;
-
         // update resources view and model
         updateResourcesModelAndView();
         GameManager.Instance.enablePlayableCardsFlag = true;

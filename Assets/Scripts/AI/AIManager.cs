@@ -11,7 +11,10 @@ public class AIManager : MonoBehaviour
     public bool canAIMakeMove;
     public List<GameObject> playableCardList { get; set; }
     public List<GameObject> attackableUnitList { get; set; }
+    // list including attackable units that are currently blocked from attacking:
+    public List<GameObject> attackablePotentiallyUnitList { get; set; } 
     public List<GameObject> defendableUnitList { get; set; }
+    public List<GameObject> cardToBeDrawnList { get; set; }
 
     void Awake()
     {
@@ -23,7 +26,9 @@ public class AIManager : MonoBehaviour
         canAIMakeMove = false;
         this.playableCardList = new List<GameObject>();
         this.attackableUnitList = new List<GameObject>();
+        this.attackablePotentiallyUnitList = new List<GameObject>();
         this.defendableUnitList = new List<GameObject>();
+        this.cardToBeDrawnList = new List<GameObject>();
     }
 
     public void manageMoves()
@@ -31,9 +36,10 @@ public class AIManager : MonoBehaviour
         canAIMakeMove = false;
         playableCardList.Clear();
         attackableUnitList.Clear();
+        attackablePotentiallyUnitList.Clear();
         defendableUnitList.Clear();
+        cardToBeDrawnList.Clear();
         
-        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.showCardLists();
         if (GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth)
         {
             // create list of attackable friendly units
@@ -52,43 +58,14 @@ public class AIManager : MonoBehaviour
                 return;
             }
 
-            int playableCardRandom = Random.Range(0, playableCardList.Count - 1);
             int attackableCardRandom = Random.Range(0, attackableUnitList.Count - 1);
-            int defendableUnitRandom = Random.Range(0, defendableUnitList.Count - 1);
 
             if (playableCardList.Count > 0)
             {
-                if (playableCardList[playableCardRandom].GetComponent<CardDisplayLoader>().cardType ==
-                    CardType.UnitCard)
-                {
-                    dragCardFromHandToFrontAI(playableCardList[playableCardRandom]);
-                }
-                else if (playableCardList[playableCardRandom].GetComponent<CardDisplayLoader>().cardDetailedType ==
-                         CardVisualStateEnum.TacticsStrengthOne ||
-                         playableCardList[playableCardRandom].GetComponent<CardDisplayLoader>().cardDetailedType ==
-                         CardVisualStateEnum.TacticsHealOne)
-                {
-                    tacticsBonusOneAI(playableCardList[playableCardRandom],
-                        attackableUnitList[attackableCardRandom]);
-                }
-                else if (playableCardList[playableCardRandom].GetComponent<CardDisplayLoader>().cardDetailedType ==
-                         CardVisualStateEnum.TacticsAttackOne)
-                {
-                    tacticsBonusOneAI(playableCardList[playableCardRandom],
-                        defendableUnitList[defendableUnitRandom]);
-                }
-                else if (playableCardList[playableCardRandom].GetComponent<CardDisplayLoader>().cardDetailedType ==
-                         CardVisualStateEnum.TacticsHealAll)
-                {
-                    tacticsBonusAllAI(playableCardList[playableCardRandom],
-                        GameManager.Instance.currentPlayer.dropZoneVisual.gameObject);
-                }
-                else if (playableCardList[playableCardRandom].GetComponent<CardDisplayLoader>().cardDetailedType ==
-                         CardVisualStateEnum.TacticsAttackAll)
-                {
-                    tacticsBonusAllAI(playableCardList[playableCardRandom],
-                        GameManager.Instance.otherPlayer.dropZoneVisual.gameObject);
-                }
+                // decide which cards are at this moment optimal to play based on attack as value and money as cost
+                knapstack();
+                // draw chosen cards
+                StartCoroutine(drawAllPossibleCardFromHandsCoroutineAndLoopBack());
             }
             else if (attackableUnitList.Count > 0) // player has available unit moves
             {
@@ -98,7 +75,7 @@ public class AIManager : MonoBehaviour
                 // 1) if enemyHero can be killed this turn then attack this hero
                 if (int.Parse(GameManager.Instance.otherPlayer.heroVisual.healthText.text) <= allFriendlyUnitsStrenght)
                 {
-                    unitAttacksEnemyUnitOrHeroAI(attackableUnitList[attackableCardRandom],
+                    unitAttacksEnemyUnitOrHeroAI(attackableUnitList[0],
                         GameManager.Instance.otherPlayer.heroVisual.gameObject);
                 }
                 // 2) "Obligatory Kill" - if friendlyHero can be killed this turn then attack enemy units with attempt
@@ -112,21 +89,22 @@ public class AIManager : MonoBehaviour
                 // 3) decide which - unit or hero - to attack when enemy units are available
                 else if (defendableUnitList.Count > 0)
                 {
-                    chooseToAttackUnitOrHero(attackableUnitList[attackableCardRandom], false);
+                    chooseToAttackUnitOrHero(attackableUnitList[0], false);
                 }
                 // 4) attack hero if no enemy units available
                 else
                 {
-                    unitAttacksEnemyUnitOrHeroAI(attackableUnitList[attackableCardRandom],
+                    unitAttacksEnemyUnitOrHeroAI(attackableUnitList[0],
                         GameManager.Instance.otherPlayer.heroVisual.gameObject);
                 }
+                StartCoroutine(doAnotherMoveAI());
             }
             else
             {
                 StartCoroutine(endTurnAI());
                 return;
             }
-            StartCoroutine(doAnotherMoveAI());
+//            StartCoroutine(doAnotherMoveAI());
         }
     }
 
@@ -139,7 +117,22 @@ public class AIManager : MonoBehaviour
     IEnumerator doAnotherMoveAI()
     {
         // has to be above 2 seconds
-        yield return new WaitForSeconds(2.3f);
+        yield return new WaitForSeconds(2.5f);
+        manageMoves();
+    }
+
+    IEnumerator drawAllPossibleCardFromHandsCoroutineAndLoopBack()
+    {
+        yield return new WaitForSeconds(0.2f);
+        for (int i=0; i<cardToBeDrawnList.Count;i++)
+        {
+            if (cardToBeDrawnList[i] != null)
+            {
+                drawCardFromHands(cardToBeDrawnList[i]);
+                // has to be above 2 seconds
+                yield return new WaitForSeconds(2.1f);
+            }
+        }
         manageMoves();
     }
 
@@ -269,6 +262,7 @@ public class AIManager : MonoBehaviour
             Card cardInModel =
                 GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(
                     child.GetComponent<IDAssignment>().uniqueId);
+            attackablePotentiallyUnitList.Add(child.gameObject);
             if (cardInModel.currentAttacksPerTurn > 0 && cardInModel.isAbleToAttack)
             {
                 attackableUnitList.Add(child.gameObject);
@@ -306,13 +300,14 @@ public class AIManager : MonoBehaviour
                 {
                     case CardVisualStateEnum.UnitCard:
                     {
-                        playableCardList.Add(child.gameObject);
+                        if (attackablePotentiallyUnitList.Count < DropZone.DROPZONE_UNIT_AMOUNT_LIMIT)
+                        {
+                            playableCardList.Add(child.gameObject);
+                        }
                         break;
                     }
                     case CardVisualStateEnum.TacticsAttackAll:
                     case CardVisualStateEnum.TacticsAttackOne:
-                    case CardVisualStateEnum.TacticsHealAll:
-                    case CardVisualStateEnum.TacticsHealOne:
                     {
                         if (defendableUnitList.Count > 0)
                         {
@@ -321,10 +316,12 @@ public class AIManager : MonoBehaviour
 
                         break;
                     }
+                    case CardVisualStateEnum.TacticsHealAll:
+                    case CardVisualStateEnum.TacticsHealOne:
                     case CardVisualStateEnum.TacticsStrengthAll:
                     case CardVisualStateEnum.TacticsStrengthOne:
                     {
-                        if (attackableUnitList.Count > 0)
+                        if (attackablePotentiallyUnitList.Count > 0)
                         {
                             playableCardList.Add(child.gameObject);
                         }
@@ -332,26 +329,25 @@ public class AIManager : MonoBehaviour
                         break;
                     }
                     default:
-                        Debug.Log("default");
                         break;
                 }
             }
         }
+            
     }
 
-    public int getAllUnitsStrenght(List<GameObject> unitList)
+    private int getAllUnitsStrenght(List<GameObject> unitList)
     {
         int tableUnitsStrenghtSum = 0;
         foreach (GameObject unitGO in unitList)
         {
             tableUnitsStrenghtSum += int.Parse(unitGO.GetComponent<CardDisplayLoader>().attackText.text);
-            Debug.Log("tableUnitsStrenghtSum: " + tableUnitsStrenghtSum);
         }
 
         return tableUnitsStrenghtSum;
     }
 
-    public bool isAttackerAbleToKillAnyEnemyUnit(GameObject attacker)
+    private bool isAttackerAbleToKillAnyEnemyUnit(GameObject attacker)
     {
         int attackerStrenght = int.Parse(attacker.GetComponent<CardDisplayLoader>().attackText.text);
 
@@ -364,5 +360,163 @@ public class AIManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void knapstack()
+    {
+        int numberOfPlayableCards = playableCardList.Count;
+        int numberOfResourcesAvailable = GameManager.Instance.currentPlayer.resourcesCurrent;
+
+        int[,] knapstackArray = new int[numberOfPlayableCards + 1, numberOfResourcesAvailable + 1];
+        for (int i = 0; i <= numberOfPlayableCards; i++)
+        {
+            int cardId;
+            int cardAttack;
+            int cardCost = i > 0
+                ? int.Parse(playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardMoneyText.text)
+                : 0;
+
+            // assign card attack - from model for tacticsCard or directly from view for unitCard
+            if (i > 0 && playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardType == CardType.TacticsCard)
+            {
+                cardId = playableCardList[i - 1].GetComponent<IDAssignment>().uniqueId;
+                int tacticsCardMultiplier = 1;
+                if (playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardDetailedType ==
+                    CardVisualStateEnum.TacticsHealAll)
+                {
+                    tacticsCardMultiplier = attackablePotentiallyUnitList.Count > 0 ? attackablePotentiallyUnitList.Count : 1;
+                }
+                else if (playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardDetailedType ==
+                    CardVisualStateEnum.TacticsHealAll)
+                {
+                    tacticsCardMultiplier = defendableUnitList.Count > 0 ? defendableUnitList.Count : 1;
+                }
+                    
+                cardAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(cardId).attack *
+                    tacticsCardMultiplier;
+            }
+            else if (i > 0 && playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardType == CardType.UnitCard)
+            {
+                cardId = playableCardList[i - 1].GetComponent<IDAssignment>().uniqueId;
+                cardAttack = int.Parse(playableCardList[i - 1].GetComponent<CardDisplayLoader>().attackText.text);
+            }
+            else
+            {
+                cardAttack = 0;
+            }
+
+            for (int j = 0; j <= numberOfResourcesAvailable; j++)
+            {
+                if (i == 0 || j == 0)
+                {
+                    knapstackArray[i, j] = 0;
+                }
+                else
+                {
+                    if (cardCost < j && (cardAttack + knapstackArray[i - 1, j - cardCost]) >=
+                        knapstackArray[i - 1, j])
+                    {
+                        knapstackArray[i, j] = cardAttack + knapstackArray[i - 1, j - cardCost];
+                    }
+                    else if (cardCost == j && cardAttack > knapstackArray[i - 1, j])
+                    {
+                        knapstackArray[i, j]= cardAttack;
+                    }
+                    else
+                    {
+                        knapstackArray[i, j] = knapstackArray[i - 1, j];
+                    }
+                }
+            }
+        }
+
+
+        for (int j = numberOfResourcesAvailable; j > 0; j--)
+        {
+            for (int i = numberOfPlayableCards; i > 0; i--)
+            {
+                if (knapstackArray[i, j] > knapstackArray[i-1, j])
+                {
+                    cardToBeDrawnList.Add(playableCardList[i - 1]);
+                    j = j - int.Parse(playableCardList[i - 1].GetComponent<CardDisplayLoader>().cardMoneyText.text);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void drawCardFromHands(GameObject cardGO)
+    {
+        CardVisualStateEnum cardGODetailedType = cardGO.GetComponent<CardDisplayLoader>().cardDetailedType;
+        if (cardGO.GetComponent<CardDisplayLoader>().cardType ==
+            CardType.UnitCard)
+        {
+            dragCardFromHandToFrontAI(cardGO);
+        }
+        else switch (cardGODetailedType)
+        {
+            case CardVisualStateEnum.TacticsStrengthOne:
+                tacticsBonusOneAI(cardGO, getFriendlyUnitWithMostArmor());
+                break;
+            case CardVisualStateEnum.TacticsHealOne:
+                tacticsBonusOneAI(cardGO, getFriendlyUnitWithMostStrenght());
+                break;
+            case CardVisualStateEnum.TacticsAttackOne:
+                tacticsBonusOneAI(cardGO, getEnemyUnitWithLeastArmor());
+                break;
+            case CardVisualStateEnum.TacticsHealAll:
+                tacticsBonusAllAI(cardGO,
+                    GameManager.Instance.currentPlayer.dropZoneVisual.gameObject);
+                break;
+            case CardVisualStateEnum.TacticsAttackAll:
+                tacticsBonusAllAI(cardGO,
+                    GameManager.Instance.otherPlayer.dropZoneVisual.gameObject);
+                break;
+        }
+    }
+
+    private GameObject getFriendlyUnitWithMostArmor()
+    {
+        int referenceArmor = 0;
+        GameObject chosenTarget = null;
+        foreach (GameObject unitGO in attackablePotentiallyUnitList)
+        {
+            if (int.Parse(unitGO.GetComponent<CardDisplayLoader>().armorText.text) > referenceArmor)
+            {
+                chosenTarget = unitGO;
+                referenceArmor = int.Parse(unitGO.GetComponent<CardDisplayLoader>().armorText.text);
+            }
+        }
+        return chosenTarget;
+    }
+
+    private GameObject getFriendlyUnitWithMostStrenght()
+    {
+        int referenceStrenght = 0;
+        GameObject chosenTarget = null;
+        foreach (GameObject unitGO in attackablePotentiallyUnitList)
+        {
+            if (int.Parse(unitGO.GetComponent<CardDisplayLoader>().attackText.text) > referenceStrenght)
+            {
+                chosenTarget = unitGO;
+                referenceStrenght = int.Parse(unitGO.GetComponent<CardDisplayLoader>().attackText.text);
+            }
+        }
+        return chosenTarget;
+    }
+
+    private GameObject getEnemyUnitWithLeastArmor()
+    {
+        int referenceArmor = 100;
+        GameObject chosenTarget = null;
+        foreach (GameObject unitGO in defendableUnitList)
+        {
+            if (int.Parse(unitGO.GetComponent<CardDisplayLoader>().armorText.text) < referenceArmor)
+            {
+                chosenTarget = unitGO;
+                referenceArmor = (int.Parse(unitGO.GetComponent<CardDisplayLoader>().armorText.text));
+            }
+        }
+        return chosenTarget;
     }
 }
