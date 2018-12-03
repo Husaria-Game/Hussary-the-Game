@@ -21,15 +21,16 @@ public class GameManager : MonoBehaviour
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
 
+    //Data From SettsHolder - General
+    public bool isARAvailable;
+    public bool isASRAvailable;
+    public bool aIPlayerCardsSeen;
+    public bool isMusicInGamePlaying;
 
-    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
-
-    //Data From SettsHolder
+    //Data From SettsHolder - Player
     public GameMode typeOfEnemy;
-
     public Faction southFaction;
     public Faction northFaction;
-
     public string northName;
     public string southName;
 
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     public SpeechRecognitionSystem speechRecognition;
     public DebugMessege debugMessageBox;
 
+    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
     public int turnNumber = 0;
 
     void Awake()
@@ -61,7 +63,6 @@ public class GameManager : MonoBehaviour
             mainMenu.SetActive(true);
             enablePlayableCardsFlag = false;
         }
-
     }
 
     void Update()
@@ -84,16 +85,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Use this for initialization
     IEnumerator startGame()
     {
+        /*
         while (messageManager.enabled == false)
         {
             yield return new WaitForSeconds(0.05f);
         }
-        InitializeGame();
         messageManager.playerSouthName = southName;
-
+        */
+        currentPlayer = playerNorth;
+        InitializeGame();
+        
+        endTurnButtonManager.InitialButtonBlock(16f);
 
         //// ----------draw cards from deck to Player South
         for (int i=0; i < 2; i++)
@@ -121,7 +125,7 @@ public class GameManager : MonoBehaviour
 
         playerNorth.handViewVisual.blockAllOperations();
         playerSouth.handViewVisual.blockAllOperations();
-        currentPlayer = playerNorth;
+        
         this.nextTurn();
     }
 
@@ -147,6 +151,8 @@ public class GameManager : MonoBehaviour
         currentPlayer.resourceVisual.updateResourcesView(currentPlayer.resourcesCurrent, currentPlayer.resourcesMaxThisTurn);
         currentPlayer.resourceVisual.ProgressText.color = new Color32(0, 0, 0, 255);
         BonusEffects.Instance.drawNewCard(currentPlayer, true);
+        currentPlayer.namePanel.changeNamePanelColors();
+        otherPlayer.namePanel.changeNamePanelColors();
 
         if (currentPlayer == playerSouth)
         {
@@ -181,14 +187,14 @@ public class GameManager : MonoBehaviour
         //Attribute factions, names, and mode of game
         SettsHolder.instance.AttributeGameManagerNamesAndFactions();
 
-        Debug.Log(typeOfEnemy);
-
         playerNorth.setInitialValues(0, northName, northFaction);
         playerSouth.setInitialValues(1, southName, southFaction);
         playerSouth.heroVisual.setHeroAcordingToFaction(southFaction);
         playerNorth.heroVisual.setHeroAcordingToFaction(northFaction);
         playerNorth.resourceVisual.updateResourcesView(playerNorth.resourcesCurrent, playerNorth.resourcesMaxThisTurn);
         playerSouth.resourceVisual.updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
+        playerNorth.namePanel.NameText.text = playerNorth.name;
+        playerSouth.namePanel.NameText.text = playerSouth.name;
     }
 
     public void cardDraggedToFrontCommand(Position playerPosition, int cardId)

@@ -16,6 +16,7 @@ public class PlayerModel : MonoBehaviour{
     public GameObject deckVisual;
     public HeroVisualManager heroVisual;
     public ResourcePool resourceVisual;
+    public NamePanel namePanel;
 
     public void setInitialValues(int playerID, string name, Faction faction)
     {

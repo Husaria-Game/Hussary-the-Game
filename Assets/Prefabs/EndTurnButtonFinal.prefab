@@ -106,7 +106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1225952830508922}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.157928, y: -1.9694662, z: 0}
+  m_LocalPosition: {x: 0.05, y: -1.71, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0}
   m_Children:
   - {fileID: 224591545338240540}
@@ -348,6 +348,7 @@ MonoBehaviour:
   endTurnButton: {fileID: 114911133446821574}
   gameManager: {fileID: 0}
   timerText: {fileID: 114285724667286012}
+  buttonText: {fileID: 114123491517761886}
 --- !u!222 &222010939513220052
 CanvasRenderer:
   m_ObjectHideFlags: 1

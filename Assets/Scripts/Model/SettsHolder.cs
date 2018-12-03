@@ -8,11 +8,16 @@ public class SettsHolder : MonoBehaviour {
 
     private bool isPlayedAgain = false;
 
-    public GameMode typeOfEnemy;
+    //General settings
+    public bool isARAvailable = true;
+    public bool isASRAvailable = true;
+    public bool aIPlayerCardsSeen = true;
+    public bool isMusicInGamePlaying = true;
 
+    //Players settings
+    public GameMode typeOfEnemy;
     public Faction southFaction;
     public Faction northFaction;
-
     public string northName;
     public string southName;
 
@@ -29,6 +34,12 @@ public class SettsHolder : MonoBehaviour {
 
     public void AttributeGameManagerNamesAndFactions()
     {
+        //General Settings
+        GameManager.Instance.isARAvailable = isARAvailable;
+        GameManager.Instance.isASRAvailable = isASRAvailable;
+        GameManager.Instance.aIPlayerCardsSeen = aIPlayerCardsSeen;
+        GameManager.Instance.isMusicInGamePlaying = isMusicInGamePlaying;
+
         //Game Mode
         GameManager.Instance.typeOfEnemy = typeOfEnemy;
 
@@ -64,5 +75,25 @@ public class SettsHolder : MonoBehaviour {
     public void PlayAgainstAI()
     {
         typeOfEnemy = GameMode.Computer;
+    }
+
+    public void changeARAvailable()
+    {
+        isARAvailable = !isARAvailable;
+    }
+
+    public void changeASRAvailable()
+    {
+        isASRAvailable = !isASRAvailable;
+    }
+
+    public void changeAIPlayerCardsSeen()
+    {
+        aIPlayerCardsSeen = !aIPlayerCardsSeen;
+    }
+
+    public void changeMusicInGamePlaying()
+    {
+        isMusicInGamePlaying = !isMusicInGamePlaying;
     }
 }
