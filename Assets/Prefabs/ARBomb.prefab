@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 54147242232346532}
   - component: {fileID: 114328110533361212}
   m_Layer: 0
-  m_Name: AR Bomb
+  m_Name: ARBomb
   m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +68,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859050450289958}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: -2, y: 1.8, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
