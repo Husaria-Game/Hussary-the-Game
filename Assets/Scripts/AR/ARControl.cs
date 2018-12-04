@@ -6,17 +6,30 @@ using UnityEngine.UI;
 
 public class ARControl : MonoBehaviour {
 
+    public static ARControl Instance;
+
     private float timer = 0;
     private string ARScene = "ARScene";
     public static int arPoints = 0;
     public GameObject coin;
     public GameObject bomb;
     private bool eventStart = true;
-    public AudioClip ARCoinHitAudio;
-    public AudioClip ARBombHitAudio;
+    public AudioClip ARCoinHitClip;
+    public AudioClip ARBombHitClip;
+    public AudioSource ARCoinHitAudio;
+    public AudioSource ARBombHitAudio;
 
-    // Use this for initialization
-    void Start () {
+    void Awake(){
+
+        Instance = this;
+
+        //Add audio
+        ARCoinHitAudio = AddAudioAR(ARCoinHitClip, false);
+        ARBombHitAudio = AddAudioAR(ARBombHitClip, false);
+    }
+
+        // Use this for initialization
+        void Start () {
         //Set Player Name
         GameObject.Find("PlayerNameText").GetComponent<Text>().text = GameManager.Instance.currentPlayer.name;
         
@@ -102,4 +115,20 @@ public class ARControl : MonoBehaviour {
         foreach (GameObject enemy in gameObjects)
             GameObject.Destroy(enemy);
     }
+
+    public AudioSource AddAudioAR(AudioClip audioClip, bool loop)
+    {
+        AudioSource newAudio = new AudioSource();
+        newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.clip = audioClip;
+        return newAudio;
+    }
+
+    public void PlayAudioAR(AudioSource audioSource)
+    {
+        audioSource.Play();
+    }
+
+
+
 }
