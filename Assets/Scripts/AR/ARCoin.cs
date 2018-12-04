@@ -24,6 +24,7 @@ public class ARCoin : MonoBehaviour {
         if (other.tag == "Dagger")
         {
             print("HIT");
+            ARControl.Instance.PlayAudioAR(ARControl.Instance.ARCoinHitAudio);
             ARControl.arPoints += 1;
             Destroy(gameObject);
             Destroy(transform.root.gameObject);
