@@ -138,11 +138,21 @@ public class BonusEffects : MonoBehaviour
     public void createMoneyGainEffect(int moneyReceived)
     {
         GameManager.Instance.currentPlayer.addCurrentResources(moneyReceived);
-        GameManager.Instance.currentPlayer.resourceVisual.showMoneyGainAnimation();
         GameManager.Instance.currentPlayer.resourceVisual.updateResourcesView(GameManager.Instance.currentPlayer.resourcesCurrent, GameManager.Instance.currentPlayer.resourcesMaxThisTurn);
         GameManager.Instance.currentPlayer.handViewVisual.setPlayableCards(GameManager.Instance.currentPlayer.resourcesCurrent);
-        //music
-        GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.coinGainAudio);
+        if (moneyReceived > 0)
+        {
+            GameManager.Instance.currentPlayer.resourceVisual.showMoneyGainAnimation();
+            GameManager.Instance.debugMessageBox.ShowDebugText("Sukces! Zebrano dodatkowe monety", true);
+            // coin audio
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.coinGainAudio);
+        }
+        else
+        {
+            //Play sound effect and put text in debugMessegeBox
+            GameManager.Instance.debugMessageBox.ShowDebugText("Nie udało się uzbierać monet - brak efektu", false);
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.noEffectAudio);
+        }
     }
 
     public Defendable pickRandomDropZoneUnitCard(PlayerModel playerAffectedWithEffect)
