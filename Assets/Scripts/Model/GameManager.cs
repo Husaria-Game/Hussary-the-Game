@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
                 AIManager.Instance.manageMoves();
             }
         }
-
+        //Going to delete
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             ARManager.Instance.goToARScene();
@@ -88,16 +88,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator startGame()
     {
-        /*
-        while (messageManager.enabled == false)
-        {
-            yield return new WaitForSeconds(0.05f);
-        }
-        messageManager.playerSouthName = southName;
-        */
         currentPlayer = playerNorth;
-        InitializeGame();
-        
+        InitializeGame();       
         endTurnButtonManager.InitialButtonBlock(16f);
 
         //// ----------draw cards from deck to Player South
@@ -155,37 +147,28 @@ public class GameManager : MonoBehaviour
         currentPlayer.namePanel.changeNamePanelColors();
         otherPlayer.namePanel.changeNamePanelColors();
 
-        if (currentPlayer == playerSouth)
+        //If human players and hybrid effects on check whether bonus effect possible
+        if (currentPlayer == playerSouth || currentPlayer == playerNorth && SettsHolder.instance.typeOfEnemy != GameMode.Computer)
         {
             //going to replace it with hybridEffectsSystem
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
-
-        // TODO: get rid of this condition later on
-        if (currentPlayer == playerNorth && SettsHolder.instance.typeOfEnemy != GameMode.Computer)
+              
+        if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth)
         {
-            //going to replace it with hybridEffectsSystem
-            ARManager.Instance.goToARScene();
+            AIManager.Instance.canAIMakeMove = true;
         }
-
 
         endTurnButtonManager.TimerStart();
         currentPlayer.armymodel.armyCardsModel.EnableAttackOfJustPlacedUnits(currentPlayer);
-        if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth)
-        {
-            Debug.Log("GameManager: AI can make move");
-            AIManager.Instance.canAIMakeMove = true;
-        }
     }
 
     void InitializeGame()
     {
-        Debug.Log("GameManger INITIALIZATION");
         Instance.debugMessageBox.ShowDebugText("Gra Inicjalizowana", true);
-
         IDFactory.ResetIDs();
 
-        //Attribute factions, names, and mode of game
+        //Attribute factions, names, mode of game and general settings
         SettsHolder.instance.AttributeGameManagerNamesAndFactions();
 
         playerNorth.setInitialValues(0, northName, northFaction);
