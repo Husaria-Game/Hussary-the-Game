@@ -12,7 +12,8 @@ public class ARControl : MonoBehaviour {
     public GameObject coin;
     public GameObject bomb;
     private bool eventStart = true;
-
+    public AudioClip ARCoinHitAudio;
+    public AudioClip ARBombHitAudio;
 
     // Use this for initialization
     void Start () {
