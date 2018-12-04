@@ -19,6 +19,7 @@ public class ARManager : MonoBehaviour
         //Output this to console when Button1 or Button3 is clicked
         //Time.timeScale = 0;
         //visuals.SetActive(false);
+        GameManager.Instance.endTurnButtonManager.ARSceneBecomesActive();
         SceneManager.LoadScene("ARScene", LoadSceneMode.Additive);
     }
 

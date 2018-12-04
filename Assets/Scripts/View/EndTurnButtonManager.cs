@@ -11,6 +11,7 @@ public class EndTurnButtonManager : MonoBehaviour
     public Text buttonText;
 
     private bool isCounting = false;
+    private bool isARSceneActive = false;
     private float timerCountdown;
     private float timeLeft;
     private const float TIME = 30;  //Time per round in seconds;
@@ -21,6 +22,12 @@ public class EndTurnButtonManager : MonoBehaviour
         {
             timeLeft -= Time.deltaTime;
             timerText.text = ToString();
+
+            if (isARSceneActive)
+            {
+                timeLeft += 10;
+                isARSceneActive = false;
+            }
 
             if (timeLeft <= 0)
             {
@@ -57,13 +64,13 @@ public class EndTurnButtonManager : MonoBehaviour
         gameManager.nextTurn();
     }
 
-    public void ButtonDisable()
+    private void ButtonDisable()
     {
         endTurnButton.enabled = false;
         buttonText.text = "Czekaj...";
     }
 
-    public void ButtonEnable()
+    private void ButtonEnable()
     {
         endTurnButton.enabled = true;
         buttonText.text = "Koniec Tury";
@@ -81,6 +88,11 @@ public class EndTurnButtonManager : MonoBehaviour
         ButtonEnable();
     }
 
+    public void ARSceneBecomesActive()
+    {
+        isARSceneActive = true;
+    }
+
     public override string ToString()
     {
         int seconds = Mathf.RoundToInt(timeLeft);
@@ -90,8 +102,5 @@ public class EndTurnButtonManager : MonoBehaviour
 
         return string.Format("{0}", secondsText + "s.");
     }
-
-
-
 }
 
