@@ -10,8 +10,6 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public Vector3 initialPosition;
     public Vector3 mousePosition;
     private GameObject cardPreview;
-    public LineRenderer lineRenderer;
-    public GameObject arrow;
     public bool dragSuccess;
     public bool transformCardIntoUnit;
     public DropZone dropZone;

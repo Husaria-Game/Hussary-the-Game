@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class HandView : MonoBehaviour {
 
@@ -50,13 +51,20 @@ public class HandView : MonoBehaviour {
         }
 
         idAssignment = newCard.GetComponent(typeof(IDAssignment)) as IDAssignment;
-
-
+        
         if (idAssignment != null)
         {
             idAssignment.uniqueId = cardDrawn.cardID;
             idAssignment.ownerPosition = handPosition;
             idAssignment.whereIsCard = WhereIsCard.Rotating;
+        }
+
+        // disable card's raycast if AI's turn
+        if (newCard.GetComponentInChildren<GraphicRaycaster>() != null)
+        {
+            newCard.GetComponentInChildren<GraphicRaycaster>().enabled = !GameManager.Instance.isItAITurn;
+//            newCard.GetComponent<CardDisplayLoader>().Unit.GetComponentInChildren<GraphicRaycaster>().enabled =
+//                !GameManager.Instance.isItAITurn;
         }
 
         CardDisplayLoader cardDisplayLoader = newCard.GetComponent<CardDisplayLoader>();
@@ -139,6 +147,15 @@ public class HandView : MonoBehaviour {
             if(child.GetComponent<Defendable>() != null)
                 child.GetComponent<Defendable>().enabled = false;
             child.GetComponent<CardDisplayLoader>().cardFaceGlowImage.enabled = false;
+        }
+    }
+
+    // disable cards raycast if AI's turn
+    public void setRaycastAvailabilityForCards()
+    {
+        foreach (Transform child in transform)
+        {
+            child.GetComponentInChildren<GraphicRaycaster>().enabled = !GameManager.Instance.isItAITurn;
         }
     }
 }
