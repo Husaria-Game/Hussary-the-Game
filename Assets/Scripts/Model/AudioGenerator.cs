@@ -7,19 +7,17 @@ public class AudioGenerator : MonoBehaviour {
     [Header("Themes")]
     public AudioClip bogurodzica;
     public AudioClip battleTheme;
-    [Header("Fight")]
+    [Header("Hybrid General")]
+    public AudioClip effect;
+    public AudioClip noEffect;
+    [Header("ASR")]
     public AudioClip attack;
     public AudioClip powerUp;
     public AudioClip enhencement;
     public AudioClip cannon;
     public AudioClip heroHurt;
-    [Header("ASR")]
-    public AudioClip effect;
-    public AudioClip noEffect;
     [Header("AR")]
     public AudioClip coinGain;
-    [Header("Button")]
-    public AudioClip button;
     [Header("AudioSources")]
     public AudioSource bogurodzicaAudio;
     public AudioSource battleThemeAudio;
@@ -34,18 +32,10 @@ public class AudioGenerator : MonoBehaviour {
     public AudioSource buttonAudio;
     [Header("Other")]
     public GameObject visuals;
-    private GameObject[] gameButtons;
-    private List<Button> buttons = new List<Button>();
     private bool isMenuMusic = true;
 
     void Awake ()
     {
-        gameButtons = GameObject.FindGameObjectsWithTag("Button");
-        foreach(GameObject go in gameButtons)
-        {
-            buttons.Add(go.GetComponent<Button>());
-        }
-
         bogurodzicaAudio = AddAudio(bogurodzica, false);
         battleThemeAudio = AddAudio(battleTheme, true);
         attackAudio = AddAudio(attack, false);
@@ -56,17 +46,10 @@ public class AudioGenerator : MonoBehaviour {
         coinGainAudio = AddAudio(coinGain, false);
         effectAudio = AddAudio(effect, false);
         noEffectAudio = AddAudio(noEffect, false);
-        buttonAudio = AddAudio(button, false);
-
     }
 
     void Start()
     {
-        foreach(Button b in buttons)
-        {
-            Debug.Log(b.name);
-            b.onClick.AddListener(SoundOnClick);
-        }
         bogurodzicaAudio.Play();
     }
 
@@ -98,11 +81,6 @@ public class AudioGenerator : MonoBehaviour {
     public void PlayClip(AudioSource audioSource) 
     {
         audioSource.Play();
-    }
-
-    public void SoundOnClick()
-    {
-        buttonAudio.Play();
-    }   
+    }  
  }
 

@@ -2694,7 +2694,7 @@ MonoBehaviour:
   cardNameText: {fileID: 114836402394406048}
   cardMoneyText: {fileID: 114220961696131828}
   armorText: {fileID: 114280901087541674}
-  attackText: {fileID: 114723890660702004}
+  attackText: {fileID: 114867956028881568}
   descriptionText: {fileID: 114350229244549726}
   effectText: {fileID: 0}
   topRibbonImage: {fileID: 114539552958089146}
@@ -7141,7 +7141,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -6.110696, y: 0.4770279}
+  m_AnchoredPosition: {x: 1.0065455, y: -3.1591673}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224484021894790660
