@@ -5,16 +5,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ARManager : MonoBehaviour
+public class AugmentedRealitySystem : MonoBehaviour
 {
     // SINGLETON
-    public static ARManager Instance;
+    public static AugmentedRealitySystem Instance;
     void Awake()
     {
         Instance = this;
     }
 
-    public void goToARScene()
+    public void GoToARScene()
     {
         //Output this to console when Button1 or Button3 is clicked
         //Time.timeScale = 0;

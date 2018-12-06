@@ -1,17 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
     // SINGLETON
     public static GameManager Instance;
 
+    //GameObjects and variables
     public PlayerModel playerSouth;
     public PlayerModel playerNorth;
-    public PlayerModel currentPlayer; //player that has active turn
-    public PlayerModel otherPlayer; //player that waits for his turn
+    public PlayerModel currentPlayer;
+    public PlayerModel otherPlayer;
     public MessageManager messageManager;
     public EndingMessege endingMessage;
     public GameObject unitCard;
@@ -28,20 +27,19 @@ public class GameManager : MonoBehaviour
     public bool isMusicInGamePlaying;
 
     //Data From SettsHolder - Player
-    
     public GameMode typeOfEnemy;
     public Faction southFaction;
     public Faction northFaction;
     public string northName;
     public string southName;
 
+    //Other Elements
     public HybridEffectsSystem hybridEffectsSystem;
     public AudioGenerator audioGenerator;
     public EndTurnButtonManager endTurnButtonManager;
     public SpeechRecognitionSystem speechRecognition;
     public DebugMessege debugMessageBox;
 
-    public const float DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY = 2f;
     public int turnNumber = 0;
 
     void Awake()
@@ -54,7 +52,7 @@ public class GameManager : MonoBehaviour
         if (SettsHolder.instance.GetIsPlayedAgain())
         {
             visuals.SetActive(true);
-            mainMenu.SetActive(false);          
+            mainMenu.SetActive(false);
             StartGameWithCouroutine();
             enablePlayableCardsFlag = false;
         }
@@ -72,37 +70,32 @@ public class GameManager : MonoBehaviour
         {
             UnblockAllUnitsAndCards(currentPlayer);
             enablePlayableCardsFlag = false;
-            if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && 
+            if (SettsHolder.instance.typeOfEnemy == GameMode.Computer &&
                 GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth &&
                 AIManager.Instance.canAIMakeMove)
             {
                 AIManager.Instance.manageMoves();
             }
         }
-        //Going to delete
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            ARManager.Instance.goToARScene();
-        }
     }
 
     IEnumerator startGame()
     {
         currentPlayer = playerNorth;
-        InitializeGame();       
+        InitializeGame();
         endTurnButtonManager.InitialButtonBlock(16f);
 
-        //// ----------draw cards from deck to Player South
-        for (int i=0; i < 2; i++)
-        {            
+        //Draw cards from deck to Player South
+        for (int i = 0; i < 2; i++)
+        {
             while (playerNorth.handViewVisual.isDrawingRunning || playerSouth.handViewVisual.isDrawingRunning)
             {
-                yield return new WaitForSeconds(0.2f);             
+                yield return new WaitForSeconds(0.2f);
             }
             BonusEffects.Instance.drawNewCard(playerSouth, false);
         }
 
-        //// ----------draw cards from deck to Player North
+        //Draw cards from deck to Player North
         for (int i = 0; i < 2; i++)
         {
             while (playerNorth.handViewVisual.isDrawingRunning || playerSouth.handViewVisual.isDrawingRunning)
@@ -110,6 +103,7 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(0.2f);
             }
             BonusEffects.Instance.drawNewCard(playerNorth, false);
+
             while (playerNorth.handViewVisual.isDrawingRunning || playerSouth.handViewVisual.isDrawingRunning)
             {
                 yield return new WaitForSeconds(0.1f);
@@ -118,15 +112,15 @@ public class GameManager : MonoBehaviour
 
         playerNorth.handViewVisual.blockAllOperations();
         playerSouth.handViewVisual.blockAllOperations();
-        
+
         this.nextTurn();
     }
 
     public void nextTurn()
     {
         turnNumber++;
-
         Debug.Log("Tura nr " + turnNumber);
+
         if (currentPlayer == playerNorth)
         {
             currentPlayer = playerSouth;
@@ -153,7 +147,7 @@ public class GameManager : MonoBehaviour
             //going to replace it with hybridEffectsSystem
             speechRecognition.CheckWhetherToShowSpeechSign();
         }
-              
+
         if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth)
         {
             AIManager.Instance.canAIMakeMove = true;
@@ -183,7 +177,7 @@ public class GameManager : MonoBehaviour
 
     public void cardDraggedToFrontCommand(Position playerPosition, int cardId)
     {
-        if(playerPosition == Position.North)
+        if (playerPosition == Position.North)
         {
             playerNorth.armymodel.armyCardsModel.moveCardFromHandToFront(cardId);
         }
@@ -218,3 +212,4 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 }
+
