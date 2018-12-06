@@ -104,7 +104,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         int number = random.Next(5, 20);
 
         yield return new WaitForSeconds(number);  //Random second in which system starts to show signImage
-        recognizer.Start();
+        //recognizer.Start();
         speechSign.sprite = signImage;
         speechSign.enabled = true;
         currentSpeechSign = signMark;
@@ -115,7 +115,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         currentSpeechSign = SpeechSign.nic;
         heardWord = "";
         resultOfVoiceCommand.text = heardWord;
-        recognizer.Stop();
+        //recognizer.Stop();
     }
 
     private void CompareShownSignAndSpeech()
@@ -186,7 +186,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
             currentSpeechSign = SpeechSign.nic;
             heardWord = "";
             resultOfVoiceCommand.text = heardWord;
-            recognizer.Stop();
+            //recognizer.Stop();
         }
     }
 }

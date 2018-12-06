@@ -1072,8 +1072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5374a5b0410640409411010c0b06ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SRS: {fileID: 0}
-  ARS: {fileID: 0}
+  SRS: {fileID: 1394874487}
+  ARS: {fileID: 873216882}
 --- !u!4 &743922757
 Transform:
   m_ObjectHideFlags: 0
@@ -1201,7 +1201,7 @@ GameObject:
   - component: {fileID: 873216881}
   - component: {fileID: 873216882}
   m_Layer: 0
-  m_Name: ARManager
+  m_Name: AugmentedRealitySystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2873,15 +2873,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bogurodzica: {fileID: 8300000, guid: 91a5dae60778afa4992a36d16b28800d, type: 3}
   battleTheme: {fileID: 8300000, guid: d368ff9254cf7c846aa626e2e0221b76, type: 3}
+  effect: {fileID: 8300000, guid: 6c8ce6fc4bef86e4b9ca69847e3d7227, type: 3}
+  noEffect: {fileID: 8300000, guid: 9f24e78538585ca468ea2e211d92e0da, type: 3}
   attack: {fileID: 8300000, guid: b1062f0014084d844bb23f22bc887d19, type: 3}
   powerUp: {fileID: 8300000, guid: 983fe1cdbfb977b4a839e2e449ba9be2, type: 3}
   enhencement: {fileID: 8300000, guid: ddc3e7f7fbfe4dd42812cc4855a486d8, type: 3}
   cannon: {fileID: 8300000, guid: 219cd78a6f2208d4aafa9be8329c3bb1, type: 3}
   heroHurt: {fileID: 8300000, guid: 8677c5527430b2e4fb7ada38792a1349, type: 3}
-  effect: {fileID: 8300000, guid: 6c8ce6fc4bef86e4b9ca69847e3d7227, type: 3}
-  noEffect: {fileID: 8300000, guid: 9f24e78538585ca468ea2e211d92e0da, type: 3}
   coinGain: {fileID: 8300000, guid: 2808e23530d72ff4080d4142f874e219, type: 3}
-  button: {fileID: 8300000, guid: c0edc1c45c773314aab5c033316bce4e, type: 3}
   bogurodzicaAudio: {fileID: 0}
   battleThemeAudio: {fileID: 0}
   attackAudio: {fileID: 0}
