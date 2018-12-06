@@ -46,7 +46,7 @@ public class ARControl : MonoBehaviour {
         //After press 9 -Back and add money
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            ARManager.Instance.ARSceneResult(true);
+            AugmentedRealitySystem.Instance.ARSceneResult(true);
             SceneManager.UnloadScene(ARScene);
             DestroyOtherARElements();
         }
@@ -54,7 +54,7 @@ public class ARControl : MonoBehaviour {
         //After press 8 -Back and no bonus money
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            ARManager.Instance.ARSceneResult(false);
+            AugmentedRealitySystem.Instance.ARSceneResult(false);
             SceneManager.UnloadScene(ARScene);
             DestroyOtherARElements();
         }
@@ -64,7 +64,7 @@ public class ARControl : MonoBehaviour {
         timer += Time.deltaTime;
         if (timer > 12)
         {
-            ARManager.Instance.ARSceneResult(true);
+            AugmentedRealitySystem.Instance.ARSceneResult(true);
             SceneManager.UnloadScene(ARScene);
             DestroyOtherARElements();
         }

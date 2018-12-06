@@ -345,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cddb41376195ee4682f329e18a7179a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SRS: {fileID: 0}
   endTurnButton: {fileID: 114911133446821574}
   gameManager: {fileID: 0}
   timerText: {fileID: 114285724667286012}

@@ -815,7 +815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isARAvailable: 1
   isASRAvailable: 1
-  AIPlayerCardsSeen: 1
+  aIPlayerCardsSeen: 1
   isMusicInGamePlaying: 1
   typeOfEnemy: 0
   southFaction: 0
@@ -934,9 +934,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1018208618}
+  - {fileID: 743922757}
+  - {fileID: 1394874486}
   - {fileID: 873216881}
   - {fileID: 1993748394}
-  - {fileID: 1394874486}
   - {fileID: 1850974877}
   m_Father: {fileID: 0}
   m_RootOrder: 11
@@ -1044,6 +1045,48 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5d6d51544b47dc4982e4c0b49e0f3bf, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &743922755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 743922757}
+  - component: {fileID: 743922756}
+  m_Layer: 0
+  m_Name: HybridEffectsSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &743922756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 743922755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5374a5b0410640409411010c0b06ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SRS: {fileID: 1394874487}
+  ARS: {fileID: 873216882}
+--- !u!4 &743922757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 743922755}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 685375047}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &812794618
 Prefab:
   m_ObjectHideFlags: 0
@@ -1158,7 +1201,7 @@ GameObject:
   - component: {fileID: 873216881}
   - component: {fileID: 873216882}
   m_Layer: 0
-  m_Name: ARManager
+  m_Name: AugmentedRealitySystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1175,7 +1218,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 685375047}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &873216882
 MonoBehaviour:
@@ -1358,15 +1401,18 @@ MonoBehaviour:
   mainMenu: {fileID: 867139650}
   enablePlayableCardsFlag: 0
   isAttackableDraggingActive: 0
+  isARAvailable: 0
+  isASRAvailable: 0
+  aIPlayerCardsSeen: 0
+  isMusicInGamePlaying: 0
   typeOfEnemy: 0
   southFaction: 0
   northFaction: 0
   northName: AI
   southName: Grzegorz
-  hybridEffectsSystem: {fileID: 0}
+  hybridEffectsSystem: {fileID: 743922756}
   audioGenerator: {fileID: 1850974878}
   endTurnButtonManager: {fileID: 320543560}
-  speechRecognition: {fileID: 1394874487}
   debugMessageBox: {fileID: 1852950678}
   turnNumber: 0
 --- !u!114 &1018208620
@@ -1699,6 +1745,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114980195628731158, guid: fa2f2d5ad315d224ea16cf168ff63067,
         type: 2}
+      propertyPath: SRS
+      value: 
+      objectReference: {fileID: 1394874487}
+    - target: {fileID: 114980195628731158, guid: fa2f2d5ad315d224ea16cf168ff63067,
+        type: 2}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1018208619}
@@ -1808,7 +1859,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 685375047}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1394874487
 MonoBehaviour:
@@ -1821,7 +1872,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db4301fd22110744b0e6b7e4a4c47e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpeechSign: 0
   power: {fileID: 21300000, guid: 76a1c1777c19a124eb6b395b05f95bf2, type: 3}
   defence: {fileID: 21300000, guid: 5c7c3bd3a90b9e647a59719a130e0854, type: 3}
   blight: {fileID: 21300000, guid: 14b565669013ea747b7485d46b9141c8, type: 3}
@@ -1829,7 +1879,6 @@ MonoBehaviour:
   fortune: {fileID: 21300000, guid: 491b2fa91fc489f48b8d9cca72da9f4a, type: 3}
   speechSign: {fileID: 978859996}
   resultOfVoiceCommand: {fileID: 637330268}
-  heardWord: 
 --- !u!1001 &1418181126
 Prefab:
   m_ObjectHideFlags: 0
@@ -2809,7 +2858,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 685375047}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1850974878
 MonoBehaviour:
@@ -2824,15 +2873,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bogurodzica: {fileID: 8300000, guid: 91a5dae60778afa4992a36d16b28800d, type: 3}
   battleTheme: {fileID: 8300000, guid: d368ff9254cf7c846aa626e2e0221b76, type: 3}
+  effect: {fileID: 8300000, guid: 6c8ce6fc4bef86e4b9ca69847e3d7227, type: 3}
+  noEffect: {fileID: 8300000, guid: 9f24e78538585ca468ea2e211d92e0da, type: 3}
   attack: {fileID: 8300000, guid: b1062f0014084d844bb23f22bc887d19, type: 3}
   powerUp: {fileID: 8300000, guid: 983fe1cdbfb977b4a839e2e449ba9be2, type: 3}
   enhencement: {fileID: 8300000, guid: ddc3e7f7fbfe4dd42812cc4855a486d8, type: 3}
   cannon: {fileID: 8300000, guid: 219cd78a6f2208d4aafa9be8329c3bb1, type: 3}
   heroHurt: {fileID: 8300000, guid: 8677c5527430b2e4fb7ada38792a1349, type: 3}
-  effect: {fileID: 8300000, guid: 6c8ce6fc4bef86e4b9ca69847e3d7227, type: 3}
-  noEffect: {fileID: 8300000, guid: 9f24e78538585ca468ea2e211d92e0da, type: 3}
   coinGain: {fileID: 8300000, guid: 2808e23530d72ff4080d4142f874e219, type: 3}
-  button: {fileID: 8300000, guid: c0edc1c45c773314aab5c033316bce4e, type: 3}
   bogurodzicaAudio: {fileID: 0}
   battleThemeAudio: {fileID: 0}
   attackAudio: {fileID: 0}
@@ -3145,7 +3193,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 685375047}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1993748395
 MonoBehaviour:
