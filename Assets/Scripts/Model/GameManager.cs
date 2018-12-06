@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     public HybridEffectsSystem hybridEffectsSystem;
     public AudioGenerator audioGenerator;
     public EndTurnButtonManager endTurnButtonManager;
-    public SpeechRecognitionSystem speechRecognition;
     public DebugMessege debugMessageBox;
 
     public int turnNumber = 0;
@@ -144,8 +143,8 @@ public class GameManager : MonoBehaviour
         //If human players and hybrid effects on check whether bonus effect possible
         if (currentPlayer == playerSouth || currentPlayer == playerNorth && SettsHolder.instance.typeOfEnemy != GameMode.Computer)
         {
-            //going to replace it with hybridEffectsSystem
-            speechRecognition.CheckWhetherToShowSpeechSign();
+            hybridEffectsSystem.CheckWhetherToUseHybridEffect();
+            //speechRecognition.CheckWhetherToShowSpeechSign();
         }
 
         if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth)

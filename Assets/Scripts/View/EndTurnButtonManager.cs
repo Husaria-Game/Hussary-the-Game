@@ -4,7 +4,7 @@ using System.Collections;
 
 public class EndTurnButtonManager : MonoBehaviour
 {
-
+    public SpeechRecognitionSystem SRS;
     public Button endTurnButton;
     public GameManager gameManager;
     public Text timerText;
@@ -60,7 +60,7 @@ public class EndTurnButtonManager : MonoBehaviour
     public void TimerStop()
     {
         isCounting = false;
-        gameManager.speechRecognition.StopCoroutineIfTurnButtonClicked();
+        SRS.StopCoroutineIfTurnButtonClicked();
         gameManager.nextTurn();
     }
 

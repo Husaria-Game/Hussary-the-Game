@@ -46,3 +46,8 @@ public enum GameMode
 {
     Human, Computer
 }
+
+public enum SpeechSign
+{
+    nic, atak, obrona, zbrodnia, pomór, fortuna
+}
