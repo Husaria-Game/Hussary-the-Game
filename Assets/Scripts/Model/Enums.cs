@@ -49,5 +49,5 @@ public enum GameMode
 
 public enum SpeechSign
 {
-    nic, atak, obrona, zbrodnia, pomór, fortuna
+    nic, atak, obrona, zbrodnia, pomur, fortuna
 }

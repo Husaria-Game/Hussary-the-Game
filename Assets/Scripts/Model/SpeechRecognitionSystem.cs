@@ -6,7 +6,7 @@ using UnityEngine.Windows.Speech;
 public class SpeechRecognitionSystem : MonoBehaviour
 {
     //Elements needed to create listening system
-    private string[] wordsToRecognize = new string[] {"atak", "obrona", "zbrodnia", "pomór", "fortuna" };
+    private string[] wordsToRecognize = new string[] {"atak", "obrona", "zbrodnia", "pomur", "fortuna" };
     private ConfidenceLevel confidenceLevel = ConfidenceLevel.Low;
     private PhraseRecognizer recognizer;
 
@@ -76,7 +76,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         }
         else if (number >= 40 && number < 60)
         {
-            ShowSpeechSign(blight, SpeechSign.pomór);
+            ShowSpeechSign(blight, SpeechSign.pomur);
             debugText = "Wrogie jednostki trawione chorobą tracą -1 Pancerza.";
             effectPower = 1;
         }
@@ -104,7 +104,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         int number = random.Next(5, 20);
 
         yield return new WaitForSeconds(number);  //Random second in which system starts to show signImage
-        //recognizer.Start();
+        recognizer.Start();
         speechSign.sprite = signImage;
         speechSign.enabled = true;
         currentSpeechSign = signMark;
@@ -115,7 +115,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
         currentSpeechSign = SpeechSign.nic;
         heardWord = "";
         resultOfVoiceCommand.text = heardWord;
-        //recognizer.Stop();
+        recognizer.Stop();
     }
 
     private void CompareShownSignAndSpeech()
@@ -140,7 +140,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
     private void WhatSpeechBonusToGive(string effectToDo, int effectPower)
     {
         Defendable randomCard;
-        if (effectToDo == "pomór")
+        if (effectToDo == "pomur")
         {
             randomCard = BonusEffects.Instance.pickRandomDropZoneUnitCard(GameManager.Instance.otherPlayer);
         }
@@ -159,7 +159,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
             {
                 BonusEffects.Instance.createFriendlyBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsHealOne, effectPower);
             }
-            else if (effectToDo == "pomór")
+            else if (effectToDo == "pomur")
             {
                 if (cardUnit != null)
                     BonusEffects.Instance.createHostileBonusEffect(randomCard, cardUnit, CardVisualStateEnum.TacticsAttackOne, effectPower);
@@ -186,7 +186,7 @@ public class SpeechRecognitionSystem : MonoBehaviour
             currentSpeechSign = SpeechSign.nic;
             heardWord = "";
             resultOfVoiceCommand.text = heardWord;
-            //recognizer.Stop();
+            recognizer.Stop();
         }
     }
 }
