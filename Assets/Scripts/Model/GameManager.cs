@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainMenu;
     public bool enablePlayableCardsFlag;
     public bool isAttackableDraggingActive;
+    public bool isItAITurn;
 
     //Data From SettsHolder - General
     public bool isARAvailable;
@@ -67,9 +68,9 @@ public class GameManager : MonoBehaviour
     {
         if (enablePlayableCardsFlag && currentPlayer != null)
         {
-            UnblockAllUnitsAndCards(currentPlayer);
             enablePlayableCardsFlag = false;
-            if (SettsHolder.instance.typeOfEnemy == GameMode.Computer &&
+            UnblockAllUnitsAndCards(currentPlayer);
+            if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && 
                 GameManager.Instance.currentPlayer == GameManager.Instance.playerNorth &&
                 AIManager.Instance.canAIMakeMove)
             {
@@ -131,6 +132,7 @@ public class GameManager : MonoBehaviour
             otherPlayer = playerSouth;
         }
 
+        isItAITurn = SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth;
         BlackAllUnitsAndCards();
         messageManager.ShowMessage(currentPlayer.name + " \nTwoja tura!", 2f);
         currentPlayer.updateResourcesNewTurn();
@@ -140,14 +142,19 @@ public class GameManager : MonoBehaviour
         currentPlayer.namePanel.changeNamePanelColors();
         otherPlayer.namePanel.changeNamePanelColors();
 
+        currentPlayer.handViewVisual.setRaycastAvailabilityForCards();
+        currentPlayer.dropZoneVisual.setRaycastAvailabilityForCards();
+        otherPlayer.handViewVisual.setRaycastAvailabilityForCards();
+        otherPlayer.dropZoneVisual.setRaycastAvailabilityForCards();
+        
         //If human players and hybrid effects on check whether bonus effect possible
         if (currentPlayer == playerSouth || currentPlayer == playerNorth && SettsHolder.instance.typeOfEnemy != GameMode.Computer)
         {
             hybridEffectsSystem.CheckWhetherToUseHybridEffect();
             //speechRecognition.CheckWhetherToShowSpeechSign();
         }
-
-        if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth)
+        
+        if (isItAITurn)
         {
             AIManager.Instance.canAIMakeMove = true;
         }

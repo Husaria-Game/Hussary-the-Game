@@ -109,6 +109,11 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
                 // block unit attack
                 child.GetComponent<Attackable>().enabled = false;
             }
+            
+            // block raycast if AI's turn
+            child.GetComponentInChildren<GraphicRaycaster>().enabled = !GameManager.Instance.isItAITurn;
+            child.GetComponent<CardDisplayLoader>().Unit.GetComponentInChildren<GraphicRaycaster>().enabled =
+                !GameManager.Instance.isItAITurn;
         }
     }
     
@@ -216,4 +221,16 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             return null;
         }
     }
+
+    // disable cards raycast if AI's turn
+    public void setRaycastAvailabilityForCards()
+    {
+        foreach (Transform child in dropAreaImage.transform)
+        {
+            child.GetComponentInChildren<GraphicRaycaster>().enabled = !GameManager.Instance.isItAITurn;
+            child.GetComponent<CardDisplayLoader>().Unit.GetComponentInChildren<GraphicRaycaster>().enabled =
+                !GameManager.Instance.isItAITurn;
+        }
+    }
+    
 }
