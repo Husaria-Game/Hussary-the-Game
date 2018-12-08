@@ -70,7 +70,15 @@ public class HandView : MonoBehaviour {
         CardDisplayLoader cardDisplayLoader = newCard.GetComponent<CardDisplayLoader>();
         cardDisplayLoader.card = cardDrawn;
         cardDisplayLoader.loadCardAsset();
-        StartCoroutine(rotateWhenDrawn(newCard, player));
+        if (SettsHolder.instance.typeOfEnemy == GameMode.Computer && !SettsHolder.instance.aIPlayerCardsSeen &&
+            player == GameManager.Instance.playerNorth)
+        {
+            StartCoroutine(noRotationWhenDrawnAI(newCard, player));
+        }
+        else
+        {
+            StartCoroutine(rotateWhenDrawn(newCard, player));
+        }
     }
 
     // Visual represantation of card drawing
@@ -101,6 +109,35 @@ public class HandView : MonoBehaviour {
 
             newCard.transform.localScale -= new Vector3(0.00015f, 0.00015f, 0);
             newCard.transform.SetPositionAndRotation(new Vector3(this.transform.position.x - distanceX * f, this.transform.position.y - distanceY * f, 0), Quaternion.identity);
+            yield return new WaitForSeconds(.01f);
+        }
+        newCard.transform.SetParent(this.transform);
+        newCard.GetComponentInChildren<Canvas>().sortingLayerName = "Card";
+        this.isDrawingRunning = false;
+        idAssignment.whereIsCard = WhereIsCard.Hand;
+        yield return new WaitForSeconds(0.5f);
+        GameManager.Instance.enablePlayableCardsFlag = true;
+    }
+
+    // Visual represantation of card drawing for AI when cards are hidden
+    IEnumerator noRotationWhenDrawnAI(GameObject newCard, PlayerModel player)
+    {
+        Vector3 cardMovementVector = new Vector3(0f, 0f, 0f);
+        if (player.position == Position.South)
+        {
+            cardMovementVector = new Vector3(-0.05f, 0.05f, 0);
+        }
+        else if(player.position == Position.North)
+        {
+            cardMovementVector = new Vector3(-0.05f, -0.05f, 0);
+        }
+        newCard.GetComponentInChildren<Canvas>().sortingLayerName = "ActiveCard";
+        newCard.transform.rotation = Quaternion.Euler(0, 180.0f, 0);
+        float distanceX = this.transform.position.x - newCard.transform.position.x;
+        float distanceY = this.transform.position.y - newCard.transform.position.y;
+        for (float f = 1; f >= 0; f -= 0.02f)
+        {
+            newCard.transform.position = new Vector3(this.transform.position.x - distanceX * f, this.transform.position.y - distanceY * f, 0);
             yield return new WaitForSeconds(.01f);
         }
         newCard.transform.SetParent(this.transform);
