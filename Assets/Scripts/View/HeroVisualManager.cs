@@ -27,7 +27,6 @@ public class HeroVisualManager : MonoBehaviour
         nameText.text = hero.heroName;
         profileImage.sprite = hero.heroImage;
         healthText.text = hero.maxHealth.ToString();
-        skillCostText.text = hero.skillCost.ToString();
 
         // load card color based on affiliation
         if (hero.affiliation == Affiliation.Poland)
