@@ -52,6 +52,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         if (dragSuccess)//for dragging successful
         {
+            checkIfUnhideAICard();
             if (cardDetailedType == CardVisualStateEnum.UnitCard)
             {
                 // change card position in view to Front
@@ -101,5 +102,14 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         int updatedCurrentResources = GameManager.Instance.currentPlayer.substractCurrentResources(int.Parse(t_Reference.GetComponent<CardDisplayLoader>().cardMoneyText.text.ToString()));
         int maxResources = GameManager.Instance.currentPlayer.resourcesMaxThisTurn;
         GameManager.Instance.currentPlayer.resourceVisual.updateResourcesView(updatedCurrentResources, maxResources);
+    }
+
+    public void checkIfUnhideAICard()
+    {
+        if (!SettsHolder.instance.aIPlayerCardsSeen &&
+            GameManager.Instance.isItAITurn)
+        {
+            this.transform.rotation = Quaternion.Euler(0, 0.0f, 0);
+        }
     }
 }
