@@ -212,6 +212,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coin: {fileID: 1212007360391902, guid: 2c2cdee25d09de945b458303e510fdef, type: 2}
   bomb: {fileID: 1859050450289958, guid: ee8998e3112aa714d8e1e6767eeaad6b, type: 2}
+  explosion: {fileID: 100004, guid: 82019e923dca94848916b96b8f98a352, type: 2}
+  hit: {fileID: 100014, guid: ce442e8269f7e264a802dfea7a77b4d8, type: 2}
   ARCoinHitClip: {fileID: 8300000, guid: 348c2d6384d30c647a04cde14aa68d80, type: 3}
   ARBombHitClip: {fileID: 8300000, guid: 822eb84081f67f940936ee57fad7da5a, type: 3}
   ARCoinHitAudio: {fileID: 0}
