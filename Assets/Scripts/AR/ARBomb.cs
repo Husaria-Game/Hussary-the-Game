@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ARBomb : MonoBehaviour {
+
+  
     
 	// Use this for initialization
 	void Start () {
@@ -23,7 +25,12 @@ public class ARBomb : MonoBehaviour {
         {
             print("HIT BOMB !");
             ARControl.arPoints = 0;
-            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Coin");
+            Vector3 pos = this.transform.position;
+            ARControl.Instance.PlayAnimation(pos, "explosion");
+
+
+
+           GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Coin");
 
             foreach (GameObject enemy in gameObjects)
                 GameObject.Destroy(enemy);

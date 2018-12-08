@@ -13,6 +13,8 @@ public class ARControl : MonoBehaviour {
     public static int arPoints = 0;
     public GameObject coin;
     public GameObject bomb;
+    public GameObject explosion;
+    public GameObject hit;
     private bool eventStart = true;
     public AudioClip ARCoinHitClip;
     public AudioClip ARBombHitClip;
@@ -103,6 +105,22 @@ public class ARControl : MonoBehaviour {
         }
 
     }
+
+   public void PlayAnimation(Vector3 position, string animation) {
+
+        if (animation == "explosion")
+        {
+            GameObject exp = Instantiate(explosion, position, Quaternion.identity);
+            exp.transform.Rotate(-90, 0, 0);
+         
+        }
+
+        if (animation == "hit")
+        {
+            GameObject h = Instantiate(hit, position, Quaternion.identity);
+        }
+    }
+
 
     void DestroyOtherARElements() {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Coin");
