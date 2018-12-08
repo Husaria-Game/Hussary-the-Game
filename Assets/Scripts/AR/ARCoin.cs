@@ -25,6 +25,8 @@ public class ARCoin : MonoBehaviour {
         {
             print("HIT");
             ARControl.Instance.PlayAudioAR(ARControl.Instance.ARCoinHitAudio);
+            Vector3 pos = this.transform.position;
+            ARControl.Instance.PlayAnimation(pos, "hit");
             ARControl.arPoints += 1;
             Destroy(gameObject);
             Destroy(transform.root.gameObject);
