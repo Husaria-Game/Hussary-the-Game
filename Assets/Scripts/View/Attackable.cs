@@ -120,6 +120,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         if (attackOnUnitSuccess)//for attack on Unit successful - attacker adjusts all the information about the fight, attacker and defender
         {
+            checkIfUnhideAICard();
             if (cardDetailedType == CardVisualStateEnum.Unit)
             {
                 unitAttacksUnit(pz);
@@ -131,26 +132,31 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         }
         if (healOnOneUnitSuccess)//for heal on Unit successful 
         {
+            checkIfUnhideAICard();
             tacticsBonusUnit(pz, cardDetailedType);
         }
         if (strenghtOnOneUnitSuccess)//for strenght on Unit successful 
         {
+            checkIfUnhideAICard();
             tacticsBonusUnit(pz, cardDetailedType);
         }
 
         if (attackOnHeroSuccess && cardDetailedType == CardVisualStateEnum.Unit)//for attack on Hero successful - attacker adjusts all the information about the fight, attacker and defender
         {
+            checkIfUnhideAICard();
             unitAttacksHero(pz);
         }
 
         //for attack on All Units successful if there are any units on table - attacker adjusts all the information about the fight, attacker and defender
         if (attackOnAllUnitsSuccess && (enemyDropZone.dropAreaImage.transform.childCount > 0))
         {
+            checkIfUnhideAICard();
             tacticsAttacksAllUnits(pz);
         }
 
         if (healOnAllUnitsSuccess && (friendlyDropZone.dropAreaImage.transform.childCount > 0))
         {
+            checkIfUnhideAICard();
             tacticsHealAllUnits(pz);
         }
 
@@ -410,6 +416,15 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(attackerID);
             }
             Destroy(this.gameObject);
+        }
+    }
+
+    public void checkIfUnhideAICard()
+    {
+        if (!SettsHolder.instance.aIPlayerCardsSeen &&
+            GameManager.Instance.isItAITurn)
+        {
+            this.transform.rotation = Quaternion.Euler(0, 0.0f, 0);
         }
     }
 }

@@ -2030,8 +2030,6 @@ MonoBehaviour:
   parentToReturnTo: {fileID: 0}
   initialPosition: {x: 0, y: 0, z: 0}
   mousePosition: {x: 0, y: 0, z: 0}
-  lineRenderer: {fileID: 120968363280510944}
-  arrow: {fileID: 1016194792569446}
   dragSuccess: 0
   transformCardIntoUnit: 0
   dropZone: {fileID: 0}
@@ -3021,7 +3019,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.18634473}
   m_AnchorMax: {x: 0.8615675, y: 0.81525177}
-  m_AnchoredPosition: {x: 7.771576, y: 3.3164368}
+  m_AnchoredPosition: {x: 59, y: 3.3164368}
   m_SizeDelta: {x: 15.526447, y: 31.14519}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224119583509203394
@@ -3863,7 +3861,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -3.79, y: -2.23}
+  m_AnchoredPosition: {x: -6.38, y: 0.34}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224931737625825364
