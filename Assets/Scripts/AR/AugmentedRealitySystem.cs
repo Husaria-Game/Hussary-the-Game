@@ -32,7 +32,7 @@ public class AugmentedRealitySystem : MonoBehaviour
 
         if (ARResult == true && gameMode == 2)
         {
-            //BonusEffects.Instance.createMoneyGainEffect(ARControl.arPoints);
+            BonusEffects.Instance.createHostileEffectHero(GameManager.Instance.currentPlayer.heroVisual.gameObject, GameManager.Instance.currentPlayer.dropZoneVisual , ARControl.arHits);
             ARControl.arHits = 0;
         }
     }

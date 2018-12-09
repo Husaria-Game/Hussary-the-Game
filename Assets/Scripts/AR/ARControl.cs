@@ -61,7 +61,7 @@ public class ARControl : MonoBehaviour {
 
         if (eventStart == true)
         {
-            int game = (int)Random.Range(4f, 7f);
+            int game = (int)Random.Range(0f, 7f);
             if(game <= 3) {
                 print("Event: Collecting Coins");
                 SpawnRandomCoinsAndBombs();
@@ -109,7 +109,7 @@ public class ARControl : MonoBehaviour {
             ARTargetFind = false;
         }
         
-        if (timer > 12)
+        if (timer > 4)
         {
             AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
             SceneManager.UnloadScene(ARScene);
