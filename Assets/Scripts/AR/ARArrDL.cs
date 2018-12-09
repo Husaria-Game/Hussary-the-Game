@@ -15,7 +15,7 @@ public class ARArrDL : MonoBehaviour {
         {
             if (setSpeed == false)
             {
-                int game = (int)Random.Range(5f, 10f);
+                int game = (int)Random.Range(8f, 12f);
                 speed = speed * game;
                 setSpeed = true;
             }
@@ -31,7 +31,7 @@ public class ARArrDL : MonoBehaviour {
         if (other.tag == "Shield")
         {
             print("HIT SHIELD");
-            //ARControl.Instance.PlayAudioAR(ARControl.Instance.ARCoinHitAudio);
+            ARControl.Instance.PlayAudioAR(ARControl.Instance.ARArrowHitAudio);
             Vector3 pos = this.transform.position;
             ARControl.Instance.PlayAnimation(pos, "hitshield");
             Destroy(gameObject);
@@ -40,7 +40,7 @@ public class ARArrDL : MonoBehaviour {
         if (other.tag == "Heart")
         {
             print("HIT HEART");
-            //ARControl.Instance.PlayAudioAR(ARControl.Instance.ARCoinHitAudio);
+            ARControl.Instance.PlayAudioAR(ARControl.Instance.ARHeartHitAudio);
             Vector3 pos = this.transform.position;
             ARControl.Instance.PlayAnimation(pos, "hitheart");
             ARControl.arHits += 1;
