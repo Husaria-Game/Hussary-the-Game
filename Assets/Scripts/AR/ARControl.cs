@@ -46,8 +46,20 @@ public class ARControl : MonoBehaviour {
 
         if (eventStart == true)
         {
-            SpawnRandomCoinsAndBombs();
-            eventStart = false;
+            int game = (int)Random.Range(0f, 7f);
+            if(game <= 3) {
+                print("Event: Collecting Coins");
+                SpawnRandomCoinsAndBombs();
+                eventStart = false;
+            }
+            if(game >= 4)
+            {
+                print("Event: Defense against arrows");
+
+                eventStart = false;
+            }
+            
+            
         }
         //After press 9 -Back and add money
         if (Input.GetKeyDown(KeyCode.Alpha9))
@@ -69,8 +81,8 @@ public class ARControl : MonoBehaviour {
         //After time go back
         if(posOld != posNow) {
             timer += Time.deltaTime;
-            print("NOW:"+ posNow.x + "|" + posNow.y + "|" + posNow.z);
-            print("OLD:"+ posOld.x + "|" + posOld.y + "|" + posOld.z);
+            //print("NOW:"+ posNow.x + "|" + posNow.y + "|" + posNow.z);
+            //print("OLD:"+ posOld.x + "|" + posOld.y + "|" + posOld.z);
             posOld = posNow;
             print("Time:" + timer);
         }
