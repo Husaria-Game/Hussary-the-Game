@@ -260,7 +260,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         // create certain effect for unit based on card type
         BonusEffects.Instance.createHostileBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
 
-        CheckWhetherToKillUnitOrNotWithCoroutine(defenderArmor, defenderID, attackerArmor, attackerID, currentPlayer, otherPlayer);
+        Destroy(this.gameObject);
     }
 
     public void tacticsBonusUnit(Vector3 pz, CardVisualStateEnum cardDetailedType)
@@ -394,7 +394,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             currentPlayer, otherPlayer));
     }
 
-    IEnumerator CheckWhetherToKillUnitOrNotWithCoroutine(int defenderArmor, int defenderID, int attackerArmor, int attackerID, PlayerModel currentPlayer, PlayerModel otherPlayer)
+    IEnumerator CheckWhetherToKillUnitOrNotWithCoroutine(int defenderArmor, int defenderID, int attackerArmor,
+        int attackerID, PlayerModel currentPlayer, PlayerModel otherPlayer)
     {
         //Update armor in model, and if defender dead then update model and delete card from view
         if (defenderArmor > 0)
