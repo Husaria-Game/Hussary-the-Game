@@ -81,7 +81,6 @@ public class GameManager : MonoBehaviour
 
     IEnumerator startGame()
     {
-        currentPlayer = playerNorth;
         InitializeGame();
         endTurnButtonManager.InitialButtonBlock(16f);
 
@@ -109,17 +108,16 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
             }
         }
-
         playerNorth.handViewVisual.blockAllOperations();
         playerSouth.handViewVisual.blockAllOperations();
 
+        currentPlayer = playerNorth;
         this.nextTurn();
     }
 
     public void nextTurn()
     {
         turnNumber++;
-        Debug.Log("Tura nr " + turnNumber);
 
         if (currentPlayer == playerNorth)
         {
