@@ -165,7 +165,6 @@ public class GameManager : MonoBehaviour
 
     void InitializeGame()
     {
-        Instance.debugMessageBox.ShowDebugText("Gra Inicjalizowana", true);
         IDFactory.ResetIDs();
 
         //Attribute factions, names, mode of game and general settings

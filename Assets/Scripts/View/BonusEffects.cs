@@ -30,6 +30,7 @@ public class BonusEffects : MonoBehaviour
             {
                 Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
                 playerModel.handViewVisual.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel);
+                _finishGameIfLastCardInGame(playerModel);
             }
         }
         else
@@ -43,6 +44,7 @@ public class BonusEffects : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         Card cardDrawn = playerModel.armymodel.armyCardsModel.moveCardFromDeckListToHandList();
+        _finishGameIfLastCardInGame(playerModel);
         playerModel.handViewVisual.MoveDrawnCardFromDeckToHand(cardDrawn, playerModel);
     }
 
@@ -130,7 +132,7 @@ public class BonusEffects : MonoBehaviour
             Debug.Log("Game Ended! Won: " + GameManager.Instance.currentPlayer.name);
 
             // show final dialog with Winner after some amount of time
-            StartCoroutine(GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.currentPlayer));
+            StartCoroutine(GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.currentPlayer, false));
         }
 
     }
@@ -173,6 +175,32 @@ public class BonusEffects : MonoBehaviour
             // TODO: make below const global and without duplicates
             yield return new WaitForSeconds(DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY);
             Destroy(defenderCard.gameObject);
+        }
+    }
+    
+    private void _finishGameIfLastCardInGame(PlayerModel player)
+    {
+        if (GameManager.Instance.currentPlayer != null && player.armymodel.armyCardsModel.deckCardList.Count < 1)
+        {
+            PlayerModel winningPlayer;
+            if (int.Parse(GameManager.Instance.currentPlayer.heroVisual.healthText.text) >
+                int.Parse(GameManager.Instance.otherPlayer.heroVisual.healthText.text))
+            {
+                // show final dialog with Winner after some amount of time
+                StartCoroutine(GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.currentPlayer,true));
+                
+            }
+            else if(int.Parse(GameManager.Instance.currentPlayer.heroVisual.healthText.text) ==
+                    int.Parse(GameManager.Instance.otherPlayer.heroVisual.healthText.text))
+            {
+                // show final dialog with draw as a result of game after some amount of time
+                StartCoroutine(GameManager.Instance.endingMessage.DrawMessage(GameManager.Instance.otherPlayer));
+            }
+            else
+            {
+                // show final dialog with Winner after some amount of time
+                StartCoroutine(GameManager.Instance.endingMessage.WhoWonMessege(GameManager.Instance.otherPlayer, true));
+            }
         }
     }
 

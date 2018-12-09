@@ -21,7 +21,9 @@ public class ArmyCardsModel : MonoBehaviour
 
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Derwisz")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Derwisz")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Derwisz")));
 
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mameluk")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mameluk")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mameluk")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Mameluk")));
@@ -58,6 +60,8 @@ public class ArmyCardsModel : MonoBehaviour
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Parzenie kawy")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Parzenie kawy")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Dostawa broni")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Dostawa broni")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Żywiołowy atak")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Żywiołowy atak")));
         }
 
@@ -65,7 +69,9 @@ public class ArmyCardsModel : MonoBehaviour
 
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Ciura obozowy")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Ciura obozowy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Ciura obozowy")));
 
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Czeladnik")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Czeladnik")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Czeladnik")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Czeladnik")));
@@ -100,6 +106,8 @@ public class ArmyCardsModel : MonoBehaviour
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Spotkanie u hetmana")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Spotkanie u hetmana")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Najazd falowy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Najazd falowy")));
+            deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Zwarcie szyku")));
             deckCardList.Add(Instantiate(Resources.Load<Card>("Cards/Zwarcie szyku")));
         }
 

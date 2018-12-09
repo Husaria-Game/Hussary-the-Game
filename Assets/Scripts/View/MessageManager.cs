@@ -12,20 +12,6 @@ public class MessageManager : MonoBehaviour {
     public String playerSouthName;
     public String playerNorthName;
 
-    // Update is called once per frame
-    void Update () {
-        //============TEST of  messageManager============
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            ShowMessage(playerSouthName + " - Twoja Tura", 2f);
-        }
-            
-
-        if (Input.GetKeyDown(KeyCode.B))
-            ShowMessage(playerNorthName + " - Twoja Tura", 2f);
-        //===============================================
-    }
-
     public void ShowMessage(string message, float showTime)
     {
         StartCoroutine(ShowMessageCoroutine(message, showTime));
@@ -35,11 +21,9 @@ public class MessageManager : MonoBehaviour {
     {
         MessageText.text = message;
         MessageCanvasGO.SetActive(true);
-        //Time.timeScale = 0.001f;
 
         yield return new WaitForSeconds(showTime);
 
-        //Time.timeScale = 1;
         MessageCanvasGO.SetActive(false);
     }
 }
