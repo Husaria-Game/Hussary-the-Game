@@ -20,6 +20,7 @@ public class ARControl : MonoBehaviour {
     public AudioClip ARBombHitClip;
     public AudioSource ARCoinHitAudio;
     public AudioSource ARBombHitAudio;
+    Vector3 posOld = new Vector3(0, 0, 0);
 
     void Awake(){
 
@@ -39,6 +40,9 @@ public class ARControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
+        GameObject[] findDagger = GameObject.FindGameObjectsWithTag("ImgDagger");
+        Vector3 posNow = findDagger[0].transform.position;
 
         if (eventStart == true)
         {
@@ -63,7 +67,14 @@ public class ARControl : MonoBehaviour {
 
         
         //After time go back
-        timer += Time.deltaTime;
+        if(posOld != posNow) {
+            timer += Time.deltaTime;
+            print("NOW:"+ posNow.x + "|" + posNow.y + "|" + posNow.z);
+            print("OLD:"+ posOld.x + "|" + posOld.y + "|" + posOld.z);
+            posOld = posNow;
+            print("Time:" + timer);
+        }
+        
         if (timer > 12)
         {
             AugmentedRealitySystem.Instance.ARSceneResult(true);
@@ -132,6 +143,10 @@ public class ARControl : MonoBehaviour {
 
         foreach (GameObject enemy in gameObjects)
             GameObject.Destroy(enemy);
+
+        gameObjects = GameObject.FindGameObjectsWithTag("ARA");
+        foreach (GameObject enemy in gameObjects)
+            GameObject.Destroy(enemy);
     }
 
     public AudioSource AddAudioAR(AudioClip audioClip, bool loop)
@@ -146,7 +161,6 @@ public class ARControl : MonoBehaviour {
     {
         audioSource.Play();
     }
-
 
 
 }

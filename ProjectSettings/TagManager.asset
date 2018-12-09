@@ -9,6 +9,8 @@ TagManager:
   - Coin
   - HitBox
   - Bomb
+  - ARA
+  - ImgDagger
   layers:
   - Default
   - TransparentFX
