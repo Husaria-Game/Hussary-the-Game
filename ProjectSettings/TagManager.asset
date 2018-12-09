@@ -11,6 +11,8 @@ TagManager:
   - Bomb
   - ARA
   - ImgDagger
+  - Heart
+  - Arrow
   layers:
   - Default
   - TransparentFX
