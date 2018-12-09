@@ -2848,6 +2848,10 @@ MonoBehaviour:
   cannon: {fileID: 8300000, guid: 219cd78a6f2208d4aafa9be8329c3bb1, type: 3}
   heroHurt: {fileID: 8300000, guid: 8677c5527430b2e4fb7ada38792a1349, type: 3}
   coinGain: {fileID: 8300000, guid: 2808e23530d72ff4080d4142f874e219, type: 3}
+  ARCoinHitClip: {fileID: 8300000, guid: 348c2d6384d30c647a04cde14aa68d80, type: 3}
+  ARBombHitClip: {fileID: 8300000, guid: 822eb84081f67f940936ee57fad7da5a, type: 3}
+  ARHeartHitClip: {fileID: 8300000, guid: d6fecf67666ae834a9589ee50759cdba, type: 3}
+  ARArrowHitClip: {fileID: 8300000, guid: 88c104feada616a46a1ef0f421c63902, type: 3}
   bogurodzicaAudio: {fileID: 0}
   battleThemeAudio: {fileID: 0}
   attackAudio: {fileID: 0}
@@ -2859,6 +2863,10 @@ MonoBehaviour:
   effectAudio: {fileID: 0}
   noEffectAudio: {fileID: 0}
   buttonAudio: {fileID: 0}
+  ARCoinHitAudio: {fileID: 0}
+  ARBombHitAudio: {fileID: 0}
+  ARHeartHitAudio: {fileID: 0}
+  ARArrowHitAudio: {fileID: 0}
   visuals: {fileID: 1978118198}
 --- !u!4 &1852950677 stripped
 Transform:

@@ -11,23 +11,24 @@ public class ARControl : MonoBehaviour {
     private float timer = 0;
     private string ARScene = "ARScene";
     public static int arPoints = 0;
+    public static int arHits = 0;
     public GameObject coin;
     public GameObject bomb;
+    public GameObject heart;
+    public GameObject heartHit;
+    public GameObject arrow;
+    public GameObject arrowHit;
     public GameObject explosion;
     public GameObject hit;
-    private bool eventStart = true;
-    public AudioClip ARCoinHitClip;
-    public AudioClip ARBombHitClip;
-    public AudioSource ARCoinHitAudio;
-    public AudioSource ARBombHitAudio;
+    private static bool eventStart = true;
+    public static bool ARTargetFind = false;
+    Vector3 posOld = new Vector3(0, 0, 0);
+    private static int GameMode = 0;
+    
 
     void Awake(){
 
         Instance = this;
-
-        //Add audio
-        ARCoinHitAudio = AddAudioAR(ARCoinHitClip, false);
-        ARBombHitAudio = AddAudioAR(ARBombHitClip, false);
     }
 
         // Use this for initialization
@@ -39,16 +40,37 @@ public class ARControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
+        GameObject[] findDagger = GameObject.FindGameObjectsWithTag("ImgDagger");
+        Vector3 posNow = new Vector3 (0, 0, 0);
+        if (GameMode == 1) {posNow = findDagger[1].transform.position; }
+        if(GameMode == 2) {posNow = findDagger[0].transform.position; }
+        
+        
 
         if (eventStart == true)
         {
-            SpawnRandomCoinsAndBombs();
-            eventStart = false;
+            int game = (int)Random.Range(0f, 7f);
+            if(game <= 3) {
+                print("Event: Collecting Coins");
+                SpawnRandomCoinsAndBombs();
+                eventStart = false;
+                GameMode = 1;
+            }
+            if(game >= 4)
+            {
+                print("Event: Defense against arrows");
+                SpawnArrowsAndHeart();
+                eventStart = false;
+                GameMode = 2;
+            }
+            
+            
         }
         //After press 9 -Back and add money
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            AugmentedRealitySystem.Instance.ARSceneResult(true);
+            AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
             SceneManager.UnloadScene(ARScene);
             DestroyOtherARElements();
         }
@@ -56,22 +78,69 @@ public class ARControl : MonoBehaviour {
         //After press 8 -Back and no bonus money
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            AugmentedRealitySystem.Instance.ARSceneResult(false);
+            AugmentedRealitySystem.Instance.ARSceneResult(false, GameMode);
             SceneManager.UnloadScene(ARScene);
             DestroyOtherARElements();
         }
 
         
         //After time go back
-        timer += Time.deltaTime;
-        if (timer > 12)
+        if(posOld != posNow) {
+            if (GameMode == 1)
+            {
+                timer += Time.deltaTime;
+                print("Time:" + timer);
+            }
+            //print("NOW:"+ posNow.x + "|" + posNow.y + "|" + posNow.z);
+            //print("OLD:"+ posOld.x + "|" + posOld.y + "|" + posOld.z);
+            posOld = posNow;
+            ARTargetFind = true;
+        }
+        else
         {
-            AugmentedRealitySystem.Instance.ARSceneResult(true);
+            ARTargetFind = false;
+        }
+        
+        if (timer > 1)
+        {
+            AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
             SceneManager.UnloadScene(ARScene);
             DestroyOtherARElements();
         }
+        else
+        {
+            StartCoroutine(turnOffEvent());
+        } 
+    }
+
+
+    void SpawnArrowsAndHeart()
+    {
+        Vector3 heartPosition = new Vector3(0f,-1f,10f);
+        Instantiate(heart, heartPosition, Quaternion.identity);
+
+        Vector3 apos1 = new Vector3(-4f, 2f, 10f);
+        GameObject arr1 = Instantiate(arrow, apos1, Quaternion.identity);
+        arr1.transform.Rotate(0, 0, 135);
+
+        Vector3 apos2 = new Vector3(4f, 2f, 10f);
+        GameObject arr2 = Instantiate(arrow, apos2, Quaternion.identity);
+        arr2.transform.Rotate(0, 180, -225);
+
+        Vector3 apos3 = new Vector3(-4f, -1f, 10f);
+        GameObject arr3 = Instantiate(arrow, apos3, Quaternion.identity);
+        arr3.transform.Rotate(0, 180, 0);
+
+        Vector3 apos4 = new Vector3(0f, 2f, 10f);
+        GameObject arr4 = Instantiate(arrow, apos4, Quaternion.identity);
+        arr4.transform.Rotate(0, 180, 90);
+
+        Vector3 apos5 = new Vector3(4f, -1f, 10f);
+        GameObject arr5 = Instantiate(arrow, apos5, Quaternion.identity);
+        arr5.transform.Rotate(0, 180, 180);
         
     }
+
 
     void SpawnRandomCoinsAndBombs() {
 
@@ -112,12 +181,21 @@ public class ARControl : MonoBehaviour {
         {
             GameObject exp = Instantiate(explosion, position, Quaternion.identity);
             exp.transform.Rotate(-90, 0, 0);
-         
         }
 
         if (animation == "hit")
         {
-            GameObject h = Instantiate(hit, position, Quaternion.identity);
+            Instantiate(hit, position, Quaternion.identity);
+        }
+
+        if (animation == "hitshield")
+        {
+            Instantiate(arrowHit, position, Quaternion.identity);
+        }
+
+        if (animation == "hitheart")
+        {
+            Instantiate(heartHit, position, Quaternion.identity);
         }
     }
 
@@ -132,21 +210,49 @@ public class ARControl : MonoBehaviour {
 
         foreach (GameObject enemy in gameObjects)
             GameObject.Destroy(enemy);
+
+        gameObjects = GameObject.FindGameObjectsWithTag("ARA");
+        foreach (GameObject enemy in gameObjects)
+            GameObject.Destroy(enemy);
+
+        gameObjects = GameObject.FindGameObjectsWithTag("Heart");
+        foreach (GameObject enemy in gameObjects)
+            GameObject.Destroy(enemy);
+
+        gameObjects = GameObject.FindGameObjectsWithTag("Arrow");
+        foreach (GameObject enemy in gameObjects)
+            GameObject.Destroy(enemy);
+
+        GameMode = 0;
+        eventStart = true;
     }
 
-    public AudioSource AddAudioAR(AudioClip audioClip, bool loop)
-    {
-        AudioSource newAudio = new AudioSource();
-        newAudio = gameObject.AddComponent<AudioSource>();
-        newAudio.clip = audioClip;
-        return newAudio;
+    public IEnumerator turnOffEvent() {
+        if (GameMode == 1) {
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Coin");
+            if(gameObjects.Length < 1)
+            {
+
+                yield return new WaitForSeconds(2);
+                AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
+                SceneManager.UnloadScene(ARScene);
+                DestroyOtherARElements();
+            }
+        }
+
+        if (GameMode == 2)
+        {
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Arrow");
+            if (gameObjects.Length < 1)
+            {
+
+                yield return new WaitForSeconds(2);
+                AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
+                SceneManager.UnloadScene(ARScene);
+                DestroyOtherARElements();
+            }
+        }
+
     }
-
-    public void PlayAudioAR(AudioSource audioSource)
-    {
-        audioSource.Play();
-    }
-
-
 
 }
