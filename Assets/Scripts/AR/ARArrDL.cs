@@ -15,7 +15,7 @@ public class ARArrDL : MonoBehaviour {
         {
             if (setSpeed == false)
             {
-                int game = (int)Random.Range(8f, 12f);
+                int game = (int)Random.Range(10f, 18f);
                 speed = speed * game;
                 setSpeed = true;
             }

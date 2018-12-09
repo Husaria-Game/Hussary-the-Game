@@ -445,7 +445,7 @@ Transform:
   m_GameObject: {fileID: 61565275}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 86985264}
   m_Father: {fileID: 2005745034}
@@ -532,8 +532,8 @@ MonoBehaviour:
   mDataSetPath: Vuforia/Weapons.xml
   mAspectRatio: 1
   mImageTargetType: 0
-  mWidth: 4
-  mHeight: 4
+  mWidth: 2
+  mHeight: 2
 --- !u!1 &86985263
 GameObject:
   m_ObjectHideFlags: 0
