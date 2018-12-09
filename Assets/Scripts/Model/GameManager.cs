@@ -147,11 +147,10 @@ public class GameManager : MonoBehaviour
         otherPlayer.handViewVisual.setRaycastAvailabilityForCards();
         otherPlayer.dropZoneVisual.setRaycastAvailabilityForCards();
         
-        //If human players and hybrid effects on check whether bonus effect possible
+        //If human players and hybrid effects are set on on check whether bonus effect possible
         if (currentPlayer == playerSouth || currentPlayer == playerNorth && SettsHolder.instance.typeOfEnemy != GameMode.Computer)
         {
             hybridEffectsSystem.CheckWhetherToUseHybridEffect();
-            //speechRecognition.CheckWhetherToShowSpeechSign();
         }
         
         if (isItAITurn)
