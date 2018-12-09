@@ -170,7 +170,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         }
         if (GameManager.Instance.isAttackableDraggingActive && pointerExit && this.dropZonePosition != GameManager.Instance.currentPlayer.position)
         {
-            dropAreaImage.GetComponent<Image>().color = new Color32(47, 44, 45, 125);
+            dropAreaImage.GetComponent<Image>().color = Color.clear;
             sourceCardGOWhenDragging = null;
             pointerEnter = false;
             pointerExit = false;
@@ -178,7 +178,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         if (!GameManager.Instance.isAttackableDraggingActive)
         {
             sourceCardGOWhenDragging = null;
-            dropAreaImage.GetComponent<Image>().color = new Color32(47, 44, 45, 125);
+            dropAreaImage.GetComponent<Image>().color = Color.clear;
             pointerEnter = false;
             pointerExit = false;
         }
@@ -193,7 +193,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         }
         if (GameManager.Instance.isAttackableDraggingActive && pointerExit && this.dropZonePosition == GameManager.Instance.currentPlayer.position)
         {
-            dropAreaImage.GetComponent<Image>().color = new Color32(47, 44, 45, 125);
+            dropAreaImage.GetComponent<Image>().color = Color.clear;
             sourceCardGOWhenDragging = null;
             pointerEnter = false;
             pointerExit = false;
@@ -201,7 +201,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         if (!GameManager.Instance.isAttackableDraggingActive)
         {
             sourceCardGOWhenDragging = null;
-            dropAreaImage.GetComponent<Image>().color = new Color32(47, 44, 45, 125);
+            dropAreaImage.GetComponent<Image>().color = Color.clear;
             pointerEnter = false;
             pointerExit = false;
         }
