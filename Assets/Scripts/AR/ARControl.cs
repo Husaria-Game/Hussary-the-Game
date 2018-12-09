@@ -21,14 +21,6 @@ public class ARControl : MonoBehaviour {
     public GameObject explosion;
     public GameObject hit;
     private static bool eventStart = true;
-    public AudioClip ARCoinHitClip;
-    public AudioClip ARBombHitClip;
-    public AudioClip ARHeartHitClip;
-    public AudioClip ARArrowHitClip;
-    public AudioSource ARCoinHitAudio;
-    public AudioSource ARBombHitAudio;
-    public AudioSource ARHeartHitAudio;
-    public AudioSource ARArrowHitAudio;
 
     public static bool ARTargetFind = false;
     Vector3 posOld = new Vector3(0, 0, 0);
@@ -38,12 +30,6 @@ public class ARControl : MonoBehaviour {
     void Awake(){
 
         Instance = this;
-
-        //Add audio
-        ARCoinHitAudio = AddAudioAR(ARCoinHitClip, false);
-        ARBombHitAudio = AddAudioAR(ARBombHitClip, false);
-        ARHeartHitAudio = AddAudioAR(ARHeartHitClip, false);
-        ARArrowHitAudio = AddAudioAR(ARArrowHitClip, false);
     }
 
         // Use this for initialization
@@ -186,7 +172,6 @@ public class ARControl : MonoBehaviour {
         {
             GameObject exp = Instantiate(explosion, position, Quaternion.identity);
             exp.transform.Rotate(-90, 0, 0);
-         
         }
 
         if (animation == "hit")

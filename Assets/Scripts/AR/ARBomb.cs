@@ -40,7 +40,7 @@ public class ARBomb : MonoBehaviour {
             foreach (GameObject enemy in gameObjects)
                 GameObject.Destroy(enemy);
 
-            ARControl.Instance.PlayAudioAR(ARControl.Instance.ARBombHitAudio);
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.ARBombHitAudio);
             Destroy(gameObject);
             Destroy(transform.root.gameObject);
             

@@ -31,7 +31,7 @@ public class ARArrDL : MonoBehaviour {
         if (other.tag == "Shield")
         {
             print("HIT SHIELD");
-            ARControl.Instance.PlayAudioAR(ARControl.Instance.ARArrowHitAudio);
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.ARArrowHitAudio);
             Vector3 pos = this.transform.position;
             ARControl.Instance.PlayAnimation(pos, "hitshield");
             Destroy(gameObject);
@@ -40,7 +40,7 @@ public class ARArrDL : MonoBehaviour {
         if (other.tag == "Heart")
         {
             print("HIT HEART");
-            ARControl.Instance.PlayAudioAR(ARControl.Instance.ARHeartHitAudio);
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.ARHeartHitAudio);
             Vector3 pos = this.transform.position;
             ARControl.Instance.PlayAnimation(pos, "hitheart");
             ARControl.arHits += 1;
