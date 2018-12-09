@@ -21,7 +21,6 @@ public class ARControl : MonoBehaviour {
     public GameObject explosion;
     public GameObject hit;
     private static bool eventStart = true;
-
     public static bool ARTargetFind = false;
     Vector3 posOld = new Vector3(0, 0, 0);
     private static int GameMode = 0;
@@ -43,7 +42,11 @@ public class ARControl : MonoBehaviour {
 	void Update () {
         
         GameObject[] findDagger = GameObject.FindGameObjectsWithTag("ImgDagger");
-        Vector3 posNow = findDagger[0].transform.position;
+        Vector3 posNow = new Vector3 (0, 0, 0);
+        if (GameMode == 1) {posNow = findDagger[1].transform.position; }
+        if(GameMode == 2) {posNow = findDagger[0].transform.position; }
+        
+        
 
         if (eventStart == true)
         {
@@ -83,11 +86,14 @@ public class ARControl : MonoBehaviour {
         
         //After time go back
         if(posOld != posNow) {
-            timer += Time.deltaTime;
+            if (GameMode == 1)
+            {
+                timer += Time.deltaTime;
+                print("Time:" + timer);
+            }
             //print("NOW:"+ posNow.x + "|" + posNow.y + "|" + posNow.z);
             //print("OLD:"+ posOld.x + "|" + posOld.y + "|" + posOld.z);
             posOld = posNow;
-            print("Time:" + timer);
             ARTargetFind = true;
         }
         else
@@ -95,20 +101,23 @@ public class ARControl : MonoBehaviour {
             ARTargetFind = false;
         }
         
-        if (timer > 4)
+        if (timer > 1)
         {
             AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
             SceneManager.UnloadScene(ARScene);
             DestroyOtherARElements();
         }
-        
+        else
+        {
+            StartCoroutine(turnOffEvent());
+        } 
     }
 
 
     void SpawnArrowsAndHeart()
     {
         Vector3 heartPosition = new Vector3(0f,-1f,10f);
-        GameObject heartOG = Instantiate(heart, heartPosition, Quaternion.identity);
+        Instantiate(heart, heartPosition, Quaternion.identity);
 
         Vector3 apos1 = new Vector3(-4f, 2f, 10f);
         GameObject arr1 = Instantiate(arrow, apos1, Quaternion.identity);
@@ -176,17 +185,17 @@ public class ARControl : MonoBehaviour {
 
         if (animation == "hit")
         {
-            GameObject h = Instantiate(hit, position, Quaternion.identity);
+            Instantiate(hit, position, Quaternion.identity);
         }
 
         if (animation == "hitshield")
         {
-            GameObject h = Instantiate(arrowHit, position, Quaternion.identity);
+            Instantiate(arrowHit, position, Quaternion.identity);
         }
 
         if (animation == "hitheart")
         {
-            GameObject h = Instantiate(heartHit, position, Quaternion.identity);
+            Instantiate(heartHit, position, Quaternion.identity);
         }
     }
 
@@ -213,20 +222,37 @@ public class ARControl : MonoBehaviour {
         gameObjects = GameObject.FindGameObjectsWithTag("Arrow");
         foreach (GameObject enemy in gameObjects)
             GameObject.Destroy(enemy);
+
+        GameMode = 0;
+        eventStart = true;
     }
 
-    public AudioSource AddAudioAR(AudioClip audioClip, bool loop)
-    {
-        AudioSource newAudio = new AudioSource();
-        newAudio = gameObject.AddComponent<AudioSource>();
-        newAudio.clip = audioClip;
-        return newAudio;
-    }
+    public IEnumerator turnOffEvent() {
+        if (GameMode == 1) {
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Coin");
+            if(gameObjects.Length < 1)
+            {
 
-    public void PlayAudioAR(AudioSource audioSource)
-    {
-        audioSource.Play();
-    }
+                yield return new WaitForSeconds(2);
+                AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
+                SceneManager.UnloadScene(ARScene);
+                DestroyOtherARElements();
+            }
+        }
 
+        if (GameMode == 2)
+        {
+            GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Arrow");
+            if (gameObjects.Length < 1)
+            {
+
+                yield return new WaitForSeconds(2);
+                AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
+                SceneManager.UnloadScene(ARScene);
+                DestroyOtherARElements();
+            }
+        }
+
+    }
 
 }
