@@ -24,7 +24,7 @@ public class ARCoin : MonoBehaviour {
         if (other.tag == "Dagger")
         {
             print("HIT");
-            ARControl.Instance.PlayAudioAR(ARControl.Instance.ARCoinHitAudio);
+            GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.ARCoinHitAudio);
             Vector3 pos = this.transform.position;
             ARControl.Instance.PlayAnimation(pos, "hit");
             ARControl.arPoints += 1;

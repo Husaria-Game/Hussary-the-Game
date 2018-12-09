@@ -18,6 +18,10 @@ public class AudioGenerator : MonoBehaviour {
     public AudioClip heroHurt;
     [Header("AR")]
     public AudioClip coinGain;
+    public AudioClip ARCoinHitClip;
+    public AudioClip ARBombHitClip;
+    public AudioClip ARHeartHitClip;
+    public AudioClip ARArrowHitClip;
     [Header("AudioSources")]
     public AudioSource bogurodzicaAudio;
     public AudioSource battleThemeAudio;
@@ -30,6 +34,10 @@ public class AudioGenerator : MonoBehaviour {
     public AudioSource effectAudio;
     public AudioSource noEffectAudio;
     public AudioSource buttonAudio;
+    public AudioSource ARCoinHitAudio;
+    public AudioSource ARBombHitAudio;
+    public AudioSource ARHeartHitAudio;
+    public AudioSource ARArrowHitAudio;
     [Header("Other")]
     public GameObject visuals;
     private bool isMenuMusic = true;
@@ -46,6 +54,10 @@ public class AudioGenerator : MonoBehaviour {
         coinGainAudio = AddAudio(coinGain, false);
         effectAudio = AddAudio(effect, false);
         noEffectAudio = AddAudio(noEffect, false);
+        ARCoinHitAudio = AddAudio(ARCoinHitClip, false);
+        ARBombHitAudio = AddAudio(ARBombHitClip, false);
+        ARHeartHitAudio = AddAudio(ARHeartHitClip, false);
+        ARArrowHitAudio = AddAudio(ARArrowHitClip, false);
     }
 
     void Start()

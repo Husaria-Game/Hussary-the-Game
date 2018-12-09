@@ -20,7 +20,7 @@ public class SceneReloaderTest : MonoBehaviour
     void goBackToTableScene(bool isARBonusGranted)
     {
         //Output this to console when Button1 or Button3 is clicked
-        AugmentedRealitySystem.Instance.ARSceneResult(isARBonusGranted);
+        AugmentedRealitySystem.Instance.ARSceneResult(isARBonusGranted,0);
         SceneManager.UnloadSceneAsync("ARScene");
     }
 }

@@ -16,21 +16,24 @@ public class AugmentedRealitySystem : MonoBehaviour
 
     public void GoToARScene()
     {
-        //Output this to console when Button1 or Button3 is clicked
-        //Time.timeScale = 0;
-        //visuals.SetActive(false);
         GameManager.Instance.endTurnButtonManager.ARSceneBecomesActive();
         SceneManager.LoadScene("ARScene", LoadSceneMode.Additive);
     }
 
-    public void ARSceneResult(bool ARResult)
+    public void ARSceneResult(bool ARResult, int gameMode)
     {
         // resume game 
         //Time.timeScale = 1;
-        if (ARResult)
+        if (ARResult == true && gameMode == 1)
         {
             BonusEffects.Instance.createMoneyGainEffect(ARControl.arPoints);
             ARControl.arPoints = 0;
+        }
+
+        if (ARResult == true && gameMode == 2)
+        {
+            BonusEffects.Instance.createHostileEffectHero(GameManager.Instance.currentPlayer.heroVisual.gameObject, GameManager.Instance.currentPlayer.dropZoneVisual , ARControl.arHits);
+            ARControl.arHits = 0;
         }
     }
 }
