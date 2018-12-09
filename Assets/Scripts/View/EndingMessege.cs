@@ -50,7 +50,7 @@ public class EndingMessege : MonoBehaviour {
     public IEnumerator DrawMessage(PlayerModel player)
     {
         afterGameText.text = "REMIS!\nWyczerpała się liczba dostępnych kart.";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         MessegeCanvasAfterGameIsDone.SetActive(true);
         Time.timeScale = 0;
     }
@@ -64,7 +64,7 @@ public class EndingMessege : MonoBehaviour {
         {
             afterGameText.text += "\nWyczerpała  się  liczba  dostępnych  kart.";
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         MessegeCanvasAfterGameIsDone.SetActive(true);
         Time.timeScale = 0;
     }
