@@ -19,11 +19,6 @@ public class EndingMessege : MonoBehaviour {
             MessegeCanvasForQuitGame.SetActive(true);
             Time.timeScale = 0;
         }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            MessegeCanvasAfterGameIsDone.SetActive(true);
-            Time.timeScale = 0;
-        }
     }
 
     public void StopTheGame()
@@ -52,10 +47,23 @@ public class EndingMessege : MonoBehaviour {
     }
 
     //Method to be used in GameManager to pass winning player name
-    public IEnumerator WhoWonMessege(PlayerModel player)
+    public IEnumerator DrawMessage(PlayerModel player)
+    {
+        afterGameText.text = "REMIS!\nWyczerpała się liczba dostępnych kart.";
+        yield return new WaitForSeconds(1f);
+        MessegeCanvasAfterGameIsDone.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    //Method to be used in GameManager to pass winning player name
+    public IEnumerator WhoWonMessege(PlayerModel player, bool reachedEndOfDeckCards)
     {
         winnerName = player.name;
-        afterGameText.text = "Zwycięża " + winnerName;
+        afterGameText.text = "Zwycięża:\t" + winnerName +"!";
+        if (reachedEndOfDeckCards)
+        {
+            afterGameText.text += "\nWyczerpała  się  liczba  dostępnych  kart.";
+        }
         yield return new WaitForSeconds(1f);
         MessegeCanvasAfterGameIsDone.SetActive(true);
         Time.timeScale = 0;
