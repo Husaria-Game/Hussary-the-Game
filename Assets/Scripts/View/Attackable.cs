@@ -259,7 +259,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         // create certain effect for unit based on card type
         BonusEffects.Instance.createHostileBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
-
+        GameManager.Instance.UnblockAllUnitsAndCards(currentPlayer);
         Destroy(this.gameObject);
     }
 
@@ -284,6 +284,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         BonusEffects.Instance.createFriendlyBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
        
         currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
+        GameManager.Instance.UnblockAllUnitsAndCards(currentPlayer);
         Destroy(this.gameObject);
     }
 
@@ -340,6 +341,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         // update model and delete card from view
         currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
+        GameManager.Instance.UnblockAllUnitsAndCards(currentPlayer);
         Destroy(this.gameObject);
     }
 
@@ -383,6 +385,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         
         // update model and delete healer card from view
         currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(healerID);
+        GameManager.Instance.UnblockAllUnitsAndCards(currentPlayer);
         Destroy(this.gameObject);
     }
 

@@ -35,7 +35,7 @@ public class BonusEffects : MonoBehaviour
         }
         else
         {
-            GameManager.Instance.UnblockAllUnitsAndCards(GameManager.Instance.playerSouth);
+            GameManager.Instance.UnblockAllUnitsAndCards(GameManager.Instance.currentPlayer);
         }
     }
 
