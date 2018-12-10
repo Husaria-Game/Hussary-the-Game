@@ -20,22 +20,23 @@ public class ARControl : MonoBehaviour {
     public GameObject arrowHit;
     public GameObject explosion;
     public GameObject hit;
+    public Text playerNamePanel;
     private static bool eventStart = true;
     public static bool ARTargetFind = false;
     Vector3 posOld = new Vector3(0, 0, 0);
     private static int GameMode = 0;
     
 
-    void Awake(){
-
+    void Awake()
+    {
         Instance = this;
     }
 
-        // Use this for initialization
-        void Start () {
+    // Use this for initialization
+    void Start()
+    {
         //Set Player Name
-        GameObject.Find("PlayerNameText").GetComponent<Text>().text = GameManager.Instance.currentPlayer.name;
-        
+        playerNamePanel.text = GameManager.Instance.currentPlayer.name;
     }
 	
 	// Update is called once per frame
