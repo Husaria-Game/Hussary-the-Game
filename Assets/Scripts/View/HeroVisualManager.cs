@@ -70,13 +70,12 @@ public class HeroVisualManager : MonoBehaviour
     {
         if (f == Faction.Poland)
         {
-            hero = (Hero)AssetDatabase.LoadAssetAtPath("Assets/Resources/Heroes/JanIIISobieski.asset", typeof(Hero));
+            hero = Resources.Load<Hero>("Heroes/JanIIISobieski");
             loadHeroAsset();
         }
         else if(f == Faction.Ottoman)
         {
-
-            hero = (Hero)AssetDatabase.LoadAssetAtPath("Assets/Resources/Heroes/Mehmed4.asset", typeof(Hero));
+            hero = Resources.Load<Hero>("Heroes/Mehmed4");
             loadHeroAsset();
         }
     }

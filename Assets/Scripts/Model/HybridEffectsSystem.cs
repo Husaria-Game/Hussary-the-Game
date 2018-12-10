@@ -6,7 +6,7 @@ public class HybridEffectsSystem : MonoBehaviour
     public AugmentedRealitySystem ARS;
 
     private System.Random random = new System.Random();
-    private const int HYBRID_EFFECT_CHANCE = 90;
+    private const int HYBRID_EFFECT_CHANCE = 30;
 
     public void CheckWhetherToUseHybridEffect()
     {
