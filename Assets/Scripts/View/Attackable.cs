@@ -260,7 +260,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         // create certain effect for unit based on card type
         BonusEffects.Instance.createHostileBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
         GameManager.Instance.UnblockAllUnitsAndCards(currentPlayer);
-        Destroy(this.gameObject);
+        defenderUnit.GetComponent<UnitVisualManager>().createDamageVisual(attackerAttack);
+        StartCoroutine(DestroyGOWithDelay());
     }
 
     public void tacticsBonusUnit(Vector3 pz, CardVisualStateEnum cardDetailedType)
@@ -440,5 +441,11 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         {
             this.transform.rotation = Quaternion.Euler(0, 0.0f, 0);
         }
+    }
+
+    IEnumerator DestroyGOWithDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Destroy(this.gameObject);
     }
 }
