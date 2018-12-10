@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
         //If human players and hybrid effects are set on on check whether bonus effect possible
         if (currentPlayer == playerSouth || currentPlayer == playerNorth && SettsHolder.instance.typeOfEnemy != GameMode.Computer)
         {
-            hybridEffectsSystem.CheckWhetherToUseHybridEffect();
+            StartCoroutine(goToARSceneCoRoutine());
         }
         
         if (isItAITurn)
@@ -176,6 +176,12 @@ public class GameManager : MonoBehaviour
         playerSouth.resourceVisual.updateResourcesView(playerSouth.resourcesCurrent, playerSouth.resourcesMaxThisTurn);
         playerNorth.namePanel.NameText.text = playerNorth.name;
         playerSouth.namePanel.NameText.text = playerSouth.name;
+    }
+
+    IEnumerator goToARSceneCoRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        hybridEffectsSystem.CheckWhetherToUseHybridEffect();
     }
 
     public void cardDraggedToFrontCommand(Position playerPosition, int cardId)

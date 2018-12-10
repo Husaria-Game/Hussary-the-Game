@@ -9,8 +9,6 @@ public class EndTurnButtonManager : MonoBehaviour
     public GameManager gameManager;
     public Text timerText;
     public Text buttonText;
-
-    private bool isARSceneActive = false;
     private float timerCountdown;
     private float timeLeft;
 
@@ -54,11 +52,6 @@ public class EndTurnButtonManager : MonoBehaviour
         ButtonDisable();
         yield return new WaitForSeconds(blockTime);
         ButtonEnable();
-    }
-
-    public void ARSceneBecomesActive()
-    {
-        isARSceneActive = true;
     }
 }
 

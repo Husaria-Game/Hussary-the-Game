@@ -14,7 +14,7 @@ public class EndingMessege : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !AugmentedRealitySystem.Instance.isARSceneActive)
         {
             MessegeCanvasForQuitGame.SetActive(true);
             Time.timeScale = 0;
