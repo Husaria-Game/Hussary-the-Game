@@ -129,7 +129,8 @@ public class GameManager : MonoBehaviour
             currentPlayer = playerNorth;
             otherPlayer = playerSouth;
         }
-
+        
+        currentPlayer.armymodel.armyCardsModel.restoreCardAttacksPerRound();
         isItAITurn = SettsHolder.instance.typeOfEnemy == GameMode.Computer && currentPlayer == playerNorth;
         BlackAllUnitsAndCards();
         messageManager.ShowMessage(currentPlayer.name + " \nTwoja tura!", 2f);
@@ -199,7 +200,6 @@ public class GameManager : MonoBehaviour
 
     public void UnblockAllUnitsAndCards(PlayerModel player)
     {
-        player.armymodel.armyCardsModel.restoreCardAttacksPerRound();
         player.handViewVisual.setPlayableCards(player.resourcesCurrent);
         player.dropZoneVisual.unlockUnitAttacks();
     }

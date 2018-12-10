@@ -185,6 +185,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void unitAttacksUnit(Vector3 pz)
     {
+        PlayerModel currentPlayer = GameManager.Instance.currentPlayer;
+        PlayerModel otherPlayer = GameManager.Instance.otherPlayer;
         GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn--;
 
         GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
@@ -213,13 +215,15 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         attackableUnit.GetComponent<UnitVisualManager>().armorText.text = attackerArmor.ToString();
         //music
         GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.attackAudio);
-        CheckWhetherToKillUnitOrNot(defenderArmor, defenderID, attackerArmor, attackerID);
+        CheckWhetherToKillUnitOrNot(defenderArmor, defenderID, attackerArmor, attackerID, currentPlayer, otherPlayer);
     }
 
     public void unitAttacksHero(Vector3 pz)
     {
+        PlayerModel currentPlayer = GameManager.Instance.currentPlayer;
+        PlayerModel otherPlayer = GameManager.Instance.otherPlayer;
         //decrease number of attacks per turn for current card
-        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn--;
+        currentPlayer.armymodel.armyCardsModel.findCardInFrontByID(this.GetComponent<IDAssignment>().uniqueId).currentAttacksPerTurn--;
 
         GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
         int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
@@ -233,6 +237,8 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void tacticsAttacksUnit(Vector3 pz)
     {
+        PlayerModel currentPlayer = GameManager.Instance.currentPlayer;
+        PlayerModel otherPlayer = GameManager.Instance.otherPlayer;
         GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
         int defenderID = defenderCard.transform.GetComponent<IDAssignment>().uniqueId;
         int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
@@ -240,7 +246,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         int defenderArmor = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().armorText.text);
         int attackerArmor = 0;
         int defenderAttack = int.Parse(defenderCard.transform.GetComponent<CardDisplayLoader>().attackText.text);
-        int attackerAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(attackerID).attack;
+        int attackerAttack = currentPlayer.armymodel.armyCardsModel.findCardInHandByID(attackerID).attack;
 
         // update resources view and model
         updateResourcesModelAndView();
@@ -254,17 +260,19 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         // create certain effect for unit based on card type
         BonusEffects.Instance.createHostileBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
 
-        CheckWhetherToKillUnitOrNotWithCoroutine(defenderArmor, defenderID, attackerArmor, attackerID);
+        Destroy(this.gameObject);
     }
 
     public void tacticsBonusUnit(Vector3 pz, CardVisualStateEnum cardDetailedType)
     {
-        if (GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(
+        PlayerModel currentPlayer = GameManager.Instance.currentPlayer;
+        PlayerModel otherPlayer = GameManager.Instance.otherPlayer;
+        if (currentPlayer.armymodel.armyCardsModel.findCardInHandByID(
                 this.gameObject.GetComponent<IDAssignment>().uniqueId) == null) return;
         
         GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
         int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
-        int attackerAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(attackerID).attack;
+        int attackerAttack = currentPlayer.armymodel.armyCardsModel.findCardInHandByID(attackerID).attack;
         // update resources view and model
         updateResourcesModelAndView();
         GameManager.Instance.enablePlayableCardsFlag = true;
@@ -275,7 +283,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         // create certain effect for unit based on card type
         BonusEffects.Instance.createFriendlyBonusEffect(defenderCard, defenderUnit, cardDetailedType, attackerAttack);
        
-        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
+        currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
         Destroy(this.gameObject);
     }
 
@@ -288,12 +296,15 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void tacticsAttacksAllUnits(Vector3 pz)
     {
+        PlayerModel currentPlayer = GameManager.Instance.currentPlayer;
+        PlayerModel otherPlayer = GameManager.Instance.otherPlayer;
+        
         // update resources view and model
         updateResourcesModelAndView();
 
         int attackerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
         int attackerArmor = 0;
-        int attackerAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(attackerID).attack;
+        int attackerAttack = currentPlayer.armymodel.armyCardsModel.findCardInHandByID(attackerID).attack;
 
 
         // move card to defender and come back
@@ -318,33 +329,32 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             // update armor in model, and if defender dead then update model and delete card from view
             if (defenderArmor > 0)
             {
-                GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+                otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
             }
             else
             {
-                GameManager.Instance.otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
+                otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
                 Destroy(defenderCard.gameObject);
             }
         }
-        //GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
-
-
-
 
         // update model and delete card from view
-        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
+        currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
         Destroy(this.gameObject);
     }
 
     public void tacticsHealAllUnits(Vector3 pz)
     {
+        PlayerModel currentPlayer = GameManager.Instance.currentPlayer;
+        PlayerModel otherPlayer = GameManager.Instance.otherPlayer;
+        
         // update resources view and model
         updateResourcesModelAndView();
 
         int healerID = t_Reference.GetComponent<IDAssignment>().uniqueId;
 
         // below is the parameter for the amount to be healed/added to armor
-        int healerAttack = GameManager.Instance.currentPlayer.armymodel.armyCardsModel.findCardInHandByID(healerID).attack;
+        int healerAttack = currentPlayer.armymodel.armyCardsModel.findCardInHandByID(healerID).attack;
 
 
         // move card to defender and come back
@@ -368,32 +378,33 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             //music
             GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.enhencementAudio);
             // update armor in model
-            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+            currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
         }
-        //GameObject attackableUnit = transform.GetComponent<CardDisplayLoader>().Unit;
         
         // update model and delete healer card from view
-        GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(healerID);
+        currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(healerID);
         Destroy(this.gameObject);
     }
 
-    
 
-    public void CheckWhetherToKillUnitOrNot(int defenderArmor, int defenderID, int attackerArmor, int attackerID)
+    public void CheckWhetherToKillUnitOrNot(int defenderArmor, int defenderID, int attackerArmor, int attackerID,
+        PlayerModel currentPlayer, PlayerModel otherPlayer)
     {
-        StartCoroutine(CheckWhetherToKillUnitOrNotWithCoroutine(defenderArmor, defenderID, attackerArmor, attackerID));
+        StartCoroutine(CheckWhetherToKillUnitOrNotWithCoroutine(defenderArmor, defenderID, attackerArmor, attackerID,
+            currentPlayer, otherPlayer));
     }
 
-    IEnumerator CheckWhetherToKillUnitOrNotWithCoroutine(int defenderArmor, int defenderID, int attackerArmor, int attackerID)
+    IEnumerator CheckWhetherToKillUnitOrNotWithCoroutine(int defenderArmor, int defenderID, int attackerArmor,
+        int attackerID, PlayerModel currentPlayer, PlayerModel otherPlayer)
     {
         //Update armor in model, and if defender dead then update model and delete card from view
         if (defenderArmor > 0)
         {
-            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
+            otherPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(defenderID, defenderArmor);
         }
         else
         {
-            GameManager.Instance.otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
+            otherPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(defenderID);
             yield return new WaitForSeconds(DELAYED_TIME_BETWEEN_UNIT_DEATH_AND_OBJECT_DESTROY);
             Destroy(defenderCard.gameObject);
         }
@@ -401,7 +412,7 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         //Update armor, and if attacker dead then update model and delete card from view
         if (attackerArmor > 0)
         {
-            GameManager.Instance.currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(attackerID, attackerArmor);
+            currentPlayer.armymodel.armyCardsModel.updateArmorAfterDamageTaken(attackerID, attackerArmor);
             initialDropZone.attackEventEnded = true;
         }
         else
@@ -409,11 +420,11 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             //Add if which check if attacker id belongs to tactics or unit and then change movCard function
             if (GetComponent<CardDisplayLoader>().cardType == CardType.TacticsCard)
             {
-                GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
+                currentPlayer.armymodel.armyCardsModel.moveCardFromHandToGraveyard(attackerID);
             }
             else if(GetComponent<CardDisplayLoader>().cardType == CardType.UnitCard)
             {
-                GameManager.Instance.currentPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(attackerID);
+                currentPlayer.armymodel.armyCardsModel.moveCardFromFrontToGraveyard(attackerID);
             }
             Destroy(this.gameObject);
         }
@@ -428,4 +439,3 @@ public class Attackable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         }
     }
 }
-
