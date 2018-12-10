@@ -101,7 +101,7 @@ public class ARControl : MonoBehaviour {
             ARTargetFind = false;
         }
         
-        if (timer > 1)
+        if (timer > 10)
         {
             AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
             SceneManager.UnloadScene(ARScene);
