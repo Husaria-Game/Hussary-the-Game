@@ -25,6 +25,7 @@ public class ARControl : MonoBehaviour {
     public static bool ARTargetFind = false;
     Vector3 posOld = new Vector3(0, 0, 0);
     private static int GameMode = 0;
+    private bool GameEnd = false;
     
 
     void Awake()
@@ -74,6 +75,7 @@ public class ARControl : MonoBehaviour {
             AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
             SceneManager.UnloadScene(ARScene);
             DestroyOtherARElements();
+            GameEnd = true;
         }
 
         //After press 8 -Back and no bonus money
@@ -82,6 +84,7 @@ public class ARControl : MonoBehaviour {
             AugmentedRealitySystem.Instance.ARSceneResult(false, GameMode);
             SceneManager.UnloadScene(ARScene);
             DestroyOtherARElements();
+            GameEnd = true;
         }
 
         
@@ -107,10 +110,14 @@ public class ARControl : MonoBehaviour {
             AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
             SceneManager.UnloadScene(ARScene);
             DestroyOtherARElements();
+            GameEnd = true;
         }
         else
         {
-            StartCoroutine(turnOffEvent());
+            if (GameEnd == false)
+            {
+                StartCoroutine(turnOffEvent());
+            }
         } 
     }
 
