@@ -2840,7 +2840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bogurodzica: {fileID: 8300000, guid: 91a5dae60778afa4992a36d16b28800d, type: 3}
-  battleTheme: {fileID: 8300000, guid: d368ff9254cf7c846aa626e2e0221b76, type: 3}
+  battleTheme: {fileID: 8300000, guid: ab2e6e4fd98a8d442a305b391b1acbc2, type: 3}
   effect: {fileID: 8300000, guid: 6c8ce6fc4bef86e4b9ca69847e3d7227, type: 3}
   noEffect: {fileID: 8300000, guid: 9f24e78538585ca468ea2e211d92e0da, type: 3}
   attack: {fileID: 8300000, guid: b1062f0014084d844bb23f22bc887d19, type: 3}
