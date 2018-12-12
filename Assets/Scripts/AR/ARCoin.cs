@@ -24,10 +24,14 @@ public class ARCoin : MonoBehaviour {
         if (other.tag == "Dagger")
         {
             print("HIT");
+            //play sound after hit
             GameManager.Instance.audioGenerator.PlayClip(GameManager.Instance.audioGenerator.ARCoinHitAudio);
+            //play animation after hit
             Vector3 pos = this.transform.position;
             ARControl.Instance.PlayAnimation(pos, "hit");
+            //increase money bonus
             ARControl.arPoints += 1;
+            //Destoy hitbox and root object
             Destroy(gameObject);
             Destroy(transform.root.gameObject);
         }

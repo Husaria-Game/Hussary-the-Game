@@ -8,10 +8,17 @@ public class ARControl : MonoBehaviour {
 
     public static ARControl Instance;
 
+    //timer for end event 
     private float timer = 0;
+
+    //name unload scene
     private string ARScene = "ARScene";
+
+    //static var for effect after end event AR
     public static int arPoints = 0;
     public static int arHits = 0;
+
+    //Prefabs
     public GameObject coin;
     public GameObject bomb;
     public GameObject heart;
@@ -20,11 +27,22 @@ public class ARControl : MonoBehaviour {
     public GameObject arrowHit;
     public GameObject explosion;
     public GameObject hit;
+
+    //Name current player
     public Text playerNamePanel;
+
+    //Start event var
     private static bool eventStart = true;
+    
+    //Check ARTarget is ON
     public static bool ARTargetFind = false;
+    
     Vector3 posOld = new Vector3(0, 0, 0);
+
+    //variable informing which event has started
     private static int GameMode = 0;
+
+    //check event end
     private bool GameEnd = false;
     
 
@@ -47,9 +65,9 @@ public class ARControl : MonoBehaviour {
         Vector3 posNow = new Vector3 (0, 0, 0);
         if (GameMode == 1) {posNow = findDagger[1].transform.position; }
         if(GameMode == 2) {posNow = findDagger[0].transform.position; }
-        
-        
 
+
+        //randomize the game
         if (eventStart == true)
         {
             int game = (int)Random.Range(0f, 7f);
@@ -87,8 +105,7 @@ public class ARControl : MonoBehaviour {
             GameEnd = true;
         }
 
-        
-        //After time go back
+        //Check  ARTarget is ON
         if(posOld != posNow) {
             if (GameMode == 1)
             {
@@ -104,7 +121,9 @@ public class ARControl : MonoBehaviour {
         {
             ARTargetFind = false;
         }
-        
+
+
+        //After time go back
         if (timer > 10)
         {
             AugmentedRealitySystem.Instance.ARSceneResult(true, GameMode);
@@ -121,39 +140,48 @@ public class ARControl : MonoBehaviour {
         } 
     }
 
-
+    //Start event 2 and spawn games objects
     void SpawnArrowsAndHeart()
     {
+
+        //heart
         Vector3 heartPosition = new Vector3(0f,-1f,10f);
         Instantiate(heart, heartPosition, Quaternion.identity);
 
+        //arrow1
         Vector3 apos1 = new Vector3(-4f, 2f, 10f);
         GameObject arr1 = Instantiate(arrow, apos1, Quaternion.identity);
         arr1.transform.Rotate(0, 0, 135);
 
+        //arrow2
         Vector3 apos2 = new Vector3(4f, 2f, 10f);
         GameObject arr2 = Instantiate(arrow, apos2, Quaternion.identity);
         arr2.transform.Rotate(0, 180, -225);
 
+        //arrow3
         Vector3 apos3 = new Vector3(-4f, -1f, 10f);
         GameObject arr3 = Instantiate(arrow, apos3, Quaternion.identity);
         arr3.transform.Rotate(0, 180, 0);
 
+        //arrow4
         Vector3 apos4 = new Vector3(0f, 2f, 10f);
         GameObject arr4 = Instantiate(arrow, apos4, Quaternion.identity);
         arr4.transform.Rotate(0, 180, 90);
-
+        
+        //arrow5
         Vector3 apos5 = new Vector3(4f, -1f, 10f);
         GameObject arr5 = Instantiate(arrow, apos5, Quaternion.identity);
         arr5.transform.Rotate(0, 180, 180);
         
     }
 
-
+    //Start event 1 and spawn games objects
     void SpawnRandomCoinsAndBombs() {
 
+        //static position z
         float posZ = 10;
 
+        //spawn places
         Vector3[] spawn0 = new Vector3[5] { new Vector3(4.39f, 1.8f, posZ), new Vector3(-4.47f, 1.8f, posZ),    new Vector3(4.02f, 0.44f, posZ), new Vector3(3.37f, 1.58f, posZ), new Vector3(-3.6f, 1.48f, posZ) };
         Vector3[] spawn1 = new Vector3[5] { new Vector3(2.25f, 1.8f, posZ), new Vector3(-2.97f, 0.72f, posZ),   new Vector3(3.87f, -1.35f, posZ), new Vector3(-3.63f, 0.01f, posZ), new Vector3(1.59f, 1.29f, posZ) };
         Vector3[] spawn2 = new Vector3[5] { new Vector3(-4.3f, 1.8f, posZ), new Vector3(-3.84f, 1.32f, posZ),   new Vector3(-3.33f, 0.79f, posZ), new Vector3(-4.01f, 0.23f, posZ), new Vector3(-2.68f, 1.39f, posZ) };
@@ -164,10 +192,11 @@ public class ARControl : MonoBehaviour {
         Vector3[] spawn7 = new Vector3[5] { new Vector3(4.34f, 1.8f, posZ), new Vector3(-4.41f, 1.8f, posZ), new Vector3(4.36f, -1.76f, posZ), new Vector3(-4.44f, 0.16f, posZ), new Vector3(4.39f, -0.05f, posZ) };
         List<Vector3[]> spawnPoints = new List<Vector3[]> { spawn0, spawn1, spawn2, spawn3, spawn4, spawn5, spawn6, spawn7 };
 
-
+        //randomize spawn
         int option = (int)Random.Range(0f, 7f);
         print("Spawn Option :" + option);
 
+        //create objects on scene
         int counter = 0;
         foreach (Vector3 vector in spawnPoints[option]) {
             if(counter < 3) {
@@ -183,6 +212,7 @@ public class ARControl : MonoBehaviour {
 
     }
 
+    //function plaing animation
    public void PlayAnimation(Vector3 position, string animation) {
 
         if (animation == "explosion")
@@ -207,7 +237,7 @@ public class ARControl : MonoBehaviour {
         }
     }
 
-
+    //destory after event all AR objects
     void DestroyOtherARElements() {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Coin");
 
@@ -235,6 +265,7 @@ public class ARControl : MonoBehaviour {
         eventStart = true;
     }
 
+    //main function turn off event
     public IEnumerator turnOffEvent() {
         if (GameMode == 1) {
             GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Coin");
